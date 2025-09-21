@@ -1,0 +1,54 @@
+{
+    // Dale un nombre descriptivo a tu entorno de desarrollo
+    "name": "Tesis LaTeX Environment",
+
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+
+    // --- CARACTERÍSTICAS ADICIONALES ---
+    // Instala herramientas comunes de forma estandarizada.
+    // Más información: https://containers.dev/features
+    "features": {
+        // Asegura que Git esté instalado y configurado
+        "ghcr.io/devcontainers/features/git:1": {},
+        // (Opcional) Instala el CLI de GitHub si usas GitHub para tu repositorio
+        "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    
+    "customizations": {
+        "vscode": {
+            // --- CONFIGURACIONES DE VS CODE PARA ESTE PROYECTO ---
+            "settings": {
+                // Compila automáticamente el proyecto al guardar un archivo .tex
+                "latex-workshop.latex.autoBuild.onSave.enabled": true,
+                // Abre el visor de PDF en una pestaña de VS Code
+                "latex-workshop.view.pdf.viewer": "tab",
+                // Configura el idioma para el corrector ortográfico y gramatical LTeX
+                // Cambia "es-ES" a "en-US" o el que necesites
+                "ltex.language": "es-ES",
+                // Activa el ajuste de línea para archivos LaTeX para leer párrafos fácilmente
+                "[latex]": {
+                    "editor.wordWrap": "on"
+                }
+            },
+            "extensions": [
+                "james-yu.latex-workshop",
+                "nickfode.latex-formatter",
+                "mathematic.vscode-latex",
+                "ms-azuretools.vscode-docker",
+                "meezilla.json",
+                "valentjn.vscode-ltex"
+            ]
+        },
+        "codespaces": {
+            "openFiles": [
+                "main.tex"
+            ]
+        }
+    },
+
+    // --- COMANDOS DE CICLO DE VIDA ---
+    // Se ejecuta después de crear el contenedor por primera vez.
+    "postCreateCommand": "sed -i 's/\\r$//' .devcontainer/misc/*.sh; sh .devcontainer/misc/initialize.sh",
+}
