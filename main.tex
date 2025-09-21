@@ -1,0 +1,40 @@
+\documentclass[12pt, a4paper]{report}
+
+\input{./package.tex}
+\input{./variables.tex}
+
+\begin{document}
+	
+	\pagenumbering{gobble}
+	\input{./extra/portrait.tex}
+	\thispagestyle{empty}
+	
+	%\input{./extra/dedicatory.tex}
+	%\input{./extra/agreements.tex}
+	
+	\input{./chapters/abstract.tex}
+	\thispagestyle{empty}
+	
+	\newpage
+	
+	\tableofcontents
+	\thispagestyle{empty}
+	
+	\newpage
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	\pagestyle{fancy}
+	\input{./chapters/introductions.tex}
+	
+	
+	\newpage
+	
+	\include{./chapters/chapter1.tex}
+	\include{./chapters/chapter2.tex}
+	\include{./chapters/chapter3.tex}
+	
+	\input{./chapters/conclusions.tex}
+	\input{./chapters/recomendations.tex}
+	\addcontentsline{toc}{chapter}{Referencias}
+	
+\end{document}

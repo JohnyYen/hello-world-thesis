@@ -1,0 +1,60 @@
+\usepackage[utf8]{inputenc} % Codificación de caracteres
+\usepackage[T1]{fontenc} % Mejora la compatibilidad con caracteres especiales
+\usepackage[spanish]{babel} % Idioma del documento
+\usepackage{graphicx} % Para incluir imágenes
+\usepackage{geometry} % Para ajustar márgenes
+\usepackage{setspace} % Para ajustar el interlineado
+\usepackage{float} % Para controlar la posición de figuras y tablas
+%\usepackage{lipsum} % Para texto de relleno (puedes eliminarlo)
+\usepackage{fancyhdr}
+%\usepackage{csquotes}
+\usepackage[square,sort,comma]{natbib}
+%\usepackage[style=numeric, backend=bibtex, sorting=ynt, citestyle=numeric]{biblatex} % Bibliografía
+\usepackage[hypertexnames=false]{hyperref} % Para enlaces clicables (siempre al final)
+%\bibliographystyle{apalike}
+\usepackage{helvet}
+\usepackage{longtable}
+\renewcommand{\rmdefault}{phv} % Fuente sans serif (Helvetica)
+\renewcommand{\sfdefault}{phv}
+
+% Bibliografía
+
+%\addbibresource{bibliography.bib}
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+% Configuración de márgenes
+\geometry{a4paper, margin=1in, headsep=1cm}
+
+% Configuración de interlineado
+\onehalfspacing % o \doublespacing para doble espacio
+
+% Configuración de hipervínculos
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	citecolor=blue,
+	pdftitle={Título del documento},
+	pdfauthor={Autor},
+	pdfsubject={Tema},
+	pdfkeywords={palabra1, palabra2}
+}
+
+%Gráficos
+\graphicspath{{./src/}}
+
+%Encabezado
+\pagestyle{fancy}
+\setlength{\headheight}{16pt} % Aumenta el espacio para el encabezado
+\fancyhf{} % Limpia los encabezados y pies de página
+
+\fancyhead[L]{\leftmark} % Nombre del capítulo en la izquierda
+%\fancyhead[R]{\university} % Universidad en el centro
+\fancyhead[R]{\thepage} % Número de página en la derecha
+
+% Línea horizontal bajo el encabezado
+\renewcommand{\headrulewidth}{0.4pt}
+
+
