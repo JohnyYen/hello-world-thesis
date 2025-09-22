@@ -1,2 +1,421 @@
 \chapter{\chapterSecond}
 %\addcontentsline{toc}{chapter}{\chapterSecond}
+\chapter{Diseño de la Solución}
+%\addcontentsline{toc}{chapter}{Diseño de la Solución}
+En todo proceso de desarrollo de un sistema, la etapa de diseñar la solución es crucial para la culminación del proyecto. En el presente capítulo se muestra por completo el diseño de esta solución, desde la captura de los requisitos funcionales y no funcionales, el diseño de los casos de usos del sistema, asi como los patrones de arquitectura empleados para organizar la solución, además se muestran los patrones y principios de diseño utilizados en la solución y finalmente se muestra el modelo de despliegue utilizado para desplegar la solución
+
+\section{Diseño del videojuego}
+
+% Mecánicas, Narrativa, niveles, etc
+
+% ------------------------------------------------
+
+
+\section{Requisitos Funcionales y No Funcionales}
+
+\subsection{Requisitos Funcionales}
+
+
+Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
+
+\textbf{Módulo del Estudiante}
+\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito} \\
+	\hline
+	\endhead
+	
+	\hline
+	\endfoot
+	
+	\hline
+	\endlastfoot
+	
+	RF1 & El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de código. \\
+	\hline
+	RF2 & El sistema debe registrar automáticamente estos datos para análisis posterior. \\
+	\hline
+	RF3 & El sistema debe adaptar automáticamente el nivel si el jugador no cumple los objetivos establecidos. \\
+	\hline
+	RF4 & La adaptación puede incluir simplificar el objetivo, reducir la complejidad del código requerido o dar pistas adicionales. \\
+	\hline
+	RF5 & Cada nivel debe estar asociado a un tema específico de programación y esta asociación debe ser clara tanto para el estudiante como para el profesor. \\
+	\hline
+	RF6 & Tras cada acción del jugador (ejecutar, reiniciar, completar), el sistema debe mostrar retroalimentación visual o textual inmediata. \\
+	\hline
+	RF7 & El sistema debe ajustar la dificultad de los niveles siguientes basándose en el historial de desempeño del jugador. \\
+	\hline
+	RF8 & El jugador debe poder configurar opciones del juego, como volumen del sonido, resolución de pantalla, idioma, modo de color. \\
+	\hline
+	RF9 & El sistema debe guardar automáticamente el progreso del jugador tras finalizar un nivel o salir del juego, sin perder información. \\
+	\hline
+	RF10 & Al inicio de cada nivel, el sistema debe mostrar una clase introductoria que explique el concepto de programación asociado. \\
+	\hline
+	RF11 & El sistema debe permitir al jugador construir soluciones usando bloques de programación visual. \\
+	\hline
+	RF12 & Los bloques deben representar acciones lógicas (condiciones, ciclos, variables). \\
+	\hline
+	RF13 & Al completar un nivel, el sistema debe mostrar una puntuación numérica o cualitativa basada en criterios como número de errores, eficiencia de la solución y tiempo. \\
+	\hline
+	RF14 & El jugador debe tener acceso a un resumen de su progreso general: puntaje promedio, tiempo total invertido, conceptos dominados, niveles completados. \\
+	\hline
+	RF15 & El sistema debe presentar los niveles en un orden progresivo que refleje el avance pedagógico. \\
+	\hline
+	RF16 & No se debe permitir acceder a niveles posteriores sin haber superado los anteriores (salvo excepciones definidas por el profesor). \\
+	\hline
+	RF17 & El sistema debe ofrecer un tutorial interactivo al primer inicio que enseñe las mecánicas básicas del juego. \\
+	\hline
+	RF18 & El jugador debe poder repetir niveles ya completados para mejorar su puntuación o entender mejor el concepto. \\
+	\hline
+\end{longtable}
+
+
+\textbf{Módulo del Profesor}
+\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+	\hline
+	\textbf{RF} & \textbf{Descripción del Requisito Funcional} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación} \\
+	\hline
+	\textbf{RF} & \textbf{Descripción del Requisito Funcional} \\
+	\hline
+	\endhead
+	
+	\hline
+	\endfoot
+	
+	\hline
+	\endlastfoot
+	
+	RF1 & Mostrar un resumen consolidado del progreso individual y grupal de los estudiantes. \\
+	\hline
+	RF2 & Incluir métricas detalladas como niveles completados, errores comunes y tiempo promedio por nivel. \\
+	\hline
+	RF3 & Permitir al profesor enviar comentarios personalizados a estudiantes individuales o grupos enteros. \\
+	\hline
+	RF4 & Brindar un editor intuitivo para crear, modificar o eliminar niveles utilizando bloques predefinidos. \\
+	\hline
+	RF5 & Generar gráficos comparativos de rendimiento entre estudiantes (por ejemplo: barras, líneas, mapas de calor). \\
+	\hline
+	RF6 & Asignar niveles específicos a estudiantes o grupos según su desempeño. \\
+	\hline
+	RF7 & Exportar reportes de progreso de estudiantes en formatos estándar (PDF, CSV). \\
+	\hline
+	RF8 & Permite visualizar el historial completo de progreso de cada estudiante, incluyendo puntuaciones y tiempos. \\
+	\hline
+	RF9 & Notificar al profesor cuando un estudiante no alcanza el umbral mínimo de rendimiento en varios niveles consecutivos. \\
+	\hline
+	RF10 & Crear exámenes tipo basados en niveles ya existentes, con opción de configurar tiempo límite y número de intentos. \\
+	\hline
+	RF11 & Importar/exportar niveles entre diferentes cursos o instituciones educativas (futuro). \\
+	\hline
+	RF12 & Integrar con plataformas LMS (Moodle, Google Classroom) para autenticación única y sincronización de datos de progreso. \\
+	\hline
+	RF13 & Recibir notificaciones sobre nuevos mensajes o actualizaciones de progreso enviadas por el sistema o los estudiantes. \\
+	\hline
+	RF14 & Establecer objetivos personalizados para uno o más estudiantes dentro de un curso o grupo. \\
+	\hline
+	RF15 & Consultar estadísticas globales del curso, como porcentaje de niveles completados, promedio de puntuación, etc. \\
+	\hline
+\end{longtable}
+
+\subsection{Requisitos No Funcionales}
+
+Los requisitos no funcionales en cambio a los funcionales definen el comportamiento y las restricciones que tiene el sistema. En la siguiente tabla se muestra los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
+
+\begin{longtable}{|p{0.1\linewidth}|p{0.5\linewidth}|p{0.2\linewidth}|p{0.15\linewidth}|}
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Tipo} \\
+	\hline
+	\endfirsthead
+	
+	\multicolumn{4}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Tipo} \\
+	\hline
+	\endhead
+	
+	\hline
+	\endfoot
+	
+	\hline
+	\endlastfoot
+	
+	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) y cifrado de información crítica. & Seguridad \\
+	\hline
+	RNF2 & El sistema debe responder ante acciones del usuario en menos de 2 segundos bajo carga normal. & Rendimiento\\
+	\hline
+	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva, accesible y fácil de usar por usuarios sin experiencia técnica avanzada. & Usabilidad \\
+	\hline
+	RNF4 & El sistema debe permitir escalar horizontalmente su infraestructura backend si aumenta la cantidad de estudiantes registrados. & Escalabilidad \\
+	\hline
+	RNF5 & El módulo estudiante debe ejecutarse en múltiples plataformas móviles. & Compatibilidad \\
+	\hline
+	RNF6 & El sistema debe mantener una disponibilidad del 95\% como mínimo durante el periodo lectivo. & Disponibilidad\\
+	\hline
+	RNF7 & El código debe estar organizado y documentado para facilitar futuras actualizaciones o corrección de errores. & Mantenibilidad\\
+	\hline
+	RNF8 & El sistema debe integrarse con plataformas LMS estándar como Moodle o Google Classroom para compartir datos de progreso. & Interoperabilidad\\
+	\hline
+	RNF9 & El sistema debe cumplir con principios básicos de accesibilidad web (WCAG), incluyendo soporte para modo oscuro, ajuste de tamaño de texto e interfaces amigables para usuarios con discapacidad visual leve. & Accesibilidad \\
+	\hline
+\end{longtable}
+
+% ----------------------------------------------
+\section{Casos de Uso}
+
+\subsection{Actores del Sistema}
+
+Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema. En este proyecto, se identifican dos actores principales:
+
+\begin{itemize}
+	\item \textbf{Estudiante}: Es el usuario principal del módulo \textit{Hello World}. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
+	
+	\item \textbf{Profesor}: Usuario principal del módulo \textit{Teacher Core}, encargado de supervisar el progreso de los estudiantes, asignar niveles personalizados y recibir notificaciones relevantes sobre el desempeño académico de sus alumnos.
+\end{itemize}
+
+Ambos actores interactúan con el sistema de manera diferente, pero están interconectados mediante un backend compartido que permite la sincronización de datos y la comunicación bidireccional entre ellos.
+
+\subsection{Diagrama de Casos de Uso del Sistema}
+
+El diagrama de caso de uso, ver figura \ref{fig:helloworld-use-case}, del módulo \textit{Hello World!!!} ilustra las acciones disponibles para el estudiante, tales como:
+
+\begin{itemize}
+	\item Jugar niveles educativos.
+	\item Recibir retroalimentación inmediata.
+	\item Guardar automáticamente el progreso.
+	\item Repetir niveles completados.
+	\item Recibir sugerencias ante fallos reiterados.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/Hello_World Use Case}
+	\caption[Diagrama de Caso de Uso: Hello World]{Diagrama de Caso de Uso para el módulo correspondiente al estudiante}
+	\label{fig:helloworld-use-case}
+\end{figure}
+
+Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las acciones que puede realizar el profesor dentro de la interfaz web. Entre ellas se encuentran:
+
+\begin{itemize}
+	\item Visualizar el progreso individual y grupal de los estudiantes.
+	
+	\item Asignar niveles específicos.
+	
+	\item Consultar estadísticas y generar reportes.
+	
+	\item Recibir notificaciones automáticas sobre bajo rendimiento.
+	
+	\item Enviar mensajes o comentarios personalizados.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{"src/Teacher Core Use Case"}
+	\caption[Diagrama de Caso de Uso para el Módulo correspondiente al profesor]{}
+	\label{fig:teacher-core-use-case}
+\end{figure}
+
+\subsection{Descripción de alto nivel de los casos de uso}
+
+% ------------------------------------------------
+
+\section{Arquitectura del Sistema}
+
+La elección de patrones de arquitectura responde a la necesidad de materializar los requisitos funcionales y no funcionales en una estructura técnica que sea robusta y adaptable. Estos elementos no solo optimizan la organización del código y la gestión de complejidad, sino que también garantizan la escalabilidad del sistema ante futuras iteraciones. A continuación, se justifica la selección de patrones específicos y el modelo arquitectónico adoptado, vinculando cada decisión con los objetivos de modularidad, mantenibilidad y eficiencia establecidos para el proyecto.
+
+
+\subsection{Visión general}
+
+
+% --------------------------------------------
+
+
+\subsection{Arquitectura detallada por módulo}
+
+% ------------------------------------------- Módulo Profesor
+
+El módulo \textit{Hello World}, destinado al estudiante, fue desarrollado utilizando el patrón arquitectónico \textit{MVC} (Modelo-Vista-Controlador), utilizando una vista en N-Capas, uno de los patrones más utilizados en aplicaciones interactivas y videojuegos. Este patrón, reflejado en el diagrama \ref{fig:mvc-architecture-game},  permite separar claramente las responsabilidades del sistema, facilitando el mantenimiento, la expansión y la reutilización de componentes.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{"src/MVC Architecture Game"}
+	\caption{Patrón MVC para el módulo del estudiante}
+	\label{fig:mvc-architecture-game}
+\end{figure}
+
+El diagrama de arquitectura refleja cómo se organiza internamente el módulo Hello World en tres capas lógicas:
+
+\begin{description}
+	\item[Modelo:] Contiene las entidades y objetos que representan el estado del sistema, como \texttt{Player}, \texttt{Progress}, \texttt{Level}, \texttt{Block}, entre otros. También define las reglas de juego, como condiciones de éxito, fallo y adaptación dinámica del nivel según el desempeño.
+	
+	\item[Vista:] Implementa la interfaz visual del juego, con escenas definidas en Godot, elementos UI (botones, indicadores, HUD), animaciones y efectos visuales. Cada nivel tiene su propia representación visual, pero sigue un esquema común basado en el tipo de problema a resolver.
+	
+	\item[Controlador:] Gestiona la lógica de interacción. Incluye clases como \texttt{GameManager}, \texttt{HUDController} y \texttt{LevelInterface}, encargadas de recibir entradas del jugador, actualizar el modelo y reflejar los cambios en la vista.
+\end{description}
+
+Esta división asegura que el sistema sea fácil de entender, mantener y modificar, especialmente útil durante la fase de desarrollo inicial.
+
+Se eligió el patrón MVC para el módulo Hello World por las siguientes razones:
+
+\begin{enumerate}
+	\item \textbf{Claridad en la separación de responsabilidades:} Permite aislar la lógica del juego de su representación visual, facilitando el testing y la evolución del sistema.
+	
+	\item \textbf{Facilidad de implementación en Godot:} El motor Godot fomenta un diseño modular que se adapta naturalmente al patrón MVC mediante nodos y scripts asociados a cada elemento visual.
+	
+	\item \textbf{Rápido desarrollo e iteración:} Ideal para proyectos educativos donde se busca validar funcionalidades sin sobrecargar la arquitectura inicial.
+	
+	\item \textbf{Base para evolución futura:} Aunque no se pretende migrar inmediatamente a otro estilo, MVC ofrece suficiente modularidad como para permitirlo más adelante si es necesario.
+	
+\end{enumerate}
+
+% ---------------------------- Módulo Profesor
+
+El módulo \textit{Teacher Core}, destinado al uso por parte del profesorado, fue diseñado bajo una arquitectura cliente-servidor, ideal para sistemas web donde se requiere comunicación remota, escalabilidad moderada y separación clara entre interfaz y lógica de negocio. Este patrón permite que el sistema sea fácil de mantener, testeable y preparado para futuras evoluciones técnicas.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{"src/Client-Server Architecture Professor"}
+	\caption{Diagrama Cliente-Servidor para el módulo del profesor}
+	\label{fig:client-server-architecture-professor}
+\end{figure}
+
+En el modelo arquitectónico, \ref{fig:client-server-architecture-professor}, se pueden observar 2 componentes principales, uno es el cliente, que es la parte visual que estará utilizando el profesor y el otro es referente al servidor donde se almacenan los datos. A continuación se describen estos componentes a detalle:
+
+\begin{description}
+	\item[Interfaz de Usuario (Cliente):] Incluye componentes visuales, dashboards, formularios de configuración y gráficos de rendimiento. Cada pantalla está pensada para ofrecer una experiencia intuitiva y útil al profesor, facilitando el seguimiento académico y la personalización de niveles.
+	
+	\item[Lógica de Negocio (Servidor):] Implementa funcionalidades clave como el registro de progreso estudiantil, generación de gráficos comparativs, asignación de niveles especiales a estudiantes específicos, entre otras. Esta capa se organiza en paquetes según su responsabilidad, promoviendo modularidad y claridad en el código.
+\end{description}
+
+Esta división asegura una interacción segura, escalable y mantenible entre el usuario final (profesor) y el resto del sistema educativo.
+
+Se eligió una arquitectura cliente-servidor para el módulo Teacher Core por las siguientes razones:
+
+\begin{enumerate}
+	\item  \textbf{Naturaleza web del módulo:} Al tratarse de una interfaz orientada al profesor y accesible desde cualquier dispositivo con conexión a internet, este estilo es natural y ampliamente adoptado.
+	
+	\item  \textbf{Facilidad de integración:} Es compatible con APIs RESTful, lo cual facilita la comunicación con el módulo estudiante y permite reutilizar endpoints comunes.
+	
+	\item \textbf{Escalabilidad moderada:} Si bien no se espera un tráfico masivo inicial, esta arquitectura permite escalar horizontalmente ciertos servicios cuando sea necesario.
+\end{enumerate}
+
+% ----------------------------------------------- Arquitectura utilizada para describir el Backend
+
+% ------------------------------------------------
+
+\section{Principios y patrones de Diseño}
+
+\subsection{Principios SOLID}
+
+El acrónimo \textit{SOLID} agrupa cinco principios fundamentales de diseño orientado a objetos definidos por Robert C. Martin. Para este proyecto, se han implementado dos de ellos desde las capas iniciales de diseño:
+
+\subsubsection{Principio de Responsabilidad Única}
+
+Este principio establece que una clase debe tener únicamente una razón para cambiar, es decir, debe cumplir una sola responsabilidad o función dentro del sistema.
+
+\textbf{Aplicación en el Proyecto}
+En el módulo del sistema Hello World se ha respetado este principio al separar claramente las responsabilidades:
+
+\begin{enumerate}
+	\item Las clases encargadas del manejo de interfaz (\texttt{GameManager}, \texttt{HUDController}) no contienen lógica de negocio ni acceso a datos.
+	
+	\item La lógica crítica del juego (\texttt{LevelManager}) está encapsulada en componentes independientes.
+	
+	\item El acceso a datos se realiza mediante repositorios, evitando que las entidades o servicios tengan múltiples responsabilidades.
+\end{enumerate}
+
+\subsubsection{Principio Abierto/Cerrado}
+
+Este principio indica que las entidades del software deben estar abiertas para extensión, pero cerradas para modificación. Es decir, debería ser posible agregar nuevas funcionalidades sin modificar el código existente.
+
+\textbf{Aplicación en el Proyecto}
+Aunque el sistema aún se encuentra en fase temprana, se han tomado decisiones que preparan el terreno para cumplir este principio:
+
+\begin{enumerate}
+	\item Se usan interfaces claras en la capa de repositorios, permitiendo que nuevos tipos de almacenamiento puedan integrarse sin modificar la lógica de negocio.
+	
+	\item Se han creado clases base para niveles educativos que pueden extenderse fácilmente para crear nuevos tipos de niveles sin alterar su comportamiento original.
+	
+	\item Se usa herencia y polimorfismo limitadamente, priorizando la composición cuando sea más apropiado.
+\end{enumerate}
+
+\subsection{Otros Principios de Diseño Aplicados}
+
+Además de los principios SOLID, se han seguido otros patrones y buenas prácticas de diseño que complementan la solidez técnica del sistema.
+
+\subsubsection{Principio DRY (Don't Repeat Yourself)}
+
+Este principio establece que cada pieza de conocimiento o funcionalidad en un sistema debe tener una representación única y no ambigua.
+
+\textbf{Aplicación en el Proyecto}
+
+\begin{enumerate}
+	\item Se han creado funciones reutilizables para operaciones comunes como el cálculo de puntuaciones o la validación de bloques.
+	
+	\item Se evita duplicar código entre niveles similares; se prefiere usar configuraciones dinámicas o factorías de niveles.
+	
+	\item Métodos genéricos en la capa de infraestructura permiten reusar lógica de persistencia sin repetir código.
+\end{enumerate}
+
+\subsubsection{Ley de Demeter}
+
+La Ley de Demeter sugiere que un componente debe interactuar solo con sus colaboradores directos, evitando cadenas largas de llamadas a métodos de otros objetos (\textit{"más de un punto"}).
+
+\textbf{Aplicación en el Proyecto}
+
+\begin{enumerate}
+	\item  Se favorece el uso de métodos que ocultan la complejidad interna, ofreciendo una interfaz limpia y simple.
+	
+	\item En Godot, se han usado señales (\textit{signals}) para evitar acoplamiento directo entre nodos o escenas.
+\end{enumerate}
+
+\subsubsection{Programar hacia Interfaces, no hacia Implementaciones}
+
+Este principio promueve el uso de interfaces o contratos abstractos en lugar de depender de clases concretas, lo cual mejora la flexibilidad y la testabilidad del sistema.
+
+\subsubsection{Aplicación en el Proyecto}
+
+\begin{itemize}
+	\item Se definen interfaces claras en la capa de repositorios, como \texttt{IPlayerRepository}, \texttt{ILevelRepository}, etc.
+	
+	\item La lógica de negocio utiliza estas interfaces para interactuar con los datos, sin importar cómo se implementan.
+	
+	\item Esto permite que futuras versiones del sistema puedan cambiar la tecnología de persistencia sin afectar el núcleo del juego.
+\end{itemize}
+
+% ------------------------------------------------
+
+\section{Modelo de despliegue}	
+
+El modelo de despliegue representa la arquitectura física donde los componentes de software se ejecutan y cómo interactúan entre sí. A continuación se muestra el diagrama de despliegue:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{../src/Deployement}
+	\caption[Modelo de Despliegue]{Modelo de Despliegue}
+	\label{fig:deployement}
+\end{figure}
+
+El diagrama analizado presenta una infraestructura heterogénea compuesta por múltiples nodos interconectados. En el núcleo del sistema se observa un servidor web que opera bajo un entorno de ejecución Python, encargado de gestionar tanto la autenticación de usuarios como la integración con sistemas de gestión de aprendizaje (LMS) mediante una API REST. Este componente actúa como puerta de entrada para las solicitudes provenientes de los clientes.
+
+Paralelamente, el sistema incorpora un servidor de bases de datos independiente que utiliza PostgreSQL como motor principal. La separación física entre el servidor web y el servidor de bases de datos sigue las mejores prácticas de seguridad y permite una administración más eficiente de los recursos.
+
+En el segmento móvil del diagrama, se especifican dos artefactos principales: una aplicación móvil genérica y un paquete APK específico, ambos dependientes de un entorno de ejecución Vulkan. Esto indica que la aplicación requiere capacidades gráficas, compatibles con dispositivos que soporten OpenGL ES 2.0/3.0 o Vulkan. Los requisitos técnicos detallados - 1GB de RAM, 500MB de almacenamiento y procesador de 1.7GHz - delinean el perfil mínimo de dispositivos móviles capaces de ejecutar la solución.
+
+La capa de presentación incluye un cliente usuario representado mediante un navegador web que accede al Teacher Core Frontend, la interfaz web del módulo de profesores. Este componente interactúa con el servidor web mencionado anteriormente, completando el flujo de información del sistema.
+
+% ---------------------------------------------
+
+
+\section{Conclusiones parciales}
