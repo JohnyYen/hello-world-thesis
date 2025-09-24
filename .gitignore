@@ -1,7 +1,64 @@
-*.pdf
-*.log
+## Compilación LaTeX
 *.aux
-*.toc
-*.png
-*.pdf
+*.bbl
+*.blg
+*.brf
 *.fls
+*.fdb_latexmk
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.lol
+*.nav
+*.snm
+*.synctex.gz
+*.synctex(busy)
+*.synctex(busy)*
+*.xdv
+*.run.xml
+
+## Archivos temporales/editor
+*~
+*.swp
+*.bak
+*.tmp
+
+## Archivos de salida
+*.dvi
+*.pdf
+*.ps
+
+## Archivos de glossaries/nomencl
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.ist
+*.nlo
+*.nls
+
+## Archivos de metadatos de bibliografía
+*.bcf
+*.bbl
+*.blg
+*.run.xml
+
+## Archivos de beamer
+*.nav
+*.snm
+*.vrb
+
+## Archivos de minted (si usas minted para código fuente)
+_minted*
+
+## Archivos de arara
+*.arara
+
+## Carpetas de compiladores
+latex.out/
+build/
