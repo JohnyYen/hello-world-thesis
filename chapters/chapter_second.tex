@@ -5,7 +5,7 @@ En este capítulo se presenta el diseño integral de la solución, partiendo de 
 \section{Requisitos Funcionales}
 
 
-Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
+Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
 
 \subsubsection*{Módulo del Estudiante}
 
@@ -152,7 +152,7 @@ Los requisitos funcionales definen qué debe hacer el sistema desde el punto de 
 
 \section{Requisitos No Funcionales}
 
-Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
+Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
 
 \begin{longtable}{|p{0.08\linewidth}|p{0.38\linewidth}|p{0.18\linewidth}|p{0.28\linewidth}|}
 	\hline
@@ -172,19 +172,19 @@ Los requisitos no funcionales, a diferencia de los funcionales, definen las rest
 	\hline
 	\endlastfoot
 	
-	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) y cifrado AES-256 para información crítica. & Seguridad & Pruebas de penetración y verificación de que las contraseñas nunca se almacenan en texto plano. \\
+	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) para información crítica. & Seguridad & Pruebas de penetración y verificación de que las contraseñas nunca se almacenan en texto plano. \\
 	\hline
 	
 	RNF2 & El sistema debe responder ante acciones del usuario en menos de 2 segundos bajo carga normal de hasta 200 usuarios concurrentes. & Rendimiento & Pruebas de estrés que demuestren que el 90\% de las solicitudes cumplen el tiempo máximo de respuesta. \\
 	\hline
 	
-	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva y accesible para usuarios sin experiencia técnica avanzada. & Usabilidad & Al menos un 80\% de los usuarios de prueba deben completar una tarea básica sin asistencia en menos de 5 minutos. \\
+	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva y accesible para usuarios sin experiencia en videojuegos. & Usabilidad & Al menos un 80\% de los usuarios de prueba deben completar una tarea básica sin asistencia en menos de 5 minutos. \\
 	\hline
 	
 	RNF4 & El sistema debe permitir escalar horizontalmente su infraestructura backend en caso de aumento de estudiantes registrados. & Escalabilidad & Prueba de despliegue en contenedores donde se añadan nuevos nodos sin interrumpir el servicio. \\
 	\hline
 	
-	RNF5 & El módulo del estudiante debe ejecutarse en navegadores modernos y dispositivos móviles Android/iOS. & Compatibilidad & Pruebas en Chrome, Firefox, Edge, Safari y al menos 3 dispositivos móviles con OS distintos. \\
+	RNF5 & El módulo del estudiante debe ejecutarse en dispositivos móviles Android/iOS. & Compatibilidad & Pruebas en al menos 3 dispositivos móviles con OS distintos. \\
 	\hline
 	
 	RNF6 & El sistema debe mantener una disponibilidad mínima del 95\% durante el periodo lectivo. & Disponibilidad & Monitoreo de uptime mensual que no registre más de 5\% de tiempo fuera de servicio. \\
@@ -196,7 +196,7 @@ Los requisitos no funcionales, a diferencia de los funcionales, definen las rest
 	RNF8 & El sistema debe integrarse con plataformas LMS estándar (Moodle, Google Classroom) para sincronizar datos de progreso. & Interoperabilidad & Pruebas de integración exitosas que confirmen autenticación única (SSO) y exportación de datos en formato estándar. \\
 	\hline
 	
-	RNF9 & El sistema debe cumplir con pautas básicas de accesibilidad web (WCAG 2.1 AA), incluyendo modo oscuro y ajuste de texto. & Accesibilidad & Validación con herramientas automáticas (ej. WAVE) y pruebas con al menos 2 usuarios con discapacidad visual leve. \\
+	RNF9 & El sistema debe cumplir con pautas básicas de accesibilidad web (WCAG 2.1 AA), incluyendo modo oscuro y ajuste de texto. & Accesibilidad & Validación con herramientas automáticas y pruebas con al menos 2 usuarios con discapacidad visual leve. \\
 	\hline
 \end{longtable}
 
@@ -206,7 +206,7 @@ Los requisitos no funcionales, a diferencia de los funcionales, definen las rest
 
 \subsection{Actores del Sistema}
 
-Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema. En este proyecto, se identifican dos actores principales:
+Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este proyecto, se identifican dos actores principales:
 
 \begin{itemize}
 	\item \textbf{Estudiante}: Es el usuario principal del módulo \textit{Hello World}. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
@@ -258,6 +258,209 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 
 \subsection{Descripción de alto nivel de los casos de uso}
 
+\subsubsection*{Módulo del Estudiante}
+
+% =======================
+% Caso de uso 1
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU1 \\
+\hline
+\textbf{Nombre} & Jugar nivel \\
+\hline
+\textbf{Actor(es)} & Estudiante \\
+\hline
+\textbf{Relaciones} & 
+\begin{itemize}
+    \item \textbf{include}: Evaluar desempeño, Construir solución con bloques, Guardar automáticamente el nivel
+    \item \textbf{extend}: Ofrecer sugerencias tras fallos repetitivos
+\end{itemize} \\
+\hline
+\textbf{Descripción Breve} & El estudiante interactúa con un nivel del juego, resolviendo el reto de programación mediante bloques visuales, recibiendo retroalimentación inmediata y guardando su progreso. \\
+\hline
+\textbf{RF Relacionados} & RF1, RF2, RF3, RF4, RF6, RF7, RF11, RF12, RF13 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU1: Jugar nivel}
+\end{table}
+
+% =======================
+% Caso de uso 2
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU2 \\
+\hline
+\textbf{Nombre} & Seleccionar nivel \\
+\hline
+\textbf{Actor(es)} & Estudiante \\
+\hline
+\textbf{Relaciones} & 
+\begin{itemize}
+    \item \textbf{extend}: Ver clase introductoria
+\end{itemize} \\
+\hline
+\textbf{Descripción Breve} & El estudiante puede elegir un nivel disponible dentro de la progresión definida por el sistema, con opción de acceder al contenido teórico previo. \\
+\hline
+\textbf{RF Relacionados} & RF5, RF10, RF15, RF16 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU2: Seleccionar nivel}
+\end{table}
+
+% =======================
+% Caso de uso 3
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU3 \\
+\hline
+\textbf{Nombre} & Ver nivel de clase introductoria al contenido \\
+\hline
+\textbf{Actor(es)} & Estudiante \\
+\hline
+\textbf{Relaciones} & Extensión de \textit{Seleccionar nivel} \\
+\hline
+\textbf{Descripción Breve} & El sistema presenta material teórico introductorio antes de iniciar el nivel, reforzando el aprendizaje del concepto de programación asociado. \\
+\hline
+\textbf{RF Relacionados} & RF5, RF10 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU3: Ver clase introductoria}
+\end{table}
+
+% =======================
+% Caso de uso 4
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU4 \\
+\hline
+\textbf{Nombre} & Sincronizar datos del estudiante con el servidor \\
+\hline
+\textbf{Actor(es)} & Estudiante, Sistema (worker) \\
+\hline
+\textbf{Relaciones} & Independiente, ejecutado automáticamente cuando hay conexión a Internet \\
+\hline
+\textbf{Descripción Breve} & El sistema asegura que el progreso, puntuaciones y configuraciones locales del estudiante se actualicen en el servidor central para mantener la persistencia de datos. \\
+\hline
+\textbf{RF Relacionados} & RF2, RF9 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU4: Sincronizar datos}
+\end{table}
+
+
+\subsubsection*{Módulo del Profesor}
+
+% =======================
+% Caso de uso 1
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU5 \\
+\hline
+\textbf{Nombre} & Obtener un resumen detallado del progreso de los estudiantes \\
+\hline
+\textbf{Actor(es)} & Profesor \\
+\hline
+\textbf{Relaciones} & 
+\begin{itemize}
+    \item \textbf{extend}: Exportar reporte de estadísticas del progreso
+\end{itemize} \\
+\hline
+\textbf{Descripción Breve} & Permite al profesor acceder a un informe completo sobre el rendimiento de los estudiantes, incluyendo métricas de desempeño, niveles alcanzados y evolución en el aprendizaje. \\
+\hline
+\textbf{RF Relacionados} & RF20, RF21, RF22, RF23 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU5: Obtener un resumen detallado del progreso de los estudiantes}
+\end{table}
+
+% =======================
+% Caso de uso 2
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU6 \\
+\hline
+\textbf{Nombre} & Notificar al profesor \\
+\hline
+\textbf{Actor(es)} & Sistema \\
+\hline
+\textbf{Relaciones} & 
+\begin{itemize}[leftmargin=*]
+    \item Generalización: Notificar mensajes del sistema sobre el desempeño
+    \item Generalización: Notificar cuando un estudiante no sobrepasa el umbral mínimo
+\end{itemize} \\
+\hline
+\textbf{Descripción Breve} & El sistema envía notificaciones al profesor sobre el estado de rendimiento de los estudiantes, destacando problemas recurrentes o bajo desempeño. \\
+\hline
+\textbf{RF Relacionados} & RF24, RF25, RF26 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU6: Notificar al profesor}
+\end{table}
+
+% =======================
+% Caso de uso 3
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU7 \\
+\hline
+\textbf{Nombre} & Confeccionar niveles especiales para los estudiantes \\
+\hline
+\textbf{Actor(es)} & Profesor \\
+\hline
+\textbf{Relaciones} & Generalización: Modificar niveles a estudiantes específicos \\
+\hline
+\textbf{Descripción Breve} & Permite al profesor crear y adaptar niveles personalizados para estudiantes o grupos, ajustando la dificultad y los contenidos según necesidades específicas. \\
+\hline
+\textbf{RF Relacionados} & RF27, RF28, RF29 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU7: Confeccionar niveles especiales para los estudiantes}
+\end{table}
+
+% =======================
+% Caso de uso 4
+% =======================
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{0.25\linewidth}|p{0.65\linewidth}|}
+\hline
+\textbf{ID} & CU8 \\
+\hline
+\textbf{Nombre} & Autenticar en el sistema \\
+\hline
+\textbf{Actor(es)} & Profesor \\
+\hline
+\textbf{Relaciones} & Independiente, requisito previo para el resto de funcionalidades del módulo del profesor. \\
+\hline
+\textbf{Descripción Breve} & Permite al profesor acceder al sistema mediante credenciales seguras, habilitando las funcionalidades asociadas al seguimiento y personalización del aprendizaje de los estudiantes. \\
+\hline
+\textbf{RF Relacionados} & RF18, RF19 \\
+\hline
+\end{tabular}
+\caption{Caso de uso CU8: Autenticar en el sistema}
+\end{table}
+
 % ------------------------------------------------
 
 \section{Arquitectura del Sistema}
@@ -273,10 +476,9 @@ La elección de patrones de arquitectura responde a la necesidad de materializar
 
 \subsection{Arquitectura detallada por módulo}
 
-% ------------------------------------------- Módulo Profesor
+% ------------------------------------------- Módulo Estudiante
 
-El módulo \textit{Hello World}, destinado al estudiante, fue desarrollado utilizando el patrón arquitectónico \textit{MVC} (Modelo-Vista-Controlador), utilizando una vista en N-Capas, uno de los patrones más utilizados en aplicaciones interactivas y videojuegos. Este patrón, reflejado en el diagrama \ref{fig:mvc-architecture-game},  permite separar claramente las responsabilidades del sistema, facilitando el mantenimiento, la expansión y la reutilización de componentes.
-
+El módulo Estudiante fue desarrollado utilizando el patrón arquitectónico \textit{MVC} (Modelo-Vista-Controlador), siguiendo una vista en N-Capas, uno de los patrones más utilizados en aplicaciones interactivas y videojuegos. Este patrón, reflejado en el diagrama \ref{fig:mvc-architecture-game},  permite separar claramente las responsabilidades del sistema, facilitando el mantenimiento, la expansión y la reutilización de componentes.
 
 
 \begin{figure}[H]
@@ -286,7 +488,7 @@ El módulo \textit{Hello World}, destinado al estudiante, fue desarrollado utili
 	\label{fig:mvc-architecture-game}
 \end{figure}
 
-El diagrama de arquitectura refleja cómo se organiza internamente el módulo Hello World en tres capas lógicas:
+El diagrama de arquitectura refleja cómo se organiza internamente el módulo Estudiante en tres capas lógicas:
 
 \begin{description}
 	\item[Modelo:] Contiene las entidades y objetos que representan el estado del sistema, como \texttt{Player}, \texttt{Progress}, \texttt{Level}, \texttt{Block}, entre otros. También define las reglas de juego, como condiciones de éxito, fallo y adaptación dinámica del nivel según el desempeño.
@@ -298,7 +500,7 @@ El diagrama de arquitectura refleja cómo se organiza internamente el módulo He
 
 Esta división asegura que el sistema sea fácil de entender, mantener y modificar, especialmente útil durante la fase de desarrollo inicial.
 
-Se eligió el patrón MVC para el módulo Hello World por las siguientes razones:
+Se eligió el patrón MVC para el módulo Estudiante por las siguientes razones:
 
 \begin{enumerate}
 	\item \textbf{Claridad en la separación de responsabilidades:} Permite aislar la lógica del juego de su representación visual, facilitando el testing y la evolución del sistema.
@@ -313,7 +515,7 @@ Se eligió el patrón MVC para el módulo Hello World por las siguientes razones
 
 % ---------------------------- Módulo Profesor
 
-El módulo \textit{Teacher Core}, destinado al uso por parte del profesorado, fue diseñado bajo una arquitectura cliente-servidor, ideal para sistemas web donde se requiere comunicación remota, escalabilidad moderada y separación clara entre interfaz y lógica de negocio. Este patrón permite que el sistema sea fácil de mantener, testeable y preparado para futuras evoluciones técnicas.
+El módulo Profesor fue diseñado bajo una arquitectura cliente-servidor, ideal para sistemas web donde se requiere comunicación remota, escalabilidad moderada y separación clara entre interfaz y lógica de negocio. Este patrón permite que el sistema sea fácil de mantener, testeable y preparado para futuras evoluciones técnicas.
 
 \begin{figure}[H]
 	\centering
@@ -327,7 +529,7 @@ En el modelo arquitectónico, \ref{fig:client-server-architecture-professor}, se
 \begin{description}
 	\item[Interfaz de Usuario (Cliente):] Incluye componentes visuales, dashboards, formularios de configuración y gráficos de rendimiento. Cada pantalla está pensada para ofrecer una experiencia intuitiva y útil al profesor, facilitando el seguimiento académico y la personalización de niveles.
 	
-	\item[Lógica de Negocio (Servidor):] Implementa funcionalidades clave como el registro de progreso estudiantil, generación de gráficos comparativs, asignación de niveles especiales a estudiantes específicos, entre otras. Esta capa se organiza en paquetes según su responsabilidad, promoviendo modularidad y claridad en el código.
+	\item[Lógica de Negocio (Servidor):] Implementa funcionalidades clave como el registro de progreso estudiantil, generación de gráficos comparativos, asignación de niveles especiales a estudiantes específicos, entre otras. Esta capa se organiza en paquetes según su responsabilidad, promoviendo modularidad y claridad en el código.
 \end{description}
 
 Esta división asegura una interacción segura, escalable y mantenible entre el usuario final (profesor) y el resto del sistema educativo.
@@ -343,6 +545,7 @@ Se eligió una arquitectura cliente-servidor para el módulo Teacher Core por la
 \end{enumerate}
 
 % ----------------------------------------------- Arquitectura utilizada para describir el Backend
+El \textbf{Backend} constituye el núcleo de la plataforma, encargada de guardar el progreso obtenido por parte de los estudiantes en el videojuego y devolvérselo al frontend del profesor. Para su implementación se utilizó una arquitectura orientada a servicios, organizado en módulos separados como gestión de usuarios, de niveles o de progreso, permitiendo así escalar a nuevos futuros módulos si la aplicación lo requiere. Para exponer estos servicios al frontend se utilizó el estandar API RESTful, basado en los principios de \textit{Representational State Transfer} (REST), propuesto por Roy Fielding en el año 2000. Este estándar define un conjunto de restricciones para la construcción de servicios web, entre las cuales destacan: la comunicación sin estado (\textit{stateless}), la manipulación de recursos mediante identificadores uniformes (URI), el uso de métodos estándar del protocolo HTTP (GET, POST, PUT, DELETE, entre otros) y la representación de datos en formatos ligeros como JSON o XML.
 
 % ------------------------------------------------
 
@@ -354,10 +557,9 @@ El acrónimo \textit{SOLID} agrupa cinco principios fundamentales de diseño ori
 
 \subsubsection{Principio de Responsabilidad Única}
 
-Este principio establece que una clase debe tener únicamente una razón para cambiar, es decir, debe cumplir una sola responsabilidad o función dentro del sistema.
+Este principio establece que una clase debe tener únicamente debe cumplir una sola responsabilidad o función dentro del sistema, claramente delimitada.
 
-\textbf{Aplicación en el Proyecto}
-En el módulo del sistema Hello World se ha respetado este principio al separar claramente las responsabilidades:
+En el módulo Estudiante se ha respetado este principio al separar claramente las responsabilidades:
 
 \begin{enumerate}
 	\item Las clases encargadas del manejo de interfaz (\texttt{GameManager}, \texttt{HUDController}) no contienen lógica de negocio ni acceso a datos.
@@ -365,13 +567,20 @@ En el módulo del sistema Hello World se ha respetado este principio al separar 
 	\item La lógica crítica del juego (\texttt{LevelManager}) está encapsulada en componentes independientes.
 	
 	\item El acceso a datos se realiza mediante repositorios, evitando que las entidades o servicios tengan múltiples responsabilidades.
+	
+	\item La clase \textit{ExecutionEngine} su única responsabilidad es la de ejecutar la secuencia de bloques.
 \end{enumerate}
+
+\subsubsection{Principio de Substitución de Liskov}
+
+Este principio establece que una clase hija, debe ser utilizada en cualquier contexto donde es utilizado el padre, alterando solamente su funcionamiento.
+
+Para el diseño del interprete de soluciones, se decidió utilizar este principio, permitiendo que sin importar que contexto\footnote{Digase contexto, a una representación lógica de un entorno físico, por ejemplo un contexto de cafetería que tiene listar de estudiante por atender o un contexto de librería con libros por organizar} se estuviese utilizando, el interprete ejecutaria correctamente todos los comandos/bloques
 
 \subsubsection{Principio Abierto/Cerrado}
 
 Este principio indica que las entidades del software deben estar abiertas para extensión, pero cerradas para modificación. Es decir, debería ser posible agregar nuevas funcionalidades sin modificar el código existente.
 
-\textbf{Aplicación en el Proyecto}
 Aunque el sistema aún se encuentra en fase temprana, se han tomado decisiones que preparan el terreno para cumplir este principio:
 
 \begin{enumerate}
@@ -388,9 +597,7 @@ Además de los principios SOLID, se han seguido otros patrones y buenas práctic
 
 \subsubsection{Principio DRY (Don't Repeat Yourself)}
 
-Este principio establece que cada pieza de conocimiento o funcionalidad en un sistema debe tener una representación única y no ambigua.
-
-\textbf{Aplicación en el Proyecto}
+Este principio establece que cada pieza de conocimiento o funcionalidad en un sistema debe tener una representación única y no ambigua. Su uso es esencial porque sienta las bases de la programación geneérica, utilizada en el desarrollo del backend.
 
 \begin{enumerate}
 	\item Se han creado funciones reutilizables para operaciones comunes como el cálculo de puntuaciones o la validación de bloques.
@@ -404,28 +611,49 @@ Este principio establece que cada pieza de conocimiento o funcionalidad en un si
 
 La Ley de Demeter sugiere que un componente debe interactuar solo con sus colaboradores directos, evitando cadenas largas de llamadas a métodos de otros objetos (\textit{"más de un punto"}).
 
-\textbf{Aplicación en el Proyecto}
-
+Por ejemplo, en el proyecto se aplica de la siguiente forma: 
 \begin{enumerate}
 	\item  Se favorece el uso de métodos que ocultan la complejidad interna, ofreciendo una interfaz limpia y simple.
 	
-	\item En Godot, se han usado señales (\textit{signals}) para evitar acoplamiento directo entre nodos o escenas.
+	\item En Godot, se han usado señales (\textit{signals}) para evitar acoplamiento directo entre nodos o escenas, con otras implementaciones lógicas.
 \end{enumerate}
 
 \subsubsection{Programar hacia Interfaces, no hacia Implementaciones}
 
-Este principio promueve el uso de interfaces o contratos abstractos en lugar de depender de clases concretas, lo cual mejora la flexibilidad y la testabilidad del sistema.
+Este principio promueve el uso de interfaces o contratos abstractos en lugar de depender de clases concretas, lo cual mejora la flexibilidad y la testabilidad del sistema. Hay que recalcar que en GDScript (Godot) no existen interfaces formales, pero se simulan mediante contratos y clases abstractas (ver figura[Muestra una imagen de una clase tipo interfaz, de como se implementa para que funcione como interfaz]) 
 
-\subsubsection{Aplicación en el Proyecto}
+En la implementación del sistema, se emplea este principio de la siguiente forma:
 
 \begin{itemize}
-	\item Se definen interfaces claras en la capa de repositorios, como \texttt{IPlayerRepository}, \texttt{ILevelRepository}, etc.
+	\item Se definen interfaces claras en la capa de repositorios, como \texttt{IPlayerRepository}, \texttt{ILevelRepository}. La lógica de negocio utiliza estas interfaces para interactuar con los datos, sin importar cómo se implementan.
 	
-	\item La lógica de negocio utiliza estas interfaces para interactuar con los datos, sin importar cómo se implementan.
-	
-	\item Esto permite que futuras versiones del sistema puedan cambiar la tecnología de persistencia sin afectar el núcleo del juego.
+	\item Para que el interprete de soluciones, pueda operar sin importar el nivel, se abstrae de la implementación del contexto, mediante interfaces.
 \end{itemize}
 
+\subsection{Patrones de Diseño}
+
+En el desarrollo del sistema se han implementado diversos patrones de diseño orientados a resolver problemas recurrentes de manera eficiente y a garantizar la mantenibilidad del software. A continuación, se detallan los principales:
+
+- Añadir diagrama global de clase
+\subsubsection{Patrón Singleton}
+Este patrón asegura que una clase tenga una única instancia global accesible. El \texttt{GameManager} se implementa como un Singleton, centralizando la gestión del flujo del juego y evitando la creación de múltiples instancias que podrían generar inconsistencias en el estado global.
+
+- Añadir diagrama de clase del patrón
+
+\subsubsection{Patrón Facade}
+El patrón Facade provee una interfaz unificada que oculta la complejidad de subsistemas internos. Se utiliza para abstraer las interacciones con los sistemas LMS (Learning Management Systems), de manera que el módulo solo consuma las funciones necesarias sin depender de las implementaciones concretas.
+
+- Añadir diagrama de clase del patrón
+
+\subsubsection{Patrón Abstract Factory}
+Este patrón permite crear familias de objetos relacionados sin especificar sus clases concretas. Se aplica en la creación de acciones para el bloque \texttt{Ejecución}, permitiendo generar dinámicamente instancias de acciones sin necesidad de crear un bloque personalizado para cada una, lo que mejora la extensibilidad del sistema.
+
+- Añadir diagrama de clase del patrón
+
+\subsubsection{Patrón Strategy}
+El patrón Strategy define una familia de algoritmos y encapsula cada uno de ellos, permitiendo intercambiarlos en tiempo de ejecución. Se utiliza para modificar dinámicamente la estrategia de comunicación con LMS sin afectar la lógica de la aplicación. Asimismo, se aplica en la implementación de un \texttt{LevelController}, permitiendo definir distintos comportamientos según el nivel en que se encuentre el estudiante.
+
+- Añadir diagrama de clase del patrón
 % ------------------------------------------------
 
 \section{Modelo de despliegue}	
@@ -439,14 +667,15 @@ El modelo de despliegue representa la arquitectura física donde los componentes
 	\label{fig:deployement}
 \end{figure}
 
-El diagrama analizado presenta una infraestructura heterogénea compuesta por múltiples nodos interconectados. En el núcleo del sistema se observa un servidor web que opera bajo un entorno de ejecución Python, encargado de gestionar tanto la autenticación de usuarios como la integración con sistemas de gestión de aprendizaje (LMS) mediante una API REST. Este componente actúa como puerta de entrada para las solicitudes provenientes de los clientes.
+El diagrama analizado presenta una infraestructura heterogénea compuesta por múltiples nodos interconectados. En el núcleo del sistema se observa un servidor web implementado en FastAPI, encargado de gestionar tanto la autenticación de usuarios como la integración con sistemas de gestión de aprendizaje (LMS) mediante una API REST. Este componente actúa como puerta de entrada para las solicitudes provenientes de los clientes.
 
 Paralelamente, el sistema incorpora un servidor de bases de datos independiente que utiliza PostgreSQL como motor principal. La separación física entre el servidor web y el servidor de bases de datos sigue las mejores prácticas de seguridad y permite una administración más eficiente de los recursos.
 
 En el segmento móvil del diagrama, se especifican dos artefactos principales: una aplicación móvil genérica y un paquete APK específico, ambos dependientes de un entorno de ejecución Vulkan. Esto indica que la aplicación requiere capacidades gráficas, compatibles con dispositivos que soporten OpenGL ES 2.0/3.0 o Vulkan. Los requisitos técnicos detallados - 1GB de RAM, 500MB de almacenamiento y procesador de 1.7GHz - delinean el perfil mínimo de dispositivos móviles capaces de ejecutar la solución.
 
-La capa de presentación incluye un cliente usuario representado mediante un navegador web que accede al Teacher Core Frontend, la interfaz web del módulo de profesores. Este componente interactúa con el servidor web mencionado anteriormente, completando el flujo de información del sistema.
+La capa de presentación representado mediante un navegador web que accede a la interfaz web del módulo de profesores. Este componente interactúa con el servidor web mencionado anteriormente, completando el flujo de información del sistema.
 
+- Agregar información sobre docker (Cuando toque)
 % ---------------------------------------------
 
 
