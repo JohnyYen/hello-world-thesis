@@ -1,22 +1,14 @@
 \chapter{\chapterSecond}
 %\addcontentsline{toc}{chapter}{\chapterSecond}
-En todo proceso de desarrollo de un sistema, la etapa de diseñar la solución es crucial para la culminación del proyecto. En el presente capítulo se muestra por completo el diseño de esta solución, desde la captura de los requisitos funcionales y no funcionales, el diseño de los casos de usos del sistema, asi como los patrones de arquitectura empleados para organizar la solución, además se muestran los patrones y principios de diseño utilizados en la solución y finalmente se muestra el modelo de despliegue utilizado para desplegar la solución
+En este capítulo se presenta el diseño integral de la solución, partiendo de los requisitos funcionales y no funcionales, los casos de uso que estructuran la interacción entre actores y el sistema, así como la arquitectura y los patrones de diseño empleados. Este diseño constituye la hoja de ruta técnica que garantiza la coherencia entre los objetivos planteados y la implementación del sistema.
 
-\section{Diseño del videojuego}
-
-% Mecánicas, Narrativa, niveles, etc
-
-% ------------------------------------------------
-
-
-\section{Requisitos Funcionales y No Funcionales}
-
-\subsection{Requisitos Funcionales}
+\section{Requisitos Funcionales}
 
 
 Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
 
-\textbf{Módulo del Estudiante}
+\subsubsection*{Módulo del Estudiante}
+
 \begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
 	\hline
 	\textbf{ID} & \textbf{Descripción del Requisito} \\
@@ -34,24 +26,34 @@ Los requisitos funcionales definen qué debe hacer el sistema desde el punto de 
 	
 	\hline
 	\endlastfoot
-	
+
+    \multicolumn{2}{|c|}{\textbf{A. Evaluación y Progreso}} \\
+    \hline
 	RF1 & El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de código. \\
 	\hline
 	RF2 & El sistema debe registrar automáticamente estos datos para análisis posterior. \\
 	\hline
+	RF9 & El sistema debe guardar automáticamente el progreso del jugador tras finalizar un nivel o salir del juego, sin perder información. \\
+	\hline
+	RF13 & Al completar un nivel, el sistema debe mostrar una puntuación numérica o cualitativa basada en criterios como número de errores, eficiencia de la solución y tiempo. \\
+	\hline
+	RF14 & El jugador debe tener acceso a un resumen de su progreso general: puntaje promedio, tiempo total invertido, conceptos dominados, niveles completados. \\
+	\hline
+
+    \multicolumn{2}{|c|}{\textbf{B. Adaptación y Personalización}} \\
+    \hline
 	RF3 & El sistema debe adaptar automáticamente el nivel si el jugador no cumple los objetivos establecidos. \\
 	\hline
 	RF4 & La adaptación puede incluir simplificar el objetivo, reducir la complejidad del código requerido o dar pistas adicionales. \\
-	\hline
-	RF5 & Cada nivel debe estar asociado a un tema específico de programación y esta asociación debe ser clara tanto para el estudiante como para el profesor. \\
-	\hline
-	RF6 & Tras cada acción del jugador (ejecutar, reiniciar, completar), el sistema debe mostrar retroalimentación visual o textual inmediata. \\
 	\hline
 	RF7 & El sistema debe ajustar la dificultad de los niveles siguientes basándose en el historial de desempeño del jugador. \\
 	\hline
 	RF8 & El jugador debe poder configurar opciones del juego, como volumen del sonido, resolución de pantalla, idioma, modo de color. \\
 	\hline
-	RF9 & El sistema debe guardar automáticamente el progreso del jugador tras finalizar un nivel o salir del juego, sin perder información. \\
+
+    \multicolumn{2}{|c|}{\textbf{C. Contenido Pedagógico}} \\
+    \hline
+	RF5 & Cada nivel debe estar asociado a un tema específico de programación y esta asociación debe ser clara tanto para el estudiante como para el profesor. \\
 	\hline
 	RF10 & Al inicio de cada nivel, el sistema debe mostrar una clase introductoria que explique el concepto de programación asociado. \\
 	\hline
@@ -59,22 +61,29 @@ Los requisitos funcionales definen qué debe hacer el sistema desde el punto de 
 	\hline
 	RF12 & Los bloques deben representar acciones lógicas (condiciones, ciclos, variables). \\
 	\hline
-	RF13 & Al completar un nivel, el sistema debe mostrar una puntuación numérica o cualitativa basada en criterios como número de errores, eficiencia de la solución y tiempo. \\
+
+    \multicolumn{2}{|c|}{\textbf{D. Interacción y Retroalimentación}} \\
+    \hline
+	RF6 & Tras cada acción del jugador (ejecutar, reiniciar, completar), el sistema debe mostrar retroalimentación visual o textual inmediata. \\
 	\hline
-	RF14 & El jugador debe tener acceso a un resumen de su progreso general: puntaje promedio, tiempo total invertido, conceptos dominados, niveles completados. \\
+	RF17 & El sistema debe ofrecer un tutorial interactivo al primer inicio que enseñe las mecánicas básicas del juego. \\
 	\hline
+
+    \multicolumn{2}{|c|}{\textbf{E. Progresión y Acceso a Niveles}} \\
+    \hline
 	RF15 & El sistema debe presentar los niveles en un orden progresivo que refleje el avance pedagógico. \\
 	\hline
 	RF16 & No se debe permitir acceder a niveles posteriores sin haber superado los anteriores (salvo excepciones definidas por el profesor). \\
 	\hline
-	RF17 & El sistema debe ofrecer un tutorial interactivo al primer inicio que enseñe las mecánicas básicas del juego. \\
-	\hline
 	RF18 & El jugador debe poder repetir niveles ya completados para mejorar su puntuación o entender mejor el concepto. \\
 	\hline
+
 \end{longtable}
 
 
-\textbf{Módulo del Profesor}
+
+\subsubsection*{Módulo del Profesor}
+
 \begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
 	\hline
 	\textbf{RF} & \textbf{Descripción del Requisito Funcional} \\
@@ -92,52 +101,68 @@ Los requisitos funcionales definen qué debe hacer el sistema desde el punto de 
 	
 	\hline
 	\endlastfoot
-	
+
+    \multicolumn{2}{|c|}{\textbf{A. Monitoreo y Seguimiento del Estudiante}} \\
+    \hline
 	RF1 & Mostrar un resumen consolidado del progreso individual y grupal de los estudiantes. \\
 	\hline
 	RF2 & Incluir métricas detalladas como niveles completados, errores comunes y tiempo promedio por nivel. \\
 	\hline
-	RF3 & Permitir al profesor enviar comentarios personalizados a estudiantes individuales o grupos enteros. \\
-	\hline
-	RF4 & Brindar un editor intuitivo para crear, modificar o eliminar niveles utilizando bloques predefinidos. \\
-	\hline
 	RF5 & Generar gráficos comparativos de rendimiento entre estudiantes (por ejemplo: barras, líneas, mapas de calor). \\
-	\hline
-	RF6 & Asignar niveles específicos a estudiantes o grupos según su desempeño. \\
-	\hline
-	RF7 & Exportar reportes de progreso de estudiantes en formatos estándar (PDF, CSV). \\
 	\hline
 	RF8 & Permite visualizar el historial completo de progreso de cada estudiante, incluyendo puntuaciones y tiempos. \\
 	\hline
 	RF9 & Notificar al profesor cuando un estudiante no alcanza el umbral mínimo de rendimiento en varios niveles consecutivos. \\
 	\hline
-	RF10 & Crear exámenes tipo basados en niveles ya existentes, con opción de configurar tiempo límite y número de intentos. \\
+	RF15 & Consultar estadísticas globales del curso, como porcentaje de niveles completados, promedio de puntuación, etc. \\
 	\hline
-	RF11 & Importar/exportar niveles entre diferentes cursos o instituciones educativas (futuro). \\
-	\hline
-	RF12 & Integrar con plataformas LMS (Moodle, Google Classroom) para autenticación única y sincronización de datos de progreso. \\
+
+    \multicolumn{2}{|c|}{\textbf{B. Comunicación y Retroalimentación}} \\
+    \hline
+	RF3 & Permitir al profesor enviar comentarios personalizados a estudiantes individuales o grupos enteros. \\
 	\hline
 	RF13 & Recibir notificaciones sobre nuevos mensajes o actualizaciones de progreso enviadas por el sistema o los estudiantes. \\
 	\hline
 	RF14 & Establecer objetivos personalizados para uno o más estudiantes dentro de un curso o grupo. \\
 	\hline
-	RF15 & Consultar estadísticas globales del curso, como porcentaje de niveles completados, promedio de puntuación, etc. \\
+
+    \multicolumn{2}{|c|}{\textbf{C. Creación y Gestión de Contenido}} \\
+    \hline
+	RF4 & Brindar un editor intuitivo para crear, modificar o eliminar niveles utilizando bloques predefinidos. \\
 	\hline
+	RF6 & Asignar niveles específicos a estudiantes o grupos según su desempeño. \\
+	\hline
+	RF10 & Crear exámenes tipo basados en niveles ya existentes, con opción de configurar tiempo límite y número de intentos. \\
+	\hline
+	RF11 & Importar/exportar niveles entre diferentes cursos o instituciones educativas (futuro). \\
+	\hline
+
+    \multicolumn{2}{|c|}{\textbf{D. Reportes y Exportación}} \\
+    \hline
+	RF7 & Exportar reportes de progreso de estudiantes en formatos estándar (PDF, CSV). \\
+	\hline
+
+    \multicolumn{2}{|c|}{\textbf{E. Integración con Plataformas Externas}} \\
+    \hline
+	RF12 & Integrar con plataformas LMS (Moodle, Google Classroom) para autenticación única y sincronización de datos de progreso. \\
+	\hline
+
 \end{longtable}
 
-\subsection{Requisitos No Funcionales}
 
-Los requisitos no funcionales en cambio a los funcionales definen el comportamiento y las restricciones que tiene el sistema. En la siguiente tabla se muestra los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
+\section{Requisitos No Funcionales}
 
-\begin{longtable}{|p{0.1\linewidth}|p{0.5\linewidth}|p{0.2\linewidth}|p{0.15\linewidth}|}
+Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
+
+\begin{longtable}{|p{0.08\linewidth}|p{0.38\linewidth}|p{0.18\linewidth}|p{0.28\linewidth}|}
 	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Tipo} \\
+	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Categoría} & \textbf{Criterio de Aceptación} \\
 	\hline
 	\endfirsthead
 	
 	\multicolumn{4}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
 	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Tipo} \\
+	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Categoría} & \textbf{Criterio de Aceptación} \\
 	\hline
 	\endhead
 	
@@ -147,25 +172,34 @@ Los requisitos no funcionales en cambio a los funcionales definen el comportamie
 	\hline
 	\endlastfoot
 	
-	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) y cifrado de información crítica. & Seguridad \\
+	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) y cifrado AES-256 para información crítica. & Seguridad & Pruebas de penetración y verificación de que las contraseñas nunca se almacenan en texto plano. \\
 	\hline
-	RNF2 & El sistema debe responder ante acciones del usuario en menos de 2 segundos bajo carga normal. & Rendimiento\\
+	
+	RNF2 & El sistema debe responder ante acciones del usuario en menos de 2 segundos bajo carga normal de hasta 200 usuarios concurrentes. & Rendimiento & Pruebas de estrés que demuestren que el 90\% de las solicitudes cumplen el tiempo máximo de respuesta. \\
 	\hline
-	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva, accesible y fácil de usar por usuarios sin experiencia técnica avanzada. & Usabilidad \\
+	
+	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva y accesible para usuarios sin experiencia técnica avanzada. & Usabilidad & Al menos un 80\% de los usuarios de prueba deben completar una tarea básica sin asistencia en menos de 5 minutos. \\
 	\hline
-	RNF4 & El sistema debe permitir escalar horizontalmente su infraestructura backend si aumenta la cantidad de estudiantes registrados. & Escalabilidad \\
+	
+	RNF4 & El sistema debe permitir escalar horizontalmente su infraestructura backend en caso de aumento de estudiantes registrados. & Escalabilidad & Prueba de despliegue en contenedores donde se añadan nuevos nodos sin interrumpir el servicio. \\
 	\hline
-	RNF5 & El módulo estudiante debe ejecutarse en múltiples plataformas móviles. & Compatibilidad \\
+	
+	RNF5 & El módulo del estudiante debe ejecutarse en navegadores modernos y dispositivos móviles Android/iOS. & Compatibilidad & Pruebas en Chrome, Firefox, Edge, Safari y al menos 3 dispositivos móviles con OS distintos. \\
 	\hline
-	RNF6 & El sistema debe mantener una disponibilidad del 95\% como mínimo durante el periodo lectivo. & Disponibilidad\\
+	
+	RNF6 & El sistema debe mantener una disponibilidad mínima del 95\% durante el periodo lectivo. & Disponibilidad & Monitoreo de uptime mensual que no registre más de 5\% de tiempo fuera de servicio. \\
 	\hline
-	RNF7 & El código debe estar organizado y documentado para facilitar futuras actualizaciones o corrección de errores. & Mantenibilidad\\
+	
+	RNF7 & El código debe estar organizado y documentado para facilitar mantenimiento y futuras actualizaciones. & Mantenibilidad & Revisión de código donde al menos el 90\% de las funciones incluyan documentación y comentarios explicativos. \\
 	\hline
-	RNF8 & El sistema debe integrarse con plataformas LMS estándar como Moodle o Google Classroom para compartir datos de progreso. & Interoperabilidad\\
+	
+	RNF8 & El sistema debe integrarse con plataformas LMS estándar (Moodle, Google Classroom) para sincronizar datos de progreso. & Interoperabilidad & Pruebas de integración exitosas que confirmen autenticación única (SSO) y exportación de datos en formato estándar. \\
 	\hline
-	RNF9 & El sistema debe cumplir con principios básicos de accesibilidad web (WCAG), incluyendo soporte para modo oscuro, ajuste de tamaño de texto e interfaces amigables para usuarios con discapacidad visual leve. & Accesibilidad \\
+	
+	RNF9 & El sistema debe cumplir con pautas básicas de accesibilidad web (WCAG 2.1 AA), incluyendo modo oscuro y ajuste de texto. & Accesibilidad & Validación con herramientas automáticas (ej. WAVE) y pruebas con al menos 2 usuarios con discapacidad visual leve. \\
 	\hline
 \end{longtable}
+
 
 % ----------------------------------------------
 \section{Casos de Uso}
