@@ -465,87 +465,125 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 
 \section{Arquitectura del Sistema}
 
-La elección de patrones de arquitectura responde a la necesidad de materializar los requisitos funcionales y no funcionales en una estructura técnica que sea robusta y adaptable. Estos elementos no solo optimizan la organización del código y la gestión de complejidad, sino que también garantizan la escalabilidad del sistema ante futuras iteraciones. A continuación, se justifica la selección de patrones específicos y el modelo arquitectónico adoptado, vinculando cada decisión con los objetivos de modularidad, mantenibilidad y eficiencia establecidos para el proyecto.
+El diseño arquitectónico de la plataforma propuesta se describe utilizando el \textbf{Modelo C4}, creado por Simon Brown \cite{brown2018c4}. Este modelo surge como una alternativa moderna y simplificada al uso extensivo de diagramas UML tradicionales, priorizando la comprensión del sistema por parte de todos los actores del proyecto —desde desarrolladores hasta interesados no técnicos— sin sacrificar precisión técnica. 
 
+El modelo C4 se basa en una jerarquía de cuatro niveles que permiten visualizar el sistema con diferentes grados de detalle:
 
-\subsection{Visión general}
+\begin{itemize}
+    \item \textbf{Nivel 1: Diagrama de Contexto}. Presenta el sistema como una “caja negra”, mostrando los actores externos (usuarios u otros sistemas) que interactúan con él, y el tipo de relaciones o flujos de información existentes.
+    \item \textbf{Nivel 2: Diagrama de Contenedores}. Descompone el sistema en sus principales contenedores (aplicaciones, bases de datos, servicios web, interfaces) y muestra cómo se comunican entre sí.
+    \item \textbf{Nivel 3: Diagrama de Componentes}. Profundiza dentro de un contenedor específico, mostrando los componentes principales, sus responsabilidades y las relaciones entre ellos.
+    \item \textbf{Nivel 4: Diagrama de Código}. Ofrece una vista detallada de la implementación, incluyendo clases, interfaces y relaciones a nivel de código fuente.
+\end{itemize}
 
+A diferencia de UML, el modelo C4 no pretende describir exhaustivamente todos los aspectos estructurales o de comportamiento del software, sino ofrecer una \textbf{visión jerárquica y comprensible} del sistema. Su simplicidad gráfica facilita la comunicación entre equipos interdisciplinarios, evitando la sobrecarga de notación que caracteriza a UML.
 
-% --------------------------------------------
+Dado que el objetivo de esta tesis es presentar una \textbf{propuesta arquitectónica de la plataforma educativa}, se utilizan únicamente los tres primeros niveles (Contexto, Contenedores y Componentes). Estos niveles son suficientes para representar de forma clara tanto la organización global del sistema como la interacción entre sus módulos y los elementos internos más relevantes, sin entrar en detalles de implementación de código.
 
+\subsection{Arquitectura General}
 
-\subsection{Arquitectura detallada por módulo}
+La arquitectura general de la plataforma se estructura siguiendo los niveles de Contexto y Contenedores del modelo C4. Esta visión permite identificar las interacciones entre los distintos módulos que componen el sistema, así como su relación con los actores externos.
 
-% ------------------------------------------- Módulo Estudiante
+\textbf{Nivel 1: Diagrama de Contexto}
 
-El módulo Estudiante fue desarrollado utilizando el patrón arquitectónico \textit{MVC} (Modelo-Vista-Controlador), siguiendo una vista en N-Capas, uno de los patrones más utilizados en aplicaciones interactivas y videojuegos. Este patrón, reflejado en el diagrama \ref{fig:mvc-architecture-game},  permite separar claramente las responsabilidades del sistema, facilitando el mantenimiento, la expansión y la reutilización de componentes.
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{"src/MVC Architecture Game"}
-	\caption{Patrón MVC para el módulo del estudiante}
-	\label{fig:mvc-architecture-game}
-\end{figure}
-
-El diagrama de arquitectura refleja cómo se organiza internamente el módulo Estudiante en tres capas lógicas:
-
-\begin{description}
-	\item[Modelo:] Contiene las entidades y objetos que representan el estado del sistema, como \texttt{Player}, \texttt{Progress}, \texttt{Level}, \texttt{Block}, entre otros. También define las reglas de juego, como condiciones de éxito, fallo y adaptación dinámica del nivel según el desempeño.
-	
-	\item[Vista:] Implementa la interfaz visual del juego, con escenas definidas en Godot, elementos UI (botones, indicadores, HUD), animaciones y efectos visuales. Cada nivel tiene su propia representación visual, pero sigue un esquema común basado en el tipo de problema a resolver.
-	
-	\item[Controlador:] Gestiona la lógica de interacción. Incluye clases como \texttt{GameManager}, \texttt{HUDController} y \texttt{LevelInterface}, encargadas de recibir entradas del jugador, actualizar el modelo y reflejar los cambios en la vista.
-\end{description}
-
-Esta división asegura que el sistema sea fácil de entender, mantener y modificar, especialmente útil durante la fase de desarrollo inicial.
-
-Se eligió el patrón MVC para el módulo Estudiante por las siguientes razones:
-
-\begin{enumerate}
-	\item \textbf{Claridad en la separación de responsabilidades:} Permite aislar la lógica del juego de su representación visual, facilitando el testing y la evolución del sistema.
-	
-	\item \textbf{Facilidad de implementación en Godot:} El motor Godot fomenta un diseño modular que se adapta naturalmente al patrón MVC mediante nodos y scripts asociados a cada elemento visual.
-	
-	\item \textbf{Rápido desarrollo e iteración:} Ideal para proyectos educativos donde se busca validar funcionalidades sin sobrecargar la arquitectura inicial.
-	
-	\item \textbf{Base para evolución futura:} Aunque no se pretende migrar inmediatamente a otro estilo, MVC ofrece suficiente modularidad como para permitirlo más adelante si es necesario.
-	
-\end{enumerate}
-
-% ---------------------------- Módulo Profesor
-
-El módulo Profesor fue diseñado bajo una arquitectura cliente-servidor, ideal para sistemas web donde se requiere comunicación remota, escalabilidad moderada y separación clara entre interfaz y lógica de negocio. Este patrón permite que el sistema sea fácil de mantener, testeable y preparado para futuras evoluciones técnicas.
+El sistema propuesto, denominado \textit{Plataforma Educativa Gamificada para la Enseñanza de la Programación}, se compone de dos actores principales: el \textbf{Estudiante} y el \textbf{Profesor}. Ambos interactúan con la plataforma a través de diferentes interfaces que comparten un backend común encargado de la persistencia y sincronización de datos.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{"src/Client-Server Architecture Professor"}
-	\caption{Diagrama Cliente-Servidor para el módulo del profesor}
-	\label{fig:client-server-architecture-professor}
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/C4_Context}
+    \caption{Diagrama de Contexto del Sistema.}
+    \label{fig:c4_contexto}
 \end{figure}
 
-En el modelo arquitectónico, \ref{fig:client-server-architecture-professor}, se pueden observar 2 componentes principales, uno es el cliente, que es la parte visual que estará utilizando el profesor y el otro es referente al servidor donde se almacenan los datos. A continuación se describen estos componentes a detalle:
+En este nivel se visualiza la interacción entre los actores y el sistema como una unidad. El estudiante utiliza el videojuego educativo, mientras que el profesor accede a la interfaz web para supervisar el progreso académico. El backend actúa como intermediario central, gestionando las comunicaciones, almacenamiento y autenticación de usuarios. 
 
-\begin{description}
-	\item[Interfaz de Usuario (Cliente):] Incluye componentes visuales, dashboards, formularios de configuración y gráficos de rendimiento. Cada pantalla está pensada para ofrecer una experiencia intuitiva y útil al profesor, facilitando el seguimiento académico y la personalización de niveles.
-	
-	\item[Lógica de Negocio (Servidor):] Implementa funcionalidades clave como el registro de progreso estudiantil, generación de gráficos comparativos, asignación de niveles especiales a estudiantes específicos, entre otras. Esta capa se organiza en paquetes según su responsabilidad, promoviendo modularidad y claridad en el código.
-\end{description}
+\textbf{Nivel 2: Diagrama de Contenedores}
 
-Esta división asegura una interacción segura, escalable y mantenible entre el usuario final (profesor) y el resto del sistema educativo.
+El siguiente nivel descompone la solución en sus principales contenedores de software, los cuales se comunican a través de una API RESTful implementada en el backend. Los contenedores identificados son:
 
-Se eligió una arquitectura cliente-servidor para el módulo Teacher Core por las siguientes razones:
+\begin{itemize}
+    \item \textbf{Frontend Estudiante (Hello World!!)}: Videojuego educativo desarrollado con \textit{Godot Engine}, que implementa mecánicas adaptativas para ajustar la dificultad de los niveles según el desempeño del jugador.
+    \item \textbf{Frontend Profesor (Teacher Core)}: Aplicación web desarrollada en \textit{Next.js}, donde el docente puede visualizar métricas de progreso, asignar niveles personalizados y generar reportes.
+    \item \textbf{API Backend}: Servicio central desarrollado en \textit{FastAPI (Python)}, encargado de procesar solicitudes, aplicar reglas de negocio y gestionar la persistencia de datos.
+    \item \textbf{Base de Datos PostgreSQL}: Repositorio donde se almacenan usuarios, niveles, métricas de rendimiento y configuraciones del sistema.
+\end{itemize}
 
-\begin{enumerate}
-	\item  \textbf{Naturaleza web del módulo:} Al tratarse de una interfaz orientada al profesor y accesible desde cualquier dispositivo con conexión a internet, este estilo es natural y ampliamente adoptado.
-	
-	\item  \textbf{Facilidad de integración:} Es compatible con APIs RESTful, lo cual facilita la comunicación con el módulo estudiante y permite reutilizar endpoints comunes.
-	
-	\item \textbf{Escalabilidad moderada:} Si bien no se espera un tráfico masivo inicial, esta arquitectura permite escalar horizontalmente ciertos servicios cuando sea necesario.
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/C4_Container}
+    \caption{Diagrama de Contenedores del Sistema.}
+    \label{fig:c4_contenedores}
+\end{figure}
 
-% ----------------------------------------------- Arquitectura utilizada para describir el Backend
-El \textbf{Backend} constituye el núcleo de la plataforma, encargada de guardar el progreso obtenido por parte de los estudiantes en el videojuego y devolvérselo al frontend del profesor. Para su implementación se utilizó una arquitectura orientada a servicios, organizado en módulos separados como gestión de usuarios, de niveles o de progreso, permitiendo así escalar a nuevos futuros módulos si la aplicación lo requiere. Para exponer estos servicios al frontend se utilizó el estandar API RESTful, basado en los principios de \textit{Representational State Transfer} (REST), propuesto por Roy Fielding en el año 2000. Este estándar define un conjunto de restricciones para la construcción de servicios web, entre las cuales destacan: la comunicación sin estado (\textit{stateless}), la manipulación de recursos mediante identificadores uniformes (URI), el uso de métodos estándar del protocolo HTTP (GET, POST, PUT, DELETE, entre otros) y la representación de datos en formatos ligeros como JSON o XML.
+Este nivel refleja la separación de responsabilidades entre los distintos componentes del ecosistema: el videojuego se orienta a la experiencia educativa del estudiante, la aplicación web al monitoreo docente, y el backend como intermediario de servicios y sincronización.
+
+\subsection{Arquitectura a Detalle por Módulo}
+
+A continuación, se describen los diagramas de componentes (nivel 3 del modelo C4) correspondientes a cada uno de los módulos que conforman el sistema.
+
+\subsubsection{Módulo Estudiante}
+
+El módulo del estudiante se estructura en torno al patrón \textit{Modelo–Vista–Controlador} (MVC), adaptado al contexto de Godot. En este nivel, el diagrama de componentes detalla las principales unidades funcionales del videojuego, su relación y responsabilidades.
+
+\begin{itemize}
+    \item \textbf{GameManager}: Coordina el flujo del juego, maneja la lógica principal y las transiciones entre niveles.
+    \item \textbf{LevelManager}: Controla la carga, ejecución y evaluación de los niveles.
+    \item \textbf{HUDController}: Gestiona los elementos visuales de la interfaz y la retroalimentación al jugador.
+    \item \textbf{ExecutionEngine}: Ejecuta la secuencia de bloques programáticos definidos por el jugador.
+    \item \textbf{AdaptationSystem}: Ajusta la dificultad de los niveles en función del desempeño del estudiante.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/c4_componentes_estudiante.png}
+    \caption{Diagrama de Componentes del Módulo Estudiante.}
+    \label{fig:c4_estudiante}
+\end{figure}
+
+Este diseño facilita la extensibilidad del sistema, permitiendo incorporar nuevos tipos de niveles o mecánicas sin modificar la estructura base del videojuego. Además, la separación de responsabilidades asegura una mayor mantenibilidad y testabilidad del código.
+
+\subsubsection{Módulo Profesor}
+
+El módulo del profesor se implementa como una aplicación web basada en arquitectura cliente–servidor. Su diagrama de componentes muestra los elementos principales que gestionan la interfaz docente y la comunicación con la API backend.
+
+\begin{itemize}
+    \item \textbf{Dashboard}: Componente principal que muestra estadísticas globales y comparativas del grupo.
+    \item \textbf{LevelEditor}: Permite la creación y modificación de niveles educativos mediante una interfaz visual.
+    \item \textbf{StudentTracker}: Gestiona los datos individuales y grupales de los estudiantes.
+    \item \textbf{ReportGenerator}: Genera informes y gráficos de desempeño.
+    \item \textbf{APIClient}: Componente encargado de la comunicación con la API REST para sincronizar datos.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{src/c4components_spa}
+    \caption{Diagrama de Componentes del Módulo Profesor.}
+    \label{fig:c4_profesor}
+\end{figure}
+
+El diseño modular del frontend docente facilita la integración con plataformas externas como Moodle o Google Classroom, garantizando interoperabilidad mediante autenticación única (SSO) y sincronización de progreso académico.
+
+\subsubsection{API Backend}
+
+El backend constituye el núcleo de la plataforma. Su diagrama de componentes refleja la estructura interna del servicio, organizado según los principios de separación de responsabilidades y escalabilidad.
+
+\begin{itemize}
+    \item \textbf{AuthService}: Gestiona la autenticación y autorización de usuarios mediante JWT.
+    \item \textbf{ProgressService}: Procesa y almacena los datos de avance y rendimiento del estudiante.
+    \item \textbf{LevelService}: Administra la creación, asignación y validación de niveles educativos.
+    \item \textbf{ReportService}: Expone endpoints para la generación de reportes solicitados por el módulo del profesor.
+    \item \textbf{IntegrationModule}: Facilita la conexión con sistemas externos LMS.
+    \item \textbf{Database Layer}: Encargada de la persistencia de datos en PostgreSQL.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/c4_componentes_backend.png}
+    \caption{Diagrama de Componentes del API Backend.}
+    \label{fig:c4_backend}
+\end{figure}
+
+% La API sigue el estándar RESTful y fue diseñada bajo los principios de arquitectura orientada a servicios, lo que permite escalar o reemplazar módulos de negocio sin afectar al resto del sistema. Cada servicio se comunica con el resto mediante interfaces bien definidas, garantizando un acoplamiento mínimo y una alta cohesión interna.
 
 % ------------------------------------------------
 
@@ -680,3 +718,5 @@ La capa de presentación representado mediante un navegador web que accede a la 
 
 
 \section{Conclusiones parciales}
+
+El presente capítulo permitió concretar el diseño integral de la plataforma educativa propuesta, partiendo de la identificación detallada de los requisitos funcionales y no funcionales que sustentan su desarrollo. Estos requisitos sirvieron como base para definir las capacidades esenciales del sistema, garantizando la alineación entre las necesidades pedagógicas del entorno educativo y las metas técnicas del proyecto. A partir de dichos requisitos se elaboraron los diagramas de casos de uso que describen las principales interacciones entre los actores —estudiantes y profesores— y el sistema. Estos diagramas proporcionan una representación clara de las funcionalidades requeridas y de los flujos de información dentro de la plataforma. El diseño arquitectónico, sustentado en el modelo C4, permitió obtener una visión estructurada y progresiva de la solución, abarcando desde la interacción de los usuarios con el sistema hasta la composición interna de los módulos. Esta representación ofrece una comprensión unificada de la arquitectura, facilitando su validación y futura evolución. Asimismo, la justificación de los principios y patrones de diseño —incluyendo SOLID, DRY y la programación orientada a interfaces— garantizó la mantenibilidad, escalabilidad y extensibilidad del sistema a mediano y largo plazo. El modelo de despliegue propuesto consolidó la organización física de los componentes en una infraestructura distribuida, lo que asegura la separación de responsabilidades, la seguridad de los datos y la optimización de recursos.
