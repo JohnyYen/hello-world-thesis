@@ -352,7 +352,7 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 \textbf{Relaciones} & Independiente, ejecutado automáticamente cuando hay conexión a Internet \\
 \hline
 \textbf{Descripción Breve} & El sistema asegura que el progreso, puntuaciones y configuraciones locales del estudiante se actualicen en el servidor central para mantener la persistencia de datos. \\
-\hline
+\hlinegallego\_panoramica\_nodate, barban\_entrenaingeniero\_2020\}
 \textbf{RF Relacionados} & RF2, RF9 \\
 \hline
 \end{tabular}
@@ -535,7 +535,7 @@ El módulo del estudiante se estructura en torno al patrón \textit{Modelo–Vis
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/c4_componentes_estudiante.png}
+    \includegraphics[width=0.9\textwidth]{C4_Components_Godot.pdf}
     \caption{Diagrama de Componentes del Módulo Estudiante.}
     \label{fig:c4_estudiante}
 \end{figure}
@@ -567,21 +567,31 @@ El diseño modular del frontend docente facilita la integración con plataformas
 
 El backend constituye el núcleo de la plataforma. Su diagrama de componentes refleja la estructura interna del servicio, organizado según los principios de separación de responsabilidades y escalabilidad.
 
-\begin{itemize}
-    \item \textbf{AuthService}: Gestiona la autenticación y autorización de usuarios mediante JWT.
-    \item \textbf{ProgressService}: Procesa y almacena los datos de avance y rendimiento del estudiante.
-    \item \textbf{LevelService}: Administra la creación, asignación y validación de niveles educativos.
-    \item \textbf{ReportService}: Expone endpoints para la generación de reportes solicitados por el módulo del profesor.
-    \item \textbf{IntegrationModule}: Facilita la conexión con sistemas externos LMS.
-    \item \textbf{Database Layer}: Encargada de la persistencia de datos en PostgreSQL.
-\end{itemize}
+% \begin{itemize}
+%     \item \textbf{AuthService}: Gestiona la autenticación y autorización de usuarios mediante JWT.
+%     \item \textbf{ProgressService}: Procesa y almacena los datos de avance y rendimiento del estudiante.
+%     \item \textbf{LevelService}: Administra la creación, asignación y validación de niveles educativos.
+%     \item \textbf{ReportService}: Expone endpoints para la generación de reportes solicitados por el módulo del profesor.
+%     \item \textbf{IntegrationModule}: Facilita la conexión con sistemas externos LMS.
+%     \item \textbf{Database Layer}: Encargada de la persistencia de datos en PostgreSQL.
+% \end{itemize}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.95\textwidth,keepaspectratio]{src/C4_Components_API}
+%     \caption{Diagrama de Componentes del API Backend.}
+%     \label{fig:c4_backend}
+% \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figuras/c4_componentes_backend.png}
+    \adjustbox{max width=1\textwidth, max height=1\textheight, keepaspectratio}{
+        \includegraphics{src/C4_Components_API}
+    }
     \caption{Diagrama de Componentes del API Backend.}
     \label{fig:c4_backend}
 \end{figure}
+
 
 % La API sigue el estándar RESTful y fue diseñada bajo los principios de arquitectura orientada a servicios, lo que permite escalar o reemplazar módulos de negocio sin afectar al resto del sistema. Cada servicio se comunica con el resto mediante interfaces bien definidas, garantizando un acoplamiento mínimo y una alta cohesión interna.
 
@@ -672,26 +682,26 @@ En la implementación del sistema, se emplea este principio de la siguiente form
 
 En el desarrollo del sistema se han implementado diversos patrones de diseño orientados a resolver problemas recurrentes de manera eficiente y a garantizar la mantenibilidad del software. A continuación, se detallan los principales:
 
-- Añadir diagrama global de clase
+% - Añadir diagrama global de clase
 \subsubsection{Patrón Singleton}
-Este patrón asegura que una clase tenga una única instancia global accesible. El \texttt{GameManager} se implementa como un Singleton, centralizando la gestión del flujo del juego y evitando la creación de múltiples instancias que podrían generar inconsistencias en el estado global.
+Este patrón asegura que una clase tenga una única instancia global accesible. El \texttt{GameController} se implementa como un Singleton, centralizando la gestión del flujo del juego y evitando la creación de múltiples instancias que podrían generar inconsistencias en el estado global.
 
-- Añadir diagrama de clase del patrón
+% - Añadir diagrama de clase del patrón
 
 \subsubsection{Patrón Facade}
 El patrón Facade provee una interfaz unificada que oculta la complejidad de subsistemas internos. Se utiliza para abstraer las interacciones con los sistemas LMS (Learning Management Systems), de manera que el módulo solo consuma las funciones necesarias sin depender de las implementaciones concretas.
 
-- Añadir diagrama de clase del patrón
+% - Añadir diagrama de clase del patrón
 
 \subsubsection{Patrón Abstract Factory}
 Este patrón permite crear familias de objetos relacionados sin especificar sus clases concretas. Se aplica en la creación de acciones para el bloque \texttt{Ejecución}, permitiendo generar dinámicamente instancias de acciones sin necesidad de crear un bloque personalizado para cada una, lo que mejora la extensibilidad del sistema.
 
-- Añadir diagrama de clase del patrón
+% - Añadir diagrama de clase del patrón
 
 \subsubsection{Patrón Strategy}
 El patrón Strategy define una familia de algoritmos y encapsula cada uno de ellos, permitiendo intercambiarlos en tiempo de ejecución. Se utiliza para modificar dinámicamente la estrategia de comunicación con LMS sin afectar la lógica de la aplicación. Asimismo, se aplica en la implementación de un \texttt{LevelController}, permitiendo definir distintos comportamientos según el nivel en que se encuentre el estudiante.
 
-- Añadir diagrama de clase del patrón
+% - Añadir diagrama de clase del patrón
 % ------------------------------------------------
 
 \section{Modelo de despliegue}	
@@ -713,7 +723,7 @@ En el segmento móvil del diagrama, se especifican dos artefactos principales: u
 
 La capa de presentación representado mediante un navegador web que accede a la interfaz web del módulo de profesores. Este componente interactúa con el servidor web mencionado anteriormente, completando el flujo de información del sistema.
 
-- Agregar información sobre docker (Cuando toque)
+% - Agregar información sobre docker (Cuando toque)
 % ---------------------------------------------
 
 

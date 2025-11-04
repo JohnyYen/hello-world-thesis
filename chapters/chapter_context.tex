@@ -1,0 +1,81 @@
+\chapter{Contexto General del Proyecto}
+
+En la actualidad, el aprendizaje de la programación representa uno de los mayores desafíos dentro de la formación en Ingeniería Informática y disciplinas afines. Muchos estudiantes presentan dificultades para asimilar los conceptos abstractos de la lógica computacional, el pensamiento algorítmico y la resolución de problemas. Ante esta situación, surge la necesidad de desarrollar herramientas tecnológicas innovadoras que promuevan un aprendizaje más dinámico, motivador y adaptativo.
+
+El presente proyecto propone el diseño de una \textbf{plataforma educativa interactiva} que integra un \textbf{videojuego educativo adaptativo} y un \textbf{sistema web de gestión académica}, con el objetivo de fomentar el aprendizaje de la programación de forma lúdica, personalizada y basada en el rendimiento del estudiante.
+
+\section{Descripción General del Proyecto}
+
+El sistema desarrollado combina tres elementos principales:
+
+\begin{itemize}
+    \item \textbf{Un videojuego educativo}, donde los estudiantes adquieren conocimientos de programación mediante la resolución de retos, niveles y misiones interactivas que se ajustan automáticamente a su desempeño.
+    \item \textbf{Un módulo web para profesores}, que permite gestionar estudiantes, visualizar su progreso, analizar el rendimiento académico y adaptar el contenido de los niveles según las necesidades detectadas.
+    \item \textbf{Un backend centralizado}, encargado de procesar, almacenar y sincronizar la información proveniente del videojuego y del módulo web, garantizando coherencia e integridad en los datos.
+\end{itemize}
+
+Esta arquitectura permite que los estudiantes interactúen de forma autónoma en el entorno del videojuego, mientras los profesores supervisan el aprendizaje desde la plataforma web, estableciendo así una conexión directa entre la \textit{gamificación} y la \textit{gestión educativa}.
+
+\section{Módulos del Sistema}
+
+El sistema se encuentra estructurado en tres módulos principales, diseñados de manera modular para facilitar la escalabilidad y el mantenimiento:
+
+\subsection{Módulo del Estudiante}
+
+Este módulo corresponde al \textbf{videojuego educativo adaptativo}, desarrollado con el objetivo de promover el aprendizaje activo y la motivación intrínseca. A través de niveles y misiones, el estudiante pone en práctica conceptos de programación (como variables, estructuras de control y funciones) en un entorno interactivo.  
+El videojuego registra el progreso, el desempeño y las decisiones del jugador, generando métricas que luego son enviadas al backend.
+
+El videojuego esta desarrollado en Godot, y sigue un estilo de novela visual, junto al uso de puzzles de programación. Se escogió este estilo porque su nivel de entrada para personas que no han jugado a videojuego es muy baja y permite contar historias que capten la atención de los jugadores.
+
+\subsection{Módulo del Profesor}
+
+El módulo del profesor consiste en una \textbf{aplicación web} que permite monitorear el progreso individual y grupal de los estudiantes. Los docentes pueden visualizar estadísticas, generar reportes, definir nuevos desafíos y adaptar los contenidos según los resultados obtenidos.  
+Además, este módulo ofrece herramientas analíticas que apoyan la toma de decisiones pedagógicas basadas en datos.
+
+\subsection{Módulo del Backend}
+
+El backend actúa como \textbf{núcleo central del sistema}, encargado de la comunicación entre los distintos módulos.  
+Utiliza una arquitectura basada en servicios para gestionar las solicitudes, almacenar la información en una base de datos PostgreSQL y ofrecer endpoints seguros para la sincronización de datos.  
+Asimismo, incluye mecanismos de autenticación, control de acceso, registro de actividad y sincronización bidireccional con la base de datos local utilizada por el videojuego.
+
+\section{Fundamentación Teórica}
+
+El proyecto se sustenta en varias teorías y enfoques pedagógicos que respaldan su diseño e implementación:
+
+\subsection{Aprendizaje Basado en el Juego (Game-Based Learning)}
+
+El \textit{Game-Based Learning (GBL)} promueve la adquisición de conocimientos y habilidades mediante la interacción con entornos lúdicos. Este enfoque utiliza la estructura de los juegos para fomentar la participación activa, la resolución de problemas y la retroalimentación inmediata, mejorando así la retención del conocimiento.
+
+\subsection{Aprendizaje Adaptativo}
+
+El \textit{Aprendizaje Adaptativo} se centra en ajustar la dificultad, los contenidos y el ritmo de aprendizaje según el rendimiento individual del estudiante.  
+En el contexto de este proyecto, el videojuego adapta dinámicamente los niveles en función de los errores, aciertos y tiempos de respuesta del jugador, con el objetivo de ofrecer una experiencia personalizada.
+
+\subsection{Gamificación}
+
+La \textit{gamificación} consiste en incorporar elementos característicos de los videojuegos (puntos, logros, recompensas, niveles, etc.) en contextos no lúdicos. En esta plataforma, la gamificación se emplea para aumentar la motivación extrínseca y mantener el interés del estudiante en el proceso de aprendizaje.
+
+\subsection{Teoría del Aprendizaje Constructivista}
+
+Desde una perspectiva constructivista, el aprendizaje se produce cuando el estudiante construye activamente su propio conocimiento a partir de la experiencia.  
+El videojuego facilita este proceso al permitir la experimentación, la toma de decisiones y la aplicación directa de conceptos en contextos simulados.
+
+% \section{Objetivos del Proyecto}
+
+% \subsection{Objetivo General}
+
+% Desarrollar una plataforma educativa que integre un videojuego adaptativo y un sistema web de gestión académica, orientada al aprendizaje de la programación mediante la gamificación y el aprendizaje adaptativo.
+
+% \subsection{Objetivos Específicos}
+
+% \begin{itemize}
+%     \item Diseñar un videojuego educativo capaz de adaptar su contenido según el rendimiento del estudiante.
+%     \item Implementar un módulo web que permita a los profesores gestionar y evaluar el progreso de los estudiantes.
+%     \item Desarrollar un backend robusto para la sincronización de datos entre los diferentes módulos.
+%     \item Validar la eficacia del sistema mediante la integración funcional de los módulos.
+% \end{itemize}
+
+\section{Conclusiones del Capítulo}
+
+El presente capítulo ha descrito el contexto general del proyecto, destacando su propósito educativo, sus componentes tecnológicos y los fundamentos teóricos que lo sustentan.  
+Este enfoque integral combina la innovación tecnológica con teorías del aprendizaje contemporáneas, dando lugar a una solución que busca transformar la enseñanza de la programación en una experiencia motivadora, adaptativa y significativa.

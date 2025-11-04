@@ -1,308 +1,643 @@
 \chapter{\chapterOne}
 %\addcontentsline{toc}{chapter}{\chapterOne}
-\chapter{Marco Teórico y Estado del Arte}
-%\addcontentsline{toc}{chapter}{Marco Teórico y Estado del Arte}
 
-El presente capítulo tiene como propósito establecer los fundamentos conceptuales y teóricos que sustentan el desarrollo de la plataforma educativa propuesta. A partir de una revisión de la literatura especializada, se abordan los principales enfoques que integran los videojuegos y la gamificación en los procesos de enseñanza-aprendizaje, así como las teorías psicológicas y pedagógicas que explican su efectividad.
+El desarrollo de videojuegos con fines educativos ha cobrado un creciente interés en las últimas décadas, consolidándose como un campo interdisciplinario que integra la pedagogía, la psicología y las ciencias computacionales. Estos entornos interactivos ofrecen un espacio idóneo para el aprendizaje activo, al promover la experimentación, la resolución de problemas y la participación significativa del estudiante. En contraposición a los métodos tradicionales de enseñanza, los videojuegos educativos se centran en la experiencia del jugador como sujeto que construye su propio conocimiento mediante la acción, la exploración y el descubrimiento, en consonancia con las bases del constructivismo.
 
-Asimismo, se examinan los principios del aprendizaje adaptativo y la personalización educativa, esenciales para comprender el carácter dinámico y progresivo del sistema desarrollado. Finalmente, se exponen las bases teóricas que enmarcan el diseño arquitectónico del software educativo, permitiendo articular la dimensión tecnológica con la pedagógica del proyecto. Este marco teórico proporciona, por tanto, el sustento académico necesario para el diseño, implementación y validación de la solución planteada.
+Dentro de este marco, el Aprendizaje Basado en Problemas (ABP) se erige como una metodología especialmente pertinente para el diseño de experiencias educativas mediadas por tecnologías interactivas. Este enfoque orienta el proceso formativo hacia la investigación, la colaboración y la aplicación del conocimiento a situaciones reales, fomentando la autonomía, el pensamiento crítico y la reflexión. La literatura reciente resalta su efectividad para desarrollar competencias complejas y promover un aprendizaje significativo, especialmente cuando se integra en entornos digitales que facilitan la interacción y la resolución colectiva de desafíos.
 
-\section{Videojuegos y Aprendizaje}
+Otro pilar teórico relevante es el concepto de Estado de Flujo, formulado por Csikszentmihalyi, el cual describe un estado óptimo de concentración, motivación y disfrute que se produce cuando el desafío percibido se equilibra con las habilidades del individuo. En el contexto educativo, este fenómeno se asocia con niveles elevados de implicación cognitiva y emocional, condiciones que los videojuegos recrean de manera natural a través de dinámicas de retroalimentación, progresión y recompensa. El flujo, por tanto, constituye un elemento central para comprender la capacidad motivadora y transformadora del aprendizaje gamificado.
 
-La relación entre los videojuegos y el ámbito educativo ha sido descrita como compleja, marcada por etapas de aceptación, rechazo y evolución \cite{Gallego2002Panoramica}. Sin embargo, es innegable que los videojuegos constituyen una realidad ineludible en la sociedad contemporánea y representan una de las industrias más influyentes a nivel global \cite{Gallego2002Panoramica}. A lo largo de la historia, los juegos han desempeñado un papel fundamental en los procesos de aprendizaje \cite{Gallego2002Panoramica}, y su aplicación con fines educativos se ha consolidado como un campo de creciente interés en los últimos años \cite{EntrenaIngeniero}.
+Finalmente, la revisión del estado del arte evidencia un avance significativo en el diseño y la implementación de videojuegos educativos orientados a distintos ámbitos del conocimiento. Sin embargo, persisten desafíos relacionados con la integración pedagógica, la evaluación del aprendizaje y la selección de herramientas tecnológicas adecuadas. En este contexto, resulta indispensable analizar tanto las bases teóricas como los enfoques metodológicos y técnicos que sustentan el desarrollo de entornos de aprendizaje interactivos, con el propósito de comprender su potencial formativo y su impacto en la educación contemporánea.
+
+\section{Videojuegos}
 
 \subsection{Definición y características de los videojuegos}
 
-Para comprender el papel educativo de los videojuegos, resulta necesario definir sus características esenciales y distinguir los tipos de juegos que se emplean en contextos de aprendizaje.
+Para establecer una base conceptual sólida, conviene comenzar por definir qué se entiende por \textit{juego}. Stenros \cite{stenros_game_2017} realiza una revisión de más de 60 definiciones de distintos autores desde los años 30, y propone una síntesis coherente: “Un juego es un sistema basado en reglas con un resultado variable y cuantificable, en el que se asignan diferentes valores a los distintos resultados; el jugador realiza un esfuerzo para influir en dicho resultado, se siente emocionalmente vinculado a él, y las consecuencias de la actividad son negociables”.
 
-Un \textbf{juego} puede definirse como una prueba física o mental que se realiza conforme a reglas específicas, con el propósito de divertir, entrenar o recompensar al participante \cite{EntrenaIngeniero}. Desde una perspectiva más amplia, se entiende como un sistema en el cual los jugadores enfrentan un desafío abstracto definido por reglas, interactividad y retroalimentación, lo que produce un resultado cuantificable y, con frecuencia, una \textbf{reacción emocional} \cite{SanchezPacheco2020Enfoque}.  
-En este sentido, un \textbf{videojuego} se concibe como una prueba mental ejecutada en un entorno computacional bajo ciertas reglas, cuyo fin es la diversión, el entretenimiento o la obtención de una recompensa \cite{EntrenaIngeniero}.
+De forma complementaria, Barban \cite{barban_entrenaingeniero_2020} define el juego como una prueba física o mental que se realiza conforme a reglas específicas, con el propósito de divertir, entrenar o recompensar al participante. En una línea similar, Johan Huizinga describe el juego como “una actividad u ocupación voluntaria, ejercida dentro de ciertos límites de tiempo y espacio, que sigue reglas libremente aceptadas pero absolutamente obligatorias, y que va acompañada de un sentimiento de tensión y alegría, así como de una conciencia sobre su diferencia con la vida cotidiana” \cite{Huizinga1950}. Desde una perspectiva más amplia, el juego puede entenderse como un sistema en el que los jugadores enfrentan un desafío abstracto definido por reglas, interactividad y retroalimentación, lo que produce un resultado cuantificable y, con frecuencia, una reacción emocional.
 
-El videojuego puede considerarse también un \textbf{artefacto semiótico} o un \textbf{texto} en sí mismo \cite{LpezCanicio2019Cuando}. Un texto se define como un constructo comunicativo compuesto por un sistema de signos articulado en tres dimensiones: sintáctica, semántica y pragmática \cite{LpezCanicio2019Cuando}.  
-Debido a su naturaleza interactiva, los videojuegos pueden entenderse como un \textbf{texto interactivo en lenguaje audiovisual (TILA)} \cite{LpezCanicio2019Cuando}.
+En cuanto al \textit{videojuego}, Esposito, citado por Arjoranta \cite{arjoranta_how_2019}, propone una definición inicial: “Un videojuego es un juego que jugamos gracias a un aparato audiovisual y que puede estar basado en una historia”. Aunque minimalista, esta definición resulta útil como punto de partida. Deterding amplía esta idea al señalar que “un videojuego existe en la medida en que las personas lo interpretan y lo viven como tal, dentro de un contexto con reglas, significados y materiales que permiten esa experiencia” \cite{deterding2013modes}. En este sentido, un videojuego puede concebirse como una prueba mental ejecutada en un entorno computacional bajo ciertas reglas, cuyo fin es la diversión, el entretenimiento o la obtención de una recompensa, emocional o no.
 
-\subsubsection{La interactividad como elemento central}
+La característica más distintiva de los videojuegos, y la que los diferencia de otros medios narrativos tradicionales como la literatura o el cine, es la \textbf{interactividad}. Este componente constituye la esencia del medio videolúdico y le confiere su naturaleza participativa \cite{lopez_canicio_cuando_2019}. La interactividad permite que el productor diseñe o configure una narración que no solo es recibida e interpretada por el jugador, sino también co-construida activamente por él a través de sus decisiones y acciones. Este intercambio comunicativo bidireccional entre el texto audiovisual interactivo y el receptor transforma al jugador en un agente con capacidad de intervención, fenómeno conocido como \textit{agencia} \cite{lopez_canicio_cuando_2019}. En el plano narrativo, esta característica convierte al jugador en un \textbf{coautor} de la experiencia, desplazando su rol tradicional de receptor pasivo hacia una posición creativa y participativa \cite{lopez_canicio_cuando_2019}.
 
-La característica más distintiva de los videojuegos, y la que los diferencia de otros medios narrativos tradicionales como la literatura o el cine, es la \textbf{interactividad} \cite{LpezCanicio2019Cuando}. Este componente constituye la esencia del medio videolúdico y le confiere su naturaleza participativa \cite{LpezCanicio2019Cuando}.
+\subsection{Historia y evolución de los videojuegos}
 
-La interactividad permite que el productor diseñe o configure una narración que no solo es recibida e interpretada por el jugador, sino también \textbf{co-construida activamente} por él a través de sus decisiones y acciones \cite{LpezCanicio2019Cuando}.  
-Este intercambio comunicativo bidireccional entre el texto audiovisual interactivo y el receptor transforma al jugador en un agente con capacidad de intervención, fenómeno conocido como \textbf{agencia} \cite{LpezCanicio2019Cuando}.  
-En el plano narrativo, esta característica convierte al jugador en un \textbf{coautor} de la experiencia, desplazando su rol tradicional de receptor pasivo hacia una posición creativa y participativa \cite{LpezCanicio2019Cuando}.
+La historia de los videojuegos es el resultado de una evolución tecnológica, cultural y artística que se ha extendido por más de siete décadas. Desde sus primeros experimentos académicos hasta las complejas producciones actuales, los videojuegos han pasado de ser simples ejercicios de programación a convertirse en una de las industrias del entretenimiento más influyentes del siglo XXI \cite{ali_2021,Shinde_Quinny_2023}.
 
-\subsubsection{Tipologías educativas}
+Los primeros antecedentes se remontan a la década de 1950, cuando investigadores y programadores comenzaron a experimentar con los primeros ordenadores digitales. En 1952, A.S. Douglas desarrolló \textit{OXO}, una versión electrónica del tres en raya en el ordenador EDSAC de la Universidad de Cambridge. Pocos años después, en 1958, William Higinbotham creó \textit{Tennis for Two}, considerado uno de los primeros videojuegos interactivos, mientras que en 1962 Steve Russell y su equipo desarrollaron \textit{Spacewar!} en el MIT, sentando las bases de la jugabilidad moderna \cite{Shinde_Quinny_2023,rice_2022}.
 
-En el ámbito educativo, la tipología de videojuegos más destacada es el \textbf{videojuego serio} o \textit{serious game} \cite{EntrenaIngeniero}.  
-Estos juegos se distinguen por emplear la diversión como medio de formación, con objetivos específicos en áreas como la educación, la salud o la comunicación estratégica \cite{EntrenaIngeniero}.  
-La relevancia educativa de los \textit{serious games} radica en que su propósito trasciende el entretenimiento, integrando el aprendizaje significativo como objetivo central \cite{EntrenaIngeniero}.  
-En el contexto universitario, este tipo de juegos digitales ha adquirido un papel protagónico como recurso pedagógico \cite{SierraDaza2024Videojuegos}, ya que permiten simular escenarios complejos y realistas que favorecen la comprensión profunda de procesos y la resolución de problemas contextualizados \cite{SierraDaza2024Videojuegos}.
+Durante los años 70 se produce la primera gran expansión comercial. En 1972, con la salida de la consola \textit{Magnavox Odyssey}, se marca el inicio de la industria doméstica de videojuegos. Ese mismo año, Atari lanza \textit{Pong}, un título sencillo pero revolucionario que populariza los videojuegos en las salas recreativas y hogares. A finales de la década surgen las primeras empresas dedicadas exclusivamente al desarrollo de videojuegos, consolidando un nuevo mercado de entretenimiento digital \cite{Shinde_Quinny_2023,rice_2022}.
 
-\subsection{Aprendizaje Basado en Juegos (ABJ)}
+Los años 80 fueron una época de consolidación y diversificación. Aparecen títulos icónicos como \textit{Pac-Man} (1980), \textit{Donkey Kong} (1981) y \textit{Super Mario Bros.} (1985), que definen muchos de los géneros y mecánicas aún vigentes. Paralelamente, surgen consolas emblemáticas como la \textit{Nintendo Entertainment System} (NES) y la \textit{Sega Master System}, que impulsan el juego doméstico. Sin embargo, esta década también fue testigo de la primera gran crisis del sector en 1983, provocada por la saturación del mercado y la baja calidad de muchos títulos. Nintendo lograría recuperar la confianza del público con su modelo de control de calidad y franquicias exitosas \cite{Shinde_Quinny_2023,rice_2022}.
 
-El \textbf{Aprendizaje Basado en Juegos (ABJ)} o \textit{Game-Based Learning (GBL)} se define como la utilización, creación o adaptación de juegos —incluidos los videojuegos y aplicaciones con fines educativos— en el contexto del aula \cite{SierraDaza2024Videojuegos}.  
-Este enfoque se reconoce como un recurso que facilita el aprendizaje activo y significativo \cite{SierraDaza2024Videojuegos}.
+En los años 90, los videojuegos experimentaron una transformación tecnológica impulsada por la llegada de los gráficos en tres dimensiones (3D) y los sistemas de almacenamiento en CD-ROM \cite{Shinde_Quinny_2023}. Consolas como la \textit{PlayStation} de Sony y la \textit{Nintendo 64} ofrecieron experiencias más inmersivas y narrativas más elaboradas. Esta década consolidó géneros como el rol, la estrategia en tiempo real y los shooters en primera persona, con títulos como \textit{Final Fantasy VII}, \textit{StarCraft} o \textit{Doom}. También se expandió el mercado de los videojuegos para computadoras personales, dando lugar a una comunidad de jugadores más diversa y activa \cite{Shinde_Quinny_2023,rice_2022}.
 
-En la educación universitaria, el ABJ destaca por su capacidad para \textbf{fomentar el compromiso y la participación activa del estudiante} \cite{SierraDaza2024Videojuegos}. Numerosos estudios señalan una correlación positiva entre las actividades lúdicas y la adquisición de conocimientos \cite{SierraDaza2024Videojuegos}.  
-La efectividad del ABJ se sustenta en la integración de cinco elementos esenciales \cite{SierraDaza2024Videojuegos}:
+El cambio de milenio trajo consigo el auge de Internet y la conectividad en línea, transformando la forma de jugar y socializar. A inicios del siglo XXI surgen los primeros videojuegos multijugador masivos en línea (MMO), como \textit{World of Warcraft}, que crean comunidades virtuales a gran escala. Las consolas de sexta generación, como la \textit{PlayStation 2}, la \textit{Xbox} y la \textit{GameCube}, introdujeron gráficos más realistas, sonido envolvente y experiencias narrativas cinematográficas \cite{ali_2021,Shinde_Quinny_2023}.
 
-\begin{enumerate}
-    \item \textbf{Motivación:} el juego estimula la disposición y el interés por aprender.  
-    \item \textbf{Aprendizaje divertido:} el disfrute actúa como catalizador del aprendizaje.  
-    \item \textbf{Autonomía:} promueve la exploración y la toma de decisiones independientes.  
-    \item \textbf{Autenticidad:} propicia la conexión entre la experiencia lúdica y el aprendizaje significativo.  
-    \item \textbf{Aprendizaje experiencial:} el estudiante aprende \textbf{haciendo a través del juego}.
-\end{enumerate}
+En las décadas siguientes, la industria continuó expandiéndose con la llegada de nuevas plataformas y modelos de negocio. La aparición de los \textit{smartphones} popularizó los videojuegos móviles y el concepto de juego casual, mientras que el desarrollo de plataformas digitales como \textit{Steam}, \textit{PlayStation Network} y \textit{Xbox Live} cambió la distribución y el consumo de los videojuegos. A la par, la escena independiente (indie) adquirió protagonismo al ofrecer propuestas innovadoras y artísticas, demostrando que el medio podía ser también una forma de expresión cultural y social \cite{ali_2021,Shinde_Quinny_2023}.
 
-Es importante diferenciar el ABJ de la \textbf{gamificación} o \textit{ludificación}, entendida como la aplicación de elementos y dinámicas del diseño de juegos en contextos no lúdicos, como el educativo, con el objetivo de potenciar la motivación, el compromiso y la participación del estudiante \cite{OrtizColon2018Gamificacion, Gallego2002Panoramica, BeltranMorales2017Elearning}.
+En la actualidad, los videojuegos del siglo XXI integran tecnologías avanzadas como la realidad virtual (VR), la realidad aumentada (AR), la inteligencia artificial y el aprendizaje automático, que expanden sus posibilidades narrativas e interactivas. Además, han trascendido su función de entretenimiento para ocupar un papel relevante en la educación, la salud, la investigación y la formación profesional, consolidándose como un fenómeno cultural global y multidimensional.
+
+
+\subsection{Tipologías en los Videojuegos}
+
+Uno de los aspectos más relevantes al estudiar los videojuegos es su \textbf{taxonomía} o clasificación, ya que permite comprender su diversidad y las distintas formas en que los jugadores interactúan con ellos. Existen múltiples criterios de clasificación que delimitan su alcance y características.
+
+La forma más simple de clasificación es según el \textbf{hardware o plataforma} en la que se ejecutan, pudiendo ser videojuegos de consola, PC, dispositivos móviles, portátiles, entre otros \cite{herrero_taxonomivideojuegos_2015}. No obstante, esta tipología ha perdido valor en la actualidad, dado que muchos títulos se desarrollan de manera multiplataforma, disponibles simultáneamente en distintos dispositivos.
+
+Una clasificación más precisa y ampliamente utilizada es aquella que se basa en el \textbf{gameplay} o estilo de juego. La revisión de la literatura realizada por \cite{herrero_taxonomivideojuegos_2015} establece un resumen de los principales géneros generales en los videojuegos:
+
+\begin{itemize}
+    \item \textbf{Acción:} Videojuegos en los que la habilidad y los reflejos del jugador son esenciales para avanzar en combates, superar obstáculos o evitar peligros.
+    \item \textbf{Aventura:} Recrean una historia o trama extensa en la que el jugador debe superar diversas pruebas y desafíos para progresar hasta el desenlace narrativo.
+    \item \textbf{Simulación:} Títulos que reproducen contextos o situaciones reales de la forma más fiel posible, permitiendo al jugador experimentar escenarios objetivos.
+    \item \textbf{Deportes:} Videojuegos que emulan disciplinas deportivas como fútbol, golf o béisbol, siguiendo las reglas específicas de cada deporte.
+    \item \textbf{Conducción:} Basados en el control y manejo de vehículos, con el objetivo de completar circuitos, carreras o misiones concretas.
+    \item \textbf{Estrategia:} Se centran en la planificación, el control y la toma de decisiones en contextos económicos, militares o sociales para alcanzar determinados objetivos.
+    \item \textbf{Rol (RPG):} Inspirados en los juegos de mesa, el jugador asume el papel de un personaje que evoluciona y mejora sus habilidades dentro de un mundo interactivo o de fantasía.
+    \item \textbf{Shooter:} Basados en el uso de armas o proyectiles para eliminar oponentes o cumplir objetivos determinados.
+    \item \textbf{Arcade:} Incluyen los clásicos videojuegos de las máquinas recreativas, caracterizados por un ritmo rápido, dificultad creciente y jugabilidad sencilla.
+    \item \textbf{Casual:} Dirigidos a jugadores no habituales que buscan una distracción breve; se basan en reglas simples y requieren poca dedicación o compromiso.
+\end{itemize}
+
+Es importante señalar que los géneros de videojuegos no existen de manera aislada, sino que con frecuencia se combinan entre sí para dar lugar a experiencias híbridas y más complejas. Por ejemplo, títulos como \textit{The Elder Scrolls V: Skyrim} integran elementos de los géneros de rol, aventura y acción, mientras que sagas como \textit{Mass Effect} mezclan características propias de los videojuegos de acción, rol y shooter. Esta tendencia demuestra que, aunque las clasificaciones son útiles para el análisis, un videojuego raramente pertenece de forma exclusiva a un solo género \cite{Starosta_Kiszka_Szyszka_Starzec_Strojny_2024,grelier2023datadrivenclassificationsvideogame}.
+
+Asimismo, los géneros principales pueden subdividirse en una amplia variedad de \textbf{subgéneros}, que surgen de la evolución y especialización de las mecánicas de juego, las narrativas o los entornos. Estos subgéneros permiten identificar con mayor precisión las particularidades de cada título. Algunos de los más destacados son los siguientes \cite{arsenault_2009,Qaffas_2020}:
+
+\begin{itemize}
+    \item \textbf{JRPG (Japanese Role-Playing Game):} Subgénero del rol caracterizado por su origen japonés, tramas lineales y un fuerte énfasis en la narrativa y el desarrollo de personajes. Suelen incluir sistemas de combate por turnos y estilos visuales inspirados en el anime. Ejemplos representativos son \textit{Final Fantasy} y \textit{Persona}.
+    
+    \item \textbf{ARPG (Action Role-Playing Game):} Variante del rol en la que el combate se desarrolla en tiempo real, requiriendo habilidad y reflejos del jugador. Combina la progresión de personajes típica del RPG con la inmediatez de los juegos de acción. Ejemplos notables incluyen \textit{Dark Souls} y \textit{Diablo}.
+    
+    \item \textbf{MMO (Massively Multiplayer Online):} Subgénero centrado en la interacción entre un gran número de jugadores simultáneamente en un mundo virtual persistente. Favorece la cooperación, el comercio y la competencia entre usuarios. Ejemplos clásicos son \textit{World of Warcraft} y \textit{Final Fantasy XIV}.
+    
+    \item \textbf{Novela Visual:} Subgénero narrativo en el que la historia es el elemento central. Presenta un formato similar a una novela ilustrada, donde el jugador toma decisiones que afectan el desarrollo del relato. Es común en producciones japonesas como \textit{Clannad} o \textit{Steins;Gate}.
+    
+    \item \textbf{Sandbox o Mundo Abierto:} Videojuegos que ofrecen al jugador libertad para explorar y decidir su propio camino dentro de un entorno extenso y no lineal. Permiten múltiples formas de interacción y resolución de objetivos, como en \textit{Minecraft} o \textit{Grand Theft Auto V}.
+    
+    \item \textbf{Roguelike:} Subgénero caracterizado por niveles generados de manera procedimental, muerte permanente del personaje y un alto grado de dificultad. Ejemplos conocidos son \textit{Hades} y \textit{The Binding of Isaac}.
+    
+    \item \textbf{Battle Royale:} Subgénero de acción y shooter en el que numerosos jugadores compiten entre sí hasta que solo uno permanece con vida. Suele combinar exploración, supervivencia y estrategia. Ejemplos destacados son \textit{Fortnite} y \textit{PUBG}.
+    
+    \item \textbf{Metroidvania:} Subgénero de acción y aventura que combina exploración no lineal y progresión mediante adquisición de habilidades. Deriva de los clásicos \textit{Metroid} y \textit{Castlevania: Symphony of the Night}.
+    
+    \item \textbf{Survival Horror:} Subgénero enfocado en la tensión, la escasez de recursos y la atmósfera opresiva, con el objetivo de generar miedo o ansiedad en el jugador. Ejemplos reconocidos son \textit{Resident Evil} y \textit{Silent Hill}.
+    
+    \item \textbf{Plataformas:} Aunque tradicionalmente se considera un género, hoy se reconoce también como subgénero de acción, caracterizado por el desplazamiento del personaje a través de escenarios con obstáculos físicos. Ejemplos emblemáticos incluyen \textit{Super Mario Bros.} y \textit{Celeste}.
+\end{itemize}
+
+Finalmente, cabe destacar una clasificación complementaria que distingue entre los \textbf{videojuegos tradicionales} y los \textbf{serious games}. Los primeros tienen como finalidad principal el entretenimiento, mientras que los serious games combinan elementos lúdicos con fines educativos, de capacitación o sensibilización, enfatizando el aprendizaje y el desarrollo de habilidades específicas \cite{bontchev_serious_2015}.
+
+
+\subsection{Impacto cultural y social en el siglo XXI}
+Los videojuegos han trascendido su función inicial de entretenimiento para convertirse en un fenómeno cultural y social de gran relevancia en el mundo contemporáneo. Su influencia se manifiesta en múltiples contextos, desde la preservación del patrimonio cultural hasta la transformación de las interacciones humanas y la creación de nuevas formas de expresión artística. 
+
+Los videojuegos han demostrado ser un medio efectivo para la preservación y difusión del patrimonio cultural. Según \cite{bontchev_serious_2015}, los videojuegos integran arte, narrativa y tecnología digital para recrear tanto elementos tangibles como intangibles de la cultura, como monumentos históricos y tradiciones. Ejemplos como Assassin’s Creed II y Red Dead Redemption ilustran cómo los juegos comerciales pueden ofrecer representaciones detalladas de épocas históricas, fomentando el interés por la historia y la cultura en los jugadores \cite{bontchev_serious_2015}. Además, los serious games diseñados específicamente para fines educativos, como Roma Nova y Pompei: The Legend of Vesuvius, utilizan tecnologías de realidad virtual y aumentada para proporcionar experiencias inmersivas que facilitan el aprendizaje cultural \cite{bontchev_serious_2015}.
+
+Los videojuegos han redefinido las formas de interacción social, creando comunidades globales conectadas a través de plataformas en línea. Como señala \cite{horban_phenomenon_2019}, los juegos multijugador masivos en línea (MMORPG), como World of Warcraft, fomentan la colaboración y la formación de relaciones sociales duraderas. Estas comunidades no solo comparten experiencias de juego, sino que también desarrollan normas éticas y valores propios, como se observa en la ética de cooperación y reciprocidad que caracteriza a muchos jugadores \cite{horban_phenomenon_2019}.
+
+A pesar de su impacto positivo, los videojuegos también plantean desafíos sociales y culturales. La brecha entre los juegos comerciales y los serious games en términos de presupuesto y calidad técnica puede limitar el potencial educativo de estos últimos \cite{bontchev_serious_2015}. Además, la gamificación de diversas esferas
+de la vida, como la educación y el trabajo, requiere una reflexión crítica sobre sus implicaciones éticas y sociales \cite{de_carvalho_game-based_2022}. No obstante, como concluye \cite{horban_phenomenon_2019}, losvideojuegos representan un fenómeno cultural en constante evolución.
+
+% ---------------------------------------------
+
+\section{Videojuegos aplicados a la educación}
+
+En las últimas décadas, los videojuegos han dejado de ser considerados únicamente una forma de entretenimiento para convertirse en una herramienta con un potencial significativo en el ámbito educativo. Su capacidad para integrar elementos visuales, narrativos e interactivos les permite generar entornos de aprendizaje más atractivos, dinámicos y participativos, favoreciendo la motivación y el compromiso de los estudiantes \cite{ashinoff_potential_2014}.
+
+Los videojuegos aplicados a la educación, comúnmente conocidos como \textit{serious games} o juegos serios, se desarrollan con un propósito que trasciende la mera diversión. Estos videojuegos combinan las mecánicas propias del juego con objetivos formativos o de desarrollo de competencias, ofreciendo experiencias que permiten al usuario aprender mediante la acción, la experimentación y la toma de decisiones dentro de un entorno controlado \cite{padron_gonzalez_uso_2023}.
+
+El valor educativo de los videojuegos radica en su capacidad para simular situaciones complejas del mundo real de forma segura y accesible. A través de estos entornos virtuales, los estudiantes pueden enfrentarse a problemas, tomar decisiones, observar las consecuencias de sus acciones y reflexionar sobre los resultados. Este tipo de aprendizaje activo y contextual favorece el desarrollo de habilidades cognitivas, estratégicas y sociales, al mismo tiempo que refuerza conocimientos específicos del área de estudio \cite{ashinoff_potential_2014,padron_gonzalez_uso_2023}.
+
+Diversas áreas del conocimiento se han beneficiado de la aplicación de videojuegos educativos. En ciencias, por ejemplo, los juegos permiten visualizar fenómenos físicos o biológicos de difícil observación directa; en matemáticas, ayudan a desarrollar el razonamiento lógico y la resolución de problemas mediante desafíos interactivos \cite{ibrahim_students_2010,mathew_teaching_2019, leutenegger_games_nodate,silva_systematic_2020}; y en humanidades, favorecen la comprensión de contextos históricos, culturales o lingüísticos a través de la inmersión narrativa. Incluso en entornos profesionales y universitarios, los videojuegos se han utilizado para la capacitación en habilidades técnicas, toma de decisiones, gestión de recursos y liderazgo.
+
+Por otro lado, los videojuegos educativos también desempeñan un papel relevante en el desarrollo de habilidades transversales, como el trabajo en equipo, la comunicación, la empatía y el pensamiento crítico. Al fomentar la colaboración y la interacción social, contribuyen a la formación integral del estudiante y preparan para entornos laborales cada vez más digitalizados y colaborativos.
+
+\subsection{Videojuegos educativos para el aprendizaje de la programación}
+
+El aprendizaje de la programación ha sido históricamente un desafío tanto para estudiantes como para docentes, debido a la naturaleza abstracta de los conceptos que implica, como la lógica computacional, la resolución de problemas o la estructura de los algoritmos. En este contexto, los videojuegos educativos han emergido como una alternativa eficaz para hacer este proceso más accesible, dinámico y motivador \cite{ashinoff_potential_2014}. 
+
+Diversos estudios han demostrado que los videojuegos pueden funcionar como herramientas pedagógicas que promueven la participación activa del estudiante y estimulan la comprensión de conceptos complejos mediante la experimentación directa. Ibrahim et al. \cite{ibrahim_students_2010} señalan que los juegos educativos pueden aumentar significativamente la motivación y el interés de los estudiantes hacia la programación, al transformar el aprendizaje en una experiencia más interactiva y atractiva. En su investigación, los estudiantes manifestaron una actitud más positiva y un mayor compromiso al aprender a programar a través de entornos lúdicos, en comparación con los métodos tradicionales.
+
+Leutenegger y Edgington \cite{leutenegger_games_nodate} proponen un enfoque denominado \textit{Game First}, el cual plantea la enseñanza de los fundamentos de programación a partir del desarrollo de videojuegos. Este enfoque prioriza la creación de ejemplos prácticos y visualmente estimulantes, de modo que los errores y resultados del código se manifiesten de forma tangible dentro del juego, facilitando la comprensión conceptual. Los autores concluyen que el aprendizaje basado en videojuegos no solo incrementa la motivación, sino que también mejora la retención de conocimientos y la comprensión de los principios de la programación orientada a objetos.
+
+Por su parte, Mathew et al. \cite{mathew_teaching_2019} desarrollaron un videojuego educativo llamado \textit{PROSOLVE}, diseñado para fortalecer las habilidades de resolución de problemas en estudiantes novatos de programación. Los resultados mostraron mejoras sustanciales en la comprensión de estructuras lógicas, estrategias algorítmicas y pensamiento computacional, además de fomentar un mayor compromiso cognitivo y afectivo con el proceso de aprendizaje.
+
+A nivel más amplio, Silva y Silveira \cite{silva_systematic_2020} realizaron una revisión sistemática sobre los videojuegos educativos abiertos orientados a la enseñanza de la programación, concluyendo que, aunque el número de investigaciones en este campo aún es limitado, existe un consenso sobre el potencial de los videojuegos como medios de enseñanza efectivos. Los autores destacan la necesidad de promover el desarrollo de videojuegos educativos bajo principios de apertura y reutilización, lo cual permitiría su adaptación a diferentes contextos pedagógicos.
+
+Asimismo, Padrón González y Cordero Delgado \cite{padron_gonzalez_uso_2023} señalan que los videojuegos educativos, cuando se emplean de manera equilibrada, pueden potenciar el aprendizaje activo y mejorar la asimilación de contenidos en diversas áreas del conocimiento, incluyendo la informática. Sin embargo, advierten que su implementación debe estar acompañada de una adecuada planificación didáctica para evitar el uso excesivo o distractor.
+
+En conjunto, estas investigaciones evidencian que los videojuegos educativos constituyen una herramienta valiosa para la enseñanza de la programación, al integrar de manera efectiva el componente lúdico con los objetivos de aprendizaje. Su capacidad para promover la motivación, la comprensión conceptual y el pensamiento crítico los convierte en un recurso pedagógico relevante en el contexto educativo contemporáneo.
 
 \subsection{Beneficios y desafíos del uso de videojuegos en educación}
 
-El empleo de videojuegos con fines educativos ha sido ampliamente estudiado, revelando beneficios notables para el proceso de enseñanza-aprendizaje, aunque también presenta desafíos pedagógicos, técnicos y logísticos.
+El uso de videojuegos con fines educativos ha sido ampliamente estudiado en los últimos años, demostrando su capacidad para transformar la enseñanza tradicional en una experiencia más participativa y significativa. Sin embargo, su integración en los entornos académicos no está exenta de desafíos pedagógicos, técnicos y metodológicos.
 
-\subsubsection{Beneficios educativos}
+Diversas investigaciones coinciden en que los videojuegos pueden mejorar la motivación, la retención del conocimiento y la satisfacción de los estudiantes durante el proceso de aprendizaje \cite{gallego_panoramica_nodate, barban_entrenaingeniero_2020, padron_gonzalez_uso_2023}.  
+Su naturaleza interactiva y su capacidad para involucrar emocionalmente al jugador convierten el aprendizaje en una experiencia activa, inmersiva y enriquecedora \cite{padron_gonzalez_uso_2023}. 
 
-Diversas investigaciones coinciden en que los videojuegos incrementan la satisfacción, la motivación y la retención del conocimiento \cite{Gallego2002Panoramica, EntrenaIngeniero, PadronGonzalez2023ElUso}.  
-Su carácter interactivo convierte el aprendizaje en una experiencia activa, inmersiva y enriquecedora \cite{PadronGonzalez2023ElUso}.  
-Entre los principales beneficios destacan:
-
-\begin{itemize}
-    \item \textbf{Aumento de la motivación y el compromiso:} los videojuegos captan la atención del estudiante y fomentan la participación sostenida \cite{Gallego2002Panoramica, PadronGonzalez2023ElUso, SierraDaza2024Videojuegos}. La motivación, motor esencial del aprendizaje, se ve reforzada por la sensación de progreso y logro.
-    \item \textbf{Aprendizaje activo y experiencial:} los estudiantes aprenden experimentando, probando y reflexionando sobre sus acciones, lo que favorece la asimilación de conceptos y el desarrollo de habilidades cognitivas \cite{Gallego2002Panoramica, SmithBasak2023Meta}.  
-    \item \textbf{Retroalimentación inmediata y reducción del miedo al error:} los videojuegos permiten equivocarse sin consecuencias negativas y ofrecen una respuesta instantánea tras cada acción, promoviendo el aprendizaje por ensayo y error \cite{Gallego2002Panoramica, TheRoleofPerceivedRelevance2018}.
-    \item \textbf{Desarrollo de habilidades transversales:} potencian competencias como la resolución de problemas, la toma de decisiones, la creatividad y el trabajo colaborativo \cite{SierraDaza2024Videojuegos, PadronGonzalez2023ElUso}.  
-    \item \textbf{Adquisición de conocimiento específico:} en el contexto universitario, la mayoría de los estudios reportan que los videojuegos contribuyen significativamente a la adquisición y comprensión de contenidos disciplinares \cite{SierraDaza2024Videojuegos}.  
-    \item \textbf{Inmersión y autonomía:} generan una implicación total del estudiante en la actividad y fortalecen su sentido de control sobre el proceso de aprendizaje \cite{Gallego2002Panoramica, EntrenaIngeniero}.
-\end{itemize}
-
-\subsubsection{Desafíos y problemáticas}
-
-A pesar de los beneficios señalados, la integración de videojuegos en los entornos educativos implica superar diversos desafíos \cite{PadronGonzalez2023ElUso}:
+Entre los principales beneficios identificados se encuentran:
 
 \begin{itemize}
-    \item \textbf{Uso excesivo y distracción:} es necesario regular el tiempo de exposición y evitar la dependencia o la pérdida de concentración en los objetivos educativos \cite{PadronGonzalez2023ElUso}.  
-    \item \textbf{Equilibrio y supervisión docente:} los videojuegos deben emplearse como complemento pedagógico, bajo una planificación y guía adecuadas \cite{PadronGonzalez2023ElUso}.  
-    \item \textbf{Inversión y diseño específico:} el desarrollo de videojuegos educativos requiere recursos, tiempo y un diseño pedagógico coherente con los objetivos formativos \cite{Gallego2002Panoramica, EntrenaIngeniero}.  
-    \item \textbf{Infraestructura y acceso:} las limitaciones tecnológicas y de conectividad pueden restringir su implementación en algunos contextos educativos \cite{PadronGonzalez2023ElUso}.  
-    \item \textbf{Formación docente y resistencia al cambio:} la integración efectiva requiere capacitación del profesorado y superación de prejuicios hacia los videojuegos como herramientas de aprendizaje \cite{PadronGonzalez2023ElUso}.  
-    \item \textbf{Evaluación del desempeño:} medir el impacto educativo de los videojuegos sigue siendo un desafío, especialmente cuando no fueron diseñados con fines pedagógicos específicos \cite{PadronGonzalez2023ElUso}.
+    \item \textbf{Aumento de la motivación y el compromiso:} los videojuegos captan la atención del estudiante y fomentan una participación constante, reforzando la motivación intrínseca a través de metas, logros y recompensas \cite{gallego_panoramica_nodate, padron_gonzalez_uso_2023, sierra-daza_videojuegos_2024}.
+    \item \textbf{Aprendizaje activo y experiencial:} el jugador aprende mediante la exploración, la experimentación y la resolución de problemas, lo que favorece una comprensión más profunda de los conceptos \cite{gallego_panoramica_nodate, smith_game-factors_2023}.  
+    \item \textbf{Retroalimentación inmediata y tolerancia al error:} los videojuegos permiten equivocarse sin consecuencias negativas, ofreciendo respuestas instantáneas que promueven el aprendizaje por ensayo y error \cite{gallego_panoramica_nodate}.
+    \item \textbf{Desarrollo de habilidades transversales:} potencian la resolución de problemas, la toma de decisiones, la creatividad y el trabajo colaborativo \cite{sierra-daza_videojuegos_2024, padron_gonzalez_uso_2023}.  
+    \item \textbf{Adquisición de conocimientos disciplinares:} en el contexto universitario, se ha observado que los videojuegos contribuyen significativamente a la comprensión y aplicación de contenidos especializados \cite{sierra-daza_videojuegos_2024}.  
+    \item \textbf{Inmersión y autonomía:} promueven un alto nivel de implicación emocional y cognitiva, fortaleciendo el sentido de control y responsabilidad del estudiante sobre su propio aprendizaje \cite{gallego_panoramica_nodate, barban_entrenaingeniero_2020}.
 \end{itemize}
 
-Para aprovechar plenamente su potencial, se requiere una metodología teórico-práctica cuidadosamente planificada, que equilibre la dimensión lúdica y la pedagógica, garantizando así su eficacia en los procesos de enseñanza-aprendizaje \cite{PadronGonzalez2023ElUso}.
+No obstante, junto a sus beneficios, la implementación de videojuegos en la educación presenta una serie de desafíos que deben ser atendidos para garantizar su efectividad \cite{gallego_panoramica_nodate, barban_entrenaingeniero_2020}:
 
-\noindent
-Tras comprender el papel de los videojuegos como medio cultural, narrativo y pedagógico, es necesario profundizar en una de las estrategias que ha tomado mayor relevancia en la última década: la \textbf{gamificación}.  
-Si bien los videojuegos educativos y el Aprendizaje Basado en Juegos (ABJ) se centran en el uso directo de juegos para promover la adquisición de conocimientos, la gamificación trasciende este enfoque al incorporar las dinámicas, mecánicas y elementos propios del juego en entornos que no son lúdicos por naturaleza.  
+\begin{itemize}
+    \item \textbf{Uso excesivo y distracción:} es fundamental controlar el tiempo de exposición y mantener el foco en los objetivos pedagógicos, evitando la dependencia o el uso recreativo sin propósito educativo.  
+    \item \textbf{Equilibrio y acompañamiento docente:} los videojuegos deben integrarse dentro de una planificación pedagógica coherente, con la orientación adecuada del profesorado.  
+    \item \textbf{Inversión y diseño especializado:} su desarrollo demanda recursos, tiempo y una alineación clara con los resultados de aprendizaje esperados.  
+    \item \textbf{Limitaciones tecnológicas y de acceso:} la falta de infraestructura o conectividad puede dificultar su adopción en ciertos contextos educativos.  
+    \item \textbf{Formación docente y resistencia al cambio:} la incorporación efectiva requiere capacitación y una disposición positiva hacia las nuevas metodologías.  
+    \item \textbf{Evaluación del aprendizaje:} sigue siendo complejo medir el impacto educativo de los videojuegos, especialmente cuando no fueron diseñados con un propósito pedagógico explícito.
+\end{itemize}
 
-En otras palabras, mientras los videojuegos buscan enseñar \textit{a través del juego}, la gamificación busca enseñar \textit{como si fuera un juego}.  
-Esta distinción marca un cambio de paradigma dentro de la educación moderna, al pasar de la simple utilización del juego como herramienta didáctica a la integración de sus principios estructurales en el diseño de experiencias de aprendizaje.  
+A fin de aprovechar plenamente su potencial, es necesario adoptar una metodología cuidadosamente planificada que combine la dimensión lúdica con los objetivos educativos, promoviendo un equilibrio entre la diversión, la reflexión y el aprendizaje significativo \cite{padron_gonzalez_uso_2023}.  
 
-A continuación, se explora el concepto de gamificación desde una perspectiva teórica y pedagógica, abordando sus definiciones, elementos constitutivos, teorías de respaldo y evidencia empírica de su efectividad en contextos educativos.
+Una vez comprendidos los beneficios y limitaciones del uso de videojuegos en los procesos de enseñanza-aprendizaje, resulta pertinente explorar una estrategia que ha cobrado especial relevancia en los últimos años: la \textbf{gamificación}.  
+
+Esta propuesta retoma los principios y dinámicas del juego, pero los aplica a contextos que no son lúdicos por naturaleza, con el propósito de incrementar la motivación y el compromiso del estudiante.  
+Así, la transición desde el uso directo de videojuegos hacia la aplicación de sus mecánicas en entornos educativos marca un paso decisivo en la evolución de las metodologías de enseñanza contemporáneas.
 
 % ---------------------------------------------
 
 \section{Gamificación}
 
-La \textbf{gamificación} ha emergido en los últimos años como una de las estrategias más prometedoras dentro de la innovación educativa, impulsada por el desarrollo de las Tecnologías de la Información y la Comunicación (TIC) y por la necesidad de adaptar los procesos de enseñanza-aprendizaje a las nuevas generaciones digitales \cite{OrtizColon2018Gamificacion, Gallego2002Panoramica, Impact of Gamification on Motivation and Academic, BeltranMorales2017Elearning}.  
+La \textbf{gamificación} ha emergido en los últimos años como una de las estrategias más prometedoras dentro de la innovación educativa, impulsada por el desarrollo de las Tecnologías de la Información y la Comunicación (TIC) y por la necesidad de adaptar los procesos de enseñanza-aprendizaje a las nuevas generaciones digitales \cite{ortiz-colon_gamificacion_2018, gallego_panoramica_nodate, jaramillo-mediavilla_impact_2024}.  
 Esta metodología busca integrar en entornos no lúdicos los principios, dinámicas y elementos propios de los juegos, con el propósito de potenciar la motivación, el compromiso y el rendimiento de los estudiantes.
 
-\subsection{Definición y diferencias con el Aprendizaje Basado en Juegos}
+El término \textbf{gamificación} (también denominado ludificación) se define como el uso de mecánicas y dinámicas de juego en contextos no lúdicos \cite{ortiz-colon_gamificacion_2018}, con el fin de promover la motivación, la concentración, el esfuerzo y la fidelización.  
+En esencia, consiste en trasladar la lógica de los juegos a ámbitos como la educación, la empresa o la salud, aprovechando la predisposición natural de las personas a participar, competir y superar retos \cite{gallego_panoramica_nodate}.
 
-El término \textbf{gamificación} (también denominado \textit{ludificación}) se define como el \textit{uso de mecánicas y dinámicas de juego en contextos no lúdicos} \cite{BeltranMorales2017Elearning, OrtizColon2018Gamificacion}, con el fin de promover la motivación, la concentración, el esfuerzo y la fidelización \cite{BeltranMorales2017Elearning}.  
-En esencia, consiste en trasladar la lógica de los juegos a ámbitos como la educación, la empresa o la salud, aprovechando la predisposición natural de las personas a participar, competir y superar retos \cite{Gallego2002Panoramica}.
-
-Desde una perspectiva más amplia, la gamificación puede entenderse como la \textbf{aplicación del pensamiento del jugador y de técnicas de diseño de juegos} para atraer a los usuarios, fomentar su participación y resolver problemas de manera creativa \cite{BeltranMorales2017Elearning, A_Systematic_Review_of_Gamification_Research}.  
+Desde una perspectiva más amplia, la gamificación puede entenderse como la aplicación del pensamiento del jugador y de técnicas de diseño de juegos para atraer a los usuarios, fomentar su participación y resolver problemas de manera creativa \cite{jaramillo-mediavilla_impact_2024}.  
 Su finalidad no es convertir el aprendizaje en un juego, sino incorporar sus principios psicológicos —progreso, recompensa, autonomía y reto— para fortalecer el proceso educativo.
 
-\subsubsection{Diferencias con el Aprendizaje Basado en Juegos (ABJ)}
+\subsection{Elementos de la gamificación}
 
-Es importante distinguir la gamificación del \textbf{Aprendizaje Basado en Juegos (ABJ)} y de los videojuegos educativos.  
-Mientras el ABJ emplea juegos completos como herramienta de enseñanza, la gamificación extrae solo ciertos elementos del diseño de juegos para integrarlos en un contexto no lúdico \cite{SierraDaza2024Videojuegos, BeltranMorales2017Elearning, OrtizColon2018Gamificacion}.  
-
-Las diferencias principales se resumen así:
-
-\begin{enumerate}
-    \item \textbf{Contexto de aplicación:} El ABJ utiliza juegos (digitales o analógicos) como medio de aprendizaje, mientras que la gamificación incorpora mecánicas de juego en actividades cotidianas o académicas \cite{BeltranMorales2017Elearning}.  
-    \item \textbf{Objetivo principal:} En los videojuegos el fin es el entretenimiento; en la gamificación, el objetivo es \textbf{modificar actitudes y fomentar la motivación y el compromiso} \cite{BeltranMorales2017Elearning}.  
-    \item \textbf{Integración curricular:} Los juegos educativos buscan enseñar contenidos específicos; la gamificación, en cambio, puede aplicarse de forma transversal para fortalecer la implicación del estudiante y su aprendizaje autónomo \cite{BeltranMorales2017Elearning}.
-\end{enumerate}
-
-\subsection{Elementos comunes de la gamificación: PBL, progresión y narrativa}
-
-Los fundamentos de la gamificación se estructuran en tres niveles jerárquicos —\textbf{Dinámicas}, \textbf{Mecánicas} y \textbf{Componentes}— propuestos por Werbach y Hunter (2012) \cite{OrtizColon2018Gamificacion, BeltranMorales2017Elearning}.  
-Estos niveles permiten comprender cómo se construyen las experiencias gamificadas:
+Los fundamentos de la gamificación se estructuran en tres niveles jerárquicos —\textbf{Dinámicas}, \textbf{Mecánicas} y \textbf{Componentes}— propuestos por Werbach y Hunter (2012) \cite{ortiz-colon_gamificacion_2018, morales_elearning_nod}.  
+Estos niveles permiten comprender cómo se construyen las experiencias gamificadas y cómo cada elemento contribuye al compromiso, la motivación y el aprendizaje del usuario.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|p{3cm}|p{7cm}|p{4cm}|}
 \hline
 \textbf{Categoría} & \textbf{Descripción} & \textbf{Ejemplos en educación} \\ \hline
-\textbf{Dinámicas} & Aspectos abstractos que responden a deseos humanos: logro, pertenencia o autonomía. & Narrativa, progresión, emociones, interacción social, restricciones \cite{OrtizColon2018Gamificacion, BeltranMorales2017Elearning}. \\ \hline
-\textbf{Mecánicas} & Procesos que impulsan la acción y estructuran la experiencia del jugador. & Retos, recompensas, competencia, cooperación, retroalimentación \cite{OrtizColon2018Gamificacion}. \\ \hline
-\textbf{Componentes} & Implementaciones visibles de las mecánicas y dinámicas. & Puntos, niveles, insignias, rankings, avatares, barras de progreso \cite{OrtizColon2018Gamificacion, BeltranMorales2017Elearning}. \\ \hline
+\textbf{Dinámicas} & Son los elementos más abstractos de la gamificación, relacionados con las necesidades, deseos y emociones humanas que sustentan la experiencia. Representan las motivaciones profundas que impulsan la participación del usuario. & Narrativa, progresión, autonomía, sentido de pertenencia, curiosidad, altruismo, restricción temporal. \\ \hline
+\textbf{Mecánicas} & Constituyen los procesos y reglas que traducen las dinámicas en acciones concretas. Estructuran la experiencia de juego al definir cómo interactúan los participantes con el sistema. & Retos, recompensas, cooperación, competencia, retroalimentación, coleccionismo, exploración. \\ \hline
+\textbf{Componentes} & Son las manifestaciones visibles y tangibles de las mecánicas y dinámicas. Representan los elementos concretos con los que el usuario interactúa directamente. & Puntos, niveles, insignias, rankings, avatares, misiones, barras de progreso, logros. \\ \hline
 \end{tabular}
 \caption{Categorías principales de la gamificación. Fuente: Adaptado de Werbach y Hunter (2012).}
 \end{table}
 
-Entre los elementos más comunes, los \textbf{niveles} y \textbf{puntos} son los más empleados, seguidos por las \textbf{insignias} y las \textbf{tablas de clasificación} \cite{2106.09942v1}.  
-Otros componentes clave incluyen la \textbf{retroalimentación}, las \textbf{metas}, la \textbf{narrativa} y las \textbf{barras de progreso}, los cuales favorecen el sentido de avance y pertenencia dentro de la experiencia gamificada.
+El diseño de experiencias gamificadas efectivas depende del equilibrio entre estos tres niveles. Las dinámicas establecen la motivación subyacente; las mecánicas definen las reglas y la estructura del desafío; y los componentes proporcionan las herramientas visuales y simbólicas que refuerzan la sensación de logro y avance \cite{puritat_enhanced_2019}.
 
-\subsubsection{Progresión y narrativa}
+Entre los elementos más comunes, los niveles y puntos suelen emplearse para medir el progreso del estudiante y ofrecer recompensas inmediatas, mientras que las insignias y las tablas de clasificación fomentan la competencia y el reconocimiento social \cite{puritat_enhanced_2019}.  
+Otros componentes clave incluyen la retroalimentación inmediata, las metas claras, la narrativa inmersiva y las barras de progreso, todos ellos diseñados para mantener la atención y proporcionar una sensación continua de crecimiento \cite{puritat_enhanced_2019}.
 
-La \textbf{progresión} constituye una dinámica esencial, pues permite mantener el interés del estudiante al ofrecer un sentido claro de avance y superación \cite{BeltranMorales2017Elearning}.  
-Los \textbf{niveles} simbolizan el crecimiento del jugador, mientras que la \textbf{narrativa} proporciona el contexto que convierte el aprendizaje en una experiencia significativa, otorgando al estudiante el rol de protagonista dentro de una historia \cite{OrtizColon2018Gamificacion, BeltranMorales2017Elearning}.
+La progresión constituye una de las dinámicas más esenciales, pues mantiene el interés del participante al ofrecer un sentido tangible de avance y superación. Los niveles reflejan el dominio alcanzado, mientras que la narrativa otorga coherencia al proceso, convirtiendo cada actividad en parte de una historia más amplia en la que el estudiante asume el rol de protagonista \cite{ortiz-colon_gamificacion_2018, puritat_enhanced_2019}.  
 
-\subsection{La motivación como eje de la gamificación}
+Este enfoque no solo favorece la motivación, sino que también refuerza la conexión emocional con el aprendizaje, generando un entorno donde el progreso se percibe como un logro personal.
 
-La motivación constituye el núcleo conceptual de la gamificación \cite{OrtizColon2018Gamificacion, A_Systematic_Review_of_Gamification_Research, Impact of Gamification on Motivation and Academic}.  
-Motivar implica despertar el interés y la energía interna del estudiante hacia una actividad, manteniendo su compromiso y esfuerzo sostenido \cite{OrtizColon2018Gamificacion}.  
+En conjunto, las dinámicas, mecánicas y componentes conforman el núcleo del diseño gamificado. Comprender su interacción permite a los educadores desarrollar entornos de aprendizaje más atractivos, en los que la motivación, la autonomía y el sentido de logro se integran como pilares del proceso educativo.
 
-La literatura distingue dos tipos principales de motivación \cite{OrtizColon2018Gamificacion}:
+\subsection{Motivación en la gamificación}
 
-\begin{itemize}
-    \item \textbf{Motivación extrínseca:} Proviene de recompensas externas, como calificaciones, insignias o reconocimientos \cite{BeltranMorales2017Elearning}.  
-    \item \textbf{Motivación intrínseca:} Surge del interés personal y del placer de realizar la actividad por sí misma \cite{OrtizColon2018Gamificacion}.  
-\end{itemize}
+La motivación constituye el núcleo conceptual de la gamificación y es el principal motor que impulsa la participación y el aprendizaje activo \cite{ortiz-colon_gamificacion_2018, jaramillo-mediavilla_impact_2024}.  
+Motivar no solo implica captar la atención del estudiante, sino también mantener su interés, compromiso y esfuerzo sostenido a lo largo de la actividad, generando una experiencia de aprendizaje significativa \cite{ortiz-colon_gamificacion_2018}.
 
-El objetivo de una experiencia gamificada eficaz es \textbf{transformar la motivación extrínseca en intrínseca}, logrando que el estudiante aprenda por satisfacción personal y no solo por recompensa \cite{SanchezPacheco2020Enfoque}.  
-La \textbf{autonomía} en la toma de decisiones y la percepción de competencia son factores clave para este cambio \cite{Gallego2002Panoramica}.
-
-Entre las teorías que sustentan el estudio de la motivación destacan:
+En la literatura se distinguen dos tipos principales de motivación \cite{ortiz-colon_gamificacion_2018,morales_elearning_noda, puritat_enhanced_2019}:
 
 \begin{itemize}
-    \item \textbf{Teoría de la Autodeterminación (Self-Determination Theory, SDT):} Explica cómo la gamificación puede potenciar la motivación intrínseca al satisfacer las necesidades psicológicas básicas de autonomía, competencia y relación social \cite{A_Systematic_Review_of_Gamification_Research, Impact of Gamification on Motivation and Academic}.  
-    \item \textbf{Teoría del Flujo (Flow Theory):} Describe el estado de concentración total e inmersión que experimenta una persona al realizar una tarea desafiante y significativa. Una gamificación bien diseñada busca inducir este estado para mejorar el aprendizaje y el rendimiento \cite{OrtizColon2018Gamificacion}.  
+    \item \textbf{Motivación extrínseca:} Se origina en recompensas externas al estudiante, tales como calificaciones, insignias, reconocimientos o avances visibles en un sistema de niveles. Este tipo de motivación es útil para iniciar la participación y establecer hábitos de aprendizaje, aunque por sí sola no garantiza un compromiso duradero.  
+    \item \textbf{Motivación intrínseca:} Surge del interés personal, la curiosidad y la satisfacción de realizar una actividad por el placer de aprender o por el desafío que representa. La motivación intrínseca es más sostenible y está asociada a un aprendizaje profundo y significativo \cite{ortiz-colon_gamificacion_2018}.  
 \end{itemize}
+
+Un objetivo central de la gamificación educativa es fomentar la transición de la motivación extrínseca hacia la intrínseca, de modo que los estudiantes no solo actúen por recompensas externas, sino que encuentren valor y disfrute en el propio proceso de aprendizaje \cite{sanchez-pacheco_enfoque_2020}.  
+Elementos como la autonomía en la toma de decisiones, la percepción de competencia y la relevancia del contenido son determinantes para favorecer esta transformación \cite{gallego_panoramica_nodate}.  
+
+Asimismo, la motivación puede reforzarse mediante la combinación de dinámicas, mecánicas y componentes gamificados. Por ejemplo, los desafíos progresivos, la retroalimentación inmediata, las metas claras y la narrativa inmersiva potencian la sensación de logro, dominio y pertenencia, consolidando la motivación intrínseca.  
+La integración estratégica de estos elementos permite diseñar experiencias educativas que no solo retienen la atención del estudiante, sino que también promueven la iniciativa, la creatividad y la autoeficacia, estableciendo un ciclo positivo de aprendizaje continuo.
+
 
 \subsection{Evidencia de efectividad en contextos educativos}
 
-La investigación reciente confirma la eficacia de la gamificación en el ámbito educativo. Se estima que el 45,19\% de los estudios revisados se centran en aplicaciones de gamificación en educación \cite{A_Systematic_Review_of_Gamification_Research, Impact of Gamification on Motivation and Academic}.  
+La investigación reciente confirma la eficacia de la gamificación en el ámbito educativo. Se estima que el 45,19\% de los estudios revisados se centran en aplicaciones de gamificación en educación \cite{jaramillo-mediavilla_impact_2024}.  
 
-\subsubsection{Beneficios comprobados}
 
-Los resultados más recurrentes señalan \textbf{incrementos significativos en la motivación, el compromiso y el rendimiento académico} \cite{Impact of Gamification on Motivation and Academic, OrtizColon2018Gamificacion, SierraDaza2024Videojuegos}.  
-También se destaca el desarrollo de habilidades cognitivas y sociales, la reducción del miedo al error gracias a la retroalimentación inmediata, y el fortalecimiento de la autonomía del estudiante \cite{BeltranMorales2017Elearning, Gallego2002Panoramica}.
+Los resultados más recurrentes señalan \textbf{incrementos significativos en la motivación, el compromiso y el rendimiento académico} \cite{jajaramillo-mediavilla_impact_2024 ortiz-colon_gamificacion_2018, sierra-daza_videojuegos_2024}.  
+También se destaca el desarrollo de habilidades cognitivas y sociales, la reducción del miedo al error gracias a la retroalimentación inmediata, y el fortalecimiento de la autonomía del estudiante \cite{gallego_panoramica_nodate}.
 
-\subsubsection{Desafíos y consideraciones}
 
-Pese a sus beneficios, la gamificación presenta riesgos si se aplica de manera superficial. Un diseño deficiente puede reducir su impacto o generar dependencia de recompensas extrínsecas \cite{SanchezPacheco2020Enfoque}.  
-Por ello, se recomienda que la experiencia gamificada mantenga un equilibrio entre \textbf{recompensa, reto y autonomía}, adaptando la dificultad de las tareas al nivel de competencia del estudiante \cite{BeltranMorales2017Elearning}.
+Pese a sus beneficios, la gamificación presenta riesgos si se aplica de manera superficial. Un diseño deficiente puede reducir su impacto o generar dependencia de recompensas extrínsecas \cite{sanchez-pacheco_enfoque_2020}.  
+Por ello, se recomienda que la experiencia gamificada mantenga un equilibrio entre \textbf{recompensa, reto y autonomía}, adaptando la dificultad de las tareas al nivel de competencia del estudiante \cite{morales_e-learning_nodate}.
 
-\subsection{Categorías y marcos de diseño de la gamificación}
+\subsection{Emociones y engagement en la gamificación}
 
-El diseño de experiencias gamificadas requiere planificación estratégica y coherencia pedagógica \cite{OrtizColon2018Gamificacion}.  
-Entre los marcos teóricos más relevantes destacan:
+Las emociones desempeñan un papel central en la experiencia de aprendizaje gamificada, actuando como catalizadoras del compromiso y la participación del estudiante \cite{morales_elearning_noda, jaramillo-mediavilla_2024}.  
+El engagement, entendido como la implicación activa, sostenida y emocional del estudiante con la actividad, se ve reforzado cuando la gamificación logra generar experiencias significativas y emocionalmente atractivas \cite{puritat_enhanced_2019}.
 
-\begin{itemize}
-    \item \textbf{Framework MDA (Mecánicas, Dinámicas y Estéticas):} Permite analizar cómo los diferentes elementos de diseño contribuyen a las respuestas emocionales y cognitivas del jugador \cite{A_Systematic_Review_of_Gamification_Research}.  
-    \item \textbf{Modelo D6 (Werbach):} Propone seis pasos para diseñar estrategias gamificadas: definir objetivos, identificar conductas deseadas, perfilar jugadores, estructurar bucles de compromiso, incorporar diversión y seleccionar las herramientas adecuadas \cite{BeltranMorales2017Elearning}.  
-\end{itemize}
+El diseño de experiencias gamificadas debe considerar cómo los elementos de juego —como los retos, las recompensas, la narrativa y la retroalimentación inmediata— influyen directamente en las emociones del estudiante \cite{morales_elearning_noda}. Por ejemplo, los desafíos bien calibrados generan una combinación de tensión y logro que motiva a continuar aprendiendo, mientras que la narrativa y el contexto inmersivo fomentan la identificación con los objetivos de aprendizaje y el sentido de pertenencia.  
 
-Finalmente, algunos autores proponen considerar la gamificación como una \textbf{nueva teoría del aprendizaje}, ya que integra principios motivacionales, cognitivos y conductuales que complementan las teorías tradicionales del aprendizaje \cite{SanchezPacheco2020Enfoque}.
+El engagement no se limita únicamente a la motivación cognitiva, sino que integra también la dimensión afectiva y social del aprendizaje. La interacción con compañeros mediante dinámicas cooperativas o competitivas, así como la visibilidad de logros en tablas de clasificación y sistemas de recompensas, refuerza la sensación de progreso y contribuye a consolidar hábitos de aprendizaje sostenidos \cite{jaramillo-mediavilla_2024}.  
 
+Asimismo, la percepción de autonomía y competencia permite que los estudiantes experimenten un control sobre su aprendizaje, lo que intensifica la implicación emocional y la disposición a enfrentar nuevos desafíos. De este modo, las emociones positivas, como la satisfacción, la sorpresa o el orgullo por los logros alcanzados, actúan como motores que alimentan la motivación intrínseca y facilitan un aprendizaje más profundo \cite{sanchez-pacheco_enfoque_2020}.
+
+Algunos autores proponen considerar la gamificación como una \textbf{nueva teoría del aprendizaje}, ya que integra principios motivacionales, cognitivos y conductuales que complementan las teorías tradicionales del aprendizaje \cite{sanchez-pacheco_enfoque_2020}.
 
 % ----------------------------------------------
 
 \section{Aprendizaje Adaptativo y Personalización}
+
 \subsection{Definición de aprendizaje adaptativo}
+
+El aprendizaje adaptativo se fundamenta en la capacidad de los sistemas educativos digitales para ajustar el proceso de enseñanza en función de las características, necesidades y ritmo de cada estudiante.  
+A diferencia de los modelos tradicionales, en los que todos los alumnos siguen una misma secuencia de contenidos, el aprendizaje adaptativo utiliza algoritmos, análisis de datos y reglas pedagógicas para ofrecer experiencias personalizadas que se ajustan dinámicamente al progreso individual.  
+
+De acuerdo con Leguisamo et al. \cite{Leguisamo2025Personalization}, los modelos adaptativos en la educación digital representan un avance sustancial en la comprensión del aprendizaje como proceso dinámico y centrado en el estudiante, donde la tecnología actúa como mediadora para ajustar los contenidos y estrategias de enseñanza.  
+En este sentido, el sistema no solo reacciona al desempeño del estudiante, sino que también es capaz de anticipar sus posibles dificultades, identificar patrones de error y modificar la complejidad de los ejercicios, el tipo de retroalimentación o incluso la modalidad de interacción más apropiada.  
+
+El objetivo principal de este enfoque es optimizar la comprensión, mantener la motivación y mejorar los resultados académicos a través de una instrucción más precisa, flexible y centrada en el estudiante.  
+Según Peng et al. \cite{Peng2019PersonalizedAdaptive}, el aprendizaje adaptativo busca equilibrar las dimensiones tecnológicas y pedagógicas, ajustando el entorno educativo para crear experiencias de aprendizaje personalizadas que promuevan el progreso continuo y sostenido.  
+
+La adaptación puede manifestarse en distintos niveles, desde la presentación de contenidos diferenciados hasta la modificación de la estructura narrativa o las estrategias de evaluación.  
+En su nivel más básico, un entorno adaptativo puede ajustar la secuencia de temas en función del desempeño previo. En niveles más avanzados, estos sistemas integran modelos cognitivos y emocionales del estudiante, adaptando el entorno de aprendizaje a su perfil individual, sus objetivos personales y su estado motivacional \cite{ElSabagh2021AdaptiveElearning}.  
+
+El aprendizaje adaptativo encuentra su fundamento en la idea de que cada estudiante posee un ritmo y estilo de aprendizaje únicos, por lo que la personalización no es un lujo, sino una necesidad pedagógica.  
+De esta forma, los sistemas adaptativos buscan replicar —e incluso ampliar— la función del docente que observa, evalúa y ajusta su enseñanza en tiempo real según las respuestas del estudiante, pero apoyándose en capacidades tecnológicas que permiten una escala y precisión mucho mayores.  
+
+En el contexto educativo contemporáneo, esta aproximación se ha potenciado con el uso de tecnologías emergentes como la inteligencia artificial (IA) y el análisis del aprendizaje (\textit{learning analytics}), que facilitan la recopilación y el procesamiento de grandes volúmenes de datos sobre la actividad de los estudiantes \cite{RicoJuan2024StudyRegarding}.  
+A través de estos datos, los sistemas pueden identificar patrones de comportamiento, predecir resultados académicos y ofrecer recomendaciones personalizadas.  
+Por ejemplo, un sistema basado en IA puede detectar que un estudiante presenta un ritmo de avance lento en un tema específico, y en respuesta, proponerle ejercicios adicionales, materiales de refuerzo o actividades interactivas con un nivel de dificultad ajustado.  
+
+Además, los sistemas de tutoría inteligente (\textit{Intelligent Tutoring Systems}) representan una de las formas más avanzadas del aprendizaje adaptativo, ya que combinan la modelización del conocimiento con estrategias de enseñanza automatizadas, simulando el acompañamiento de un tutor humano \cite{Moharm2019FrameworkAdaptive}.  
+Estos sistemas no solo adaptan el contenido, sino también la forma en que lo presentan, modificando el tipo de ayuda, el nivel de detalle o la frecuencia de la retroalimentación en función del perfil y las respuestas del estudiante.  
+
+Finalmente, el aprendizaje adaptativo no se limita a la dimensión cognitiva. Algunos modelos recientes integran variables afectivas, reconociendo el papel de las emociones y la motivación en el proceso de aprendizaje \cite{ElSabagh2021AdaptiveElearning}.  
+La detección de frustración, aburrimiento o interés, mediante análisis de interacción o sensores, permite ajustar la experiencia educativa no solo en términos de dificultad, sino también de estímulo emocional, reforzando así el compromiso y la persistencia del estudiante.  
+
+
 \subsection{Mecanismos de personalización en entornos digitales}
+
+Los entornos digitales de aprendizaje integran diversos mecanismos de personalización que permiten atender la heterogeneidad de los estudiantes y ofrecer experiencias más significativas.  
+A través de estos mecanismos, las plataformas pueden ajustar dinámicamente los recursos, actividades y evaluaciones para responder a las diferencias en conocimientos previos, estilos de aprendizaje, intereses y niveles de motivación de cada individuo.  
+
+Qaffas et al. \cite{Qaffas2020TowardsOptimal} señalan que la personalización efectiva en entornos digitales requiere un equilibrio entre la autonomía del estudiante y la guía ofrecida por el sistema, de manera que se evite tanto la sobrecarga cognitiva como la pérdida de dirección pedagógica.  
+Estos mecanismos pueden clasificarse en tres niveles principales:
+
+\begin{itemize}
+    \item \textbf{Personalización del contenido:} el sistema adapta los materiales, ejemplos y actividades en función del nivel de dominio, intereses o estilo de aprendizaje del estudiante. Esto permite que los contenidos sean percibidos como más relevantes y accesibles, favoreciendo una mayor implicación cognitiva. En este sentido, los entornos adaptativos pueden modificar la secuencia de los temas, incluir explicaciones adicionales o proponer actividades de refuerzo según el desempeño registrado. Por ejemplo, en el aprendizaje de programación, un sistema puede ofrecer ejercicios adicionales sobre estructuras condicionales si detecta dificultades recurrentes en ese tema.  
+    
+    \item \textbf{Personalización del ritmo:} cada estudiante avanza según su propio desempeño, sin estar condicionado por el progreso del grupo. Este enfoque respeta los tiempos de asimilación individual y permite reforzar los conceptos que aún no han sido comprendidos, mientras se avanza en aquellos que ya han sido dominados. La posibilidad de controlar el ritmo de avance contribuye al desarrollo de la autonomía y la autorregulación del aprendizaje, elementos fundamentales para mantener la motivación intrínseca y la confianza en las propias capacidades \cite{Leguisamo2025Personalization}.  
+    
+    \item \textbf{Personalización de la retroalimentación:} la respuesta inmediata del sistema se ajusta al tipo de error cometido o al nivel de logro alcanzado. Este tipo de retroalimentación no solo corrige, sino que orienta, motiva y guía al estudiante hacia la mejora continua. En lugar de limitarse a señalar errores, un entorno digital puede explicar la causa del fallo, ofrecer sugerencias o mostrar ejemplos resueltos, promoviendo así un aprendizaje más profundo y significativo \cite{Peng2019PersonalizedAdaptive}.  
+\end{itemize}
+
+Además de estos tres niveles, existen mecanismos complementarios que fortalecen la experiencia personalizada. Entre ellos se encuentra la adaptación de la interfaz, que ajusta el diseño visual o la disposición de los elementos según las preferencias o necesidades del usuario, facilitando la navegación y reduciendo la carga cognitiva.  
+También destacan las rutas de aprendizaje dinámicas, en las que el sistema genera trayectorias alternativas según el progreso y el perfil del estudiante, y la incorporación de elementos gamificados —como puntos, niveles, insignias o desafíos personalizados— que refuerzan la motivación y la percepción de logro.  
+
+La integración de estos recursos convierte al entorno digital en un espacio flexible, centrado en el usuario y capaz de evolucionar conforme el estudiante avanza. En conjunto, los mecanismos de personalización no solo incrementan la efectividad del proceso formativo, sino que promueven una experiencia de aprendizaje más humana, interactiva y sostenible en el tiempo.  
+
+
 \subsection{Relación entre adaptación, motivación y rendimiento académico}
+
+La relación entre adaptación, motivación y rendimiento académico constituye uno de los pilares fundamentales del aprendizaje personalizado.  
+Cuando un entorno educativo se ajusta a las capacidades, intereses y necesidades del estudiante, se genera una experiencia de aprendizaje más significativa y emocionalmente positiva.  
+Este ajuste incrementa la percepción de competencia, autonomía y control sobre el propio proceso formativo, lo que impacta directamente en la motivación intrínseca y en la disposición del estudiante hacia el esfuerzo sostenido \cite{ElSabagh2021AdaptiveElearning}.  
+
+En este contexto, la adaptación actúa como un catalizador que transforma la experiencia educativa en un proceso más dinámico y autorregulado.  
+Un sistema que reconoce los avances, identifica las dificultades y ajusta los desafíos a un nivel apropiado, refuerza la confianza del estudiante en su propia capacidad para aprender.  
+De esta forma, el alumno no solo se involucra de manera más activa, sino que también desarrolla una actitud más persistente, reflexiva y orientada a la superación personal.  
+
+Diversos estudios evidencian que los sistemas adaptativos mejoran el rendimiento académico al ofrecer un equilibrio óptimo entre el nivel de desafío y las habilidades del estudiante.  
+Este equilibrio evita los extremos del aburrimiento —cuando la tarea es demasiado simple— y la frustración —cuando resulta excesivamente difícil—, generando un estado de concentración plena y disfrute conocido como \textit{flow} o flujo de aprendizaje \cite{Peng2019PersonalizedAdaptive}.  
+Bajo estas condiciones, el estudiante experimenta una sensación de progreso continuo y propósito claro, factores que potencian tanto la motivación como la eficacia del aprendizaje.  
+
+Por otro lado, la personalización promueve la autorregulación, al brindar retroalimentación constante y oportunidades para reflexionar sobre el propio desempeño.  
+El estudiante aprende a identificar sus fortalezas y debilidades, ajustar estrategias y tomar decisiones informadas sobre cómo avanzar, lo que se traduce en una mayor autonomía cognitiva.  
+Así, la adaptación no solo responde a las diferencias individuales, sino que también fomenta la capacidad de los aprendices para gestionar su propio proceso de aprendizaje \cite{RicoJuan2024StudyRegarding}.  
+
+En este sentido, la adaptación puede entenderse como un puente entre la motivación y el rendimiento académico.  
+Al mantener el interés, reducir la ansiedad y fortalecer el sentido de competencia, contribuye a un aprendizaje más profundo, sostenido y efectivo.  
+La motivación, a su vez, alimenta el deseo de aprender, impulsando al estudiante a aprovechar las oportunidades de mejora que ofrece el sistema adaptativo \cite{Leguisamo2025Personalization}.  
+
 
 % ---------------------------------------------
 
 \section{Ejemplos de Videojuegos Educativos Destacados}
 
-La incorporación de los videojuegos al ámbito educativo ha impulsado una amplia gama de experiencias que demuestran su potencial como herramientas formativas. A lo largo de los últimos años, diversos proyectos han mostrado cómo la interactividad, la narrativa y la resolución de problemas pueden aprovecharse para favorecer el aprendizaje significativo, la motivación y el desarrollo de competencias cognitivas. Entre los numerosos ejemplos existentes, destacan algunos títulos que ilustran de manera representativa las distintas formas en que el videojuego puede integrarse con éxito en contextos educativos.
+La incorporación de los videojuegos al ámbito educativo ha impulsado una amplia gama de experiencias que demuestran su potencial como herramientas formativas. A lo largo de los últimos años, diversos proyectos han mostrado cómo la interactividad, la narrativa y la resolución de problemas pueden aprovecharse para favorecer el aprendizaje significativo, la motivación y el desarrollo de competencias cognitivas. Entre los numerosos ejemplos existentes, destacan algunos títulos que ilustran de manera representativa las distintas formas en que el videojuego puede integrarse con éxito en contextos educativos \cite{Wang_Chen_Hwang_Guan_Wang_2022}.
 
-Uno de los referentes más citados es \textit{Human Resource Machine}, un videojuego de carácter educativo que enseña principios fundamentales de la programación a través de una metáfora de oficina. En este entorno, el jugador asume el papel de un trabajador encargado de ejecutar tareas mediante la construcción de algoritmos visuales que imitan las operaciones básicas del lenguaje ensamblador. A medida que el jugador avanza, se enfrenta a desafíos que exigen una planificación lógica y la optimización de procesos, fomentando así la comprensión de estructuras secuenciales, condicionales y repetitivas. Este diseño combina de forma efectiva la mecánica del rompecabezas con el aprendizaje progresivo de la programación, convirtiéndolo en un ejemplo paradigmático de cómo la simplicidad lúdica puede reforzar conceptos técnicos complejos \cite{PadronGonzalez2023}.
+Uno de los referentes más citados es Human Resource Machine, un videojuego de carácter educativo que enseña principios fundamentales de la programación a través de una metáfora de oficina. En este entorno, el jugador asume el papel de un trabajador encargado de ejecutar tareas mediante la construcción de algoritmos visuales que imitan las operaciones básicas del lenguaje ensamblador. A medida que el jugador avanza, se enfrenta a desafíos que exigen una planificación lógica y la optimización de procesos, fomentando así la comprensión de estructuras secuenciales, condicionales y repetitivas. Este diseño combina de forma efectiva la mecánica del rompecabezas con el aprendizaje progresivo de la programación, convirtiéndolo en un ejemplo paradigmático de cómo la simplicidad lúdica puede reforzar conceptos técnicos complejos \cite{Zhang_Wong_Chan_2023, heithausen_look_nodate}.
 
-Otro caso notable es \textit{CodeCombat}, un juego de rol en línea que utiliza un entorno narrativo interactivo para enseñar lenguajes de programación como Python y JavaScript. Los jugadores deben escribir código real para controlar a sus personajes y superar obstáculos, lo que convierte la experiencia de juego en una práctica directa de programación aplicada. A diferencia de otros entornos educativos más teóricos, \textit{CodeCombat} integra el aprendizaje dentro de la propia dinámica del juego, donde el progreso depende directamente de las decisiones lógicas del jugador. Su estructura por niveles, combinada con la retroalimentación inmediata y el componente cooperativo en línea, lo posiciona como una herramienta eficaz tanto para la enseñanza formal como para el aprendizaje autodidacta \cite{PadronGonzalez2023}.
+Otro caso notable es CodeCombat, un juego de rol en línea que utiliza un entorno narrativo interactivo para enseñar lenguajes de programación como Python y JavaScript. Los jugadores deben escribir código real para controlar a sus personajes y superar obstáculos, lo que convierte la experiencia de juego en una práctica directa de programación aplicada. A diferencia de otros entornos educativos más teóricos, CodeCombat integra el aprendizaje dentro de la propia dinámica del juego, donde el progreso depende directamente de las decisiones lógicas del jugador. Su estructura por niveles, combinada con la retroalimentación inmediata y el componente cooperativo en línea, lo posiciona como una herramienta eficaz tanto para la enseñanza formal como para el aprendizaje autodidacta \cite{Zhang_Wong_Chan_2023}.
 
-En una línea más accesible para niveles educativos iniciales, \textit{Scratch} se ha consolidado como una de las plataformas más influyentes en la enseñanza de la programación y el pensamiento computacional. Desarrollada por el MIT Media Lab, esta herramienta permite a los usuarios crear proyectos interactivos mediante bloques visuales de código, eliminando la necesidad de escribir sintaxis compleja. Su enfoque basado en la exploración, la creatividad y el aprendizaje colaborativo promueve el desarrollo de habilidades lógicas y de resolución de problemas desde edades tempranas. Además, su comunidad global fomenta el intercambio de proyectos y el aprendizaje social, lo que refuerza su valor pedagógico más allá del aula tradicional.
+En una línea más accesible para niveles educativos iniciales, Scratch se ha consolidado como una de las plataformas más influyentes en la enseñanza de la programación y el pensamiento computacional. Desarrollada por el MIT Media Lab, esta herramienta permite a los usuarios crear proyectos interactivos mediante bloques visuales de código, eliminando la necesidad de escribir sintaxis compleja. Su enfoque basado en la exploración, la creatividad y el aprendizaje colaborativo promueve el desarrollo de habilidades lógicas y de resolución de problemas desde edades tempranas \cite{maloney_scratch_2010}. Además, su comunidad global fomenta el intercambio de proyectos y el aprendizaje social, lo que refuerza su valor pedagógico más allá del aula tradicional \cite{velasco-ramirez_impacto_2023,maloney_scratch_2010}.
 
-En el ámbito de las ciencias naturales, \textit{Foldit} representa una aproximación distinta y altamente innovadora. Este videojuego experimental, desarrollado por investigadores de la Universidad de Washington, permite a los jugadores contribuir activamente a la investigación científica mediante la resolución de problemas de plegamiento de proteínas. A través de una interfaz basada en la manipulación de estructuras tridimensionales, los usuarios aprenden de manera intuitiva conceptos fundamentales de biología molecular mientras generan soluciones útiles para la comunidad científica. \textit{Foldit} ha sido considerado un ejemplo pionero de cómo el juego puede trascender el ámbito educativo y convertirse en una herramienta de participación ciudadana en la ciencia, combinando aprendizaje, motivación y contribución social \cite{PadronGonzalez2023}.
+Por su parte, MinecraftEdu constituye una adaptación pedagógica del popular videojuego Minecraft, desarrollada específicamente para el entorno educativo. Esta versión mantiene las características creativas y de exploración del juego original, pero añade herramientas que permiten a los docentes guiar el aprendizaje de sus estudiantes dentro de mundos virtuales colaborativos. En este contexto, los jugadores pueden construir, resolver problemas y desarrollar proyectos interdisciplinarios en áreas tan diversas como la historia, la geografía, la programación o la biología. La flexibilidad de MinecraftEdu y su capacidad para fomentar la cooperación y el pensamiento crítico han hecho de este título uno de los más utilizados en instituciones educativas de todo el mundo \cite{Cózar-Gutiérrez_Sáez-López_2016}.
 
-Por su parte, \textit{MinecraftEdu} constituye una adaptación pedagógica del popular videojuego \textit{Minecraft}, desarrollada específicamente para el entorno educativo. Esta versión mantiene las características creativas y de exploración del juego original, pero añade herramientas que permiten a los docentes guiar el aprendizaje de sus estudiantes dentro de mundos virtuales colaborativos. En este contexto, los jugadores pueden construir, resolver problemas y desarrollar proyectos interdisciplinarios en áreas tan diversas como la historia, la geografía, la programación o la biología. La flexibilidad de \textit{MinecraftEdu} y su capacidad para fomentar la cooperación y el pensamiento crítico han hecho de este título uno de los más utilizados en instituciones educativas de todo el mundo \cite{Saez2014, PadronGonzalez2023}.
-
-Estos ejemplos evidencian la diversidad de enfoques y propósitos que pueden adoptar los videojuegos educativos. Desde la enseñanza de lenguajes de programación hasta la exploración científica o la creatividad colaborativa, todos ellos comparten un principio común: aprovechar la naturaleza interactiva del juego para promover aprendizajes significativos, motivadores y sostenibles en el tiempo. El análisis de estas experiencias resulta esencial para comprender las oportunidades y los retos asociados al uso de videojuegos en la educación contemporánea, lo que conduce naturalmente al examen de los desafíos y riesgos que implica su implementación en los entornos de aprendizaje.
+Estos ejemplos evidencian la diversidad de enfoques y propósitos que pueden adoptar los videojuegos educativos. Desde la enseñanza de lenguajes de programación hasta la exploración científica o la creatividad colaborativa, todos ellos comparten un principio común: aprovechar la naturaleza interactiva del juego para promover aprendizajes significativos, motivadores y sostenibles en el tiempo. El análisis de estas experiencias resulta esencial para comprender las oportunidades y los retos asociados al uso de videojuegos en la educación contemporánea, lo que conduce naturalmente al examen de los desafíos y riesgos que implica su implementación en los entornos de aprendizaje \cite{Li_Chen_Deng_2024}.
 
 En conjunto, los ejemplos analizados reflejan el alcance y la madurez que los videojuegos educativos han alcanzado a nivel internacional, evidenciando su capacidad para adaptarse a distintos niveles formativos y áreas del conocimiento. No obstante, más allá de estas experiencias globales, resulta igualmente relevante examinar cómo este tipo de iniciativas se han desarrollado en contextos locales. En el caso de Cuba, han surgido propuestas propias que integran la innovación tecnológica con objetivos pedagógicos nacionales, lo que permite explorar la evolución y el impacto del videojuego educativo en el ámbito cubano.
 
+% ---------------------------------------------
+
+% \section{Videojuegos Educativos en Cuba}
+
+
+% El panorama cubano demuestra un creciente interés por el desarrollo de videojuegos educativos adaptados a las particularidades del contexto nacional, con propuestas que buscan integrar la creatividad, la enseñanza y la identidad cultural. Sin embargo, a pesar de los avances alcanzados y del potencial pedagógico que estos proyectos evidencian, la incorporación de videojuegos en el ámbito educativo no está exenta de limitaciones y desafíos. Es necesario, por tanto, analizar de manera crítica los riesgos asociados a su implementación, así como los factores que pueden condicionar su efectividad dentro de los procesos de enseñanza y aprendizaje.
 
 % ---------------------------------------------
 
-\section{Videojuegos Educativos en Cuba}
+\section{Desafíos y Consideraciones en el Uso Educativo de los Videojuegos}
 
+A pesar del notable potencial educativo de los videojuegos y de las experiencias positivas reportadas en múltiples investigaciones, su incorporación en los entornos de enseñanza-aprendizaje no está exenta de desafíos y riesgos que deben ser cuidadosamente considerados por docentes, diseñadores instruccionales e instituciones educativas \cite{gallego_panoramica_nodate}. La fascinación por el componente lúdico y motivacional de estas herramientas debe equilibrarse con una mirada crítica sobre su impacto real en los procesos de aprendizaje, las condiciones pedagógicas de su implementación y los posibles efectos psicológicos o sociales derivados de su uso prolongado o inapropiado.
 
-El panorama cubano demuestra un creciente interés por el desarrollo de videojuegos educativos adaptados a las particularidades del contexto nacional, con propuestas que buscan integrar la creatividad, la enseñanza y la identidad cultural. Sin embargo, a pesar de los avances alcanzados y del potencial pedagógico que estos proyectos evidencian, la incorporación de videojuegos en el ámbito educativo no está exenta de limitaciones y desafíos. Es necesario, por tanto, analizar de manera crítica los riesgos asociados a su implementación, así como los factores que pueden condicionar su efectividad dentro de los procesos de enseñanza y aprendizaje.
+Históricamente, la relación entre los videojuegos y la educación ha sido ambivalente. Como señalan diversos autores, se trata de una historia “tormentosa, con amores y odios, con sus altibajos” \cite{gallego_panoramica_nodate}. Durante décadas, los videojuegos fueron percibidos principalmente como fuentes de distracción o entretenimiento sin valor formativo, e incluso como posibles catalizadores de conductas agresivas o antisociales \cite{ashinoff_potential_2014}. Los medios de comunicación, en particular, contribuyeron a consolidar esta visión al destacar sus posibles efectos nocivos, como la exposición a la violencia o la pérdida de conexión con la realidad. No obstante, las investigaciones recientes han mostrado una perspectiva mucho más equilibrada, destacando su potencial para promover habilidades cognitivas, metacognitivas y sociales cuando se aplican con fines educativos \cite{Checa-Romero_Gimenez-Lozano_2025,Mirani}.
 
-% ---------------------------------------------
+Desde una perspectiva pedagógica, los desafíos más relevantes giran en torno al papel del docente y al equilibrio entre el componente lúdico y los objetivos curriculares. La integración efectiva de videojuegos en el aula requiere una planificación didáctica rigurosa y una mediación activa por parte del profesorado, quien debe asegurar que el juego contribuya al logro de competencias y no se convierta en una actividad meramente recreativa. Entre los riesgos más señalados se encuentran la posible adicción o uso excesivo de estas herramientas, el desequilibrio entre el tiempo de juego y el aprendizaje reflexivo, así como la tendencia a priorizar las recompensas extrínsecas sobre la comprensión profunda del contenido. Estas tensiones se intensifican cuando la gamificación se implementa sin una comprensión adecuada de los principios psicológicos y pedagógicos que sustentan la motivación y el aprendizaje \cite{ortiz-colon_gamificacion_2018}. 
 
-\section{Desafíos y Riesgos del Uso de Videojuegos en el Aprendizaje}
+A nivel de diseño y desarrollo, el uso de videojuegos educativos plantea retos técnicos y metodológicos. Evaluar su efectividad no siempre es sencillo, especialmente cuando los juegos no fueron concebidos originalmente con un propósito educativo o carecen de mecanismos integrados de seguimiento del progreso del estudiante. Además, la creación de videojuegos a medida para contextos educativos implica altos costos de producción y mantenimiento, así como la necesidad de equipos multidisciplinarios que integren conocimientos pedagógicos, artísticos y tecnológicos \cite{ortiz-colon_gamificacion_2018}. En este sentido, Yaman et al. (2025) identifican barreras estructurales y actitudinales que dificultan la adopción del aprendizaje basado en juegos, destacando la falta de formación docente, la escasez de recursos tecnológicos y la resistencia institucional como los principales obstáculos \cite{Yaman_Sousa_Neves_Luz_2025}.
 
-A pesar del notable potencial educativo de los videojuegos y de las experiencias positivas reportadas en múltiples investigaciones, su incorporación en los entornos de enseñanza-aprendizaje no está exenta de desafíos y riesgos que deben ser cuidadosamente considerados por docentes, diseñadores instruccionales e instituciones educativas \cite{PadronGonzalez2023, OrtizColon2018, Gallego2014}. La fascinación por el componente lúdico y motivacional de estas herramientas debe equilibrarse con una mirada crítica sobre su impacto real en los procesos de aprendizaje, las condiciones pedagógicas de su implementación y los efectos psicológicos o sociales que pueden derivarse de su uso prolongado o inapropiado.
-
-Históricamente, la relación entre los videojuegos y la educación ha sido ambivalente. Como señalan diversos autores, se trata de una historia “tormentosa, con amores y odios, con sus altibajos” \cite{Gallego2014}. Durante décadas, los videojuegos fueron percibidos principalmente como fuentes de distracción o entretenimiento sin valor formativo, e incluso como posibles catalizadores de conductas agresivas o antisociales \cite{PadronGonzalez2023, Ashinoff2014}. Los medios de comunicación, en particular, contribuyeron a consolidar una imagen negativa al destacar sus posibles efectos nocivos, como la exposición a la violencia o la pérdida de conexión con la realidad. Aunque las investigaciones contemporáneas han refutado en gran medida estas generalizaciones, tales percepciones aún persisten y pueden influir en la aceptación institucional o familiar de los videojuegos educativos.
-
-Desde una perspectiva pedagógica, los desafíos más relevantes giran en torno al papel del docente y al equilibrio que debe mantenerse entre el componente lúdico y los objetivos curriculares. La integración de videojuegos en el aula exige una supervisión activa y una planificación cuidadosa por parte del profesorado, quien debe garantizar que su uso contribuya efectivamente al desarrollo de competencias y no se convierta en una actividad meramente recreativa. Entre los riesgos más señalados se encuentran la posible adicción o uso excesivo de estas herramientas, el desequilibrio entre el tiempo de juego y el aprendizaje reflexivo, así como la tendencia a sobrevalorar los elementos de recompensa extrínseca en detrimento del aprendizaje significativo \cite{PadronGonzalez2023, PadronGonzalez2023_abstract}. Además, muchos docentes y padres aún muestran resistencia al cambio, considerando que los videojuegos pueden distraer más que educar, lo que dificulta su adopción generalizada \cite{PadronGonzalez2023}. En casos donde la gamificación se aplica sin una comprensión profunda de los principios del diseño de juegos y de la motivación humana, las actividades pueden incluso “contaminar” el proceso educativo, reduciendo el interés y la participación del estudiante \cite{OrtizColon2018}.
-
-A nivel de diseño y desarrollo, el uso de videojuegos educativos plantea retos significativos. Evaluar su efectividad no siempre es sencillo, especialmente cuando los juegos utilizados no fueron concebidos originalmente con un propósito educativo o cuando carecen de mecanismos de medición del progreso del estudiante \cite{PadronGonzalez2023}. Además, el desarrollo de juegos a medida para contextos educativos conlleva un alto costo económico y técnico, pues deben competir en atractivo con los productos comerciales ampliamente consumidos por los estudiantes \cite{OrtizColon2018}. En muchos casos, los videojuegos comerciales adaptados no logran responder adecuadamente a las necesidades específicas del aprendizaje, y los proyectos demasiado extensos pueden desviar la atención del estudiante de los objetivos pedagógicos centrales \cite{Gallego2014}. La experiencia ha mostrado que una aplicación superficial del concepto de gamificación, sin la debida fundamentación pedagógica y metodológica, puede derivar en experiencias fallidas, evidenciando la necesidad de una formación especializada en diseño de experiencias de aprendizaje interactivas \cite{Gallego2014}.
-
-También deben considerarse los desafíos relacionados con la infraestructura tecnológica y la equidad en el acceso. La efectividad de cualquier propuesta de videojuegos educativos depende en gran medida de las condiciones materiales del entorno escolar y del hogar. No todos los estudiantes disponen de dispositivos adecuados o de una conexión estable a Internet, lo que genera brechas digitales que afectan la igualdad de oportunidades de aprendizaje \cite{PadronGonzalez2023}. A su vez, la falta de infraestructura tecnológica en muchas instituciones y la limitada capacitación docente en el uso de herramientas digitales representan barreras adicionales para la integración sostenible de los videojuegos en el currículo \cite{PadronGonzalez2023}. Estas limitaciones se suman a la escasez de estudios empíricos que evalúen con precisión la influencia de los videojuegos en la adquisición de conocimientos disciplinares y en el desarrollo de habilidades profesionales específicas dentro del ámbito universitario \cite{SierraDaza2024, SierraDaza2024_abstract}.
-
-En síntesis, aunque los videojuegos representan una vía innovadora para potenciar la motivación y el aprendizaje activo, su aplicación educativa requiere una visión crítica, equilibrada y científicamente fundamentada. Los riesgos señalados no invalidan su valor, sino que subrayan la necesidad de comprender los mecanismos cognitivos y pedagógicos que sustentan su efectividad. En este sentido, resulta esencial profundizar en las principales teorías del aprendizaje que explican cómo y por qué los videojuegos pueden influir positivamente en los procesos educativos, lo cual se abordará en la siguiente sección.
+También deben considerarse las limitaciones relacionadas con la infraestructura y la equidad en el acceso. La efectividad de los videojuegos educativos depende en gran medida de las condiciones tecnológicas del entorno escolar y familiar. No todos los estudiantes disponen de dispositivos adecuados o de conectividad estable, lo que genera brechas digitales que afectan la igualdad de oportunidades de aprendizaje. La falta de infraestructura tecnológica y la limitada capacitación del profesorado en el uso de herramientas digitales representan barreras adicionales para una integración sostenible y equitativa de estas propuestas \cite{ashinoff_potential_2014}. Además, estudios como el de Jaffe et al. (2021) advierten sobre la necesidad de considerar la seguridad y el bienestar físico de los estudiantes durante las actividades lúdicas, recordando que los juegos, tanto digitales como presenciales, deben implementarse en entornos seguros y pedagógicamente controlados \cite{Jaffe_Khalemsky_Khalemsky_2021}.
 
 % ---------------------------------------------
 
 
 \section{Teorías del Aprendizaje}
 
-El proceso de enseñanza-aprendizaje en el ámbito universitario se sustenta en diversas teorías y modelos pedagógicos que orientan la interacción entre el docente y el estudiante \cite{Sosa2014}. En el contexto de la enseñanza de la programación, estos modelos varían desde los enfoques tradicionales hasta los constructivistas, promoviendo distintas formas de razonamiento, participación y desarrollo cognitivo \cite{Sosa2014b}. El verdadero valor de dichas teorías se evalúa en función de su capacidad para responder a los desafíos contemporáneos del entorno social, cultural, económico y tecnológico, así como por su efectividad al fomentar aprendizajes duraderos y significativos \cite{Ortiz2015b}.
-
-El proceso educativo puede entenderse como un movimiento sistemático de la actividad cognoscitiva de los alumnos, guiado por el docente, hacia la apropiación de conocimientos, habilidades y actitudes que contribuyen a la formación de una concepción científica del mundo \cite{Ortiz2015c}. Este proceso integra elementos fundamentales —objetivos, contenidos, métodos, medios y organización— que se articulan de manera lógica y dinámica \cite{Ortiz2015d}.
-
 \subsection{Constructivismo}
 
-El \textbf{Constructivismo} constituye una de las corrientes teóricas más influyentes en la educación contemporánea \cite{Tigse2019,Ortiz2015}. Sostiene que el conocimiento no se transmite de forma pasiva, sino que se construye activamente a partir de la interacción entre los saberes previos del estudiante y las nuevas experiencias de aprendizaje \cite{Tigse2019b}. Este enfoque parte del principio de que el individuo es un constructor activo de su propia realidad cognitiva, interpretando y reorganizando la información conforme a sus experiencias y esquemas mentales \cite{Ortiz2015}.
+El \textbf{Constructivismo} constituye una de las corrientes teóricas más influyentes y vigentes en el campo educativo contemporáneo \cite{tigse_parreno_constructivismo_2019, ortiz_granja_constructivismo_2015}.  
+Desde esta perspectiva, el aprendizaje no se concibe como un proceso de transmisión pasiva de información, sino como una construcción activa del conocimiento, en la que el estudiante desempeña un papel central al interpretar, reorganizar y otorgar significado a los nuevos contenidos en función de sus experiencias previas y sus esquemas mentales \cite{tigse_parreno_constructivismo_2019, ortiz_granja_constructivismo_2015}.  
 
-Desde esta perspectiva, la enseñanza es un proceso dialógico en el que los significados se negocian continuamente entre docente y estudiante \cite{Ortiz2015a}. El rol del docente se redefine como mediador y facilitador del aprendizaje, orientando al estudiante hacia la reflexión crítica y la construcción personal del conocimiento \cite{Ortiz2015b,Moreno2017}. En consecuencia, el error se asume como una oportunidad de aprendizaje, permitiendo revisar y ajustar las estructuras cognitivas existentes \cite{Ortiz2015d}. Este enfoque favorece la autonomía, la autorregulación y la transferencia del conocimiento a contextos nuevos, aspectos esenciales para el aprendizaje profundo.
+En este sentido, la enseñanza deja de ser una simple exposición de contenidos para transformarse en un proceso dialógico y participativo, donde los significados se negocian continuamente entre el docente y el estudiante. El rol del docente se redefine como el de un mediador o facilitador, encargado de orientar la actividad cognitiva del alumno, promover la reflexión crítica y estimular la construcción personal del conocimiento \cite{ortiz_granja_constructivismo_2015, morales_elearning_noda}.  
+El error, en este contexto, adquiere un valor positivo, al ser entendido como una oportunidad para revisar y reajustar las estructuras cognitivas existentes, fortaleciendo la comprensión y el razonamiento \cite{ortiz_granja_constructivismo_2015}.  
 
-Entre los principales aportes del constructivismo destacan las teorías de Piaget, Ausubel y Vygotsky. Piaget concibe el aprendizaje como un proceso de equilibrio entre la asimilación y la acomodación, mediante el cual el individuo reestructura sus esquemas mentales \cite{Ortiz2015e}. Ausubel, por su parte, enfatiza el papel del aprendizaje significativo, que ocurre cuando el nuevo conocimiento se integra de manera sustantiva en la estructura cognitiva existente \cite{Ortiz2015f}. Finalmente, Vygotsky introduce la noción de \textit{Zona de Desarrollo Próximo} (ZDP), destacando la influencia del entorno social y la mediación cultural en la construcción del conocimiento \cite{Ortiz2015g}. En conjunto, estos planteamientos consolidan una visión del aprendizaje como un proceso activo, social y contextualizado.
+El constructivismo fomenta la autonomía, la autorregulación y la transferencia del conocimiento a nuevos contextos, aspectos esenciales para el logro de aprendizajes profundos y duraderos.
+Desde esta perspectiva, aprender implica un proceso de reorganización constante de los esquemas mentales, en el que el individuo integra nuevos conocimientos de forma significativa y coherente con sus experiencias previas. Asimismo, se reconoce la importancia del contexto social y cultural como mediador del aprendizaje, ya que la interacción, el lenguaje y la colaboración favorecen la construcción compartida de significados y el desarrollo del pensamiento crítico \cite{ortiz_granja_constructivismo_2015}.
+
+Este enfoque también ha sido explorado en el ámbito de los videojuegos y las experiencias digitales interactivas. Según Lukić \cite{lukic_konstruktivizam_nodate}, los videojuegos pueden entenderse como entornos constructivistas, donde el jugador actúa como un agente moral y cognitivo que toma decisiones, reflexiona sobre sus consecuencias y construye significados a partir de la interacción con el entorno virtual. Desde esta óptica, el juego no solo entretiene, sino que propicia procesos de razonamiento ético y cognitivo que se alinean con los principios del constructivismo.
+
+Asimismo, investigaciones recientes han resaltado la afinidad entre el aprendizaje basado en el juego y la teoría constructivista. Velasco Suárez et al. \cite{velasco_suarez_educacion_2024} sostiene que la educación basada en el juego promueve un aprendizaje significativo al integrar la experiencia, la exploración y la creatividad, situando al estudiante en el centro del proceso educativo. En estos entornos, el juego funciona como un medio para desarrollar habilidades cognitivas, comunicativas, afectivas y sociales, potenciando la imaginación, la autonomía y la reflexión crítica sobre el propio aprendizaje.
+
+En conjunto, estas perspectivas convergen en una visión del aprendizaje como un proceso activo, social y contextualizado. El constructivismo, aplicado tanto en entornos tradicionales como digitales, favorece una educación que no se limita a la transmisión de saberes, sino que promueve la construcción personal y colectiva del conocimiento, la autorregulación y la capacidad de aplicar lo aprendido en contextos diversos. Esta base teórica resulta particularmente relevante para el desarrollo de videojuegos educativos y plataformas interactivas, donde el aprendizaje se produce a través de la acción, la exploración y la experiencia significativa del estudiante.
 
 \subsection{Aprendizaje Basado en Problemas}
 
-El \textbf{Aprendizaje Basado en Problemas (ABP)} se inscribe dentro de los marcos constructivistas y representa una metodología centrada en el estudiante, orientada a la resolución de situaciones complejas y contextualizadas \cite{Ruiz2020a,Ruiz2020b}. Su objetivo es promover un aprendizaje significativo a través del análisis, la reflexión y la colaboración. En este enfoque, los problemas se presentan no como ejercicios de aplicación mecánica, sino como oportunidades para la exploración, la formulación de hipótesis y la integración de conocimientos \cite{Ruiz2020c}.
+El \textbf{Aprendizaje Basado en Problemas (ABP)} se inscribe dentro de las teorías constructivistas del aprendizaje y representa una metodología centrada en el estudiante, orientada a la resolución de situaciones complejas, auténticas y contextualizadas \cite{ruiz-meza_application_nodate}.
+Su objetivo fundamental es promover un aprendizaje significativo a través del análisis, la reflexión y la colaboración, permitiendo que los estudiantes construyan activamente su conocimiento al enfrentarse a problemas reales o simulados que demandan la aplicación integrada de saberes teóricos y prácticos.
 
-El ABP fomenta la autonomía, el pensamiento crítico y el trabajo cooperativo, desplazando el rol del docente desde la transmisión del conocimiento hacia la facilitación del proceso de descubrimiento \cite{Ruiz2020d}. Además, impulsa la adquisición de competencias profesionales al conectar los saberes teóricos con su aplicación práctica \cite{Gallego2014}. Su implementación en la educación superior favorece un cambio metodológico hacia un modelo más activo, reflexivo y orientado a la solución de problemas reales \cite{Ruiz2020e}.
+En este enfoque, los problemas no se conciben como simples ejercicios de aplicación mecánica, sino como detonantes del pensamiento crítico, la formulación de hipótesis y la búsqueda de soluciones fundamentadas. De esta manera, el ABP impulsa la autonomía intelectual, la autorregulación del aprendizaje y el desarrollo de habilidades de razonamiento superior, transformando el papel del docente, que pasa de ser un transmisor de información a un facilitador o guía del proceso de descubrimiento \cite{Ge_Zhu_Lin_Jiang_Li_Lu_Mi_Tung_2025}.
 
-En síntesis, tanto el constructivismo como el aprendizaje basado en problemas comparten una misma raíz epistemológica: la idea de que el conocimiento se construye mediante la interacción significativa entre el sujeto, el contexto y la experiencia. Estas teorías y metodologías ofrecen un fundamento sólido para comprender cómo los entornos educativos —incluidos los videojuegos y sistemas gamificados— pueden propiciar aprendizajes más motivadores, autónomos y efectivos.
+Diversos estudios han demostrado la eficacia del ABP en la mejora de las competencias cognitivas y profesionales de los estudiantes. Por ejemplo, Lu y Singh (2024) evidencian que esta metodología incrementa el pensamiento crítico y el rendimiento académico de los universitarios al situarlos en contextos de aprendizaje activo y reflexivo \cite{Lu_Singh_2024}.
+Del mismo modo, investigaciones recientes destacan la relevancia del aprendizaje colaborativo en línea, señalando que la resolución conjunta de problemas —potenciada por entornos digitales interactivos— favorece la construcción colectiva del conocimiento y el desarrollo de habilidades sociales y cognitivas de orden superior \cite{Jiang_Ruan_Feng_Jiang_Xiong_2023}.
 
-A partir de estas bases teóricas, resulta pertinente abordar el concepto de \textit{estado de flujo}, el cual se relaciona directamente con la experiencia subjetiva del aprendizaje y la motivación intrínseca del estudiante. Comprender las condiciones que favorecen el flujo en contextos educativos permitirá analizar cómo los videojuegos, al integrar dinámicas de reto, retroalimentación y progresión, pueden generar estados óptimos de implicación y concentración, reforzando así el potencial formativo de la gamificación.
+En el contexto de la educación superior, el ABP promueve una transformación metodológica hacia modelos de enseñanza más participativos, reflexivos y orientados a la resolución de problemas reales. Esta transición contribuye a fortalecer la relación entre teoría y práctica, facilitando la adquisición de competencias transferibles y duraderas \cite{ruiz-meza_application_nodate}.
 
+A partir de estas bases teóricas, se introduce el concepto de \textit{estado de flujo}, estrechamente vinculado con la motivación intrínseca y la experiencia subjetiva del aprendizaje. Comprender las condiciones que propician el flujo en contextos educativos permitirá analizar cómo los videojuegos, mediante la integración de dinámicas de reto, retroalimentación y progresión, pueden inducir estados óptimos de implicación y concentración, reforzando así el potencial formativo de la gamificación.
 
 
 % ---------------------------------------------
 
 \section{Estado de Flujo}
 
-El concepto de \textbf{Estado de Flujo} (\textit{Flow State}) describe una experiencia de inmersión total y disfrute en una actividad, caracterizada por la concentración plena y la pérdida de la noción del tiempo. Este fenómeno fue introducido por Mihaly Csikszentmihalyi, quien lo identificó como un motor esencial para el aprendizaje y el desarrollo humano \cite{Csikszentmihalyi1990}. En el ámbito educativo y del juego, el flujo se manifiesta cuando el individuo se siente completamente absorbido por la tarea que realiza, experimentando placer intrínseco y un sentido de desafío equilibrado con sus propias habilidades \cite{Perrotta2013,Lee2011}.
+El concepto de \textbf{Estado de Flujo} (\textit{Flow State}) fue introducido por Mihaly Csikszentmihalyi, quien lo definió como una experiencia óptima de inmersión total, disfrute y concentración absoluta en una actividad que resulta intrínsecamente gratificante \cite{Csikszentmihalyi_2008}. Durante el flujo, el individuo experimenta una pérdida de la noción del tiempo, una disminución de la autoconciencia y un sentido de control total sobre sus acciones. Este fenómeno psicológico se asocia con un equilibrio preciso entre el nivel de desafío de la tarea y las habilidades del participante, lo que genera una sensación de compromiso pleno y satisfacción por la propia actividad, más allá de recompensas externas.
 
-El estado de flujo se distingue por la sensación de dedicación absoluta hacia una actividad significativa, en la que las distracciones externas pierden relevancia y la atención se centra de forma sostenida en la tarea \cite{Perrotta2013,OrtizColon2018}. Desde esta perspectiva, el juego se convierte en un escenario idóneo para alcanzar estados de fluidez y concentración óptima, dado su carácter naturalmente motivador y su capacidad para generar placer durante la participación \cite{Castellon2012}. En palabras de Csikszentmihalyi, el flujo no solo favorece el aprendizaje, sino que también promueve la creatividad y el bienestar psicológico \cite{Csikszentmihalyi1990}.
+En el contexto educativo, el estado de flujo se ha convertido en un marco teórico clave para comprender los procesos de motivación, atención y disfrute en el aprendizaje. Según Schmidt (2010), cuando las actividades de aprendizaje logran mantener un equilibrio adecuado entre la dificultad y la competencia percibida del estudiante, se facilita la aparición del flujo, lo que conduce a una mayor implicación cognitiva, persistencia y rendimiento académico \cite{Schmidt_2010}. En este sentido, el flujo no solo potencia la adquisición de conocimientos, sino que también promueve el desarrollo de habilidades metacognitivas, la creatividad y el bienestar emocional del estudiante \cite{Csikszentmihalyi_2008}.
 
-Al trasladar este concepto al contexto educativo, diversos estudios coinciden en que alcanzar el flujo depende de un equilibrio entre el reto y la habilidad, así como de un diseño pedagógico que despierte la curiosidad y la implicación del estudiante \cite{Perrotta2013}. Los métodos tradicionales de enseñanza, centrados en la transmisión pasiva del conocimiento, suelen dificultar esta inmersión, mientras que los enfoques interactivos y experienciales —como los videojuegos y la gamificación— facilitan la aparición del flujo al integrar el disfrute, la exploración y el descubrimiento en el proceso de aprendizaje \cite{Castellon2012,Lee2011}.
+La teoría del flujo ha demostrado ser especialmente relevante en el ámbito del aprendizaje mediado por juegos y entornos digitales interactivos. Los videojuegos y las experiencias gamificadas, al incorporar retos progresivos, retroalimentación inmediata y metas claras, reproducen de manera natural las condiciones que facilitan la inmersión y el compromiso sostenido. Admiraal (2021) evidencia que, en contextos de aprendizaje basados en juegos colaborativos, los estudiantes que alcanzan un estado de flujo tienden a mostrar mayor implicación y disfrute durante la actividad, lo que influye positivamente en su desempeño y en su conexión emocional con el proceso educativo \cite{Admiraal}. Aunque en algunos casos el flujo no se traduce directamente en un aumento inmediato del aprendizaje medible, su impacto en la motivación y la persistencia resulta fundamental para el desarrollo de competencias a largo plazo.
 
-La \textbf{gamificación}, entendida como la aplicación de principios del diseño de videojuegos en contextos no lúdicos, se presenta como una estrategia eficaz para inducir estados de flujo en los estudiantes \cite{Gallego2014}. A través de la incorporación de mecánicas como puntos, insignias, niveles o retroalimentación inmediata, se estimulan la motivación intrínseca y el compromiso cognitivo \cite{Kapp2012,Lee2011}. Esta metodología no busca únicamente entretener, sino crear experiencias educativas emocionalmente resonantes, en las que el alumno se sienta retado, recompensado y en control de su propio progreso \cite{Zichermann2011}. En consecuencia, la gamificación transforma el aprendizaje en un proceso inmersivo y autorregulado, capaz de reproducir las condiciones óptimas del flujo descritas por Csikszentmihalyi.
-
-La relación entre gamificación y flujo ha despertado un interés creciente en la investigación educativa, especialmente en los últimos años \cite{OrtizColon2018}. Si bien los resultados empíricos son diversos —incluyendo efectos positivos, neutros o incluso negativos—, existe consenso en que las estrategias lúdicas bien diseñadas pueden potenciar significativamente la atención, la satisfacción y la retención del conocimiento \cite{Anon2021}. Aun así, la falta de consenso metodológico en torno a qué elementos de diseño generan de manera más efectiva el flujo evidencia la necesidad de continuar profundizando en este campo \cite{Anon2021b}.
-
-En síntesis, el estado de flujo constituye un componente esencial para comprender cómo el aprendizaje puede transformarse en una experiencia motivadora, significativa y placentera. Su integración en contextos educativos, especialmente mediante la gamificación, ofrece una vía prometedora para alinear la motivación intrínseca del estudiante con los objetivos pedagógicos.
+En los últimos años, el estudio del vínculo entre \textbf{gamificación} y flujo ha adquirido una relevancia creciente. Oliveira et al. (2021) destacan, a partir de una revisión sistemática de la literatura, que el diseño gamificado puede influir significativamente en la experiencia de flujo de los usuarios, particularmente en el ámbito educativo \cite{Oliveira_Pastushenko_Rodrigues_Toda_Palomino_Hamari_Isotani_2021}. Los resultados muestran que la integración de elementos como recompensas, retroalimentación continua, niveles de desafío ajustables y objetivos claros favorece la motivación intrínseca y la concentración profunda. Sin embargo, también se subraya la falta de consenso metodológico en torno a qué componentes de la gamificación inducen de manera más efectiva el flujo, lo que señala la necesidad de continuar investigando este fenómeno en diferentes contextos y poblaciones.
 % ---------------------------------------------
 
 \section{Selección de Tecnologías utilizadas}
 
 \subsection{Base de Datos}
 
+En el desarrollo de sistemas educativos digitales, la elección de la base de datos constituye un aspecto esencial, pues influye directamente en el rendimiento, la escalabilidad y la consistencia de los datos. En este proyecto se ha optado por una arquitectura que combina bases de datos relacionales y ligeras, utilizando \textbf{PostgreSQL} en el entorno del \textit{backend} y \textbf{SQLite} para el almacenamiento local del videojuego educativo.
+
+A continuación, se presenta una comparación entre distintos sistemas de gestión de bases de datos (SGBD), tanto relacionales (SQL) como no relacionales (NoSQL), considerando criterios técnicos relevantes para este tipo de aplicación.
+
+
+\begin{center}
+\begin{longtable}{|p{2.5cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparativa de distintos sistemas de gestión de bases de datos SQL y NoSQL.}
+\label{tab:comparacion-bd} \\
+
+\hline
+\textbf{Base de Datos} & \textbf{Tipo} & \textbf{Ventajas Principales} & \textbf{Desventajas} & \textbf{Casos de Uso Comunes} \\
+\hline
+\endfirsthead
+
+% --- Cabecera repetida en páginas siguientes ---
+\hline
+\textbf{Base de Datos} & \textbf{Tipo} & \textbf{Ventajas Principales} & \textbf{Desventajas} & \textbf{Casos de Uso Comunes} \\
+\hline
+\endhead
+
+% --- Pie opcional (en todas las páginas excepto la última) ---
+\hline
+\multicolumn{5}{r}{\small Continúa en la siguiente página.} \\
+\endfoot
+
+% --- Pie final (solo en la última página) ---
+\hline
+\endlastfoot
+
+% --- Contenido de la tabla ---
+\textbf{PostgreSQL} \cite{postgresql} & SQL relacional & Alto nivel de integridad y consistencia; soporte avanzado para transacciones y tipos de datos complejos; código abierto y altamente extensible. & Mayor consumo de recursos frente a sistemas más ligeros. & Aplicaciones empresariales, sistemas educativos, plataformas web de alto rendimiento. \\
+\hline
+\textbf{MySQL} \cite{mysql} & SQL relacional & Popular y ampliamente soportada; buen rendimiento en lectura; fácil administración. & Limitaciones en transacciones complejas y menor cumplimiento de ACID frente a PostgreSQL. & Aplicaciones web medianas, sistemas de gestión de contenidos. \\
+\hline
+\textbf{SQLite} \cite{sqlite} & SQL embebida & Ligera, sin necesidad de servidor; excelente rendimiento en aplicaciones locales o móviles. & No apta para entornos distribuidos o de alta concurrencia. & Aplicaciones móviles, videojuegos, almacenamiento temporal. \\
+\hline
+\textbf{MongoDB} \cite{mongodb} & NoSQL (documental) & Alta escalabilidad horizontal; flexibilidad en el esquema; fácil integración con estructuras JSON. & Menor consistencia transaccional; no garantiza integridad referencial. & Aplicaciones con grandes volúmenes de datos no estructurados, analítica en tiempo real. \\
+\hline
+\textbf{Redis} \cite{redis} & NoSQL (clave-valor) & Extremadamente rápido; ideal para caché o sesiones. & No diseñado para persistencia compleja ni relaciones. & Almacenamiento temporal, sesiones de usuario, colas de mensajes. \\
+\hline
+
+\end{longtable}
+\end{center}
+
+La selección de \textbf{PostgreSQL} para el \textit{backend} responde a su robustez, cumplimiento estricto del modelo ACID (\textit{Atomicity, Consistency, Isolation, Durability}) y su capacidad para manejar estructuras de datos complejas, relaciones entre entidades y procedimientos almacenados. Estas características resultan esenciales en una plataforma educativa que requiere mantener la integridad de los datos de usuarios, evaluaciones y progreso académico \cite{postgresql}.
+
+Por otra parte, se ha optado por \textbf{SQLite} como motor de base de datos local dentro del videojuego educativo. Su naturaleza embebida, su bajo consumo de recursos y la ausencia de configuración de servidor la hacen ideal para almacenar información temporal del jugador, como resultados, niveles completados o configuraciones personalizadas. Además, su compatibilidad con entornos multiplataforma y su facilidad de sincronización con bases de datos centrales permiten una integración fluida con el sistema principal basado en PostgreSQL \cite{sqlite}.
+
+En conjunto, esta combinación ofrece una solución equilibrada entre \textbf{rendimiento, portabilidad y consistencia}, optimizando la experiencia del usuario tanto en el entorno local del videojuego como en la gestión centralizada de datos del sistema educativo.
+
+
 \subsection{Módulo del Estudiante}
 
+El módulo del estudiante se desarrolla a través de un entorno interactivo que emplea un motor de videojuegos para facilitar el aprendizaje mediante experiencias inmersivas y dinámicas.  
+La elección del motor de desarrollo constituye un aspecto clave, ya que determina las capacidades gráficas, el rendimiento, la facilidad de integración con otros sistemas y la portabilidad del videojuego educativo.
+
+A continuación, se presenta una comparación entre los motores de videojuegos más relevantes para el desarrollo de aplicaciones educativas y multiplataforma, considerando criterios técnicos y pedagógicos.
+
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparativa entre distintos motores de videojuegos para el desarrollo educativo.}
+\label{tab:motores-videojuegos} \\
+\hline
+\textbf{Motor} & \textbf{Lenguajes de Programación} & \textbf{Ventajas Principales} & \textbf{Desventajas} & \textbf{Casos de Uso Comunes} \\
+\hline
+\endfirsthead
+
+\multicolumn{5}{c}%
+{{\bfseries Tabla \thetable\ (continuación)}} \\
+\hline
+\textbf{Motor} & \textbf{Lenguajes de Programación} & \textbf{Ventajas Principales} & \textbf{Desventajas} & \textbf{Casos de Uso Comunes} \\
+\hline
+\endhead
+
+\hline \multicolumn{5}{r}{{Continúa en la siguiente página}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Godot 4} \cite{godot} & GDScript, C\#, C++ & Código abierto; interfaz intuitiva; sistema de nodos flexible; excelente rendimiento 2D/3D; comunidad activa y documentación accesible. & Ecosistema más pequeño que otros motores comerciales; menor soporte para consolas. & Videojuegos educativos, proyectos académicos, prototipos, juegos 2D/3D multiplataforma. \\
+\hline
+\textbf{Unity} \cite{unity} & C\# & Amplio soporte multiplataforma; motor maduro; gran cantidad de recursos y comunidad global. & Licencia de pago en versiones profesionales; dependencia de un entorno cerrado. & Videojuegos comerciales, simuladores, realidad aumentada y virtual. \\
+\hline
+\textbf{Unreal Engine} \cite{unreal} & C++, Blueprints & Potencia gráfica avanzada; ideal para entornos 3D realistas; herramientas profesionales integradas. & Curva de aprendizaje elevada; mayor requerimiento de hardware. & Videojuegos AAA, simulaciones de alto realismo, realidad virtual. \\
+\hline
+\textbf{Construct 3} \cite{construct} & JavaScript & Interfaz visual sin necesidad de programación; rápida creación de prototipos; ideal para juegos 2D simples. & Escalabilidad limitada; rendimiento inferior para proyectos complejos. & Juegos educativos básicos, entornos web, aplicaciones interactivas 2D. \\
+\hline
+\end{longtable}
+
+
+Tras el análisis comparativo, se seleccionó \textbf{Godot 4} como motor principal para el desarrollo del videojuego educativo.  
+Esta elección se fundamenta en su naturaleza \textit{open source}, lo que permite una mayor flexibilidad, transparencia en el código y ausencia de costos de licencia, aspectos especialmente relevantes en proyectos académicos y de investigación \cite{godot}.  
+
+Además, su arquitectura basada en nodos facilita la creación de escenas modulares y reutilizables, optimizando el desarrollo de niveles, personajes y sistemas interactivos. El lenguaje \textbf{GDScript}, inspirado en Python, resulta de fácil comprensión y aprendizaje, lo que favorece la incorporación de estudiantes y desarrolladores con distintos niveles de experiencia \cite{godot}.  
+
+Otro factor determinante fue la compatibilidad de \textbf{Godot 4} con diferentes plataformas (Windows, Linux, Web y Android) \cite{godot}, permitiendo implementar un videojuego multiplataforma que se integra de manera eficiente con la plataforma educativa central desarrollada en el \textit{backend}.  
+
+En conjunto, el uso de \textbf{Godot 4} ofrece un equilibrio adecuado entre \textbf{rendimiento, accesibilidad y escalabilidad}, garantizando un entorno educativo interactivo y adaptable que contribuye al fortalecimiento del proceso de enseñanza-aprendizaje de la programación.
+
+
 \subsection{Módulo del Profesor}
+
+El módulo del profesor está concebido como una interfaz web que permite visualizar, gestionar y analizar el progreso de los estudiantes dentro de la plataforma educativa.  
+Para su desarrollo, se requiere un \textit{framework} frontend que ofrezca un equilibrio entre rendimiento, escalabilidad y facilidad de integración con el backend, garantizando una experiencia fluida y responsiva.  
+
+La selección del \textit{framework} adecuado influye directamente en la eficiencia del desarrollo, la mantenibilidad del código y la capacidad del sistema para evolucionar en el tiempo.  
+A continuación, se presenta una comparación de los principales \textit{frameworks} de desarrollo web frontend utilizados en la actualidad.
+
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparativa de \textit{frameworks} de desarrollo web frontend.}
+\label{tab:frameworks-frontend} \\
+\hline
+\textbf{Framework} & \textbf{Lenguaje base} & \textbf{Ventajas principales} & \textbf{Desventajas} & \textbf{Casos de uso comunes} \\
+\hline
+\endfirsthead
+
+\multicolumn{5}{c}{{\bfseries Tabla \thetable\ (continuación)}} \\
+\hline
+\textbf{Framework} & \textbf{Lenguaje base} & \textbf{Ventajas principales} & \textbf{Desventajas} & \textbf{Casos de uso comunes} \\
+\hline
+\endhead
+
+\hline \multicolumn{5}{r}{{Continúa en la siguiente página}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+\textbf{Next.js} \cite{nextjs} & JavaScript / TypeScript (React) & Renderizado híbrido (SSR/SSG); alto rendimiento; excelente SEO; fácil integración con APIs REST y GraphQL; soporte de rutas dinámicas y componentes reutilizables. & Requiere conocimiento previo de React; curva inicial media. & Aplicaciones web interactivas, paneles de control, plataformas educativas, comercio electrónico. \\
+\hline
+\textbf{React.js} \cite{react} & JavaScript / TypeScript & Gran ecosistema y comunidad; arquitectura basada en componentes reutilizables; soporte de bibliotecas externas. & No incluye renderizado del lado del servidor ni enrutamiento nativo; requiere configuración adicional. & SPAs, dashboards, aplicaciones modulares y sistemas de gestión. \\
+\hline
+\textbf{Angular} \cite{angular} & TypeScript & Estructura robusta para aplicaciones grandes; inyección de dependencias integrada; excelente soporte empresarial. & Curva de aprendizaje pronunciada; mayor complejidad para proyectos pequeños o medianos. & Aplicaciones empresariales complejas, sistemas modulares de gran escala. \\
+\hline
+\textbf{Vue.js} \cite{vuejs} & JavaScript / TypeScript & Sintaxis simple y curva de aprendizaje baja; rendimiento eficiente; ecosistema en crecimiento. & Menor adopción en entornos corporativos; soporte limitado para SSR nativo. & Aplicaciones ligeras, proyectos educativos, prototipos rápidos. \\
+\hline
+\textbf{SvelteKit} \cite{sveltekit} & JavaScript / TypeScript & Compilación a código nativo optimizado; tamaño reducido y rendimiento sobresaliente. & Ecosistema menos maduro; soporte y documentación aún en desarrollo. & Aplicaciones de alto rendimiento, prototipos experimentales, proyectos educativos. \\
+\hline
+\end{longtable}
+
+
+Tras el análisis comparativo, se seleccionó \textbf{Next.js} como \textit{framework} principal para el desarrollo del módulo del profesor.  
+La decisión se fundamenta en su capacidad para combinar el renderizado del lado del servidor (\textit{Server-Side Rendering, SSR}) y la generación estática (\textit{Static Site Generation, SSG}), lo que mejora el rendimiento, la accesibilidad y la optimización para motores de búsqueda \cite{nextjs}.  
+
+Next.js proporciona una arquitectura flexible basada en React, lo que facilita la creación de interfaces dinámicas y modulares que pueden integrarse fácilmente con el backend desarrollado en FastAPI.  
+Además, su soporte nativo para rutas dinámicas y \textit{fetching} de datos asíncronos permite la visualización eficiente de la información académica en tiempo real, como el progreso del estudiante, estadísticas de rendimiento y resultados de las evaluaciones.  
+
+Otro aspecto clave es su compatibilidad con TypeScript, que refuerza la mantenibilidad y escalabilidad del código al ofrecer tipado estático y detección temprana de errores.  
+Asimismo, el ecosistema de \textbf{Next.js} facilita la integración con librerías de visualización de datos como \textit{Recharts} o \textit{Chart.js}, permitiendo representar gráficamente el rendimiento de los estudiantes de forma clara y atractiva.  
+
+En conjunto, la elección de \textbf{Next.js} garantiza un entorno moderno, robusto y orientado a la eficiencia, que potencia la experiencia del docente y fortalece las capacidades analíticas y pedagógicas del sistema educativo propuesto.
+
+
+\subsection{Backend}
+
+El módulo de \textit{backend} constituye el núcleo lógico de la plataforma, encargado de gestionar la comunicación entre los diferentes componentes del sistema, procesar la información proveniente del videojuego y del módulo del profesor, y garantizar la integridad de los datos almacenados en la base de datos.  
+La elección del \textit{framework} backend es, por tanto, un aspecto crítico, ya que influye directamente en el rendimiento, la escalabilidad, la seguridad y la facilidad de mantenimiento del sistema.  
+
+En la Tabla~\ref{tab:frameworks-backend} se comparan algunos de los principales \textit{frameworks} de desarrollo backend utilizados actualmente en el ámbito del desarrollo web y de servicios educativos digitales.
+
+\usepackage{longtable} % Asegúrate de tenerlo en el preámbulo
+\renewcommand{\arraystretch}{1.3}
+
+\begin{longtable}{|p{2.7cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+\caption{Comparativa de \textit{frameworks} de desarrollo backend.}
+\label{tab:frameworks-backend} \\
+
+\hline
+\textbf{Framework} & \textbf{Lenguaje base} & \textbf{Ventajas principales} & \textbf{Desventajas} & \textbf{Casos de uso comunes} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Framework} & \textbf{Lenguaje base} & \textbf{Ventajas principales} & \textbf{Desventajas} & \textbf{Casos de uso comunes} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{5}{r}{\textit{Continúa en la siguiente página}} \\
+\hline
+\endfoot
+
+\hline
+\multicolumn{5}{r}{\textit{Fin de la tabla \ref{tab:frameworks-backend}}} \\
+\hline
+\endlastfoot
+
+\textbf{FastAPI} \cite{fastapi} & Python & Alto rendimiento gracias a ASGI y \texttt{async/await}; documentación automática con OpenAPI; validación de datos con Pydantic; sintaxis moderna y clara. & Comunidad más joven en comparación con Django o Flask. & APIs REST, microservicios, sistemas educativos interactivos, integraciones con IA. \\
+\hline
+\textbf{Django} \cite{django} & Python & Framework completo con ORM integrado; alto nivel de seguridad; comunidad extensa. & Menos flexible para arquitecturas asíncronas; mayor sobrecarga en proyectos pequeños. & Aplicaciones empresariales, CMS, plataformas educativas tradicionales. \\
+\hline
+\textbf{Flask} \cite{flask} & Python & Ligero, flexible y fácil de extender; curva de aprendizaje baja. & Requiere configuración manual de librerías externas; menor rendimiento en entornos de alta concurrencia. & Microservicios, APIs sencillas, prototipos rápidos. \\
+\hline
+\textbf{Express.js} \cite{express} & JavaScript (Node.js) & Gran ecosistema; ideal para aplicaciones en tiempo real; compatible con JS frontend. & Gestión manual de tipos y validaciones; menos estructurado para proyectos grandes. & Aplicaciones de mensajería, APIs en tiempo real, dashboards interactivos. \\
+\hline
+\textbf{Laravel} \cite{laravel} & PHP & Estructura robusta y elegante; ORM Eloquent; plantillas Blade. & Requiere más recursos; menor rendimiento en aplicaciones de alta concurrencia. & Aplicaciones web tradicionales, sistemas de gestión y comercio electrónico. \\
+\hline
+\textbf{Spring Boot} \cite{springboot} & Java & Rendimiento elevado; escalabilidad empresarial; integración con múltiples servicios. & Configuración inicial compleja; curva de aprendizaje elevada. & Aplicaciones empresariales, sistemas financieros y de gran escala. \\
+\hline
+
+\end{longtable}
+
+
+Tras el análisis comparativo, se seleccionó \textbf{FastAPI} como \textit{framework} backend para el desarrollo del sistema.  
+Esta elección se fundamenta en su capacidad para ofrecer un equilibrio óptimo entre rendimiento, legibilidad del código y facilidad de integración con tecnologías modernas como PostgreSQL y Next.js.  
+
+FastAPI utiliza el estándar \texttt{ASGI} (\textit{Asynchronous Server Gateway Interface}), lo que le permite manejar múltiples solicitudes concurrentes con alta eficiencia, superando en rendimiento a otros \textit{frameworks} tradicionales de Python.  
+Además, su integración nativa con \textbf{Pydantic} permite la validación automática de datos, garantizando la consistencia y fiabilidad de la información intercambiada entre el frontend y el videojuego \cite{fastapi}.  
+
+Otra ventaja clave es la generación automática de documentación interactiva mediante \textbf{OpenAPI} y \textbf{Swagger UI}, lo que facilita la comunicación entre equipos de desarrollo y reduce el tiempo de depuración y pruebas.  
+Asimismo, su compatibilidad con paradigmas modernos como la programación asíncrona (\texttt{async/await}) y su arquitectura orientada a microservicios lo convierten en una herramienta ideal para proyectos modulares y escalables.  
+
+En el contexto de la plataforma educativa propuesta, FastAPI facilita la integración fluida con el videojuego desarrollado en Godot 4 —mediante peticiones REST o WebSocket— y con el módulo del profesor en Next.js, garantizando una comunicación rápida, segura y eficiente.  
+Su diseño ligero y orientado al rendimiento permite manejar eventos en tiempo real, como el registro de resultados o la adaptación dinámica de la dificultad, sin comprometer la estabilidad del sistema.  
 
 % ---------------------------------------------
 

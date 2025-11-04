@@ -1,35 +1,40 @@
+% -----------------------------------
+% CONFIGURACIÓN GENERAL
+% -----------------------------------
 \usepackage[utf8]{inputenc} % Codificación de caracteres
-\usepackage[T1]{fontenc} % Mejora la compatibilidad con caracteres especiales
-\usepackage[spanish]{babel} % Idioma del documento
-\usepackage{graphicx} % Para incluir imágenes
-\usepackage{geometry} % Para ajustar márgenes
-\usepackage{setspace} % Para ajustar el interlineado
-\usepackage{float} % Para controlar la posición de figuras y tablas
-%\usepackage{lipsum} % Para texto de relleno (puedes eliminarlo)
-\usepackage{fancyhdr}
-%\usepackage{csquotes}
-\usepackage[square,sort,comma]{natbib}
-\usepackage[style=numeric, backend=bibtex, sorting=ynt, citestyle=numeric]{biblatex} % Bibliografía
-\usepackage[hypertexnames=false]{hyperref} % Para enlaces clicables (siempre al final)
-%\bibliographystyle{apalike}
-\usepackage{helvet}
-\usepackage{longtable}
-\renewcommand{\rmdefault}{phv} % Fuente sans serif (Helvetica)
+\usepackage[T1]{fontenc}    % Compatibilidad con caracteres especiales
+\usepackage[spanish]{babel} % Idioma español
+\usepackage{graphicx}       % Para incluir imágenes
+\usepackage{geometry}       % Para ajustar márgenes
+\usepackage{setspace}       % Para interlineado
+\usepackage{float}          % Control de figuras y tablas
+\usepackage{fancyhdr}       % Encabezados y pies personalizados
+\usepackage{helvet}         % Fuente Helvetica
+\renewcommand{\rmdefault}{phv}
 \renewcommand{\sfdefault}{phv}
+\usepackage[hypertexnames=false]{hyperref} % Enlaces clicables
+\usepackage{longtable}
+\usepackage{csquotes}
+\usepackage{adjustbox}
 
-% Bibliografía
+% -----------------------------------
+% BIBLIOGRAFÍA
+% -----------------------------------
+\usepackage[
+    backend=biber,       % Mejor que bibtex: soporta UTF-8 y español
+    style=numeric,       % Estilo numérico (por ejemplo: [1], [2])
+    sorting=none,   
+    natbib=true,         % Compatibilidad con comandos tipo \citep
+    url=false,           % No mostrar URLs (puedes cambiar a true)
+    doi=false,           % Oculta DOI si no quieres verlo
+    isbn=false           % Oculta ISBN
+]{biblatex}
 
-\addbibresource{bibliography.bib}
-% \bibliographystyle{plain}
-% \bibliography{bibliography}
+\addbibresource{bibliography.bib} % Archivo .bib
 
-% Configuración de márgenes
-\geometry{a4paper, margin=1in, headsep=1cm}
-
-% Configuración de interlineado
-\onehalfspacing % o \doublespacing para doble espacio
-
-% Configuración de hipervínculos
+% -----------------------------------
+% HIPERVÍNCULOS
+% -----------------------------------
 \hypersetup{
 	colorlinks=true,
 	linkcolor=blue,
@@ -42,19 +47,23 @@
 	pdfkeywords={palabra1, palabra2}
 }
 
-%Gráficos
-\graphicspath{{./src/}}
+% -----------------------------------
+% GEOMETRÍA E INTERLINEADO
+% -----------------------------------
+\geometry{a4paper, margin=1in, headsep=1cm}
+\onehalfspacing
 
-%Encabezado
+% -----------------------------------
+% ENCABEZADOS
+% -----------------------------------
 \pagestyle{fancy}
-\setlength{\headheight}{16pt} % Aumenta el espacio para el encabezado
-\fancyhf{} % Limpia los encabezados y pies de página
-
-\fancyhead[L]{\leftmark} % Nombre del capítulo en la izquierda
-%\fancyhead[R]{\university} % Universidad en el centro
-\fancyhead[R]{\thepage} % Número de página en la derecha
-
-% Línea horizontal bajo el encabezado
+\setlength{\headheight}{16pt}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
-
+% -----------------------------------
+% RUTA DE IMÁGENES
+% -----------------------------------
+\graphicspath{{./src/}}

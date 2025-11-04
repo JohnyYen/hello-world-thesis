@@ -1,63 +1,41 @@
 \begin{titlepage}
-	\centering % Centra todo el contenido de la página
-	
-	% Logo de la universidad
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.3\textwidth]{logoCujae} % Ajusta el tamaño del logo
-	\end{figure}
-	
-	% Nombre de la universidad
-	{\LARGE \textbf{\university}\par}
-	
-	\vspace{0.4cm} % Espacio después del nombre de la universidad
-	
-	% Facultad
-	{\Large \faculty \par}
-	
-	\vspace{1cm} % Espacio después de la facultad
-	
-	% Línea superior del título
-	\rule{\textwidth}{1pt} % Línea horizontal que abarca todo el ancho de la página
-	
-	\vspace{0.2cm} % Espacio entre la línea superior y el título
-	
-	% Título del trabajo
-	{\Huge\bfseries \getTitle\par}
-	
-	\vspace{0.2cm} % Espacio entre el título y la línea inferior
-	
-	% Línea inferior del título
-	\rule{\textwidth}{1pt} % Línea horizontal que abarca todo el ancho de la página
-	
-	\vspace{0.3cm} % Espacio después del título
-	
-	% Autor (alineado a la izquierda)
-	\begin{flushleft}
-		\textbf{Autor: }\\
-		\getAuthor \\
-		\university \\
-		\faculty \\
-		\href{mailto:\authorEmail}{\authorEmail}
-	\end{flushleft}
-	
-	\vspace{0.3cm} % Espacio entre autor y tutor
-	
-	% Tutor (alineado a la izquierda)
-	\begin{flushleft}
-		\textbf{Tutor: }\\
-		\supervisorName \\
-		\university \\
-		\faculty \\
-		\href{mailto:\supervisorEmail}{\supervisorEmail}
-	\end{flushleft}
-	
-	\vspace{0.2cm} % Espacio antes de la fecha
-	
-	{\large \today\par} % Fecha actual (centrada)
-	
-	\vfill % Rellena el espacio vertical restante
-	
-	% Asegura que el contenido quede en una sola página
-	\enlargethispage{0.5cm} % Ajusta el tamaño de la página si es necesario
+    \centering
+
+    % --- Logo ---
+    \vspace*{0.5cm}
+    \includegraphics[width=0.22\textwidth]{logoCujae}
+    
+    \vspace{0.4cm}
+    {\Large \textbf{\university}\par}
+    {\large \faculty \par}
+    
+    \vspace{0.8cm}
+    \rule{\textwidth}{1pt}
+    \vspace{0.2cm}
+    {\LARGE\bfseries \getTitle\par}
+    \vspace{0.2cm}
+    \rule{\textwidth}{1pt}
+    
+    \vspace{1cm}
+
+    \begin{minipage}[t]{0.48\textwidth}
+        \raggedright
+        \textbf{Autor:}\\[0.2cm]
+        \getAuthor\\
+        \university\\
+        \faculty\\
+        \href{mailto:\authorEmail}{\authorEmail}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \raggedleft
+        \textbf{Tutor:}\\[0.2cm]
+        \supervisorName\\
+        \university\\
+        \faculty\\
+        % \href{mailto:\supervisorEmail}{\supervisorEmail}
+    \end{minipage}
+
+    \vfill
+    {\large \today\par}
 \end{titlepage}
