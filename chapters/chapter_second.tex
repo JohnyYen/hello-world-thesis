@@ -2,8 +2,41 @@
 %\addcontentsline{toc}{chapter}{\chapterSecond}
 En este capítulo se presenta el diseño integral de la solución, partiendo de los requisitos funcionales y no funcionales, los casos de uso que estructuran la interacción entre actores y el sistema, así como la arquitectura y los patrones de diseño empleados. Este diseño constituye la hoja de ruta técnica que garantiza la coherencia entre los objetivos planteados y la implementación del sistema.
 
-\section{Requisitos Funcionales}
+\section{Diseño del Videojuego}
 
+El diseño del videojuego educativo constituye un componente esencial dentro de la solución propuesta, al ser el medio principal mediante el cual se materializa el proceso de enseñanza-aprendizaje gamificado. Su concepción parte de una cuidadosa integración entre los elementos lúdicos, pedagógicos y narrativos, de modo que la experiencia del jugador no solo resulte atractiva y motivadora, sino también coherente con los objetivos de aprendizaje de la programación. En esta sección se describen los aspectos fundamentales que guiaron el diseño del videojuego, organizados en tres dimensiones: la selección del género, la definición de las mecánicas y el desarrollo de la narrativa.
+
+\subsection{Selección del Género}
+
+El género seleccionado para el videojuego es una \textbf{novela visual con elementos de puzzle}, una combinación que permite equilibrar la inmersión narrativa con la resolución activa de problemas. La elección de la novela visual se sustenta en su capacidad para construir historias significativas y emocionalmente envolventes, facilitando la empatía del jugador con los personajes y el contexto educativo. Este formato resulta especialmente adecuado para entornos de aprendizaje, pues permite presentar los contenidos de manera contextualizada, guiando al jugador a través de diálogos, decisiones y situaciones que estimulan la reflexión y el razonamiento crítico. Además, el ritmo pausado y la estructura secuencial de las novelas visuales favorecen la introducción gradual de conceptos teóricos, adaptándose al nivel de comprensión del estudiante y fortaleciendo la relación entre narrativa y aprendizaje.
+
+Por otro lado, la inclusión de \textit{puzzles} añade la dimensión interactiva y cognitiva necesaria para fomentar el pensamiento lógico, la planificación y la resolución de problemas, habilidades fundamentales en el ámbito de la programación y las ciencias computacionales. A través de estos desafíos, el jugador no solo aplica los conocimientos adquiridos, sino que también desarrolla estrategias de análisis y experimentación que refuerzan el aprendizaje activo. Este componente lúdico genera un ciclo de retroalimentación constante entre la acción y la reflexión, promoviendo la exploración y la creatividad como medios para alcanzar la solución correcta.
+
+La fusión de ambos géneros —la narrativa introspectiva de la novela visual y la exigencia cognitiva del puzzle— permite construir una experiencia de aprendizaje equilibrada, inmersiva y desafiante. Esta combinación evita la monotonía y potencia la motivación intrínseca del estudiante, al ofrecerle una historia con propósito y un entorno interactivo donde sus decisiones tienen consecuencias tangibles. En este sentido, la elección de este formato responde a la necesidad de diseñar un videojuego que no solo enseñe contenidos de programación, sino que también despierte la curiosidad, el compromiso y el sentido de logro del jugador, pilares esenciales para un aprendizaje profundo y significativo.
+
+
+\subsection{Selección de Mecánicas}
+
+Las \textbf{mecánicas de juego} fueron diseñadas con un enfoque didáctico que integra el aprendizaje de la programación dentro de la propia dinámica interactiva, de modo que el progreso en el juego depende directamente de la comprensión y aplicación de los conceptos aprendidos. Cada nivel del videojuego representa un \textit{contenido específico de programación} vinculado a una situación del mundo real, lo que permite contextualizar el conocimiento y fomentar la transferencia a entornos prácticos. En estos escenarios, el jugador debe emplear bloques de código visual que simbolizan estructuras, funciones y principios del lenguaje de programación, con el fin de resolver un problema, automatizar una tarea o guiar a los personajes hacia un objetivo determinado.  
+
+Esta mecánica combina la lógica del pensamiento computacional con la manipulación visual, reduciendo la carga cognitiva y facilitando la comprensión de conceptos abstractos como variables, bucles o condicionales. El sistema de retroalimentación inmediata, implementado tras cada acción o decisión del jugador, permite una reflexión constante sobre el propio desempeño, reforzando el aprendizaje mediante el error y la experimentación. De esta forma, el jugador aprende a razonar, depurar y optimizar soluciones de manera natural, tal como lo haría en un entorno real de programación.  
+
+Asimismo, el diseño por niveles introduce un sistema de dificultad gradual, donde cada etapa amplía y profundiza los conocimientos adquiridos previamente, garantizando que el reto se mantenga equilibrado con las habilidades del jugador. Este principio de progresión controlada busca mantener el interés y la motivación, evitando tanto la frustración por exceso de dificultad como el aburrimiento por falta de desafío. En conjunto, estas mecánicas no solo promueven un aprendizaje activo y autónomo, sino que también contribuyen a generar un \textit{estado de flujo} sostenido, en el cual el estudiante se siente plenamente concentrado, motivado y comprometido con su propio proceso de aprendizaje.
+
+
+\subsection{Narrativa del Juego}
+
+La \textbf{narrativa} del videojuego se desarrolla en torno a la historia de un estudiante de nuevo ingreso en la Facultad de Ingeniería Informática, quien se enfrenta a los retos académicos, sociales y emocionales que implica adaptarse a la vida universitaria. Desde su llegada a la facultad, el protagonista debe afrontar situaciones cotidianas —como el trabajo en equipo, la entrega de proyectos o la preparación de exámenes— en las que los conocimientos de programación adquieren un papel fundamental para la resolución de problemas y la superación de desafíos. A través de diálogos interactivos y decisiones ramificadas, el jugador participa activamente en el desarrollo de la historia, influyendo en el curso de los acontecimientos y fortaleciendo su sentido de agencia dentro del relato.  
+
+El progreso narrativo se entrelaza con el avance académico del personaje: cada nivel o capítulo introduce nuevos contenidos de programación que el jugador debe dominar para continuar la trama. Este enfoque permite que la enseñanza ocurra de manera orgánica, integrada a la experiencia emocional y a la evolución personal del protagonista. De este modo, los logros del jugador no se limitan a superar obstáculos técnicos, sino que simbolizan el crecimiento y la autoconfianza del estudiante frente a los desafíos del aprendizaje.  
+
+La narrativa busca generar una conexión emocional entre el jugador y su avatar, permitiendo que los logros dentro del juego se asocien con experiencias de superación y aprendizaje real. Los personajes secundarios —como compañeros, profesores y tutores— enriquecen el relato al representar distintas perspectivas sobre el proceso educativo, fomentando la empatía y el sentido de comunidad. Además, el entorno universitario se configura como un espacio simbólico que refleja los valores del esfuerzo, la colaboración y la curiosidad intelectual.  
+
+En conjunto, la historia no solo cumple una función estética o de ambientación, sino que actúa como un vehículo pedagógico que da sentido al proceso formativo. Al integrar el conocimiento técnico dentro de una narrativa significativa, el videojuego transforma la experiencia de aprendizaje en una vivencia emocionalmente resonante, donde cada decisión, error o acierto contribuye a la construcción del conocimiento y al desarrollo personal del jugador.
+
+
+
+\section{Requisitos Funcionales}
 
 Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
 
@@ -352,7 +385,7 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 \textbf{Relaciones} & Independiente, ejecutado automáticamente cuando hay conexión a Internet \\
 \hline
 \textbf{Descripción Breve} & El sistema asegura que el progreso, puntuaciones y configuraciones locales del estudiante se actualicen en el servidor central para mantener la persistencia de datos. \\
-\hlinegallego\_panoramica\_nodate, barban\_entrenaingeniero\_2020\}
+\hline
 \textbf{RF Relacionados} & RF2, RF9 \\
 \hline
 \end{tabular}
@@ -544,15 +577,12 @@ Este diseño facilita la extensibilidad del sistema, permitiendo incorporar nuev
 
 \subsubsection{Módulo Profesor}
 
-El módulo del profesor se implementa como una aplicación web basada en arquitectura cliente–servidor. Su diagrama de componentes muestra los elementos principales que gestionan la interfaz docente y la comunicación con la API backend.
+El \textbf{módulo del profesor} se concibe como una aplicación web desarrollada bajo una arquitectura cliente–servidor, orientada a ofrecer al docente un entorno integral de gestión, seguimiento y análisis del proceso de aprendizaje. Su diseño organiza las funcionalidades en componentes especializados que interactúan de manera coordinada para facilitar la supervisión del progreso estudiantil y la creación de contenidos educativos.  
 
-\begin{itemize}
-    \item \textbf{Dashboard}: Componente principal que muestra estadísticas globales y comparativas del grupo.
-    \item \textbf{LevelEditor}: Permite la creación y modificación de niveles educativos mediante una interfaz visual.
-    \item \textbf{StudentTracker}: Gestiona los datos individuales y grupales de los estudiantes.
-    \item \textbf{ReportGenerator}: Genera informes y gráficos de desempeño.
-    \item \textbf{APIClient}: Componente encargado de la comunicación con la API REST para sincronizar datos.
-\end{itemize}
+Este módulo se estructura de forma que el docente pueda acceder a información consolidada sobre el rendimiento general de sus estudiantes, diseñar y adaptar actividades de aprendizaje según las necesidades del grupo, y generar reportes que apoyen la toma de decisiones pedagógicas. La comunicación entre la interfaz del usuario y el sistema central se realiza mediante una API REST, garantizando la sincronización eficiente de datos y la actualización en tiempo real de la información.  
+
+En conjunto, la composición del módulo combina elementos de visualización, gestión de datos y generación de informes, integrados dentro de una interfaz intuitiva que prioriza la accesibilidad y la usabilidad. De este modo, el módulo del profesor no solo actúa como una herramienta de control y evaluación, sino también como un espacio de apoyo para la planificación docente y la personalización del aprendizaje.
+
 
 \begin{figure}[H]
     \centering
@@ -565,7 +595,7 @@ El diseño modular del frontend docente facilita la integración con plataformas
 
 \subsubsection{API Backend}
 
-El backend constituye el núcleo de la plataforma. Su diagrama de componentes refleja la estructura interna del servicio, organizado según los principios de separación de responsabilidades y escalabilidad.
+El backend constituye el núcleo funcional de la plataforma, encargado de gestionar la lógica de negocio, la comunicación con la base de datos y la integración con los distintos módulos del sistema. Su diagrama de componentes refleja una arquitectura cuidadosamente diseñada bajo los principios de separación de responsabilidades, modularidad y escalabilidad, lo que garantiza un mantenimiento ágil y la posibilidad de incorporar nuevas funcionalidades sin comprometer la estabilidad del sistema. Además, esta estructura permite un procesamiento eficiente de las solicitudes provenientes del frontend, asegurando una respuesta rápida, segura y coherente con los objetivos pedagógicos de la plataforma.
 
 % \begin{itemize}
 %     \item \textbf{AuthService}: Gestiona la autenticación y autorización de usuarios mediante JWT.
@@ -585,9 +615,8 @@ El backend constituye el núcleo de la plataforma. Su diagrama de componentes re
 
 \begin{figure}[H]
     \centering
-    \adjustbox{max width=1\textwidth, max height=1\textheight, keepaspectratio}{
-        \includegraphics{src/C4_Components_API}
-    }
+    % Escala al ancho total del texto manteniendo proporción
+    \includegraphics[width=\linewidth, keepaspectratio]{src/C4_Components_API.pdf}
     \caption{Diagrama de Componentes del API Backend.}
     \label{fig:c4_backend}
 \end{figure}
