@@ -430,12 +430,9 @@ También deben considerarse las limitaciones relacionadas con la infraestructura
 
 \section{Selección de Tecnologías utilizadas}
 
-\subsection{Base de Datos}
+En el desarrollo de sistemas educativos digitales, la selección del sistema de gestión de bases de datos (SGBD) constituye un componente crítico, ya que impacta directamente en la consistencia de la información, el rendimiento de las consultas y la escalabilidad del sistema. En este proyecto se adopta una arquitectura híbrida que combina bases de datos relacionales y ligeras, utilizando \textbf{PostgreSQL} en el entorno del \textit{backend} y \textbf{SQLite} para el almacenamiento local del videojuego educativo. Esta combinación busca equilibrar robustez, eficiencia y portabilidad, requisitos esenciales en plataformas que integran componentes de escritorio y servicios web.
 
-En el desarrollo de sistemas educativos digitales, la elección de la base de datos constituye un aspecto esencial, pues influye directamente en el rendimiento, la escalabilidad y la consistencia de los datos. En este proyecto se ha optado por una arquitectura que combina bases de datos relacionales y ligeras, utilizando \textbf{PostgreSQL} en el entorno del \textit{backend} y \textbf{SQLite} para el almacenamiento local del videojuego educativo.
-
-A continuación, se presenta una comparación entre distintos sistemas de gestión de bases de datos (SGBD), tanto relacionales (SQL) como no relacionales (NoSQL), considerando criterios técnicos relevantes para este tipo de aplicación.
-
+A continuación, se muestra una comparación de distintos SGBD —tanto relacionales (SQL) como no relacionales (NoSQL)— considerando criterios técnicos y de diseño relevantes para aplicaciones educativas interactivas.
 
 \begin{center}
 \begin{longtable}{|p{2.5cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|}
@@ -447,41 +444,37 @@ A continuación, se presenta una comparación entre distintos sistemas de gesti�
 \hline
 \endfirsthead
 
-% --- Cabecera repetida en páginas siguientes ---
 \hline
 \textbf{Base de Datos} & \textbf{Tipo} & \textbf{Ventajas Principales} & \textbf{Desventajas} & \textbf{Casos de Uso Comunes} \\
 \hline
 \endhead
 
-% --- Pie opcional (en todas las páginas excepto la última) ---
 \hline
 \multicolumn{5}{r}{\small Continúa en la siguiente página.} \\
 \endfoot
 
-% --- Pie final (solo en la última página) ---
 \hline
 \endlastfoot
 
-% --- Contenido de la tabla ---
-\textbf{PostgreSQL} \cite{postgresql} & SQL relacional & Alto nivel de integridad y consistencia; soporte avanzado para transacciones y tipos de datos complejos; código abierto y altamente extensible. & Mayor consumo de recursos frente a sistemas más ligeros. & Aplicaciones empresariales, sistemas educativos, plataformas web de alto rendimiento. \\
+\textbf{PostgreSQL} \cite{postgresql} & SQL relacional & Cumplimiento estricto del modelo ACID; soporte avanzado para transacciones, tipos de datos complejos y extensiones geoespaciales; alta confiabilidad y seguridad. & Mayor consumo de recursos frente a sistemas más ligeros. & Aplicaciones empresariales, sistemas educativos, plataformas web de alto rendimiento. \\
 \hline
-\textbf{MySQL} \cite{mysql} & SQL relacional & Popular y ampliamente soportada; buen rendimiento en lectura; fácil administración. & Limitaciones en transacciones complejas y menor cumplimiento de ACID frente a PostgreSQL. & Aplicaciones web medianas, sistemas de gestión de contenidos. \\
+\textbf{MySQL} \cite{mysql} & SQL relacional & Amplia comunidad y soporte multiplataforma; buen rendimiento en operaciones de lectura; facilidad de configuración. & Limitaciones en el manejo de transacciones complejas; menor flexibilidad frente a PostgreSQL. & Aplicaciones web medianas, sistemas de gestión de contenidos. \\
 \hline
-\textbf{SQLite} \cite{sqlite} & SQL embebida & Ligera, sin necesidad de servidor; excelente rendimiento en aplicaciones locales o móviles. & No apta para entornos distribuidos o de alta concurrencia. & Aplicaciones móviles, videojuegos, almacenamiento temporal. \\
+\textbf{SQLite} \cite{sqlite} & SQL embebida & Ligera, sin necesidad de servidor; excelente rendimiento en entornos locales; mínima configuración. & No adecuada para alta concurrencia o entornos distribuidos. & Aplicaciones móviles, videojuegos, almacenamiento temporal. \\
 \hline
-\textbf{MongoDB} \cite{mongodb} & NoSQL (documental) & Alta escalabilidad horizontal; flexibilidad en el esquema; fácil integración con estructuras JSON. & Menor consistencia transaccional; no garantiza integridad referencial. & Aplicaciones con grandes volúmenes de datos no estructurados, analítica en tiempo real. \\
+\textbf{MongoDB} \cite{mongodb} & NoSQL (documental) & Alta escalabilidad horizontal; flexibilidad de esquema; integración nativa con estructuras JSON. & Menor consistencia transaccional; carencia de integridad referencial. & Aplicaciones con grandes volúmenes de datos no estructurados, analítica en tiempo real. \\
 \hline
-\textbf{Redis} \cite{redis} & NoSQL (clave-valor) & Extremadamente rápido; ideal para caché o sesiones. & No diseñado para persistencia compleja ni relaciones. & Almacenamiento temporal, sesiones de usuario, colas de mensajes. \\
+\textbf{Redis} \cite{redis} & NoSQL (clave-valor) & Velocidad de respuesta extremadamente alta; ideal para almacenamiento en caché o sesiones. & No orientado a persistencia compleja ni relaciones entre datos. & Almacenamiento temporal, sesiones de usuario, colas de mensajes. \\
 \hline
 
 \end{longtable}
 \end{center}
 
-La selección de \textbf{PostgreSQL} para el \textit{backend} responde a su robustez, cumplimiento estricto del modelo ACID (\textit{Atomicity, Consistency, Isolation, Durability}) y su capacidad para manejar estructuras de datos complejas, relaciones entre entidades y procedimientos almacenados. Estas características resultan esenciales en una plataforma educativa que requiere mantener la integridad de los datos de usuarios, evaluaciones y progreso académico \cite{postgresql}.
+Del análisis comparativo se infiere que \textbf{PostgreSQL} resulta la alternativa más adecuada para la gestión centralizada de la información en la plataforma educativa. Su adherencia completa al modelo ACID (\textit{Atomicity, Consistency, Isolation, Durability}), la posibilidad de definir relaciones complejas y su capacidad de extensión mediante módulos personalizados lo convierten en una opción robusta para escenarios donde la integridad y la trazabilidad de los datos son críticas, como el seguimiento del progreso académico y la evaluación del desempeño estudiantil \cite{postgresql}. Además, su naturaleza de código abierto favorece la sostenibilidad tecnológica y la integración con herramientas de análisis y visualización de datos.
 
-Por otra parte, se ha optado por \textbf{SQLite} como motor de base de datos local dentro del videojuego educativo. Su naturaleza embebida, su bajo consumo de recursos y la ausencia de configuración de servidor la hacen ideal para almacenar información temporal del jugador, como resultados, niveles completados o configuraciones personalizadas. Además, su compatibilidad con entornos multiplataforma y su facilidad de sincronización con bases de datos centrales permiten una integración fluida con el sistema principal basado en PostgreSQL \cite{sqlite}.
+Por su parte, \textbf{SQLite} complementa esta arquitectura al servir como motor embebido en el videojuego educativo. Su bajo consumo de recursos y la ausencia de configuración de servidor la hacen ideal para entornos locales o dispositivos con capacidades limitadas. Permite almacenar información temporal del jugador —niveles completados, puntuaciones y configuraciones personalizadas— que posteriormente puede sincronizarse con la base de datos principal, garantizando coherencia entre las sesiones de juego y los registros académicos \cite{sqlite}. 
 
-En conjunto, esta combinación ofrece una solución equilibrada entre \textbf{rendimiento, portabilidad y consistencia}, optimizando la experiencia del usuario tanto en el entorno local del videojuego como en la gestión centralizada de datos del sistema educativo.
+La combinación de \textbf{PostgreSQL} y \textbf{SQLite} proporciona un equilibrio funcional entre \textbf{rendimiento, portabilidad y consistencia}, optimizando tanto la experiencia local del usuario como la gestión centralizada de los datos. Desde una perspectiva metodológica, esta decisión tecnológica responde al objetivo de asegurar la fiabilidad del almacenamiento, la escalabilidad de la arquitectura y la adaptabilidad de la solución en diversos contextos educativos.
 
 
 \subsection{Módulo del Estudiante}
@@ -580,6 +573,7 @@ Tras el análisis comparativo, se seleccionó \textbf{Next.js} como \textit{fram
 La decisión se fundamenta en su capacidad para combinar el renderizado del lado del servidor (\textit{Server-Side Rendering, SSR}) y la generación estática (\textit{Static Site Generation, SSG}), lo que mejora el rendimiento, la accesibilidad y la optimización para motores de búsqueda \cite{nextjs}.  
 
 Next.js proporciona una arquitectura flexible basada en React, lo que facilita la creación de interfaces dinámicas y modulares que pueden integrarse fácilmente con el backend desarrollado en FastAPI.  
+
 Además, su soporte nativo para rutas dinámicas y \textit{fetching} de datos asíncronos permite la visualización eficiente de la información académica en tiempo real, como el progreso del estudiante, estadísticas de rendimiento y resultados de las evaluaciones.  
 
 Otro aspecto clave es su compatibilidad con TypeScript, que refuerza la mantenibilidad y escalabilidad del código al ofrecer tipado estático y detección temprana de errores.  
@@ -654,11 +648,12 @@ Su diseño ligero y orientado al rendimiento permite manejar eventos en tiempo r
 
 \section{Conclusiones parciales}
 
-A lo largo del capítulo se ha evidenciado que los videojuegos y la gamificación constituyen herramientas educativas con un alto potencial para incrementar la motivación, el compromiso y la participación activa de los estudiantes. Los \textit{serious games} y el Aprendizaje Basado en Juegos (ABJ) facilitan experiencias inmersivas y significativas, en las que la interactividad, la retroalimentación inmediata y la progresión de niveles favorecen la adquisición de conocimientos y el desarrollo de habilidades cognitivas y transversales. La gamificación, al incorporar mecánicas, dinámicas y componentes de juego en contextos educativos, fortalece la motivación intrínseca, promueve la autonomía y genera un sentido de logro en el estudiante.
+A lo largo del capítulo se ha evidenciado que los videojuegos y la gamificación constituyen herramientas educativas con un alto potencial para incrementar la motivación, el compromiso y la participación activa de los estudiantes. Los \textit{serious games} facilitan experiencias inmersivas y significativas, en las que la interactividad, la retroalimentación inmediata y la progresión de niveles favorecen tanto la adquisición de conocimientos como el desarrollo de habilidades cognitivas, sociales y emocionales. La gamificación, al incorporar mecánicas, dinámicas y componentes propios del juego en contextos educativos, fortalece la motivación intrínseca, estimula la autonomía y genera un sentido de logro que potencia la autorregulación del aprendizaje.
 
-El análisis de teorías del aprendizaje, especialmente el constructivismo y la teoría del flujo, permitió comprender los fundamentos pedagógicos que respaldan la integración de videojuegos y experiencias gamificadas. Estas perspectivas destacan que el aprendizaje se construye activamente mediante la interacción significativa con el contenido, el entorno y los pares, resaltando la importancia de diseñar recursos educativos contextualizados y experiencias motivadoras que potencien la implicación y el compromiso del estudiante.
+El análisis de las principales teorías del aprendizaje, especialmente el constructivismo, el socioconstructivismo y la teoría del flujo, permitió comprender los fundamentos pedagógicos que sustentan la integración de videojuegos y experiencias gamificadas en entornos educativos. Estas corrientes destacan que el aprendizaje se construye activamente mediante la interacción significativa con el contenido, el entorno y los pares, por lo que la incorporación de elementos lúdicos representa una vía efectiva para promover la implicación, la atención sostenida y el aprendizaje significativo. 
 
-La revisión de experiencias y casos de estudio, tanto internacionales como locales, permitió identificar buenas prácticas, beneficios y desafíos en la implementación de videojuegos educativos. Se evidenció que, si bien estos recursos favorecen aprendizajes profundos y el desarrollo de competencias transversales, su efectividad depende de una planificación pedagógica adecuada, la formación docente, la infraestructura tecnológica y la adaptación de los contenidos al contexto educativo.
+La revisión de experiencias y casos de estudio, posibilitó identificar buenas prácticas, beneficios y desafíos asociados a la implementación de videojuegos educativos. Se evidenció que, si bien estas herramientas contribuyen al logro de aprendizajes profundos y al desarrollo de competencias transversales, su efectividad depende de factores como la planificación pedagógica, la preparación docente, la infraestructura tecnológica y la coherencia entre los objetivos educativos y las dinámicas de juego. Asimismo, se detectaron limitaciones comunes en las propuestas actuales, relacionadas con la falta de personalización, la escasa retroalimentación adaptativa y la dificultad para realizar un seguimiento integral del progreso estudiantil.
 
-En síntesis, este análisis proporciona una base teórica sólida que respalda la utilización de videojuegos y gamificación en entornos educativos, garantizando que sus componentes lúdicos y adaptativos contribuyan de manera efectiva a la construcción de aprendizajes significativos y al desarrollo integral de los estudiantes.
+En síntesis, este análisis teórico y comparativo sienta una base sólida para el desarrollo de una solución tecnológica que responda a las brechas identificadas en el estado del arte. Los fundamentos revisados respaldan la pertinencia de diseñar una plataforma educativa basada en videojuegos adaptativos, orientada a fortalecer la motivación y la autonomía del estudiante, al tiempo que ofrece mecanismos de evaluación y seguimiento más precisos. De esta manera, las conclusiones de este capítulo se articulan directamente con el problema científico y los objetivos de la investigación, sirviendo como sustento conceptual para el diseño y desarrollo de la propuesta presentada en el siguiente capítulo.
+
 
