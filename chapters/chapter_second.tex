@@ -40,198 +40,275 @@ En conjunto, la historia no solo cumple una función estética o de ambientació
 
 Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso, se han dividido los requisitos funcionales según el módulo al que pertenecen ya sea \textit{Hello World!!} o la \textit{interfaz web docente}.
 
-\subsubsection*{Módulo del Estudiante}
+\subsubsection*{Requisitos Funcionales del Videojuego}
 
 \begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} \\
-	\hline
-	\endfirsthead
-	
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} \\
-	\hline
-	\endhead
-	
-	\hline
-	\endfoot
-	
-	\hline
-	\endlastfoot
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endfirsthead
 
-    \multicolumn{2}{|c|}{\textbf{A. Evaluación y Progreso}} \\
-    \hline
-	RF1 & El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de código. \\
-	\hline
-	RF2 & El sistema debe registrar automáticamente estos datos para análisis posterior. \\
-	\hline
-	RF9 & El sistema debe guardar automáticamente el progreso del jugador tras finalizar un nivel o salir del juego, sin perder información. \\
-	\hline
-	RF13 & Al completar un nivel, el sistema debe mostrar una puntuación numérica o cualitativa basada en criterios como número de errores, eficiencia de la solución y tiempo. \\
-	\hline
-	RF14 & El jugador debe tener acceso a un resumen de su progreso general: puntaje promedio, tiempo total invertido, conceptos dominados, niveles completados. \\
-	\hline
+\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endhead
 
-    \multicolumn{2}{|c|}{\textbf{B. Adaptación y Personalización}} \\
-    \hline
-	RF3 & El sistema debe adaptar automáticamente el nivel si el jugador no cumple los objetivos establecidos. \\
-	\hline
-	RF4 & La adaptación puede incluir simplificar el objetivo, reducir la complejidad del código requerido o dar pistas adicionales. \\
-	\hline
-	RF7 & El sistema debe ajustar la dificultad de los niveles siguientes basándose en el historial de desempeño del jugador. \\
-	\hline
-	RF8 & El jugador debe poder configurar opciones del juego, como volumen del sonido, resolución de pantalla, idioma, modo de color. \\
-	\hline
+\hline
+\endfoot
 
-    \multicolumn{2}{|c|}{\textbf{C. Contenido Pedagógico}} \\
-    \hline
-	RF5 & Cada nivel debe estar asociado a un tema específico de programación y esta asociación debe ser clara tanto para el estudiante como para el profesor. \\
-	\hline
-	RF10 & Al inicio de cada nivel, el sistema debe mostrar una clase introductoria que explique el concepto de programación asociado. \\
-	\hline
-	RF11 & El sistema debe permitir al jugador construir soluciones usando bloques de programación visual. \\
-	\hline
-	RF12 & Los bloques deben representar acciones lógicas (condiciones, ciclos, variables). \\
-	\hline
+\hline
+\endlastfoot
 
-    \multicolumn{2}{|c|}{\textbf{D. Interacción y Retroalimentación}} \\
-    \hline
-	RF6 & Tras cada acción del jugador (ejecutar, reiniciar, completar), el sistema debe mostrar retroalimentación visual o textual inmediata. \\
-	\hline
-	RF17 & El sistema debe ofrecer un tutorial interactivo al primer inicio que enseñe las mecánicas básicas del juego. \\
-	\hline
-
-    \multicolumn{2}{|c|}{\textbf{E. Progresión y Acceso a Niveles}} \\
-    \hline
-	RF15 & El sistema debe presentar los niveles en un orden progresivo que refleje el avance pedagógico. \\
-	\hline
-	RF16 & No se debe permitir acceder a niveles posteriores sin haber superado los anteriores (salvo excepciones definidas por el profesor). \\
-	\hline
-	RF18 & El jugador debe poder repetir niveles ya completados para mejorar su puntuación o entender mejor el concepto. \\
-	\hline
+RF1 & El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución. \\
+\hline
+RF2 & El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior. \\
+\hline
+RF3 & El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos. \\
+\hline
+RF4 & La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales. \\
+\hline
+RF5 & Cada nivel debe estar asociado a un tema específico de programación claramente identificable. \\
+\hline
+RF6 & El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador. \\
+\hline
+RF7 & El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador. \\
+\hline
+RF8 & El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color. \\
+\hline
+RF9 & El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel. \\
+\hline
+RF10 & Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado. \\
+\hline
+RF11 & El sistema debe permitir construir soluciones mediante bloques de programación visual. \\
+\hline
+RF12 & Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables. \\
+\hline
+RF13 & Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento. \\
+\hline
+RF14 & El jugador debe poder consultar un resumen global de su progreso académico. \\
+\hline
+RF15 & Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje. \\
+\hline
+RF16 & El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores. \\
+\hline
+RF17 & El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego. \\
+\hline
+RF18 & El jugador debe poder repetir niveles ya completados para mejorar su desempeño. \\
+\hline
 
 \end{longtable}
 
 
-
-\subsubsection*{Módulo del Profesor}
+\subsubsection*{Requisitos Funcionales de la Aplicación Web del Profesor}
 
 \begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\hline
-	\textbf{RF} & \textbf{Descripción del Requisito Funcional} \\
-	\hline
-	\endfirsthead
-	
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación} \\
-	\hline
-	\textbf{RF} & \textbf{Descripción del Requisito Funcional} \\
-	\hline
-	\endhead
-	
-	\hline
-	\endfoot
-	
-	\hline
-	\endlastfoot
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endfirsthead
 
-    \multicolumn{2}{|c|}{\textbf{A. Monitoreo y Seguimiento del Estudiante}} \\
-    \hline
-	RF1 & Mostrar un resumen consolidado del progreso individual y grupal de los estudiantes. \\
-	\hline
-	RF2 & Incluir métricas detalladas como niveles completados, errores comunes y tiempo promedio por nivel. \\
-	\hline
-	RF5 & Generar gráficos comparativos de rendimiento entre estudiantes (por ejemplo: barras, líneas, mapas de calor). \\
-	\hline
-	RF8 & Permite visualizar el historial completo de progreso de cada estudiante, incluyendo puntuaciones y tiempos. \\
-	\hline
-	RF9 & Notificar al profesor cuando un estudiante no alcanza el umbral mínimo de rendimiento en varios niveles consecutivos. \\
-	\hline
-	RF15 & Consultar estadísticas globales del curso, como porcentaje de niveles completados, promedio de puntuación, etc. \\
-	\hline
+\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación} \\
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endhead
 
-    \multicolumn{2}{|c|}{\textbf{B. Comunicación y Retroalimentación}} \\
-    \hline
-	RF3 & Permitir al profesor enviar comentarios personalizados a estudiantes individuales o grupos enteros. \\
-	\hline
-	RF13 & Recibir notificaciones sobre nuevos mensajes o actualizaciones de progreso enviadas por el sistema o los estudiantes. \\
-	\hline
-	RF14 & Establecer objetivos personalizados para uno o más estudiantes dentro de un curso o grupo. \\
-	\hline
+\hline
+\endfoot
 
-    \multicolumn{2}{|c|}{\textbf{C. Creación y Gestión de Contenido}} \\
-    \hline
-	RF4 & Brindar un editor intuitivo para crear, modificar o eliminar niveles utilizando bloques predefinidos. \\
-	\hline
-	RF6 & Asignar niveles específicos a estudiantes o grupos según su desempeño. \\
-	\hline
-	RF10 & Crear exámenes tipo basados en niveles ya existentes, con opción de configurar tiempo límite y número de intentos. \\
-	\hline
-	RF11 & Importar/exportar niveles entre diferentes cursos o instituciones educativas (futuro). \\
-	\hline
+\hline
+\endlastfoot
 
-    \multicolumn{2}{|c|}{\textbf{D. Reportes y Exportación}} \\
-    \hline
-	RF7 & Exportar reportes de progreso de estudiantes en formatos estándar (PDF, CSV). \\
-	\hline
-
-    \multicolumn{2}{|c|}{\textbf{E. Integración con Plataformas Externas}} \\
-    \hline
-	RF12 & Integrar con plataformas LMS (Moodle, Google Classroom) para autenticación única y sincronización de datos de progreso. \\
-	\hline
+RF19 & El sistema debe mostrar al profesor un resumen del progreso individual y grupal de los estudiantes. \\
+\hline
+RF20 & El sistema debe presentar métricas detalladas como niveles completados, errores y tiempo promedio. \\
+\hline
+RF21 & El sistema debe generar gráficos comparativos de rendimiento entre estudiantes. \\
+\hline
+RF22 & El profesor debe poder visualizar el historial completo de desempeño de cada estudiante. \\
+\hline
+RF23 & El sistema debe notificar al profesor cuando un estudiante presente bajo rendimiento reiterado. \\
+\hline
+RF24 & El profesor debe poder enviar comentarios personalizados a estudiantes o grupos. \\
+\hline
+RF25 & El sistema debe permitir definir objetivos personalizados para estudiantes o grupos. \\
+\hline
+RF26 & El sistema debe permitir crear, editar y eliminar niveles educativos. \\
+\hline
+RF27 & El profesor debe poder asignar niveles a estudiantes o grupos según su desempeño. \\
+\hline
+RF28 & El sistema debe permitir crear evaluaciones basadas en niveles existentes. \\
+\hline
+RF29 & El sistema debe permitir exportar reportes académicos en formatos estándar como PDF o CSV. \\
+\hline
+RF30 & El sistema debe integrarse con plataformas LMS para autenticación y sincronización académica. \\
+\hline
 
 \end{longtable}
+
+\subsubsection*{Requisitos Funcionales del Backend}
+
+\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endfirsthead
+
+\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación} \\
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+RF31 & El backend debe exponer una API REST para la comunicación con los clientes. \\
+\hline
+RF32 & El sistema debe gestionar la autenticación y autorización de usuarios. \\
+\hline
+RF33 & El backend debe almacenar de forma persistente los datos académicos y de progreso. \\
+\hline
+RF34 & El sistema debe sincronizar información con plataformas LMS externas. \\
+\hline
+RF35 & El backend debe procesar métricas de desempeño para análisis pedagógico. \\
+\hline
+RF36 & El sistema debe permitir la gestión de usuarios y roles. \\
+\hline
+RF37 & El sistema debe gestionar cursos, grupos y matrículas. \\
+\hline
+RF38 & El backend debe permitir la generación de reportes consolidados. \\
+\hline
+RF39 & El sistema debe registrar eventos relevantes del sistema. \\
+\hline
+RF40 & El backend debe permitir la recuperación de información histórica. \\
+\hline
+RF41 & El sistema debe permitir la sincronización diferida cuando no exista conectividad. \\
+\hline
+RF42 & El backend debe validar la consistencia de los datos recibidos. \\
+\hline
+RF43 & El sistema debe permitir la escalabilidad del número de usuarios. \\
+\hline
+RF44 & El backend debe permitir la configuración de parámetros del sistema. \\
+\hline
+RF45 & El sistema debe permitir la integración con servicios externos adicionales. \\
+\hline
+RF46 & El backend debe permitir auditoría de operaciones. \\
+\hline
+RF47 & El sistema debe gestionar copias de seguridad. \\
+\hline
+RF48 & El backend debe permitir restauración de información. \\
+\hline
+RF49 & El sistema debe gestionar notificaciones del sistema. \\
+\hline
+RF50 & El backend debe permitir el monitoreo del estado del sistema. \\
+\hline
+RF51 & El sistema debe permitir la gestión de versiones del contenido educativo. \\
+\hline
+RF52 & El backend debe permitir la configuración de reglas de adaptación. \\
+\hline
+RF53 & El sistema debe permitir la evaluación automática del progreso. \\
+\hline
+RF54 & El backend debe permitir el análisis histórico de resultados. \\
+\hline
+RF55 & El sistema debe permitir exportación de datos académicos. \\
+\hline
+RF56 & El backend debe permitir la trazabilidad de acciones del usuario. \\
+\hline
+RF57 & El sistema debe permitir la gestión de permisos avanzados. \\
+\hline
+RF58 & El backend debe soportar múltiples cursos simultáneamente. \\
+\hline
+RF59 & El sistema debe permitir la integración continua de mejoras. \\
+\hline
+RF60 & El backend debe permitir la extensión de funcionalidades sin afectar el núcleo del sistema. \\
+\hline
+
+\end{longtable}
+
 
 
 \section{Requisitos No Funcionales}
 
 Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
 
-\begin{longtable}{|p{0.08\linewidth}|p{0.38\linewidth}|p{0.18\linewidth}|p{0.28\linewidth}|}
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Categoría} & \textbf{Criterio de Aceptación} \\
-	\hline
-	\endfirsthead
-	
-	\multicolumn{4}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito} & \textbf{Categoría} & \textbf{Criterio de Aceptación} \\
-	\hline
-	\endhead
-	
-	\hline
-	\endfoot
-	
-	\hline
-	\endlastfoot
-	
-	RNF1 & El sistema debe garantizar la protección de datos sensibles mediante autenticación segura (JWT) para información crítica. & Seguridad & Pruebas de penetración y verificación de que las contraseñas nunca se almacenan en texto plano. \\
-	\hline
-	
-	RNF2 & El sistema debe responder ante acciones del usuario en menos de 2 segundos bajo carga normal de hasta 200 usuarios concurrentes. & Rendimiento & Pruebas de estrés que demuestren que el 90\% de las solicitudes cumplen el tiempo máximo de respuesta. \\
-	\hline
-	
-	RNF3 & La interfaz del juego y del panel docente debe ser intuitiva y accesible para usuarios sin experiencia en videojuegos. & Usabilidad & Al menos un 80\% de los usuarios de prueba deben completar una tarea básica sin asistencia en menos de 5 minutos. \\
-	\hline
-	
-	RNF4 & El sistema debe permitir escalar horizontalmente su infraestructura backend en caso de aumento de estudiantes registrados. & Escalabilidad & Prueba de despliegue en contenedores donde se añadan nuevos nodos sin interrumpir el servicio. \\
-	\hline
-	
-	RNF5 & El módulo del estudiante debe ejecutarse en dispositivos móviles Android/iOS. & Compatibilidad & Pruebas en al menos 3 dispositivos móviles con OS distintos. \\
-	\hline
-	
-	RNF6 & El sistema debe mantener una disponibilidad mínima del 95\% durante el periodo lectivo. & Disponibilidad & Monitoreo de uptime mensual que no registre más de 5\% de tiempo fuera de servicio. \\
-	\hline
-	
-	RNF7 & El código debe estar organizado y documentado para facilitar mantenimiento y futuras actualizaciones. & Mantenibilidad & Revisión de código donde al menos el 90\% de las funciones incluyan documentación y comentarios explicativos. \\
-	\hline
-	
-	RNF8 & El sistema debe integrarse con plataformas LMS estándar (Moodle, Google Classroom) para sincronizar datos de progreso. & Interoperabilidad & Pruebas de integración exitosas que confirmen autenticación única (SSO) y exportación de datos en formato estándar. \\
-	\hline
-	
-	RNF9 & El sistema debe cumplir con pautas básicas de accesibilidad web (WCAG 2.1 AA), incluyendo modo oscuro y ajuste de texto. & Accesibilidad & Validación con herramientas automáticas y pruebas con al menos 2 usuarios con discapacidad visual leve. \\
-	\hline
+\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito No Funcional} \\
+\hline
+\endfirsthead
+
+\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación} \\
+\hline
+\textbf{ID} & \textbf{Descripción del Requisito No Funcional} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+RNF1 & El sistema debe proporcionar una interfaz gráfica intuitiva que permita el uso tras un máximo de 3 horas de capacitación. \\
+\hline
+RNF2 & El sistema debe cumplir con principios de accesibilidad conforme a WCAG 2.1 nivel AA. \\
+\hline
+RNF3 & El sistema debe mostrar mensajes claros y comprensibles ante acciones exitosas, errores o advertencias. \\
+\hline
+RNF4 & La aplicación web debe ser compatible con los navegadores Chrome, Firefox, Brave y Safari. \\
+\hline
+RNF5 & La interfaz debe adaptarse correctamente a diferentes resoluciones de pantalla. \\
+\hline
+RNF6 & El módulo videojuego debe ejecutarse en plataformas Android y Windows. \\
+\hline
+RNF7 & El sistema debe permitir la internacionalización de la interfaz en español e inglés. \\
+\hline
+RNF8 & El sistema debe responder a interacciones locales en un tiempo máximo de 300 ms. \\
+\hline
+RNF9 & La aplicación web debe cargar las vistas principales en un tiempo máximo de 3 segundos. \\
+\hline
+RNF10 & El videojuego debe ejecutarse con una tasa mínima de 30 FPS. \\
+\hline
+RNF11 & El sistema debe garantizar autenticación segura basada en tokens. \\
+\hline
+RNF12 & Los datos deben protegerse mediante cifrado en tránsito (HTTPS). \\
+\hline
+RNF13 & El acceso a funcionalidades debe restringirse según el rol del usuario. \\
+\hline
+RNF14 & El sistema debe evitar la pérdida de progreso ante cierres inesperados. \\
+\hline
+RNF15 & El sistema debe reintentar la sincronización ante fallos de red. \\
+\hline
+RNF16 & El sistema debe mantener la consistencia de los datos. \\
+\hline
+RNF17 & El sistema debe interoperar con plataformas LMS estándar. \\
+\hline
+RNF18 & El código fuente debe ser modular, organizado y documentado. \\
+\hline
+RNF19 & El sistema debe poder desplegarse mediante contenedores Docker. \\
+\hline
+RNF20 & El sistema debe registrar eventos relevantes de operación. \\
+\hline
+RNF21 & El backend debe soportar crecimiento progresivo de usuarios sin degradar rendimiento. \\
+\hline
+RNF22 & El sistema debe alcanzar una disponibilidad mínima del 95\%. \\
+\hline
+RNF23 & El sistema debe permitir copias de seguridad periódicas. \\
+\hline
+RNF24 & El sistema debe permitir rastrear la evolución del aprendizaje. \\
+\hline
+RNF25 & El sistema debe permitir incorporar nuevos niveles sin modificar la arquitectura. \\
+\hline
+RNF26 & El sistema debe presentar los conceptos usando terminología acorde al nivel educativo. \\
+\hline
+
 \end{longtable}
+
 
 
 % ----------------------------------------------
@@ -393,7 +470,7 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 \end{table}
 
 
-\subsubsection*{Módulo del Profesor}
+\subsubsection*{Módulo del profesor}
 
 % =======================
 % Caso de uso 1
@@ -494,70 +571,42 @@ Por otro lado, el diagrama del módulo \textit{Teacher Core} ilustra las accione
 \caption{Caso de uso CU8: Autenticar en el sistema}
 \end{table}
 
+\section{Modelo de datos}
+
 % ------------------------------------------------
 
-\section{Arquitectura del Sistema}
+\section{Arquitectura del sistema}
 
-El diseño arquitectónico de la plataforma propuesta se describe utilizando el \textbf{Modelo C4}, creado por Simon Brown \cite{brown2018c4}. Este modelo surge como una alternativa moderna y simplificada al uso extensivo de diagramas UML tradicionales, priorizando la comprensión del sistema por parte de todos los actores del proyecto —desde desarrolladores hasta interesados no técnicos— sin sacrificar precisión técnica. 
+El diseño arquitectónico de la plataforma propuesta se describe utilizando diagramas UML, enfocándose en ofrecer una visión jerárquica y comprensible del sistema. Esta aproximación permite que tanto desarrolladores como actores no técnicos puedan entender la estructura y las interacciones principales de la plataforma sin entrar en detalles de implementación de código.
 
-El modelo C4 se basa en una jerarquía de cuatro niveles que permiten visualizar el sistema con diferentes grados de detalle:
+Para la descripción de la arquitectura, se utilizan principalmente diagramas de contexto, de componentes y de paquetes, los cuales permiten representar de forma clara la organización global del sistema, la interacción entre sus módulos y los elementos internos más relevantes.
 
-\begin{itemize}
-    \item \textbf{Nivel 1: Diagrama de Contexto}. Presenta el sistema como una “caja negra”, mostrando los actores externos (usuarios u otros sistemas) que interactúan con él, y el tipo de relaciones o flujos de información existentes.
-    \item \textbf{Nivel 2: Diagrama de Contenedores}. Descompone el sistema en sus principales contenedores (aplicaciones, bases de datos, servicios web, interfaces) y muestra cómo se comunican entre sí.
-    \item \textbf{Nivel 3: Diagrama de Componentes}. Profundiza dentro de un contenedor específico, mostrando los componentes principales, sus responsabilidades y las relaciones entre ellos.
-    \item \textbf{Nivel 4: Diagrama de Código}. Ofrece una vista detallada de la implementación, incluyendo clases, interfaces y relaciones a nivel de código fuente.
-\end{itemize}
 
-A diferencia de UML, el modelo C4 no pretende describir exhaustivamente todos los aspectos estructurales o de comportamiento del software, sino ofrecer una \textbf{visión jerárquica y comprensible} del sistema. Su simplicidad gráfica facilita la comunicación entre equipos interdisciplinarios, evitando la sobrecarga de notación que caracteriza a UML.
-
-Dado que el objetivo de esta tesis es presentar una \textbf{propuesta arquitectónica de la plataforma educativa}, se utilizan únicamente los tres primeros niveles (Contexto, Contenedores y Componentes). Estos niveles son suficientes para representar de forma clara tanto la organización global del sistema como la interacción entre sus módulos y los elementos internos más relevantes, sin entrar en detalles de implementación de código.
 
 \subsection{Arquitectura General}
 
-La arquitectura general de la plataforma se estructura siguiendo los niveles de Contexto y Contenedores del modelo C4. Esta visión permite identificar las interacciones entre los distintos módulos que componen el sistema, así como su relación con los actores externos.
+La arquitectura general de la plataforma educativa se organiza en dos niveles principales: la interacción con los actores externos y la composición interna de los módulos del sistema.
 
-\textbf{Nivel 1: Diagrama de Contexto}
-
-El sistema propuesto, denominado \textit{Plataforma Educativa Gamificada para la Enseñanza de la Programación}, se compone de dos actores principales: el \textbf{Estudiante} y el \textbf{Profesor}. Ambos interactúan con la plataforma a través de diferentes interfaces que comparten un backend común encargado de la persistencia y sincronización de datos.
+\textbf{Diagrama de Contexto}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{src/C4_Context}
+    \includegraphics[width=0.9\textwidth]{src/uml_context}
     \caption{Diagrama de Contexto del Sistema.}
     \label{fig:c4_contexto}
 \end{figure}
 
-En este nivel se visualiza la interacción entre los actores y el sistema como una unidad. El estudiante utiliza el videojuego educativo, mientras que el profesor accede a la interfaz web para supervisar el progreso académico. El backend actúa como intermediario central, gestionando las comunicaciones, almacenamiento y autenticación de usuarios. 
-
-\textbf{Nivel 2: Diagrama de Contenedores}
-
-El siguiente nivel descompone la solución en sus principales contenedores de software, los cuales se comunican a través de una API RESTful implementada en el backend. Los contenedores identificados son:
-
-\begin{itemize}
-    \item \textbf{Frontend Estudiante (Hello World!!)}: Videojuego educativo desarrollado con \textit{Godot Engine}, que implementa mecánicas adaptativas para ajustar la dificultad de los niveles según el desempeño del jugador.
-    \item \textbf{Frontend Profesor (Teacher Core)}: Aplicación web desarrollada en \textit{Next.js}, donde el docente puede visualizar métricas de progreso, asignar niveles personalizados y generar reportes.
-    \item \textbf{API Backend}: Servicio central desarrollado en \textit{FastAPI (Python)}, encargado de procesar solicitudes, aplicar reglas de negocio y gestionar la persistencia de datos.
-    \item \textbf{Base de Datos PostgreSQL}: Repositorio donde se almacenan usuarios, niveles, métricas de rendimiento y configuraciones del sistema.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.9\textwidth]{src/C4_Container}
-    \caption{Diagrama de Contenedores del Sistema.}
-    \label{fig:c4_contenedores}
-\end{figure}
-
-Este nivel refleja la separación de responsabilidades entre los distintos componentes del ecosistema: el videojuego se orienta a la experiencia educativa del estudiante, la aplicación web al monitoreo docente, y el backend como intermediario de servicios y sincronización.
+En esta vista se refleja cómo los actores utilizan la plataforma: el estudiante accede al videojuego educativo, mientras que el profesor utiliza la aplicación web para supervisar el progreso académico. Ambos interactúan con el backend central, responsable de la persistencia de datos, autenticación y sincronización de información.
 
 \subsection{Arquitectura a Detalle por Módulo}
 
-A continuación, se describen los diagramas de componentes (nivel 3 del modelo C4) correspondientes a cada uno de los módulos que conforman el sistema.
+A continuación, se describen a detalle la arquitectura que presenta cada subsistema en la plataforma.
 
-\subsubsection{Módulo Estudiante}
+\subsubsection{Videojuego educativo}
 
-El módulo del estudiante se estructura en torno al patrón \textit{Modelo–Vista–Controlador} (MVC), adaptado al contexto de Godot. En este nivel, el diagrama de componentes detalla las principales unidades funcionales del videojuego, su relación y responsabilidades.
+El módulo del estudiante se estructura en torno al patrón \textit{Modelo–Vista–Controlador} (MVC), adaptado al contexto de Godot. En este nivel, el diagrama detalla las principales unidades funcionales del videojuego, su relación y responsabilidades.
 
+%TODO: Ajustar esta explicación a como se muestra en el diagrama
 \begin{itemize}
     \item \textbf{GameManager}: Coordina el flujo del juego, maneja la lógica principal y las transiciones entre niveles.
     \item \textbf{LevelManager}: Controla la carga, ejecución y evaluación de los niveles.
@@ -568,16 +617,16 @@ El módulo del estudiante se estructura en torno al patrón \textit{Modelo–Vis
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{C4_Components_Godot.pdf}
+    \includegraphics[width=0.9\textwidth]{mvc_game.png}
     \caption{Diagrama de Componentes del Módulo Estudiante.}
     \label{fig:c4_estudiante}
 \end{figure}
 
 Este diseño facilita la extensibilidad del sistema, permitiendo incorporar nuevos tipos de niveles o mecánicas sin modificar la estructura base del videojuego. Además, la separación de responsabilidades asegura una mayor mantenibilidad y testabilidad del código.
 
-\subsubsection{Módulo Profesor}
+\subsubsection{Aplicación web del profesor}
 
-El \textbf{módulo del profesor} se concibe como una aplicación web desarrollada bajo una arquitectura cliente–servidor, orientada a ofrecer al docente un entorno integral de gestión, seguimiento y análisis del proceso de aprendizaje. Su diseño organiza las funcionalidades en componentes especializados que interactúan de manera coordinada para facilitar la supervisión del progreso estudiantil y la creación de contenidos educativos.  
+La aplicación web del profesor se concibe como una aplicación correspondiente al lado del cliente en una arquitectura cliente-servidor, orientada a ofrecer al docente un entorno integral de gestión, seguimiento y análisis del proceso de aprendizaje. Su diseño organiza las funcionalidades en componentes especializados que interactúan de manera coordinada para facilitar la supervisión del progreso estudiantil y la creación de contenidos educativos.  
 
 Este módulo se estructura de forma que el docente pueda acceder a información consolidada sobre el rendimiento general de sus estudiantes, diseñar y adaptar actividades de aprendizaje según las necesidades del grupo, y generar reportes que apoyen la toma de decisiones pedagógicas. La comunicación entre la interfaz del usuario y el sistema central se realiza mediante una API REST, garantizando la sincronización eficiente de datos y la actualización en tiempo real de la información.  
 
@@ -586,12 +635,10 @@ En conjunto, la composición del módulo combina elementos de visualización, ge
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{src/c4components_spa}
+    \includegraphics[width=0.9\textwidth]{src/client_server_component}
     \caption{Diagrama de Componentes del Módulo Profesor.}
     \label{fig:c4_profesor}
 \end{figure}
-
-El diseño modular del frontend docente facilita la integración con plataformas externas como Moodle o Google Classroom, garantizando interoperabilidad mediante autenticación única (SSO) y sincronización de progreso académico.
 
 \subsubsection{API Backend}
 
@@ -613,13 +660,13 @@ El backend constituye el núcleo funcional de la plataforma, encargado de gestio
 %     \label{fig:c4_backend}
 % \end{figure}
 
-\begin{figure}[H]
-    \centering
-    % Escala al ancho total del texto manteniendo proporción
-    \includegraphics[width=\linewidth, keepaspectratio]{src/C4_Components_API.pdf}
-    \caption{Diagrama de Componentes del API Backend.}
-    \label{fig:c4_backend}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     % Escala al ancho total del texto manteniendo proporción
+%     \includegraphics[width=\linewidth, keepaspectratio]{src/C4_Components_API.pdf}
+%     \caption{Diagrama de Componentes del API Backend.}
+%     \label{fig:c4_backend}
+% \end{figure}
 
 
 % La API sigue el estándar RESTful y fue diseñada bajo los principios de arquitectura orientada a servicios, lo que permite escalar o reemplazar módulos de negocio sin afectar al resto del sistema. Cada servicio se comunica con el resto mediante interfaces bien definidas, garantizando un acoplamiento mínimo y una alta cohesión interna.
@@ -715,6 +762,15 @@ En el desarrollo del sistema se han implementado diversos patrones de diseño or
 \subsubsection{Patrón Singleton}
 Este patrón asegura que una clase tenga una única instancia global accesible. El \texttt{GameController} se implementa como un Singleton, centralizando la gestión del flujo del juego y evitando la creación de múltiples instancias que podrían generar inconsistencias en el estado global.
 
+\begin{figure}[H]
+    \centering
+    % Escala al ancho total del texto manteniendo proporción
+    \includegraphics[width=\linewidth, keepaspectratio]{src/Singleton}
+    \caption{Diagrama de Componentes del API Backend.}
+    \label{fig:c4_backend}
+\end{figure}
+
+
 % - Añadir diagrama de clase del patrón
 
 \subsubsection{Patrón Facade}
@@ -725,10 +781,35 @@ El patrón Facade provee una interfaz unificada que oculta la complejidad de sub
 \subsubsection{Patrón Abstract Factory}
 Este patrón permite crear familias de objetos relacionados sin especificar sus clases concretas. Se aplica en la creación de acciones para el bloque \texttt{Ejecución}, permitiendo generar dinámicamente instancias de acciones sin necesidad de crear un bloque personalizado para cada una, lo que mejora la extensibilidad del sistema.
 
+
+\begin{figure}[H]
+    \centering
+    % Escala al ancho total del texto manteniendo proporción
+    \includegraphics[width=\linewidth, keepaspectratio]{src/FactoryMethodActions}
+    \caption{Diagrama de Componentes del API Backend.}
+    \label{fig:c4_backend}
+\end{figure}
+
 % - Añadir diagrama de clase del patrón
 
 \subsubsection{Patrón Strategy}
-El patrón Strategy define una familia de algoritmos y encapsula cada uno de ellos, permitiendo intercambiarlos en tiempo de ejecución. Se utiliza para modificar dinámicamente la estrategia de comunicación con LMS sin afectar la lógica de la aplicación. Asimismo, se aplica en la implementación de un \texttt{LevelController}, permitiendo definir distintos comportamientos según el nivel en que se encuentre el estudiante.
+El patrón Strategy define una familia de algoritmos y encapsula cada uno de ellos, permitiendo intercambiarlos en tiempo de ejecución. Se utiliza para modificar dinámicamente la estrategia de comunicación con LMS sin afectar la lógica de la aplicación.
+
+\begin{figure}[H]
+    \centering
+    % Escala al ancho total del texto manteniendo proporción
+    \includegraphics[width=\linewidth, keepaspectratio]{src/ExecutionEngineStrategy}
+    \caption{Diagrama de Componentes del API Backend.}
+    \label{fig:c4_backend}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % Escala al ancho total del texto manteniendo proporción
+    \includegraphics[width=\linewidth, keepaspectratio]{src/Strategy}
+    \caption{Diagrama de Componentes del API Backend.}
+    \label{fig:c4_backend}
+\end{figure}
 
 % - Añadir diagrama de clase del patrón
 % ------------------------------------------------
