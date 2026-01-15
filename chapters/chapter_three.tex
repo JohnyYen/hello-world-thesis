@@ -1,2 +1,179 @@
-\chapter{\chapterThree}
-%\addcontentsline{toc}{chapter}{\chapterThree}
+\chapter{Validación del Sistema}
+
+La validación de cualquier sistema constituye un paso esencial dentro del desarrollo, pues permite demostrar que cada componente funciona de manera coherente, estable y alineada con los requisitos planteados. En este capítulo se detallan las pruebas efectuadas, la metodología utilizada y la interpretación de los resultados obtenidos.
+
+El proceso de validación se diseñó para abarcar distintos niveles: pruebas unitarias, pruebas de integración, pruebas visuales y pruebas orientadas a los flujos reales de uso. Con ello se buscó comprobar no solo el correcto funcionamiento individual de cada módulo, sino también su interacción dinámica dentro del sistema completo del videojuego. 
+
+\section{Metodología de Pruebas}
+
+La validación del videojuego educativo se llevó a cabo siguiendo una estrategia de pruebas que combina distintos tipos de test con el propósito de abarcar todos los niveles del sistema. A continuación se describen los enfoques utilizados, su propósito y las herramientas empleadas.
+
+\subsection{Tipos de Pruebas}
+
+Las pruebas realizadas se agrupan en tres categorías principales:
+
+\subsubsection*{Pruebas unitarias}
+
+Estas pruebas verifican el funcionamiento de componentes individuales como:
+
+\begin{itemize}
+    \item El agente adaptativo encargado de ajustar la dificultad.
+    \item El analizador de desempeño estudiantil.
+    \item El motor de inferencia basado en reglas.
+    \item Los contextos educativos como la cafetería y la biblioteca.
+    \item El motor de ejecución de programas basados en bloques.
+    \item Los controladores de retroalimentación.
+    \item El controlador de diálogos y el cliente HTTP.
+\end{itemize}
+
+Su objetivo principal es asegurar que cada módulo funcione correctamente en aislamiento antes de integrarlo al sistema.
+
+\subsubsection*{Pruebas de integración}
+
+Estas pruebas están enfocadas en evaluar cómo interactúan entre sí varios componentes del sistema. Por ejemplo:
+
+\begin{itemize}
+    \item Flujo completo de ejecución en el espacio de programación.
+    \item Comunicación entre repositorios de bloques y el entorno visual del usuario.
+    \item Integración entre la lógica educativa del nivel y la interfaz que permite construir soluciones.
+    \item Pruebas de escenarios completos con bloques reales.
+\end{itemize}
+
+Este nivel de pruebas permite detectar inconsistencias entre módulos que, aunque funcionan bien por separado, pueden fallar al trabajar en conjunto.
+
+\subsubsection*{Pruebas visuales}
+
+Este tipo de pruebas se centró en validar que los componentes gráficos, especialmente los relacionados con la retroalimentación y los diálogos, respondieran correctamente a los eventos del juego. Se verificó:
+
+\begin{itemize}
+    \item Emisión y recepción de señales.
+    \item Flujo completo de mensajes de retroalimentación.
+    \item Actualización visual acorde al rendimiento del estudiante.
+\end{itemize}
+
+\subsection{Estructura del Repositorio de Pruebas}
+
+El repositorio de pruebas se organizó con la siguiente estructura:
+
+\begin{verbatim}
+/test/
+  /unit/
+    /agent/
+    /blocks/
+    /contexts/
+    /engine/
+    /feedback/
+  /integrations/
+    /scenarios/
+    /workflows/
+  /fixtures/
+  /helpers/
+\end{verbatim}
+
+Esta organización permite mantener una clara separación entre pruebas a nivel de componente y pruebas a nivel de flujo. Asimismo, facilita la escalabilidad del proyecto, pues nuevos módulos pueden integrarse sin afectar la estructura actual.
+
+\subsection{Herramientas Empleadas}
+
+El proyecto utilizó el framework \textbf{GUT (Godot Unit Test)}, que permite definir pruebas de manera sencilla bajo la estructura nativa de Godot. Entre sus características más relevantes se encuentran:
+
+\begin{itemize}
+    \item Métodos de aserción adaptados al entorno Godot.
+    \item Capacidades de mocking para aislar dependencias.
+    \item Soporte para pruebas de escenas y nodos.
+    \item Reportes detallados de ejecución.
+\end{itemize}
+
+El uso de GUT permitió automatizar procesos, mejorar la trazabilidad de errores y asegurar consistencia en la validación del sistema.
+
+\section{Descripción de las Pruebas Realizadas}
+
+Las pruebas realizadas al sistema constituyen uno de los elementos más importantes en la validación del videojuego educativo, ya que permiten comprobar con evidencia concreta que los módulos funcionan no solo de manera aislada, sino también como un todo coherente. Cada grupo de pruebas fue diseñado para atacar un aspecto diferente del sistema, desde su capacidad para analizar el desempeño del estudiante hasta su habilidad para ejecutar programas complejos, pasando por la interacción entre interfaces visuales, bases de datos y motores de inferencia.
+
+A continuación, se describen en detalle todas las pruebas aplicadas. Antes de presentar los resultados específicos de cada archivo de test, se ofrece una introducción que contextualiza su propósito, su relevancia dentro de la arquitectura del juego y la razón por la cual dicho módulo necesitaba ser verificado.
+
+\subsection{Pruebas del Agente Inteligente}
+
+El agente inteligente constituye uno de los pilares del enfoque educativo del videojuego, ya que es el responsable de ajustar dinámicamente la dificultad de los niveles según el rendimiento del estudiante. Su correcto funcionamiento garantiza que el desafío presentado esté siempre alineado con la habilidad actual del jugador, evitando tanto la frustración como el aburrimiento.
+
+Las pruebas en este apartado se diseñaron para validar su comportamiento bajo diferentes escenarios de rendimiento: desde estudiantes que obtienen resultados excelentes hasta aquellos que presentan grandes dificultades. Además, se verificó su capacidad para respetar los límites configurados, mantener coherencia entre decisiones sucesivas y procesar de manera correcta los datos que recibe del analizador de desempeño.
+
+\subsection{Pruebas del Analizador de Desempeño}
+
+Antes de que el agente inteligente pueda tomar decisiones adecuadas, es necesario que los datos de desempeño del estudiante sean interpretados de forma correcta y transformados en métricas útiles. El analizador cumple exactamente ese rol: normaliza valores, gestiona historiales de desempeño, filtra anomalías y genera promedios ponderados estables que representan tendencias reales en el aprendizaje del jugador.
+
+Por ello, las pruebas aplicadas a este módulo buscaban asegurar consistencia en todos los pasos del procesamiento de datos, incluyendo la manipulación del historial, el cálculo de medias exponenciales y la gestión de valores faltantes o inesperados. Se priorizó verificar que, independientemente de la calidad de los datos de entrada, el analizador entregara siempre una estructura limpia y confiable.
+
+\subsection{Pruebas del Motor de Inferencia}
+
+El motor de inferencia basado en reglas traduce los valores proporcionados por el analizador en decisiones concretas: aumentar, disminuir o mantener la dificultad. Este módulo es especialmente sensible, ya que una clasificación incorrecta podría afectar la calidad educativa del juego.
+
+Las pruebas realizadas a este motor se centraron en garantizar que las reglas fueran aplicadas correctamente bajo condiciones normales, extremas y de borde. También se evaluó el comportamiento del sistema frente a inconsistencias temporales o la ausencia de reglas, asegurando que las decisiones producidas fueran siempre seguras y razonables dentro del flujo de aprendizaje del estudiante.
+
+\subsection{Pruebas de Contextos Educativos}
+
+Los contextos representan los escenarios temáticos del videojuego, tales como la cafetería o la biblioteca. Estos entornos no solo definen la narrativa y ambientación del juego, sino que también determinan las reglas específicas que el estudiante debe aprender y aplicar mediante programación visual.
+
+Las pruebas asociadas a estos módulos tenían como finalidad comprobar la integridad interna de los escenarios: la correcta configuración de colas, catálogos, inventarios y metas educativas. Cada contexto posee comportamientos únicos que requieren validación, desde mover libros en un estante hasta procesar estudiantes en una fila. Por ello se evaluaron exhaustivamente sus funciones clave y la coherencia de su lógica de verificación de soluciones.
+
+\subsection{Pruebas del Motor de Ejecución}
+
+El motor de ejecución es la pieza que transforma los programas hechos con bloques en acciones concretas dentro del contexto educativo. Su correcta operación es indispensable para garantizar que el estudiante reciba retroalimentación basada en sus decisiones y en la secuencia lógica que haya construido.
+
+Las pruebas aplicadas a este módulo se diseñaron para simular la ejecución de diferentes configuraciones de bloques, incluyendo flujos simples, secuencias largas y combinaciones con efectos específicos. La intención era asegurar que el motor respetara el orden de ejecución, aplicara correctamente las acciones sobre el contexto y generara resultados coherentes, independientemente de la complejidad del programa creado por el estudiante.
+
+\subsection{Pruebas del Sistema de Retroalimentación}
+
+La retroalimentación es uno de los elementos más importantes del aprendizaje dentro del videojuego, pues permite que el estudiante comprenda la causa de sus errores y reconozca sus aciertos. Por este motivo, se desarrollaron pruebas tanto sobre la lógica interna como sobre los elementos visuales asociados a la presentación del mensaje.
+
+Estas pruebas buscaban confirmar que los mensajes generados fueran adecuados para cada tipo de desempeño, que la prioridad entre mensajes se gestionara bien, que las colas internas funcionaran correctamente y que las señales visuales se emitieran y recibieran sin errores. Se simuló todo el flujo completo de generación y despliegue de feedback para asegurar una experiencia clara y motivadora para el usuario.
+
+\subsection{Pruebas del Repositorio de Bloques}
+
+El repositorio de bloques es la base que contiene todos los elementos disponibles para que el estudiante construya sus programas. Estos bloques se almacenan en una base de datos, por lo que su correcta recuperación es esencial para que los niveles puedan funcionar.
+
+Las pruebas en este apartado se enfocaron en verificar la integridad de la información almacenada, la capacidad para filtrar bloques según su tipo y el funcionamiento de las consultas bajo un entorno simulado mediante mocks. También se evaluó la robustez del módulo frente a datos incompletos, estructuras inesperadas y resultados nulos.
+
+
+\subsection{Pruebas de Integración en el Espacio de Programación}
+
+El espacio de programación es el lugar donde el estudiante construye sus programas visuales. Al combinar elementos del repositorio, controles de interfaz, eventos, señales y el motor de evaluación, constituye uno de los módulos más complejos del sistema.
+
+Las pruebas de integración se diseñaron para simular el flujo real de interacción del usuario: cargar bloques, arrastrarlos al espacio de trabajo, conectarlos, eliminarlos y ejecutar la solución creada. Este conjunto de pruebas permite evaluar la funcionalidad del sistema tal como lo experimentará el estudiante final, asegurando fluidez, coherencia y estabilidad.
+
+
+\section{Resultados Obtenidos}
+
+Los resultados de las pruebas muestran de manera consistente que los componentes del sistema funcionan según lo esperado. Entre los hallazgos más relevantes se destacan:
+
+\begin{itemize}
+    \item El agente adaptativo respondió correctamente a una amplia variedad de comportamientos.
+    \item Los contextos educativos demostraron fiabilidad en múltiples escenarios.
+    \item El motor de ejecución procesó correctamente tanto bloques simples como secuencias complejas.
+    \item La retroalimentación automática generó mensajes pertinentes y claros.
+    \item Los módulos visuales reaccionaron adecuadamente a señales y eventos.
+    \item El espacio de programación integró correctamente los repositorios, eventos y flujos completos de prueba.
+\end{itemize}
+
+Asimismo, las pruebas permitieron identificar pequeños ajustes necesarios durante el desarrollo, los cuales fueron corregidos para garantizar mayor estabilidad.
+
+\section{Discusión}
+
+El conjunto de pruebas realizadas demuestra que el sistema no solo cumple con los requisitos funcionales planteados, sino que además ofrece una experiencia educativa coherente y estable. El sistema responde de manera adecuada a las variaciones en el rendimiento del estudiante, ajustando la dificultad de forma dinámica y generando retroalimentación pertinente.
+
+Entre las limitaciones identificadas se encuentran ciertos casos frontera que podrían ampliarse en pruebas futuras, así como escenarios complejos que, si bien no afectan la estabilidad general, podrían beneficiarse de un análisis de rendimiento más profundo.
+
+En general, la validación confirma que el videojuego \textit{Hello World} constituye una herramienta sólida para apoyar el aprendizaje de conceptos básicos de programación.
+
+\section{Conclusiones Parciales}
+
+Al concluir el presente capítulo, referente al diseño de casos de prueba y la
+evaluación de resultados, se presentan las siguientes conclusiones respecto
+al cumplimiento de los objetivos:
+
+\begin{itemize}
+    \item Se realizaron pruebas sobre los módulos fundamentales del sistema.
+    \item Las pruebas unitarias permitieron validar el comportamiento interno de los componentes clave.
+    \item Las pruebas de integración confirmaron la correcta interacción entre distintos componentes del videojuego educativos, visuales y lógicos.
+    \item El sistema respondió adecuadamente ante los distintos escenarios evaluados, mostrando estabilidad y solidez.
+    % \item Los resultados respaldan la correcta implementación de la arquitectura propuesta y demuestran que el sistema está listo para su fase de validación con usuarios reales.
+\end{itemize}
