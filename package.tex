@@ -67,3 +67,14 @@
 % RUTA DE IMÁGENES
 % -----------------------------------
 \graphicspath{{./src/}}
+
+% -----------------------------------
+% COMPATIBILIDAD (LIMPIEZA DE TEXTO)
+% -----------------------------------
+% Algunos editores/pegados pueden insertar la secuencia literal "\n" en el texto.
+% Esta definición evita errores de compilación si aparece por accidente.
+% (Se declara como comando robusto para que funcione también en argumentos móviles.)
+\DeclareRobustCommand{\n}{}
+
+% Helps TeX resolve tight lines without forcing globally loose spacing.
+\setlength{\emergencystretch}{3em}

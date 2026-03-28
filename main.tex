@@ -11,7 +11,7 @@
 	
 	%\input{./extra/dedicatory.tex}
 	%\input{./extra/agreements.tex}
-	\input{./chapters/abstract.tex}
+	%\input{./chapters/abstract.tex}
 	\thispagestyle{empty}
 	
 	\newpage
@@ -29,9 +29,11 @@
 	
 	
 	\newpage
-	\include{./chapters/first_chapter.tex}
-	\include{./chapters/second_chapter.tex}
-	\include{./chapters/three_chapter.tex}
+	% Usamos \input en lugar de \include para evitar la creación de archivos .aux por capítulo
+	% (en algunos entornos no se permite escribir en ./chapters/*.aux).
+	\input{./chapters/first_chapter.tex}
+	\input{./chapters/second_chapter.tex}
+	\input{./chapters/third_chapter.tex}
 	
 	\input{./chapters/conclusion.tex}
 	\input{./chapters/recomendation.tex}
