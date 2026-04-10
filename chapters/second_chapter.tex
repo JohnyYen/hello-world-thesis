@@ -1,9 +1,9 @@
 \chapter{\chapterSecond}
 
-\section{Diseño del videojuego}
+*\section{Diseño del videojuego}
 
 
-\subsection{Selección de mecánicas}
+%\subsection{Selección de mecánicas}
 
 \subsection{Selección del género}
 
@@ -20,6 +20,9 @@ En comparación con otros tipos de videojuegos educativos, las novelas visuales 
 No obstante, los resultados muestran una tendencia clara en la percepción de los estudiantes, quienes reportan experiencias más positivas, mayor inmersión y una preferencia significativa por el formato de novela visual frente a métodos tradicionales como la lectura convencional. Esta preferencia se traduce en un incremento en el compromiso emocional y cognitivo, elementos clave para un aprendizaje efectivo. Además, se evidencia que las novelas visuales pueden actuar como una herramienta complementaria capaz de enriquecer la experiencia educativa, sin necesariamente reemplazar por completo otros métodos de enseñanza.
 
 \subsection{Narrativa del juego}
+
+
+%\section{Diseño del tablero de analíticas del aprendizaje}
 
 
 \section{Requisitos funcionales}
@@ -390,59 +393,35 @@ El modelo global de datos (ver Figura \ref{fig:bd-global}) integra las perspecti
 Las relaciones transversales permiten que los datos generados en el módulo de juego fluyan automáticamente hacia las interfaces de gestión docente, manteniendo la consistencia y habilitando funcionalidades como reportes comparativos y análisis de tendencias grupales. Esta integración global no solo simplifica la administración del sistema educativo, sino que también soporta la escalabilidad y la interoperabilidad con plataformas externas de gestión del aprendizaje.
 
 \section{Principios y patrones de diseño}
-
 \subsection{Principios SOLID}
 
-\subsubsection{Principio de Responsabilidad Única}
-
+\subsubsection{Principio de responsabilidad única}
 El Principio de Responsabilidad Única establece que cada clase, módulo o función debe tener una única responsabilidad o razón para cambiar. Esta separación de responsabilidades mejora la cohesión interna de los componentes, facilita las pruebas unitarias y reduce el impacto de modificaciones futuras en el sistema. Al asignar responsabilidades específicas, se evita la acumulación de lógica diversa en una sola entidad, lo que resulta en un código más mantenible y menos propenso a errores.
 
-\subsubsection{Aplicación del Principio de Responsabilidad Única}
+\textbf{Aplicación en el módulo Videojuego:} En la implementación del juego educativo Hello World, este principio se aplica separando claramente las responsabilidades entre diferentes componentes. La clase GameManager se encarga únicamente de coordinar el flujo general del juego y las transiciones entre escenas, mientras que LevelManager administra exclusivamente la lógica de niveles y ExecutionEngine tiene la responsabilidad única de ejecutar secuencias de bloques de programación.
 
-El Principio de Responsabilidad Única establece que cada clase, módulo o función debe tener una única responsabilidad o razón para cambiar. Esta separación de responsabilidades mejora la cohesión interna de los componentes, facilita las pruebas unitarias y reduce el impacto de modificaciones futuras en el sistema. Al asignar responsabilidades específicas, se evita la acumulación de lógica diversa en una sola entidad, lo que resulta en un código más mantenible y menos propenso a errores.
+\textbf{Aplicación en el módulo Web:} En la interfaz de gestión docente desarrollada con Next.js, cada componente React mantiene una responsabilidad específica, enfocándose únicamente en su propia renderización y manejo de estado local, sin asumir tareas de negocio o acceso a datos.
 
-Aplicación en el módulo Videojuego: En la implementación del juego educativo Hello World, este principio se aplica separando claramente las responsabilidades entre diferentes componentes. La clase GameManager se encarga únicamente de coordinar el flujo general del juego y las transiciones entre escenas, mientras que LevelManager administra exclusivamente la lógica de niveles y ExecutionEngine tiene la responsabilidad única de ejecutar secuencias de bloques de programación.
+\textbf{Aplicación en el módulo Back-end:} La arquitectura limpia del backend FastAPI implementa este principio mediante capas claramente diferenciadas: la capa de presentación maneja únicamente los endpoints HTTP, la capa de lógica de negocio implementa las reglas del dominio, y la capa de acceso a datos gestiona exclusivamente la persistencia.
 
-Aplicación en el módulo Web: En la interfaz de gestión docente desarrollada con Next.js, cada componente React mantiene una responsabilidad específica, enfocándose únicamente en su propia renderización y manejo de estado local, sin asumir tareas de negocio o acceso a datos.
-
-Aplicación en el módulo Back-end: La arquitectura limpia del backend FastAPI implementa este principio mediante capas claramente diferenciadas: la capa de presentación maneja únicamente los endpoints HTTP, la capa de lógica de negocio implementa las reglas del dominio, y la capa de acceso a datos gestiona exclusivamente la persistencia.
-
-\subsubsection{Principio de Substitución de Liskov}
-
+\subsubsection{Principio de substitución de Liskov}
 El Principio de Substitución de Liskov afirma que los objetos de una clase derivada deben poder reemplazar a los objetos de la clase base sin alterar el comportamiento esperado del programa. Este principio garantiza la compatibilidad polimórfica en jerarquías de herencia, evitando comportamientos inesperados y asegurando que las abstracciones funcionen correctamente en diferentes contextos de uso.
 
-Aplicación en el módulo Videojuego: En el proyecto Hello World, este principio se aplica en el intérprete de soluciones, donde diferentes contextos de ejecución pueden sustituirse entre sí sin afectar la funcionalidad general del sistema, permitiendo que escenarios como cafetería o biblioteca mantengan la compatibilidad con el motor de ejecución.
+\textbf{Aplicación en el módulo Videojuego:} En el proyecto Hello World, este principio se aplica en el intérprete de soluciones, donde diferentes contextos de ejecución pueden sustituirse entre sí sin afectar la funcionalidad general del sistema, permitiendo que escenarios como cafetería o biblioteca mantengan la compatibilidad con el motor de ejecución.
 
-Aplicación en el módulo Back-end: Los servicios del backend pueden intercambiar implementaciones de repositorio manteniendo la compatibilidad de interfaz, lo que permite cambiar proveedores de base de datos o estrategias de almacenamiento sin alterar la lógica de negocio.
+\textbf{Aplicación en el módulo Back-end:} Los servicios del backend pueden intercambiar implementaciones de repositorio manteniendo la compatibilidad de interfaz, lo que permite cambiar proveedores de base de datos o estrategias de almacenamiento sin alterar la lógica de negocio.
 
-\subsubsection{Principio Abierto/Cerrado}
-
+\subsubsection{Principio abierto/cerrado}
 El Principio Abierto/Cerrado establece que las entidades de software deben estar abiertas para extensión pero cerradas para modificación. Este enfoque permite agregar nuevas funcionalidades extendiendo el comportamiento existente sin alterar el código fuente original, favoreciendo el uso de interfaces, composición y polimorfismo sobre modificaciones directas.
 
-Aplicación en el módulo Videojuego: Las interfaces de repositorio permiten integrar nuevos tipos de almacenamiento sin modificar la lógica de negocio existente, y las clases base para niveles educativos facilitan la extensión mediante herencia sin alterar implementaciones previas.
+\textbf{Aplicación en el módulo Videojuego:} Las interfaces de repositorio permiten integrar nuevos tipos de almacenamiento sin modificar la lógica de negocio existente, y las clases base para niveles educativos facilitan la extensión mediante herencia sin alterar implementaciones previas.
 
-Aplicación en el módulo Web: Los componentes React se extienden mediante composición y props, permitiendo agregar nuevas funcionalidades sin modificar el código de componentes existentes, manteniendo la estabilidad de la interfaz.
+\textbf{Aplicación en el módulo Web:} Los componentes React se extienden mediante composición y props, permitiendo agregar nuevas funcionalidades sin modificar el código de componentes existentes, manteniendo la estabilidad de la interfaz.
 
-Aplicación en el módulo Back-end: La arquitectura limpia permite agregar nuevas funcionalidades en capas superiores sin modificar el núcleo del sistema, utilizando interfaces para extender capacidades como nuevos endpoints o estrategias de procesamiento.
-El Principio de Substitución de Liskov afirma que los objetos de una clase derivada deben poder reemplazar a los objetos de la clase base sin alterar el comportamiento esperado del programa. Este principio garantiza la compatibilidad polimórfica en jerarquías de herencia, evitando comportamientos inesperados y asegurando que las abstracciones funcionen correctamente en diferentes contextos de uso.
+\textbf{Aplicación en el módulo Back-end:} La arquitectura limpia permite agregar nuevas funcionalidades en capas superiores sin modificar el núcleo del sistema, utilizando interfaces para extender capacidades como nuevos endpoints o estrategias de procesamiento.
+\subsection{Otros principios de diseño aplicados}
 
-Aplicación en el módulo Videojuego: En el proyecto Hello World, este principio se aplica en el intérprete de soluciones, donde diferentes contextos de ejecución pueden sustituirse entre sí sin afectar la funcionalidad general del sistema, permitiendo que escenarios como cafetería o biblioteca mantengan la compatibilidad con el motor de ejecución.
-
-Aplicación en el módulo Back-end: Los servicios del backend pueden intercambiar implementaciones de repositorio manteniendo la compatibilidad de interfaz, lo que permite cambiar proveedores de base de datos o estrategias de almacenamiento sin alterar la lógica de negocio.
-
-\subsubsection{Principio Abierto/Cerrado}
-
-El Principio Abierto/Cerrado establece que las entidades de software deben estar abiertas para extensión pero cerradas para modificación. Este enfoque permite agregar nuevas funcionalidades extendiendo el comportamiento existente sin alterar el código fuente original, favoreciendo el uso de interfaces, composición y polimorfismo sobre modificaciones directas.
-
-Aplicación en el módulo Videojuego Las interfaces de repositorio permiten integrar nuevos tipos de almacenamiento sin modificar la lógica de negocio existente, y las clases base para niveles educativos facilitan la extensión mediante herencia sin alterar implementaciones previas.
-
-Aplicación en el módulo Web: Los componentes React se extienden mediante composición y props, permitiendo agregar nuevas funcionalidades sin modificar el código de componentes existentes, manteniendo la estabilidad de la interfaz.
-
-Aplicación en el módulo Back-end: La arquitectura limpia permite agregar nuevas funcionalidades en capas superiores sin modificar el núcleo del sistema, utilizando interfaces para extender capacidades como nuevos endpoints o estrategias de procesamiento.
-
-\subsection{Otros Principios de Diseño Aplicados}
-
-\subsubsection{Principio DRY (Don't Repeat Yourself)}
+\subsubsection{Principio DRY (Don't repeat yourself)}
 
 El Principio DRY promueve la eliminación de la duplicación de código, asegurando que cada conocimiento o funcionalidad tenga una única representación en el sistema. Esta práctica reduce inconsistencias, mejora la mantenibilidad del código y facilita las refactorizaciones al centralizar la lógica compartida en un solo lugar.
 
@@ -452,7 +431,7 @@ Aplicación en el módulo Web: Los componentes reutilizables para dashboards, re
 
 Aplicación en el módulo Back-end: La capa de infraestructura implementa métodos genéricos para lógica de persistencia reutilizable, evitando la repetición de operaciones CRUD en diferentes servicios y repositorios.
 
-\subsubsection{Programar hacia Interfaces, no hacia Implementaciones}
+\subsubsection{Programar hacia interfaces, no hacia implementaciones}
 
 Este principio establece que las dependencias deben basarse en abstracciones (interfaces o contratos) en lugar de implementaciones concretas. Este enfoque mejora la flexibilidad del sistema, facilita las pruebas mediante mocks y stubs, y reduce el acoplamiento entre módulos al depender de contratos abstractos.
 
@@ -462,9 +441,9 @@ Aplicación en el módulo Web: Los componentes React dependen de contratos abstr
 
 Aplicación en el módulo Back-end: La inyección de dependencias utiliza interfaces de repositorio y servicios, permitiendo cambiar implementaciones (como proveedores de base de datos) sin afectar la lógica de negocio, siguiendo los principios de inversión de dependencias.
 
-\subsection{Patrones de Diseño}
+\subsection{Patrones de diseño}
 
-\subsubsection{Patrón Singleton}
+\subsubsection{Patrón singleton}
 
 
 El patrón Singleton tiene como intención garantizar que una clase tenga únicamente una instancia globalmente accesible, previniendo inconsistencias que podrían surgir de crear múltiples instancias de componentes críticos. Este patrón resuelve específicamente el problema de gestionar estado compartido de forma segura en aplicaciones interactivas, donde múltiples instancias podrían causar conflictos de estado y comportamientos impredecibles.Como se aprecia en el diagrama del patrón Singleton (ver Figura \ref{fig:design-pattern-singleton}), la implementación en el proyecto Hello World utiliza la clase GameController como instancia única que centraliza la gestión del flujo general del juego y el estado global. Este enfoque resuelve el desafío de mantener consistencia en escenarios interactivos como cafetería o biblioteca, donde múltiples contextos podrían generar conflictos de estado. La implementación mejora significativamente la fiabilidad del motor de juego al proporcionar un único punto de control para el estado global, facilitando la depuración y previniendo errores de concurrencia que podrían surgir de múltiples instancias.
@@ -476,7 +455,7 @@ El patrón Singleton tiene como intención garantizar que una clase tenga única
 	\label{fig:design-pattern-singleton}
 \end{figure}
 
-\subsubsection{Patrón Abstract Factory}
+\subsubsection{Patrón abstract factory}
 
 
 El patrón Abstract Factory tiene como intención crear familias de objetos relacionados sin especificar sus clases concretas, permitiendo la creación flexible de objetos que deben trabajar juntos. Este patrón aborda específicamente el problema de la dependencia de clases concretas, facilitando la extensión y mantenimiento de sistemas que requieren diferentes configuraciones de objetos relacionados sin modificar el código existente.
@@ -491,7 +470,7 @@ Como se observa en el diagrama del patrón Abstract Factory (ver Figura \ref{fig
 \end{figure}
 
 
-\subsubsection{Patrón Strategy}
+\subsubsection{Patrón strategy}
 
 El patrón Strategy tiene como intención encapsular algoritmos intercambiables y permitir su selección dinámica en tiempo de ejecución, facilitando la modificación de comportamientos sin alterar el código cliente. Este patrón resuelve específicamente el problema de la rigidez en la implementación de algoritmos, permitiendo adaptar el comportamiento del sistema a diferentes contextos sin modificar la lógica central.
 
