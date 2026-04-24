@@ -1,0 +1,55 @@
+\chapter*{Anexos}
+\addcontentsline{toc}{chapter}{Anexos}
+\renewcommand{\appendixname}{Anexo}
+\renewcommand{\addcontentsline}[3]{}
+\appendix
+
+
+\pagenumbering{gobble}
+\chapter{Descripción detallada de los caso de uso del sistema}
+\label{anexo:description-usecase}
+
+\usecase
+{Descripción de alto nivel: Definir contexto}
+{anexo:cu-definir-contexto}
+{
+	Caso de uso & Definir contexto \\ \hline
+	Actores & Analista \\ \hline
+	Descripción & El analista introduce el directorio de los archivos de configuración y el conjunto de datos a utilizar por el algoritmo \\ \hline
+	Requisitos funcionales & RF1, RF2 \\ \hline
+	Casos de uso relacionados & Cargar conjunto de datos, Cargar parámetros de configuración \\ \hline
+	Precondiciones & - \\ \hline
+	Postcondiciones & El componente se encuentra en estado de preparación para la ejecución \\
+}
+
+\chapter{Casos de prueba de caja negra}
+\label{anexo:cp-blackbox}
+
+%\generateRFTable{
+%	El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución.;
+%	El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior.;
+%	El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos.;
+%	La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales.;
+%	Cada nivel debe estar asociado a un tema específico de programación claramente identificable.;
+%	El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador.;
+%	El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador.;
+%	El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color.;
+%	El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel.;
+%	Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado.;
+%	El sistema debe permitir construir soluciones mediante bloques de programación visual.;
+%	Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables.;
+%	Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento.;
+%	El jugador debe poder consultar un resumen global de su progreso académico.;
+%	Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje.;
+%	El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores.;
+%	El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego.;
+%	El jugador debe poder repetir niveles ya completados para mejorar su desempeño.}
+
+\chapter{Pruebas unitarias}
+\label{anexo:cp-unittest}
+
+\chapter{Pruebas de integración}
+\label{anexo:cp-integrationtest}
+
+\chapter{Pruebas end-to-end}
+\label{anexo:cp-endtoend}

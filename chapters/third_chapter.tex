@@ -1,22 +1,317 @@
 \chapter{\chapterThree}
 
+\section{Herramientas para la implementación de las pruebas}
+
 \section{Pruebas de caja negra}
+
+El enfoque de pruebas de caja negra es empleado para validar el cumplimiento de los requisitos funcionales del sistema desde la perspectiva del usuario final, sin considerar la estructura interna del código fuente. Para la ejecución de esta etapa, se diseñaron casos de prueba enfocados en las dos vertientes principales de la solución: la experiencia de interacción directa dentro del videojuego y el flujo de procesamiento y visualización de datos en la plataforma web educativa.
+
+En primer lugar, se evaluó el núcleo de la experiencia lúdica mediante los casos de prueba detallados en la Tabla~\ref{tab:cp-playgame} y la Tabla~\ref{tab:cp-setconfig}. Estos escenarios permiten verificar que la carga de los niveles a partir de los archivos de configuración se realiza de forma íntegra y que el jugador tiene el control total sobre las variables de personalización del entorno. Validar este aspecto resulta crítico para asegurar que las mecánicas de juego no se vean interrumpidas por fallos en la inicialización o en la aplicación de la configuración global.
+
+\testcase
+{Encabezado del caso de prueba Jugar nivel}
+{tab:cp-playgame}
+{
+	Nombre del caso de prueba & Jugar nivel\\ \hline
+	Caso de uso a probar & Jugar nivel\\ \hline
+	Objetivo de la prueba & Determinar que el nivel se inicializa correctamente y el jugador puede completarlo satisfactoriamente \\ \hline
+	Descripción de la prueba & El jugador selecciona uno de los niveles que tiene disponible, se inicializa el entorno de juego según lo definido en el json de configuración y el jugador soluciona el problema que se le presenta con los bloques que tiene disponibles \\ \hline
+	Condiciones & Es necesario haber desbloqueado el nivel y tener disponible en el sistema el json de configuración de dicho nivel \\
+}
+
+\testcase
+{Encabezado del caso de prueba Configurar opciones del juego}
+{tab:cp-setconfig}
+{
+	Nombre del caso de prueba & Configurar opciones del juego\\ \hline
+	Caso de uso a probar & Configurar opciones del juego \\ \hline
+	Objetivo de la prueba & Determinar que se actualizan las configuraciones dadas por el jugador \\ \hline
+	Descripción de la prueba & El jugador accede a la sección inicial de configuraciones donde puede editar, el idioma, el volumen de la música o de los efectos, y el propio arte del juego\\ \hline
+	Condiciones & Es necesario haber implementado el controlador de configuraciones globales \\
+}
+
+Por otro lado, el propósito fundamental de la aplicación es la recopilación de datos para el análisis del aprendizaje. Por ello, se diseñaron pruebas orientadas a garantizar la integridad del ciclo de vida de los datos, abarcando desde su captura local hasta su representación visual. La Tabla~\ref{tab:cp-syncdata} certifica que el proceso de traza xAPI ocurre de manera transparente en segundo plano, garantizando que la pérdida de conexión o el cierre abrupto de la aplicación no impliquen la pérdida de información crítica. 
+
+Una vez que los datos son almacenados en el servidor, la plataforma web debe ser capaz de interpretarlos y exponerlos de manera comprensible. Para validar este subsistema, se establecieron los escenarios de las Tablas~\ref{tab:cp-viewuser} y~\ref{tab:cp-viewcourse}, los cuales comprueban que las consultas individuales y las agregaciones por curso escolar se ejecutan correctamente, dotando al docente de herramientas fiables para la evaluación del progreso del grupo.
+
+\testcase
+{Encabezado del caso de prueba Sincronización de datos con el servidor}
+{tab:cp-syncdata}
+{
+	Nombre del caso de prueba & Sincronización de datos con el servidor\\ \hline
+	Caso de uso a probar & Sincronizar datos del estudiante con el servidor\\ \hline
+	Objetivo de la prueba & Determinar que se sincronizan los resultados de los niveles, estadísticas y verbos xAPI recopilados durante la sesión de juego con el servidor para su posterior análisis \\ \hline
+	Descripción de la prueba & Cuando el sistema detecte que el jugador está conectado a internet, empezará en segundo plano la sincronización con el servidor\\ \hline
+	Condiciones & Es necesario tener datos recopilados para sincronizar con el servidor \\
+}
+
+\testcase
+{Encabezado del caso de prueba Visualizar progreso de un estudiante}
+{tab:cp-viewuser}
+{
+	Nombre del caso de prueba & Visualizar progreso de un estudiante \\ \hline
+	Caso de uso a probar & Obtener un resumen detallado del progreso de los estudiantes \\ \hline
+	Objetivo de la prueba & Determinar que se pueda visualizar correctamente en los gráficos de la interfaz web, los datos recopilados de un estudiante en específico \\ \hline
+	Descripción de la prueba & Cuando el profesor selecciona el perfil de un estudiante \\ \hline
+	Condiciones & Es necesario tener datos recopilados para mostrar en los gráficos \\
+}
+
+\testcase
+{Encabezado del caso de prueba Visualizar progreso de varios estudiante de un mismo curso escolar}
+{tab:cp-viewcourse}
+{
+	Nombre del caso de prueba & Visualizar progreso de varios estudiante de un mismo curso escolar \\ \hline
+	Caso de uso a probar & Obtener estadísticas comparativas entre estudiantes \\ \hline
+	Objetivo de la prueba & Determinar que se pueda visualizar correctamente en los gráficos de la interfaz web, los datos recopilados de los estudiante pertenecientes a un mismo curso escolar\\ \hline
+	Descripción de la prueba & Cuando \\ \hline
+	Condiciones & Es necesario tener datos recopilados para mostrar en los gráficos \\
+}
 
 \section{Pruebas unitarias}
 
-\subsection{Interprete de soluciones}
+Las pruebas unitarias se enfocaron en la validación de la lógica interna y aislada de los componentes críticos del sistema, siguiendo un enfoque de caja blanca. El objetivo principal fue asegurar que cada módulo por separado produjera los resultados esperados frente a diferentes entradas, sin depender de sus componentes vecinos. Dentro de esta etapa, se prestó especial atención al intérprete de soluciones; se verificó que el módulo encargado de analizar las acciones y disposiciones de bloques realizadas por el estudiante fuera capaz de evaluar de forma exacta y determinista si la solución planteada resuelve el problema del nivel, garantizando la precisión en la retroalimentación inmediata del juego.
+
+\testcase
+{Caso de prueba unitaria: Evaluación de solución correcta por el intérprete}
+{tab:pu-interprete-ok}
+{
+	Nombre del caso de prueba & Evaluar disposición de bloques válida \\ \hline
+	Módulo a probar & Interprete de soluciones \\ \hline
+	Objetivo de la prueba & Determinar que el intérprete retorna el estado final del contexto, evaluando el arreglo de bloques de la solución del jugador \\ \hline
+	Descripción de la prueba & Se instancia el intérprete de forma aislada (sin iniciar el motor gráfico) y se le inyecta un arreglo de posiciones de bloques que representa la solución perfecta. \\ \hline
+	Entradas & Arreglo de yipos de bloques correspondientes a la solución del nivel. \\ \hline
+	Resultado esperado & El módulo retorna el valor booleano \textit{true} (o código de estado de éxito) y la bandera de nivel completado se activa. \\
+}
+
+\testcase
+{Caso de prueba unitaria: Detección de error en solución por el intérprete}
+{tab:pu-interprete-fail}
+{
+	Nombre del caso de prueba & Evaluar disposición de bloques inválida \\ \hline
+	Módulo a probar & Interprete de soluciones \\ \hline
+	Objetivo de la prueba & Determinar que el intérprete identifica un error en la solución al compararlo con el estado final esperado para ese contexto. \\ \hline
+	Descripción de la prueba & Se instancia el intérprete y se le inyecta un arreglo de bloques cuya ejecución secuencial no devuelve el contexto esperado. \\ \hline
+	Entradas & Arreglo de bloques incorrectos. \\ \hline
+	Resultado esperado & El módulo retorna \textit{false} y genera un mensaje de error descriptivo indicando la causa del fallo. \\
+}
+
+\testcase
+{Caso de prueba unitaria: Interpretación de bloque vacío o nulo}
+{tab:pu-interprete-null}
+{
+	Nombre del caso de prueba & Evaluar resiliencia ante datos nulos \\ \hline
+	Módulo a probar & Interprete de soluciones \\ \hline
+	Objetivo de la prueba & Verificar que el módulo no lanza excepciones no controladas del sistema cuando recibe datos vacíos o corruptos en lugar de bloques. \\ \hline
+	Descripción de la prueba & Se invoca la función de evaluación del intérprete pasando como parámetro un arreglo nulo, vacío o con tipos de datos inválidos (ej. strings en lugar de enteros). \\ \hline
+	Entradas & Arreglo nulo (\textit{null}) o estructura de datos vacía. \\ \hline
+	Resultado esperado & El módulo captura el error de forma interna, no crashea la ejecución y retorna un código de error seguro (ej. \textit{INVALID\_INPUT}). \\
+}
+
+\testcase
+{Caso de prueba unitaria: Generación de retroalimentación de victoria}
+{tab:pu-feedback-win}
+{
+	Nombre del caso de prueba & Evaluar salida de retroalimentación positiva \\ \hline
+	Módulo a probar & Interprete de soluciones (Submódulo de Retroalimentación) \\ \hline
+	Objetivo de la prueba & Determinar que, al resolver el nivel correctamente, el intérprete no solo retorna éxito, sino que genera el struct/clase de retroalimentación positiva adecuada para la interfaz. \\ \hline
+	Descripción de la prueba & Se injecta una disposición de bloques perfecta al intérprete. Una vez evaluada, se inspecciona el objeto de respuesta para verificar que contiene el flag de victoria y los parámetros para la animación de éxito (ej. tipo de celebración, tiempo empleado). \\ \hline
+	Entradas & Arreglo de bloques con la solución perfecta. \\ \hline
+	Resultado esperado & Retorna estado de éxito. El objeto de retroalimentación indica \textit{isSuccess = true}, no contiene mensajes de error, y carga las variables para la UI de victoria. \\
+}
+
+\testcase
+{Caso de prueba unitaria: Generación de retroalimentación de error específico}
+{tab:pu-feedback-lose-specific}
+{
+	Nombre del caso de prueba & Evaluar precisión del mensaje de error \\ \hline
+	Módulo a probar & Interprete de soluciones (Submódulo de Retroalimentación) \\ \hline
+	Objetivo de la prueba & Verificar que ante una solución incorrecta, el intérprete identifica la falla exacta en la lógica de los bloques y devuelve el mensaje pedagógico correspondiente. \\ \hline
+	Descripción de la prueba & Se injecta una disposición de bloques donde falta una conexión obligatoria (ej. un bloque condicional sin su bloque de acción asociado). Se evalúa la respuesta para comprobar que no da un error genérico, sino el específico. \\ \hline
+	Entradas & Arreglo de bloques con un error lógico específico. \\ \hline
+	Resultado esperado & Retorna estado de fallo (\textit{isSuccess = false}). El objeto de retroalimentación contiene el código de error exacto (ej. \textit{ERR\_DISCONNECTED\_BLOCK}) y el string pedagógico asociado: "Falta conectar la acción al condicional". \\
+}
+
+\testcase
+{Caso de prueba unitaria: Retroalimentación por límite de intentos}
+{tab:pu-feedback-attempts}
+{
+	Nombre del caso de prueba & Evaluar retroalimentación de agotamiento de intentos \\ \hline
+	Módulo a probar & Interprete de soluciones (Submódulo de Retroalimentación) \\ \hline
+	Objetivo de la prueba & Comprobar que el módulo de retroalimentación cambia su estado cuando recibe la señal de que se han agotado los intentos permitidos para ese nivel. \\ \hline
+	Descripción de la prueba & Se injecta una solución incorrecta y se pasa como parámetro adicional al intérprete un contador de intentos igual al límite máximo configurado. \\ \hline
+	Entradas & Arreglo de coordenadas incorrecto + Variable \textit{intentosRestantes = 0}. \\ \hline
+	Resultado esperado & Retorna estado de fallo. El objeto de retroalimentación indica \textit{isGameOver = true}, suprimiendo el mensaje de error normal y activando el mensaje/UI de "Sin intentos restantes". \\
+}
+
+\testcase
+{Caso de prueba unitaria: Retroalimentación por fallo crítico no manejado}
+{tab:pu-feedback-crash}
+{
+	Nombre del caso de prueba & Evaluar resiliencia en la generación de feedback \\ \hline
+	Módulo a probar & Interprete de soluciones (Submódulo de Retroalimentación) \\ \hline
+	Objetivo de la prueba & Asegurar que si ocurre una excepción inesperada dentro del algoritmo de evaluación, el sistema no colapsa y devuelve una retroalimentación segura. \\ \hline
+	Descripción de la prueba & Se fuerza una condición anómala en la entrada (ej. dos bloques ocupando la misma coordenada espacial) que viole las reglas básicas del motor, simulando un error de lógica no previsto. \\ \hline
+	Entradas & Arreglo de bloques con datos corruptos. \\ \hline
+	Resultado esperado & El intérprete captura la excepción interna, no propaga el crash, y el objeto de retroalimentación devuelve un código genérico seguro (\textit{ERR\_UNKNOWN}) con un mensaje neutral para el usuario: "Ocurrió un error inesperado en la validación". \\
+}
+
 
 \section{Pruebas de integración}
 
-\subsection{Adaptación de niveles}
+Una vez validados los componentes de forma aislada, se procede a diseñar las pruebas de integración. El propósito de esta etapa es determinar que la comunicación y el intercambio de datos entre los distintos módulos se realizan de forma correcta y sin pérdida de información. Para ello, se evaluan tres flujos fundamentales del sistema: en primer lugar, la adaptación de niveles, verificando que el agente de adaptación pudiera leer e interpretar correctamente los archivos de configuración para construir el entorno de forma íntegra; en segundo lugar, el flujo de conversión de datos a estadísticas, asegurando que las interacciones brutas del jugador fueran transformadas adecuadamente en métricas comprensibles; y finalmente, la sincronización, validando que la comunicación entre el videojuego y el servidor central fluyen sin errores de formato, asegurando que los \textit{batch} de datos lleguen intactos para su posterior almacenamiento.
 
-\subsection{Flujo de conversión de datos a estadísticas}
+\testcase
+{Caso de prueba integración: Adaptación íntegra del entorno desde archivo JSON}
+{tab:pi-adaptacion-nivel}
+{
+	Nombre del caso de prueba & Adaptación completa de nivel a partir de configuración \\ \hline
+	Flujo a probar & Agente de adaptación de niveles \\ \hline
+	Objetivo de la prueba & Verificar que el sistema de lectura de archivos transfiere los datos correctamente al motor gráfico para construir el escenario sin omitir entidades. \\ \hline
+	Descripción de la prueba & Se ejecuta la carga de un nivel con un archivo JSON complejo (que incluye bloques iniciales, obstáculos, posiciones y configuración de meta). Se observa la creación de la escena y se compara contra la definición del JSON. \\ \hline
+	Entradas & Ruta de un archivo JSON de configuración compleja de un nivel. \\ \hline
+	Resultado esperado & El motor gráfico renderiza el nivel con la cantidad exacta de bloques, obstáculos y posiciones definidas en el JSON. No hay elementos faltantes ni errores de tipo de dato en el trazado de la escena. \\
+}
 
-\subsection{Sincronizacion}
+\testcase
+{Caso de prueba integración: Transformación de interacción bruta a traza xAPI}
+{tab:pi-conversion-xapi}
+{
+	Nombre del caso de prueba & Conversión de evento de juego en declaración xAPI \\ \hline
+	Flujo a probar & Conversión de datos a estadísticas \\ \hline
+	Objetivo de la prueba & Determinar que el capturador de eventos del motor traduce una acción del jugador (ej. "soltar un bloque") al formato de traza xAPI requerido por el sistema de telemetría. \\ \hline
+	Descripción de la prueba & Se simula una interacción física dentro del motor del juego (arrastrar y soltar un bloque en una coordenada X, Y específica). Se intercepta el evento antes de que se guarde para inspeccionar su estructura. \\ \hline
+	Entradas & Evento en bruto del motor: \textit{BlockDrop(blockType, x, y, timestamp)}. \\ \hline
+	Resultado esperado & El sistema genera un objeto JSON válido con la estructura xAPI (Actor, Verbo "interacted", Objeto con el ID del bloque y las coordenadas exactas de la acción). No hay pérdida de precisión en las coordenadas. \\
+}
+
+\testcase
+{Caso de prueba integración: Integración de múltiples eventos en un lote (Batch)}
+{tab:pi-conversion-batch}
+{
+	Nombre del caso de prueba & Agrupamiento de estadísticas locales \\ \hline
+	Flujo a probar & Conversión de datos a estadísticas \\ \hline
+	Objetivo de la prueba & Asegurar que el sistema local acumula múltiples interacciones brutas durante la sesión de juego y las compacta correctamente en un array para su envío eficiente. \\ \hline
+	Descripción de la prueba & Se simula la ejecución de un nivel donde el jugador realiza 15 acciones distintas. Al finalizar (o al pausar), se verifica la estructura de datos que se preparó para el envío. \\ \hline
+	Entradas & 15 eventos sucesivos de interacción generados por el motor. \\ \hline
+	Resultado esperado & El módulo de estadísticas genera un array (Batch) conteniendo las 15 declaraciones xAPI correctamente formateadas, listas para ser transmitidas, sin duplicados ni pérdidas de orden cronológico. \\
+}
+
+\testcase
+{Caso de prueba integración: Envío de lote (Batch) al servidor central}
+{tab:pi-sincronizacion-envio}
+{
+	Nombre del caso de prueba & Sincronización de lote de datos con el servidor \\ \hline
+	Flujo a probar & Sincronización \\ \hline
+	Objetivo de la prueba & Validar que el módulo de red del videojuego envía el Batch de estadísticas al servidor y recibe una confirmación de recibo exitosa. \\ \hline
+	Descripción de la prueba & Se fuerza la ejecución del proceso de sincronización pasando un Batch pregenerado con 5 trazas xAPI. Se monitoriza la petición HTTP saliente y la respuesta entrante del servidor. \\ \hline
+	Entradas & Batch de 5 declaraciones xAPI en formato JSON + Estado de conexión simulada como activa. \\ \hline
+	Resultado esperado & El servidor retorna un código HTTP 200 (OK). El módulo de sincronización interpreta la respuesta y limpia la cola local de envío, marcando esas 5 trazas como "sincronizadas". \\
+}
+
+\testcase
+{Caso de prueba integración: Manejo de rechazo de datos en la sincronización}
+{tab:pi-sincronizacion-error}
+{
+	Nombre del caso de prueba & Gestión de error de validación en servidor \\ \hline
+	Flujo a probar & Sincronización \\ \hline
+	Objetivo de la prueba & Comprobar que, si el servidor rechaza un Batch por un error de formato o validación, el cliente no pierde esos datos y aplica la lógica de reintentos. \\ \hline
+	Descripción de la prueba & Se envía un Batch al servidor que contiene una traza xAPI deliberadamente malformada (ej. falta el campo obligatorio actor). \\ \hline
+	Entradas & Batch con una traza inválida. \\ \hline
+	Resultado esperado & El servidor retorna un error (ej. HTTP 400 Bad Request). El módulo de sincronización del videojuego captura el error, no elimina el Batch de la memoria local y lo registra en un log de errores para un futuro reintento manual o depuración. \\
+}
+
 
 \section{Pruebas end to end (e2e)}
+
+Con el propósito de validar el sistema en su conjunto, se diseñaron pruebas de tipo End-to-End (E2E) bajo un enfoque de caja negra puro. A diferencia de las pruebas de integración, que evaluaban la comunicación entre módulos específicos, las pruebas E2E simulan el comportamiento real del usuario final atravesando todas las capas de la arquitectura. En esta sección se ejecutaron escenarios completos que abarcaban desde que un estudiante inicia sesión, modifica sus configuraciones, juega y finaliza un nivel, hasta que el sistema cierra la sesión y el docente verifica la actualización de dichos resultados en la interfaz web. Esto permitió certificar que la orquestación general del software cumpliera con los requisitos funcionales establecidos en un entorno de producción simulado.
+
+\testcase
+{Caso de prueba E2E: Flujo completo de éxito desde el juego hasta la web docente}
+{tab:e2e-flujo-exito}
+{
+	Nombre del caso de prueba & Flujo de juego exitoso y verificación docente \\ \hline
+	Caso de uso a probar & Orquestación completa del sistema (Camino feliz) \\ \hline
+	Objetivo de la prueba & Verificar que la resolución correcta de un nivel por parte del estudiante se refleja de forma exacta y en tiempo real en los reportes del docente. \\ \hline
+	Descripción de la prueba & 1. El estudiante inicia sesión en el videojuego. 2. Selecciona un nivel desbloqueado. 3. Resuelve el problema de forma correcta en su primer intento. 4. El juego muestra la pantalla de victoria. 5. El estudiante cierra la sesión. 6. El docente inicia sesión en la interfaz web y accede al perfil de dicho estudiante. \\ \hline
+	Condiciones & El estudiante debe tener credenciales válidas, el dispositivo debe tener conexión a internet y el docente debe estar asignado al curso del estudiante. \\ \hline
+	Resultado esperado & En la interfaz web, el docente visualiza el nivel marcado como \enquote*{Completado}, con una tasa de éxito del 100\% y 1 intento realizado y las estadísticas registradas en la base de datos. \\
+}
+
+\testcase
+{Caso de prueba E2E: Flujo de fallo y registro de retroalimentación para el docente}
+{tab:e2e-flujo-fallo}
+{
+	Nombre del caso de prueba & Flujo de juego fallido y almacenamiento de errores \\ \hline
+	Caso de uso a probar & Orquestación completa del sistema (Manejo de fallos) \\ \hline
+	Objetivo de la prueba & Determinar que cuando un estudiante agota sus intentos, el sistema registra no solo el fracaso, sino las interacciones y errores específicos cometidos para el análisis pedagógico. \\ \hline
+	Descripción de la prueba & 1. El estudiante inicia sesión. 2. Entra a un nivel y comete errores lógicos repetidamente (ej. mal uso de bloques condicionales). 3. Agota el límite de intentos permitidos. 4. El juego muestra la pantalla de fin de partida. 5. El docente revisa el reporte en la web. \\ \hline
+	Condiciones & El nivel debe tener configurado un límite de intentos estricto. \\ \hline
+	Resultado esperado & El docente ve el nivel como "No superado". Al entrar al detalle, puede visualizar un registro de los intentos y los mensajes de retroalimentación específicos (ej.  \enquote*{Error de lógica en bloque X}) que el sistema generó durante la partida. \\
+}
+
+\testcase
+{Caso de prueba E2E: Persistencia de configuraciones de usuario entre sesiones}
+{tab:e2e-config-persist}
+{
+	Nombre del caso de prueba & Guardado y carga de configuraciones globales \\ \hline
+	Caso de uso a probar & Configurar opciones del juego (Persistencia transversal) \\ \hline
+	Objetivo de la prueba & Asegurar que los cambios realizados en las opciones del juego por el estudiante se guardan en el servidor y se restauran automáticamente al iniciar una nueva sesión. \\ \hline
+	Descripción de la prueba & 1. El estudiante ingresa al menú de configuración y cambia el idioma de \enquote*{Español} a \enquote*{Inglés}, y baja el volumen de música al 50\%. 2. Cierra la aplicación por completo. 3. Vuelve a abrir la aplicación e inicia sesión. \\ \hline
+	Condiciones & El dispositivo debe tener conexión a internet al momento de cambiar la configuración para permitir la sincronización. \\ \hline
+	Resultado esperado & Al cargar el menú principal en la segunda sesión, la interfaz se muestra automáticamente en idioma inglés y el volumen de la música se reproduce al 50\%, sin que el usuario tenga que configurarlo manualmente nuevamente. \\
+}
+
+\testcase
+{Caso de prueba E2E: Acumulación y visualización de estadísticas de un curso escolar completo}
+{tab:e2e-curso-completo}
+{
+	Nombre del caso de prueba & Reporte grupal de curso escolar \\ \hline
+	Caso de uso a probar & Visualizar progreso de varios estudiantes de un mismo curso escolar \\ \hline
+	Objetivo de la prueba & Validar que el sistema es capaz de agregar los datos dispersos de múltiples estudiantes y mostrar un resumen estadístico comprensible en la interfaz web del docente. \\ \hline
+	Descripción de la prueba & 1. Varios estudiantes (simulados o reales) inician sesión, juegan distintos niveles con resultados variados (éxito y fracasos) y cierran sesión. 2. El docente ingresa a la web y selecciona la vista comparativa del "Curso Escolar X". \\ \hline
+	Condiciones & Deben existir al menos 3 estudiantes activos con datos recopilados en el mismo grupo o curso escolar. \\ \hline
+	Resultado esperado & La interfaz web renderiza correctamente los gráficos comparativos, mostrando el promedio general del curso, los niveles con mayor tasa de fracaso y la lista de estudiantes clasificados por rendimiento, coincidiendo exactamente con las acciones realizadas en el videojuego. \\
+}
 
 
 \section{Pruebas de seguridad}
 
+Dado que la aplicación gestiona datos académicos y telemetría de estudiantes (a través de declaraciones xAPI), la integridad y privacidad de la información son aspectos críticos. Por ello, se diseña un conjunto de pruebas de seguridad no funcionales. Estas evaluaciones se centraron en identificar vulnerabilidades comunes, tales como intentos de inyección de código o modificaciones maliciosas en los archivos de configuración locales (JSON) antes de ser procesados por el motor. Adicionalmente, se evaluó la robustez del protocolo de sincronización para garantizar que la transmisión de datos hacia el servidor no fuera susceptible de interceptaciones (Man-in-the-Middle) ni de manipulación de payloads, asegurando que solo las trazas legítimas generadas por el flujo authéntico del juego sean registradas en la base de datos.
+
+\testcase
+{Caso de prueba seguridad: Inyección de código en campos de entrada}
+{tab:sec-inyeccion}
+{
+	Nombre del caso de prueba & Prevención de inyección de código en formularios \\ \hline
+	Caso de uso a probar & Inicio de sesión y configuración de perfil \\ \hline
+	Objetivo de la prueba & Verificar que el sistema sanitiza correctamente las cadenas de texto ingresadas por el usuario, evitando la ejecución de scripts maliciosos (XSS) o comandos a la base de datos. \\ \hline
+	Descripción de la prueba & El usuario intenta iniciar sesión ingresando en los campos de usuario y contraseña cadenas típicas de ataque, tales como \textit{"<script>alert('hack')</script>"} o \textit{OR 1=1}. \\ \hline
+	Condiciones & El formulario de inicio de sesión debe estar accesible. \\ \hline
+	Resultado esperado & El sistema rechaza la autenticación mostrando un error genérico de
+	Credenciales inválidas. No se ejecuta ningún script en el navegador ni se altera la consulta a la base de datos. \\
+}
+
+\testcase
+{Caso de prueba seguridad: Manipulación maliciosa de archivos locales}
+{tab:sec-json-manipulacion}
+{
+	Nombre del caso de prueba & Rechazo de archivos de configuración alterados \\ \hline
+	Caso de uso a probar & Adaptación de niveles \\ \hline
+	Objetivo de la prueba & Determinar que el motor del juego detecta y aborta la carga de un nivel si el archivo de configuración JSON ha sido modificado manualmente para contener valores fuera de rango o estructuras ilegales. \\ \hline
+	Descripción de la prueba & El atacante modifica localmente el archivo JSON de un nivel, alterando valores críticos (ej. cambiar la vida del jugador a un número negativo, o insertar bloques inexistentes) e intenta iniciarlo desde el videojuego. \\ \hline
+	Condiciones & Tener acceso físico o lógico a los archivos de almacenamiento local del dispositivo donde está instalado el juego. \\ \hline
+	Resultado esperado & El sistema lanza una excepción controlada de \enquote*{Error de formato} o \enquote*{Nivel corrupto} y devuelve al usuario al menú principal, sin intentar renderizar el entorno alterado ni enviar telemetría basura al servidor. \\
+}
+
+\testcase
+{Caso de prueba seguridad: Interceptación de datos en tránsito}
+{tab:sec-man-in-middle}
+{
+	Nombre del caso de prueba & Protección de la sincronización contra interceptación \\ \hline
+	Caso de uso a probar & Sincronización de datos con el servidor \\ \hline
+	Objetivo de la prueba & Asegurar que la comunicación de los datos de telemetría (declaraciones xAPI) entre el videojuego y el servidor viaja cifrada y es ilegible en caso de ser capturada. \\ \hline
+	Descripción de la prueba & Se utiliza una herramienta de monitoreo de red para capturar el tráfico saliente del videojuego en el momento exacto en que se envía un lote de estadísticas. \\ \hline
+	Condiciones & El videojuego debe estar configurado para apuntar al servidor real o a un entorno de pruebas con el certificado SSL correspondiente. \\ \hline
+	Resultado esperado & El paquete de red capturado muestra que la conexión se establece mediante el protocolo seguro HTTPS. El contenido del \textit{payload} (las trazas xAPI) se encuentra completamente cifrado e ilegible en texto plano, imposibilitando la manipulación o lectura de la información del estudiante. \\
+}
 \section{Conclusiones parciales}

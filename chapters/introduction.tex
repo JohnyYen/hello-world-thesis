@@ -79,7 +79,7 @@ De ello se deriva el siguiente \textbf{problema de investigación}:
 
 Como respuesta a esta interrogante, se plantea como \textbf{objetivo general}:
 
-El diseño de una arquitectura para una plataforma educativa que integre videojuegos educativos y un dashboard de gestión docente, orientada a mejorar la motivación, el aprendizaje y el seguimiento académico en la enseñanza de la programación.
+Diseñar una arquitectura para una plataforma educativa que integre videojuegos educativos adaptativos y un tablero de gestión docente, orientada a mejorar la motivación, el aprendizaje y el seguimiento académico en la enseñanza de la programación.
 
 Para alcanzar el objetivo general de la investigación, se proponen los siguientes \textbf{objetivos específicos} sus respectivas \textbf{tareas de investigación}:
 
@@ -111,11 +111,15 @@ Para alcanzar el objetivo general de la investigación, se proponen los siguient
 	
 	\item Evaluar la efectividad del prototipo desarrollado mediante pruebas de software.  
 	\begin{enumerate}
-		\item Aplicar pruebas funcionales y de rendimiento para verificar su correcto funcionamiento.
-		\item Aplicar pruebas unitarias y de integración a los componentes esenciales del videojuego.  
+		\item Diseñar los caso de prueba de caja negra
+		\item Diseñar pruebas unitarias y de integración a los componentes esenciales del videojuego.  
+		\item Diseñar pruebas end to end de la plataforma.
+		\item Diseñar pruebas de seguridad
 		\item Analizar los resultados obtenidos y proponer recomendaciones para futuras mejoras.  
 	\end{enumerate}
 \end{enumerate}
+
+\textbf{Objetivo de estudio, } y \textbf{Campo de accion, donde se va a aplicar}
 
 El \textbf{valor agregado} de la investigación radica en la propuesta de una arquitectura de software que articula de manera coherente los principios de la gamificación, los fundamentos pedagógicos del aprendizaje y las necesidades de gestión docente, contribuyendo al desarrollo de soluciones educativas más completas y alineadas con los desafíos actuales de la educación superior.
 
@@ -134,90 +138,3 @@ El presente documento se organiza en tres capítulos, los cuales se estructuran 
 
 
 
-
-
-
-% En el contexto del siglo XXI, uno de los desafíos más persistentes en el ámbito educativo es la necesidad de adaptar las metodologías de enseñanza a las demandas de una sociedad en constante evolución. A pesar de los avances tecnológicos y pedagógicos, la educación enfrenta retos significativos en todos los niveles, particularmente en la enseñanza universitaria. 
-
-% Los videojuegos, como fenómeno cultural y social, han adquirido un papel central en la vida de millones de jóvenes a nivel global. Estos sistemas interactivos, caracterizados por la presencia de objetivos claros y un conjunto de elementos que guían al usuario hacia su consecución, han demostrado ser herramientas poderosas para captar la atención y fomentar la participación activa \cite{cerezo-pizarro_cultural_2023}. En este sentido, el juego se ha convertido en una actividad intrínsecamente atractiva para los jóvenes, tal como lo destacó Johan Huizinga en su obra \cite{Huizinga1950}, donde define el juego como “una actividad u ocupación voluntaria, ejercida dentro de ciertos límites de tiempo y espacio, que sigue reglas libremente aceptadas pero absolutamente obligatorias, y que va acompañada de un sentimiento de tensión y alegría, así como de una conciencia sobre su diferencia con la vida cotidiana”. 
-
-% La capacidad de los videojuegos para mantener la atención de los usuarios durante períodos prolongados, junto con su potencial para desarrollar habilidades como el razonamiento lógico, la resolución de problemas y el trabajo colaborativo, los posiciona como recursos valiosos en el ámbito educativo \cite{cerezo-pizarro_cultural_2023}.
-
-% En este contexto, la gamificación emerge como una estrategia innovadora \cite{ortiz-colon_gamificacion_2018}. Según Marczewski (2015), en su obra \textit{Even Ninja Monkeys Like to Play}, la gamificación se define como “el uso de ideas y elementos propios de los juegos en contextos ajenos a ellos, como el trabajo o la vida cotidiana” \cite{ortiz-colon_gamificacion_2018}. Este enfoque ha sido ampliamente adoptado en la educación, donde se ha demostrado su eficacia para incrementar la motivación intrínseca de los estudiantes y mejorar su compromiso con el proceso de aprendizaje.
-
-% La literatura especializada identifica los elementos de gamificación más recurrentes y efectivos: puntos, medallas y tablas de clasificación (\textit{leaderboards}). Estudios como los de \cite{ortiz-colon_gamificacion_2018} y \cite{oliveira_does_2021} respaldan la eficacia de estas mecánicas, destacando su capacidad para motivar cambios conductuales positivos en los estudiantes, quienes se ven incentivados a competir y superar desafíos para obtener recompensas. Es importante destacar que la gamificación no se limita al uso de videojuegos como tal, sino que se enfoca en aprovechar los elementos y dinámicas que estos incorporan. En el marco de esta investigación, para el desarrollo del proyecto, se tomará como base su teoría, los elementos que la componen y el valor que otorga a la motivación de los estudiantes.
-
-% La efectividad de la gamificación en educación no depende únicamente de su diseño lúdico, sino de su capacidad para integrarse con principios pedagógicos fundamentales. En este sentido, teorías como el constructivismo, el aprendizaje basado en problemas y la teoría del flujo ofrecen un sustento teórico clave:
-% \begin{itemize}
-%     \item El \textbf{constructivismo} enfatiza la importancia de actividades que promuevan la exploración, la experimentación y el aprendizaje autónomo, facilitando así la construcción de conocimiento de forma personalizada y significativa \cite{kiili_design_2012}. 
-%     \item El \textbf{aprendizaje basado en problemas (ABP)} fomenta un aprendizaje profundo y significativo al vincular la teoría con la práctica de manera interactiva \cite{gallego_panoramica_nodate}.
-%     \item La \textbf{teoría del flujo} explica cómo lograr inmersión y compromiso en actividades educativas. El estado de flujo ocurre cuando existe equilibrio entre el desafío y las habilidades del individuo, evitando tanto el aburrimiento (desafío bajo) como la ansiedad (desafío alto). Este balance es clave para diseñar experiencias educativas motivadoras y efectivas \cite{kiili_design_2012, bozkurt_systematic_2018}.
-% \end{itemize}
-
-% En el ámbito específico de la enseñanza de la programación, se han desarrollado diversas herramientas y videojuegos educativos que buscan facilitar el aprendizaje de conceptos complejos:
-
-% \begin{itemize}
-%     \item \textbf{GhostCoder:} es un videojuego serio diseñado para que los programadores novatos repasen los conceptos fundamentales de la programación. Consiste en un juego de cartas donde el jugador debe luchar con la computadora completando las tareas de programación que aparecen en las cartas. Basándose en el rendimiento del jugador, el juego puede variar el número de opciones disponibles o la complejidad del algoritmo a completar, manteniendo al jugador en un estado de \textit{flow} \cite{shum_personalised_2023}.
-    
-%     \item \textbf{Human Resource Machine (HRM):} es un videojuego educativo que enseña programación básica mediante \textit{puzzles} visuales, donde el jugador escribe secuencias similares a código ensamblador, introduciendo conceptos fundamentales de la programación. Sin embargo, presenta limitaciones significativas al no ofrecer seguimiento por parte de los docentes, al evaluar el aprendizaje solo mediante la superación de niveles sin validación adicional, y al mantener una dificultad rígida sin adaptarse al ritmo individual. Estas limitaciones contradicen los principios del constructivismo al no fomentar una comprensión profunda mediante reflexión guiada, del aprendizaje basado en problemas al no promover estrategias de resolución autónoma, y de la teoría del flujo al no equilibrar adecuadamente el binomio desafío-habilidad \cite{Zhang_Wong_Chan_2023, heithausen_look_nodate}.
-    
-%     \item \textbf{Scratch:} es una plataforma de programación visual del MIT que introduce a los principiantes en el pensamiento computacional mediante proyectos creativos. No obstante, muestra limitaciones: su diseño no incorpora mecanismos para el monitoreo docente ni evaluaciones que validen la comprensión conceptual más allá de la ejecución técnica, carece de progresión adaptativa que ajuste los desafíos al desarrollo individual de competencias y ofrece retroalimentación básica centrada en errores sintácticos más que en el fortalecimiento de habilidades lógicas. Estas deficiencias evidencian un desalineamiento con las teorías del flujo y del aprendizaje basado en problemas, al depender de una construcción externa de la narrativa o los niveles en lugar de un sistema nativo \cite{velasco-ramirez_impacto_2023,maloney_scratch_2010}.
-% \end{itemize}
-
-% A partir de lo enunciado anteriormente, se identifica la siguiente \textbf{situación problemática}: las soluciones existentes para el aprendizaje de programación, si bien resultan útiles, presentan limitaciones significativas. Entre estas, destaca la falta de un sistema que evalúe de manera efectiva el cumplimiento de los objetivos de aprendizaje en cada nivel, así como la ausencia de una retroalimentación clara y constructiva que guíe a los estudiantes en su proceso. Además, estas herramientas no proporcionan a los docentes un control adecuado para monitorear y apoyar el progreso de sus alumnos. Por otro lado, se observa una carencia en la adaptación de los niveles de dificultad, lo que impide que los estudiantes avancen de manera escalonada y acorde con su ritmo de aprendizaje. Estas deficiencias generan un vacío en la experiencia educativa, limitando tanto el desarrollo óptimo de los estudiantes como la capacidad de los profesores para intervenir de manera efectiva en su formación.
-
-% Las variables de investigación se definen a continuación: la \textbf{variable independiente} es el desarrollo de la plataforma educativa definida con sus módulos. Las \textbf{variables dependientes} son: (1) el dominio de los temas tratados, medido mediante una prueba pre/post, y (2) el nivel de motivación, medido con el uso de la plataforma.
-
-% De lo anterior se deriva el siguiente \textbf{problema de investigación}:\\
-% \textit{¿Cómo diseñar una plataforma educativa basada en videojuegos en la que el aprendizaje sea adaptativo y constructivo, que integre el aprendizaje mediante videojuegos y permita monitorear el progreso de los estudiantes desde la perspectiva del profesor?}
-
-% Para dar respuesta al problema planteado, es necesario delimitar el \textbf{objeto de estudio} a la arquitectura de software para una plataforma educativa que integre un videojuego adaptativo y un sistema web de gestión académica. El \textbf{campo de acción} se centra en la enseñanza de la programación en entornos universitarios, específicamente en cursos introductorios donde los estudiantes enfrentan mayores desafíos para adquirir competencias básicas de programación. El alcance de la investigación abarca el diseño y desarrollo (de un prototipo) de la plataforma educativa.
-
-% A raíz de este problema se propone el siguiente \textbf{objetivo general}:\\
-% \textit{Desarrollar una plataforma educativa basada en mecánicas de videojuegos adaptativos para la enseñanza de la programación, que permita ajustar los niveles de dificultad al rendimiento del estudiante y proporcione a los docentes herramientas de seguimiento y evaluación continua, con el fin de fortalecer el proceso de enseñanza-aprendizaje en entornos universitarios.}
-
-% Para alcanzar el objetivo general de la investigación, se proponen los siguientes \textbf{objetivos específicos} sus respectivas \textbf{tareas de investigación}:
-
-% \begin{enumerate}
-%     \item Analizar los fundamentos teóricos y antecedentes relacionados con el uso de videojuegos educativos y plataformas de aprendizaje de programación.  
-%     \begin{itemize}
-%         \item Investigar los conceptos básicos de los videojuegos educativos y su aplicación en entornos pedagógicos.  
-%         \item Examinar las teorías del aprendizaje y su vinculación con el aprendizaje basado en juegos.  
-%         \item Revisar experiencias y proyectos similares desarrollados a nivel nacional e internacional.   
-%     \end{itemize}
-
-%    \item Diseñar el videojuego educativo que integre los principios de la gamificación, definiendo sus componentes esenciales para garantizar coherencia pedagógica y motivacional.
-%     \begin{itemize}
-%         \item Seleccionar el género del videojuego en correspondencia con los objetivos educativos planteados. 
-%         \item Diseñar las mecánicas y dinámicas de juego que favorezcan la participación activa, la retroalimentación inmediata y la progresión del aprendizaje.
-%         \item Elaborar la narrativa conceptual del videojuego, integrando elementos visuales y temáticos que refuercen la inmersión y la contextualización del contenido educativo.
-%     \end{itemize}
-
-
-%     \item Diseñar una arquitectura tecnológica que integre un videojuego educativo y una plataforma web de gestión para el aprendizaje de la programación.  
-%     \begin{itemize}
-%         \item Definir los requerimientos funcionales y no funcionales del sistema.  
-%         \item Elaborar la arquitectura general de la solución y la interacción entre sus componentes.  
-%         % \item Diseñar el modelo de datos y los flujos de información.  
-%         \item Especificar la interfaz y las mecánicas del videojuego educativo.   
-%     \end{itemize}
-
-%     \item Implementar y evaluar la efectividad del prototipo desarrollado mediante pruebas técnicas y pedagógicas.  
-%     \begin{itemize}
-%         \item Aplicar pruebas funcionales y de rendimiento para verificar su correcto funcionamiento.
-%         \item Aplicar pruebas unitarias y de integración a los componentes esenciales del videojuego 
-%         \item Validar la experiencia de uso y el impacto educativo mediante encuestas o pruebas piloto.  
-%         \item Analizar los resultados obtenidos y proponer recomendaciones para futuras mejoras.  
-%     \end{itemize}
-% \end{enumerate}
-
-
-% El \textbf{valor agregado} de este proyecto radica en la implementación de una plataforma educativa que incorpora un videojuego adaptativo, capaz de ajustar la dificultad de los niveles según el rendimiento de los estudiantes y generar retroalimentación personalizada para cada jugador. Asimismo, ofrece a los docentes herramientas de evaluación continua, lo que fortalece su capacidad para orientar el proceso de aprendizaje de manera personalizada y efectiva.
-
-% El presente documento está estructurado en tres capítulos orientados a dar respuesta a cada uno de los objetivos específicos planteados:
-
-% \begin{enumerate}
-%     \item \textbf{Capítulo 1. \chapterOne:} Revisa las bases fundamentales y los antecedentes de los videojuegos educativos, así como su papel en la sociedad moderna y su influencia en el aprendizaje de los jóvenes. Se analizan teorías relacionadas con el aprendizaje y cómo estas pueden aplicarse al diseño de un videojuego adaptativo para la enseñanza de la programación.
-%     \item \textbf{Capítulo 2. \chapterSecond:} Detalla el enfoque adoptado para el diseño de la solución requerida en la implementación de la plataforma. Se identifican los requisitos funcionales y no funcionales del sistema, y se diseñan los artefactos necesarios, incluyendo los diagramas de caso de uso, arquitectura, despliegue y modelo de base de datos.
-%     \item \textbf{Capítulo 3. \chapterThree:} Presenta las pruebas técnicas realizadas a los componentes esenciales de la plataforma, así como la interpretación de los resultados obtenidos.
-% \end{enumerate}
