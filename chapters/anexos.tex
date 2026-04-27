@@ -25,25 +25,33 @@
 \chapter{Casos de prueba de caja negra}
 \label{anexo:cp-blackbox}
 
-%\generateRFTable{
-%	El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución.;
-%	El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior.;
-%	El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos.;
-%	La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales.;
-%	Cada nivel debe estar asociado a un tema específico de programación claramente identificable.;
-%	El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador.;
-%	El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador.;
-%	El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color.;
-%	El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel.;
-%	Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado.;
-%	El sistema debe permitir construir soluciones mediante bloques de programación visual.;
-%	Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables.;
-%	Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento.;
-%	El jugador debe poder consultar un resumen global de su progreso académico.;
-%	Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje.;
-%	El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores.;
-%	El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego.;
-%	El jugador debe poder repetir niveles ya completados para mejorar su desempeño.}
+
+\tablaCasoPrueba
+{Actualizar población externa}
+{Comprobar que se agregan y descartan correctamente los individuos a la población externa}
+{Prueba de caja negra para verificar que no se mantienen individuos de peor calidad (dominados) ni redundantes}
+{El generador de soluciones alcanzó una población de estado estable, se probó que la dominancia y redundancia se obtienen correctamente}
+{%
+	% ---- CP 1 ----
+	\SetCell[r=2]{c} 1 &
+	\SetCell[r=2]{l} Candidato no dominado, no redundante y no dominante &
+	candits &
+	(cand1: ratio de solapamiento con todos los subgrupos menor que los umbrales) &
+	\SetCell[r=2]{l} cand1 agregado, sin eliminaciones &
+	\SetCell[r=2]{l} cand1 agregado, sin eliminaciones \\
+	& & pobl\_ext &
+	(2 subgrupos, composición no relevante) & & \\
+	% ---- CP 2 ----
+	\SetCell[r=2]{c} 2 &
+	\SetCell[r=2]{l} Candidato no dominado, dominante y no redundante &
+	candits &
+	(cand1: dominante a sub2) &
+	\SetCell[r=2]{l} cand1 agregado, sub2 eliminado &
+	\SetCell[r=2]{l} cand1 agregado, sub2 eliminado \\
+	& & pobl\_ext &
+	(sub1: sin solapamiento, no relevante. sub2: solapamiento de 100\%, dominado por cand1) & & \\
+}
+
 
 \chapter{Pruebas unitarias}
 \label{anexo:cp-unittest}

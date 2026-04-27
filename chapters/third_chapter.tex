@@ -2,6 +2,18 @@
 
 \section{Herramientas para la implementación de las pruebas}
 
+Para la implementación de las distintas categorías de pruebas diseñadas en este capítulo, se seleccionaron herramientas especializadas en correspondencia con cada módulo del sistema y el tipo de validación requerida.
+
+En el módulo del videojuego educativo, desarrollado sobre Godot 4, se emplea \textbf{GUT} (\textit{Godot Unit Test}), un framework de pruebas unitarias e integración diseñado nativamente para este motor. Su integración directa con el entorno de Godot permite instanciar nodos, inyectar dependencias y ejecutar los casos de prueba sin necesidad de iniciar el motor gráfico completo, lo que resulta especialmente conveniente para validar componentes como el intérprete de soluciones de forma aislada y determinista.
+
+Para la validación del \textit{back-end} desarrollado en FastAPI, se utiliza \textbf{pytest}, el framework de pruebas estándar del ecosistema Python. Su compatibilidad nativa con las herramientas asíncronas de FastAPI, junto con el cliente de pruebas integrado de la propia librería, permite simular peticiones HTTP, validar respuestas y verificar la lógica de los casos de uso sin levantar un servidor real. Su sistema de fixtures facilita además la preparación y limpieza del estado entre pruebas, garantizando el aislamiento de cada escenario.
+
+En el módulo de la aplicación web docente, construida con Next.js, se emplea \textbf{Jest} como framework principal de pruebas unitarias sobre los componentes React. Jest permite renderizar componentes de forma aislada, verificar su comportamiento ante distintas props y validar la lógica de los servicios de la capa de abstracción sin depender de llamadas reales a la API, apoyándose en el sistema de mocks que el propio framework provee.
+
+Para las pruebas \textit{end-to-end}, se utiliza \textbf{Playwright}, una herramienta de automatización de navegadores que permite simular flujos completos de usuario sobre la interfaz web docente. Playwright ejecuta los escenarios definidos contra un entorno de producción simulado, verificando que las interacciones entre el videojuego, el \textit{back-end} y la interfaz web producen los resultados esperados de forma integrada y consistente.
+
+Finalmente, para las pruebas de seguridad se toman como referencia las guías y metodologías de \textbf{OWASP} (\textit{Open Web Application Security Project}), específicamente su lista de vulnerabilidades más críticas. Este marco orienta el diseño de los casos de prueba hacia la detección de inyecciones de código, manipulación de datos locales e interceptación de comunicaciones, proporcionando un criterio estandarizado para evaluar la robustez del sistema frente a vectores de ataque comunes.
+
 \section{Pruebas de caja negra}
 
 El enfoque de pruebas de caja negra es empleado para validar el cumplimiento de los requisitos funcionales del sistema desde la perspectiva del usuario final, sin considerar la estructura interna del código fuente. Para la ejecución de esta etapa, se diseñaron casos de prueba enfocados en las dos vertientes principales de la solución: la experiencia de interacción directa dentro del videojuego y el flujo de procesamiento y visualización de datos en la plataforma web educativa.

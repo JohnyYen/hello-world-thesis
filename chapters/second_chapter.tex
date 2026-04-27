@@ -1,9 +1,91 @@
 \chapter{\chapterSecond}
 
-*\section{Diseño del videojuego}
+\section{Diseño del videojuego}
 
+\subsection{Selección de mecánicas}
 
-%\subsection{Selección de mecánicas}
+El diseño de las mecánicas del videojuego educativo responde a una doble lógica:
+por un lado, la coherencia con los fundamentos pedagógicos expuestos en el capítulo
+anterior —constructivismo, aprendizaje basado en problemas y teoría del flujo—; por
+otro, las necesidades concretas del sistema en términos de adaptabilidad, trazabilidad
+del progreso y control docente. A continuación se describen las cuatro mecánicas
+centrales seleccionadas y se argumenta su pertinencia en el contexto del proyecto.
+
+\subsubsection{Programación por bloques visuales}
+
+La mecánica principal del videojuego consiste en la construcción de soluciones
+mediante bloques de programación visual que representan estructuras lógicas
+fundamentales: condiciones, ciclos y variables. Esta decisión de diseño reduce la
+barrera sintáctica que habitualmente genera frustración en estudiantes principiantes,
+permitiendo que el foco cognitivo recaiga sobre el razonamiento lógico y no sobre
+la escritura de código. Estudios como los de \textcite{ibrahim_students_2010} y
+\textcite{mathew_teaching_2019} evidencian que los entornos de programación
+visual incrementan la motivación y el rendimiento académico en cursos introductorios
+al eliminar esta fricción inicial.
+
+Desde la perspectiva del constructivismo, el ensamblaje de bloques obliga al
+estudiante a externalizar su modelo mental del problema: cada bloque colocado
+representa una decisión lógica consciente, lo que convierte la interfaz en un
+espacio de construcción activa del conocimiento. Esta mecánica se articula
+directamente con la narrativa del juego, ya que cada solución construida resuelve
+un problema concreto dentro de la historia, dotando al ejercicio de un propósito
+contextualizado más allá del ejercicio académico abstracto.
+
+\subsubsection{Sistema de niveles progresivos}
+
+El juego organiza sus contenidos en una secuencia de niveles bloqueados, donde
+el acceso a cada etapa requiere la superación de la anterior. Esta progresión
+estructurada responde al principio de andamiaje cognitivo: los conceptos más
+simples —como el uso de variables— preceden y fundamentan los más complejos,
+como las estructuras de repetición anidadas. La literatura especializada señala
+que la organización secuencial del contenido es determinante para sostener la
+motivación intrínseca, al ofrecer al estudiante una percepción tangible de avance
+y dominio acumulado~\cite{kiili_design_2012,puritat_enhanced_2019}.
+
+Desde el punto de vista del diseño narrativo, cada nivel corresponde a una misión
+asignada por el profesor dentro de la historia, lo que integra la progresión
+mecánica con la progresión argumental. Esta doble dimensión del avance —técnica
+y narrativa— refuerza el compromiso emocional del jugador con el proceso de
+aprendizaje, haciendo que completar un nivel tenga un significado que trasciende
+la simple acumulación de puntos.
+
+\subsubsection{Retroalimentación inmediata}
+
+Tras cada intento de solución, el sistema genera retroalimentación visual y textual
+en tiempo real, indicando al estudiante si la lógica construida resuelve correctamente
+el problema planteado y, en caso contrario, identificando el tipo de error cometido.
+Esta mecánica constituye uno de los pilares de la teoría del flujo formulada por
+Csikszentmihalyi~\cite{csikszentmihalyi2008}: la retroalimentación inmediata permite
+al jugador ajustar su estrategia de forma continua, manteniendo el equilibrio entre
+desafío y habilidad que caracteriza el estado de inmersión óptima.
+
+A diferencia de los entornos de evaluación tradicionales, donde la corrección
+ocurre de forma diferida, el videojuego convierte el error en un evento formativo
+instantáneo. El mensaje de retroalimentación no penaliza, sino que orienta: describe
+el fallo en términos pedagógicos y habilita el reintento sin coste emocional elevado,
+fomentando así la autonomía en la resolución de problemas y la normalización del
+error como parte del aprendizaje.
+
+\subsubsection{Adaptación automática de dificultad}
+
+El sistema incorpora un agente de adaptación que ajusta la complejidad de los
+niveles futuros en función del historial de desempeño del estudiante. Si el jugador
+resuelve un nivel con alta eficiencia y pocos errores, los retos subsiguientes
+incorporan mayor complejidad lógica; si, por el contrario, el estudiante presenta
+dificultades reiteradas, el agente puede simplificar los objetivos del nivel, reducir
+la cantidad de bloques disponibles o proveer pistas adicionales. Este mecanismo
+responde directamente a los principios del aprendizaje adaptativo, que buscan
+personalizar la experiencia educativa en función de las necesidades individuales
+de cada estudiante~\cite{shum_personalised_2023}.
+
+La adaptación automática de dificultad es, además, el componente que cierra el
+ciclo entre el videojuego y el tablero de analíticas docente: los datos generados
+por el agente —decisiones tomadas, umbrales alcanzados, estrategias aplicadas—
+se registran como trazas xAPI y se sincronizan con el servidor central, donde el
+profesor puede interpretar no solo el resultado final del estudiante, sino el proceso
+adaptativo que lo produjo. De este modo, la mecánica no es únicamente una
+herramienta de personalización del aprendizaje, sino también una fuente de
+información pedagógica estructurada para la toma de decisiones docente.
 
 \subsection{Selección del género}
 
@@ -33,6 +115,229 @@ Finalmente, la progresión de la historia está diseñada para sostener la \text
 
 \section{Diseño del tablero de analíticas del aprendizaje}
 
+El diseño del tablero de analíticas del aprendizaje (LAD, por sus siglas en inglés) constituye uno de los componentes más relevantes de la plataforma propuesta, ya que representa el puente
+entre la experiencia de juego del estudiante y la capacidad de intervención pedagógica
+del docente. A diferencia de los entornos educativos convencionales, donde los datos
+de desempeño suelen ser escasos o generados de forma discontinua, los videojuegos
+generan trazas de alta granularidad que, correctamente procesadas y visualizadas,
+pueden transformar la práctica docente en una actividad informada y proactiva
+\cite{rahimi2021learning}.
+
+En este sentido, el objetivo central del tablero no es la mera visualización de
+métricas, sino la producción de información accionable: representaciones que permitan
+al docente comprender el proceso cognitivo de sus estudiantes, identificar patrones
+de dificultad recurrentes y tomar decisiones pedagógicas fundamentadas en evidencia.
+Tal como señalan Susnjak, Ramaswami y Mathrani \cite{susnjak_learning_2022}, un LAD es
+pedagógicamente útil en la medida en que va más allá del desempeño superficial y se
+centra en el aprendizaje real. Esta premisa guía todas las decisiones de diseño
+descritas en la presente sección.
+
+\subsection{Indicadores clave de rendimiento y aprendizaje}
+
+La selección de los indicadores a representar en el tablero responde a una doble
+lógica: por un lado, la disponibilidad de datos generados por las trazas xAPI del
+videojuego; por otro, su pertinencia pedagógica para el seguimiento del aprendizaje
+de la programación. A partir del análisis de la revisión de la literatura, se identifican tres categorías de indicadores.
+
+\textbf{Indicadores de progreso académico:}
+\begin{itemize}
+	\item Niveles completados vs. niveles disponibles por concepto de programación.
+	\item Porcentaje de superación por tema.
+	\item Evolución histórica del desempeño individual a lo largo del tiempo,
+	fomentando la autorregulación.
+\end{itemize}
+
+\textbf{Indicadores de desempeño en la resolución de problemas:}
+\begin{itemize}
+	\item Número de intentos por nivel y tasa de éxito en el primer intento.
+	\item Tiempo promedio de resolución por nivel y por concepto.
+	\item Tipos de errores más frecuentes, clasificados según el bloque lógico
+	involucrado.
+	\item Eficiencia de la solución: relación entre la cantidad de bloques utilizados
+	y la solución óptima.
+\end{itemize}
+
+\textbf{Indicadores de motivación y flujo:}
+\begin{itemize}
+	\item Tiempo de sesión activa y frecuencia de abandono por nivel.
+	\item Niveles repetidos voluntariamente, como indicador de motivación intrínseca.
+	\item Estado de adaptación del agente: estrategia activa para cada estudiante
+	(simplificación, complejización o neutro).
+\end{itemize}
+
+Todos estos indicadores se alimentan de las declaraciones xAPI generadas por el
+videojuego en el formato Actor-Verbo-Objeto. La especificación xAPI permite capturar
+eventos de aprendizaje tanto en línea como fuera de línea, asegurando la continuidad
+del registro aun en escenarios de conectividad intermitente \cite{serrano2017xapi}.
+Cada interacción del estudiante con los bloques de programación, cada intento de
+solución y cada resultado de nivel queda registrado como una declaración estructurada
+que el backend central procesa y agrega para alimentar las visualizaciones del tablero.
+
+\subsection{Componentes visuales y estructura de vistas}
+
+El tablero de analíticas se organiza en tres vistas diferenciadas, cada una 
+diseñada para responder a una necesidad pedagógica específica del docente. 
+La selección de los tipos de gráficos no responde únicamente a criterios 
+estéticos, sino a la naturaleza de los datos a representar y al tipo de 
+decisión que cada vista debe facilitar. Tal como establece 
+\textcite{tufte2001}, la excelencia en la visualización de datos consiste en 
+comunicar ideas complejas con claridad, precisión y eficiencia, principio 
+que guía la elección de cada componente visual descrito a continuación.
+
+\subsubsection{Vista general}
+
+La vista general proporciona al docente una panorámica del grupo completo,
+orientada a responder una pregunta central: \textit{¿cómo se encuentra el curso
+	en su conjunto?} Para ello se seleccionaron los siguientes tipos de gráficos.
+
+\textbf{Gráfico de barras agrupadas} para representar el porcentaje de
+estudiantes que han completado cada concepto de programación (variables,
+condicionales, ciclos, etc.). Las barras agrupadas permiten comparar de forma
+directa el avance relativo entre temas, facilitando la identificación inmediata
+de los conceptos con menor tasa de superación grupal. Este tipo de visualización
+es especialmente eficaz cuando se comparan categorías discretas y mutuamente
+excluyentes, como los temas del currículo \cite{few2009}.
+
+\textbf{Gráfico de pastel o dona} para mostrar la distribución del grupo según
+su estado de desempeño: \textit{Óptimo}, \textit{Necesita refuerzo} y
+\textit{En riesgo}. Aunque la literatura advierte sobre el uso indiscriminado
+del gráfico circular \cite{few2009}, su aplicación resulta adecuada en este
+contexto porque se representan tres categorías exhaustivas y mutuamente
+excluyentes cuya proporción relativa —y no su magnitud absoluta— es el dato
+pedagógicamente relevante para el docente. La variante de dona se prefiere
+por su menor densidad visual al incorporar el porcentaje total en el centro.
+
+\textbf{Tarjetas de indicador} para exponer de un solo
+vistazo los valores más críticos del grupo: promedio general de avance, nivel
+con mayor tasa de fracaso y número de estudiantes en riesgo. Este componente
+responde directamente al principio de legibilidad inmediata \cite{ilearn2023},
+ya que concentra la información accionable más urgente sin requerir
+interpretación gráfica adicional por parte del docente.
+
+\subsubsection{Vista de estudiante}
+
+La vista de estudiante está orientada al seguimiento individual y adopta el
+marco de progreso intrapersonal descrito por Susnjak et al. \textcite{susnjak_learning_2022},
+que centra el análisis en la evolución del propio estudiante para evitar el efecto
+negativo de la comparación social directa sobre la autoeficacia de los alumnos
+de bajo rendimiento \cite{rahimi2021learning}. La pregunta central que guía esta
+vista es: \textit{¿cómo ha evolucionado este estudiante y dónde necesita apoyo?}
+
+\textbf{Gráfico de líneas temporales} para representar la evolución del
+desempeño del estudiante a lo largo del tiempo: puntuación obtenida por nivel,
+número de intentos y tiempo de resolución en cada sesión. El gráfico de líneas
+es el tipo de visualización canónico para datos secuenciales y temporales, pues
+permite percibir tendencias, regresiones y puntos de inflexión de forma intuitiva
+\cite{few2009}. En este contexto, una pendiente descendente en la puntuación
+puede alertar al docente sobre un deterioro en el rendimiento antes de que se
+consolide como patrón.
+
+\textbf{Mapa de calor} para representar la frecuencia y distribución de errores
+del estudiante según el tipo de bloque lógico (condicional, ciclo, variable) y el
+nivel en que ocurrieron. El mapa de calor es especialmente adecuado para
+visualizar matrices de dos dimensiones donde la intensidad del color codifica
+una magnitud —en este caso, la frecuencia de error— permitiendo identificar de
+forma inmediata qué combinaciones de concepto y nivel generan mayor
+dificultad \cite{wilke2019}. Esta información es de alto valor pedagógico, pues
+orienta al docente hacia las zonas de dificultad cognitiva específica del
+estudiante, más allá de la simple calificación.
+
+\textbf{Barra de progreso por concepto} para mostrar el grado de dominio
+alcanzado en cada tema del currículo, expresado como porcentaje de niveles
+superados sobre el total disponible. Este componente visual simple pero
+efectivo permite al docente evaluar de un vistazo la cobertura curricular del
+estudiante e identificar vacíos de aprendizaje concretos.
+
+\textbf{Histograma de intentos por nivel} para visualizar la distribución de la
+cantidad de intentos que el estudiante necesitó para superar cada nivel. A
+diferencia del gráfico de barras, el histograma representa la distribución de
+frecuencias de una variable continua, en este caso el esfuerzo invertido por
+el estudiante, lo que permite identificar niveles que generaron bloqueos
+prolongados y distinguirlos de aquellos resueltos de forma fluida \cite{few2009}.
+
+\subsubsection{Vista comparativa entre cursos escolares}
+
+La vista comparativa agrega los datos de múltiples grupos o cursos escolares
+para responder la pregunta: \textit{¿cómo se compara el desempeño de este
+	curso frente a grupos anteriores o del mismo período} Su propósito
+	es ofrecer al docente una visión más amplia que va más allá del seguimiento
+	individual, permitiendo evaluar si la plataforma y la secuencia de contenidos
+	están funcionando de forma consistente a lo largo del tiempo y entre distintos
+	grupos de estudiantes.
+
+\textbf{Gráfico de barras apiladas} para comparar la distribución de estados
+de desempeño (Óptimo / Necesita refuerzo / En riesgo) entre distintos cursos
+escolares. Las barras apiladas permiten comparar tanto la composición interna
+de cada grupo como su tamaño total, facilitando la identificación de cursos
+con mayor proporción de estudiantes en riesgo de forma visualmente directa.
+
+\textbf{Gráfico de líneas múltiples} para representar la evolución temporal del
+promedio de desempeño de cada curso a lo largo de las semanas o unidades del
+semestre. La superposición de líneas por curso permite identificar patrones
+comunes —como caídas de rendimiento en el módulo de ciclos— y diferenciar
+cursos que mantienen una progresión estable de aquellos con alta variabilidad.
+
+\textbf{Mapa de calor comparativo} para visualizar la tasa de fracaso por nivel
+y por curso escolar en una matriz bidimensional. Este gráfico permite identificar
+qué niveles específicos generan dificultad de forma consistente a través de
+distintas cohortes, lo que puede señalar problemas en el diseño del nivel más
+que en el desempeño de un grupo particular.
+
+\subsubsection{Tabla resumen de componentes visuales}
+
+La siguiente tabla sintetiza la correspondencia entre cada vista del tablero,
+los tipos de gráficos seleccionados y el propósito pedagógico que justifica
+su elección.
+
+\begin{longtable}{|p{0.22\linewidth}|p{0.22\linewidth}|p{0.46\linewidth}|}
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{\tablename\ \thetable\ -- continuación} \\
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	
+	General & Barras agrupadas
+	& Comparar el avance por concepto de programación en el grupo. \\
+	\hline
+	General & Pastel / dona
+	& Mostrar la distribución del grupo por estado de desempeño. \\
+	\hline
+	General & KPI cards
+	& Exponer los indicadores críticos del curso de forma inmediata. \\
+	\hline
+	
+	Estudiante & Líneas temporales
+	& Visualizar la evolución del desempeño individual en el tiempo. \\
+	\hline
+	Estudiante & Mapa de calor
+	& Identificar la distribución de errores por concepto y nivel. \\
+	\hline
+	Estudiante & Barra de progreso
+	& Mostrar el dominio alcanzado por tema curricular. \\
+	\hline
+	Estudiante & Histograma de intentos
+	& Detectar niveles que generaron bloqueo prolongado. \\
+	\hline
+	
+	Comparativa & Barras apiladas
+	& Comparar la composición de desempeño entre cursos. \\
+	\hline
+	Comparativa & Líneas múltiples
+	& Comparar la evolución temporal del promedio entre cohortes. \\
+	\hline
+	Comparativa & Mapa de calor comparativo
+	& Identificar niveles con dificultad consistente entre cursos. \\
+	\hline
+	
+\end{longtable}
 
 \section{Requisitos funcionales}
 

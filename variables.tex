@@ -64,37 +64,38 @@
 	\endgroup
 }
 
-% 1. Crear el contador (Esta es la línea que faltaba)
-%\newcounter{rfcounter}
-%\renewcommand{\therfcounter}{RF\arabic{rfcounter}}
-%
-%% Nueva función usando PUNTO Y COMA (;) como separador seguro
-%\newcommand{\generateRFTable}[1]{%
-%	\setcounter{rfcounter}{0}%
-%	\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-%		\hline
-%		\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
-%		\hline
-%		\endfirsthead
-%		
-%		\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación desde la página anterior} \\
-%		\hline
-%		\textbf{ID} & \textbf{Descripción del Requisito Funcional} \\
-%		\hline
-%		\endhead
-%		
-%		\hline
-%		\endfoot
-%		
-%		\hline
-%		\endlastfoot
-%		
-%		% El bucle ahora usa ';' para separar, por lo que las comas internas están a salvo
-%		\foreach \req in {#1} {%
-%			\stepcounter{rfcounter}%
-%			\therfcounter & \req \\ \hline
-%		}%
-%		%
-%	\end{longtable}%
-%}
+\NewDocumentCommand{\tablaCasoPrueba}{m m m m +m}{%
+	% ---- Bloque de encabezado ----
+	\noindent
+	\begin{tblr}{
+			width   = \linewidth,
+			colspec = {Q[l,font=\bfseries,wd=3.8cm] X[l]},
+			hlines, vlines,
+			rowsep  = 3pt,
+		}
+		\SetCell[c=2]{l} \textbf{Caso de Prueba} & \\
+		Nombre                  & #1 \\
+		Objetivo de la Prueba   & #2 \\
+		Descripción de la prueba & #3 \\
+		Condiciones de entrada  & #4 \\
+		\SetCell[c=2]{l} \textbf{Combinaciones de valores} & \\
+	\end{tblr}
+	
+	% ---- Bloque de combinaciones ----
+	\noindent
+	\begin{tblr}{
+			width   = \linewidth,
+			colspec = {Q[c,wd=0.6cm] X[2,l] X[1,l] X[3,l] X[2,l] X[2,l]},
+			hlines, vlines,
+			rowsep  = 3pt,
+		}
+		\textbf{CP} &
+		\textbf{Escenarios} &
+		\textbf{Variables} &
+		\textbf{Valores de entrada} &
+		\textbf{Resultado esperado} &
+		\textbf{Resultado real} \\
+		#5
+	\end{tblr}
+}
 	
