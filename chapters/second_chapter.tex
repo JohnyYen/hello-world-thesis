@@ -55,7 +55,7 @@ Tras cada intento de solución, el sistema genera retroalimentación visual y te
 en tiempo real, indicando al estudiante si la lógica construida resuelve correctamente
 el problema planteado y, en caso contrario, identificando el tipo de error cometido.
 Esta mecánica constituye uno de los pilares de la teoría del flujo formulada por
-Csikszentmihalyi~\cite{csikszentmihalyi2008}: la retroalimentación inmediata permite
+Csikszentmihalyi~\cite{Csikszentmihalyi_2008}: la retroalimentación inmediata permite
 al jugador ajustar su estrategia de forma continua, manteniendo el equilibrio entre
 desafío y habilidad que caracteriza el estado de inmersión óptima.
 
@@ -81,7 +81,7 @@ de cada estudiante~\cite{shum_personalised_2023}.
 La adaptación automática de dificultad es, además, el componente que cierra el
 ciclo entre el videojuego y el tablero de analíticas docente: los datos generados
 por el agente —decisiones tomadas, umbrales alcanzados, estrategias aplicadas—
-se registran como trazas xAPI y se sincronizan con el servidor central, donde el
+se registran como trazas xAPI\footnote{xAPI (Experience API) es un estándar de e-learning que registra experiencias de aprendizaje como declaraciones estructuradas del tipo \textit{Actor--Verbo--Objeto} (ej. ``el estudiante \textit{completó} el nivel 3''), permitiendo recopilar y analizar datos desde cualquier entorno digital.} y se sincronizan con el servidor central, donde el
 profesor puede interpretar no solo el resultado final del estudiante, sino el proceso
 adaptativo que lo produjo. De este modo, la mecánica no es únicamente una
 herramienta de personalización del aprendizaje, sino también una fuente de
@@ -290,6 +290,9 @@ los tipos de gráficos seleccionados y el propósito pedagógico que justifica
 su elección.
 
 \begin{longtable}{|p{0.22\linewidth}|p{0.22\linewidth}|p{0.46\linewidth}|}
+	\caption{Tabla resumen de los gráficos utilizados por vista.}
+	\label{tab:charts} \\
+	
 	\hline
 	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
 	\hline
@@ -343,198 +346,85 @@ su elección.
 
 Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso se han dividido los requisitos funcionales según el módulo al que corresponde: \textit{videojuego}, \textit{aplicación web}, \textit{back-end}.
 
-\subsubsection*{Requisitos funcionales del videojuego}
+\requisitos{Requisitos funcionales del videojuego}{
+	El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución;
+	El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior;
+	El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos;
+	La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales;
+	Cada nivel debe estar asociado a un tema específico de programación claramente identificable;
+	El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador;
+	El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador;
+	El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color;
+	El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel;
+	Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado;
+	El sistema debe permitir construir soluciones mediante bloques de programación visual;
+	Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables;
+	Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento;
+	El jugador debe poder consultar un resumen global de su progreso académico;
+	Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje;
+	El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores;
+	El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego;
+	El jugador debe poder repetir niveles ya completados para mejorar su desempeño;
+	El videojuego debe capturar automáticamente las interacciones del jugador (acciones sobre bloques, diálogos seleccionados, tiempos de respuesta) y transformarlas en declaraciones xAPI;
+	El videojuego debe actualizar un modelo del estudiante a partir de sus interacciones, registrando aciertos, errores, tiempos y uso de ayudas;
+	El videojuego debe presentar una narrativa interactiva en formato de novela visual que contextualice los ejercicios de programación dentro de una historia universitaria;
+	El videojuego debe pausar el flujo narrativo para presentar la interfaz de programación cuando el nivel lo requiera;
+	El videojuego debe desbloquear nuevos diálogos y avanzar la narrativa cuando el jugador resuelva correctamente el problema del nivel;
+	El videojuego debe almacenar localmente las trazas xAPI cuando no exista conectividad y sincronizarlas con el servidor cuando se restablezca la conexión
+}
 
-\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                                                         \\
-	\hline
-	\endfirsthead
+\requisitos{Requisitos funcionales de la aplicación web del profesor}{
+	El sistema debe mostrar al profesor un resumen del progreso individual y grupal de los estudiantes;
+	El sistema debe mostrar un mapa de calor con la distribución de errores del estudiante según tipo de bloque lógico y nivel;
+	El sistema debe mostrar un histograma de intentos por nivel para identificar niveles que generaron bloqueo prolongado;
+	El sistema debe mostrar una vista comparativa entre cursos escolares con gráficos de barras apiladas, líneas múltiples y mapa de calor comparativo;
+	El sistema debe categorizar automáticamente el estado de desempeño de cada estudiante como Óptimo, Necesita refuerzo o En riesgo;
+	El sistema debe presentar métricas detalladas como niveles completados, errores y tiempo promedio;
+	El sistema debe generar gráficos comparativos de rendimiento entre estudiantes;
+	El profesor debe poder visualizar el historial completo de desempeño de cada estudiante;
+	El sistema debe notificar al profesor cuando un estudiante presente bajo rendimiento reiterado;
+	El profesor debe poder enviar comentarios personalizados a estudiantes o grupos;
+	El sistema debe permitir definir objetivos personalizados para estudiantes o grupos;
+	El sistema debe permitir crear, editar y eliminar niveles educativos;
+	El profesor debe poder asignar niveles a estudiantes o grupos según su desempeño;
+	El sistema debe permitir crear evaluaciones basadas en niveles existentes;
+	El sistema debe permitir exportar reportes académicos en formatos estándar como PDF o CSV;
+	El sistema debe integrarse con plataformas LMS para autenticación y sincronización académica
+}
 
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación desde la página anterior}                                                                \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                                                         \\
-	\hline
-	\endhead
-
-	\hline
-	\endfoot
-
-	\hline
-	\endlastfoot
-
-	RF1         & El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución. \\
-	\hline
-	RF2         & El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior.                        \\
-	\hline
-	RF3         & El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos.             \\
-	\hline
-	RF4         & La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales.              \\
-	\hline
-	RF5         & Cada nivel debe estar asociado a un tema específico de programación claramente identificable.                                        \\
-	\hline
-	RF6         & El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador.                              \\
-	\hline
-	RF7         & El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador.                      \\
-	\hline
-	RF8         & El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color.                                 \\
-	\hline
-	RF9         & El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel.                                   \\
-	\hline
-	RF10        & Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado.                     \\
-	\hline
-	RF11        & El sistema debe permitir construir soluciones mediante bloques de programación visual.                                               \\
-	\hline
-	RF12        & Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables.                              \\
-	\hline
-	RF13        & Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento.                                    \\
-	\hline
-	RF14        & El jugador debe poder consultar un resumen global de su progreso académico.                                                          \\
-	\hline
-	RF15        & Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje.                                                   \\
-	\hline
-	RF16        & El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores.                                           \\
-	\hline
-	RF17        & El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego.                                                  \\
-	\hline
-	RF18        & El jugador debe poder repetir niveles ya completados para mejorar su desempeño.                                                      \\
-	\hline
-\end{longtable}
-
-\subsubsection*{Requisitos funcionales de la aplicación web del profesor}
-
-\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                        \\
-	\hline
-	\endfirsthead
-
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación}                                                        \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                        \\
-	\hline
-	\endhead
-
-	\hline
-	\endfoot
-
-	\hline
-	\endlastfoot
-
-	RF19        & El sistema debe mostrar al profesor un resumen del progreso individual y grupal de los estudiantes. \\
-	\hline
-	RF20        & El sistema debe presentar métricas detalladas como niveles completados, errores y tiempo promedio.  \\
-	\hline
-	RF21        & El sistema debe generar gráficos comparativos de rendimiento entre estudiantes.                     \\
-	\hline
-	RF22        & El profesor debe poder visualizar el historial completo de desempeño de cada estudiante.            \\
-	\hline
-	RF23        & El sistema debe notificar al profesor cuando un estudiante presente bajo rendimiento reiterado.     \\
-	\hline
-	RF24        & El profesor debe poder enviar comentarios personalizados a estudiantes o grupos.                    \\
-	\hline
-	RF25        & El sistema debe permitir definir objetivos personalizados para estudiantes o grupos.                \\
-	\hline
-	RF26        & El sistema debe permitir crear, editar y eliminar niveles educativos.                               \\
-	\hline
-	RF27        & El profesor debe poder asignar niveles a estudiantes o grupos según su desempeño.                   \\
-	\hline
-	RF28        & El sistema debe permitir crear evaluaciones basadas en niveles existentes.                          \\
-	\hline
-	RF29        & El sistema debe permitir exportar reportes académicos en formatos estándar como PDF o CSV.          \\
-	\hline
-	RF30        & El sistema debe integrarse con plataformas LMS para autenticación y sincronización académica.       \\
-	\hline
-\end{longtable}
-
-\subsubsection*{Requisitos funcionales del back-end}
-
-\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                \\
-	\hline
-	\endfirsthead
-
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación}                                                \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito Funcional}                                                \\
-	\hline
-	\endhead
-
-	\hline
-	\endfoot
-
-	\hline
-	\endlastfoot
-
-	RF31        & El backend debe exponer una API REST para la comunicación con los clientes.                 \\
-	\hline
-	RF32        & El sistema debe gestionar la autenticación y autorización de usuarios.                      \\
-	\hline
-	RF33        & El backend debe almacenar de forma persistente los datos académicos y de progreso.          \\
-	\hline
-	RF34        & El sistema debe sincronizar información con plataformas LMS externas.                       \\
-	\hline
-	RF35        & El backend debe procesar métricas de desempeño para análisis pedagógico.                    \\
-	\hline
-	RF36        & El sistema debe permitir la gestión de usuarios y roles.                                    \\
-	\hline
-	RF37        & El sistema debe gestionar cursos, grupos y matrículas.                                      \\
-	\hline
-	RF38        & El backend debe permitir la generación de reportes consolidados.                            \\
-	\hline
-	RF39        & El sistema debe registrar eventos relevantes del sistema.                                   \\
-	\hline
-	RF40        & El backend debe permitir la recuperación de información histórica.                          \\
-	\hline
-	RF41        & El sistema debe permitir la sincronización diferida cuando no exista conectividad.          \\
-	\hline
-	RF42        & El backend debe validar la consistencia de los datos recibidos.                             \\
-	\hline
-	RF43        & El sistema debe permitir la escalabilidad del número de usuarios.                           \\
-	\hline
-	RF44        & El backend debe permitir la configuración de parámetros del sistema.                        \\
-	\hline
-	RF45        & El sistema debe permitir la integración con servicios externos adicionales.                 \\
-	\hline
-	RF46        & El backend debe permitir auditoría de operaciones.                                          \\
-	\hline
-	RF47        & El sistema debe gestionar copias de seguridad.                                              \\
-	\hline
-	RF48        & El backend debe permitir restauración de información.                                       \\
-	\hline
-	RF49        & El sistema debe gestionar notificaciones del sistema.                                       \\
-	\hline
-	RF50        & El backend debe permitir el monitoreo del estado del sistema.                               \\
-	\hline
-	RF51        & El sistema debe permitir la gestión de versiones del contenido educativo.                   \\
-	\hline
-	RF52        & El backend debe permitir la configuración de reglas de adaptación.                          \\
-	\hline
-	RF53        & El sistema debe permitir la evaluación automática del progreso.                             \\
-	\hline
-	RF54        & El backend debe permitir el análisis histórico de resultados.                               \\
-	\hline
-	RF55        & El sistema debe permitir exportación de datos académicos.                                   \\
-	\hline
-	RF56        & El backend debe permitir la trazabilidad de acciones del usuario.                           \\
-	\hline
-	RF57        & El sistema debe permitir la gestión de permisos avanzados.                                  \\
-	\hline
-	RF58        & El backend debe soportar múltiples cursos simultáneamente.                                  \\
-	\hline
-	RF59        & El sistema debe permitir la integración continua de mejoras.                                \\
-	\hline
-	RF60        & El backend debe permitir la extensión de funcionalidades sin afectar el núcleo del sistema. \\
-	\hline
-\end{longtable}
-
-
+\requisitos{Requisitos funcionales del back-end}{
+	El backend debe recibir, validar y almacenar las declaraciones xAPI enviadas por el videojuego en formato Actor-Verbo-Objeto;
+	El backend debe agregar las declaraciones xAPI para generar los indicadores del tablero de analíticas;
+	El backend debe exponer una API REST para la comunicación con los clientes;
+	El sistema debe gestionar la autenticación y autorización de usuarios;
+	El backend debe almacenar de forma persistente los datos académicos y de progreso;
+	El sistema debe sincronizar información con plataformas LMS externas;
+	El backend debe procesar métricas de desempeño para análisis pedagógico;
+	El sistema debe permitir la gestión de usuarios y roles;
+	El sistema debe gestionar cursos, grupos y matrículas;
+	El backend debe permitir la generación de reportes consolidados;
+	El sistema debe registrar eventos relevantes del sistema;
+	El backend debe permitir la recuperación de información histórica;
+	El sistema debe permitir la sincronización diferida cuando no exista conectividad;
+	El backend debe validar la consistencia de los datos recibidos;
+	El sistema debe permitir la escalabilidad del número de usuarios;
+	El backend debe permitir la configuración de parámetros del sistema;
+	El sistema debe permitir la integración con servicios externos adicionales;
+	El backend debe permitir auditoría de operaciones;
+	El sistema debe gestionar copias de seguridad;
+	El sistema debe gestionar notificaciones del sistema;
+	El backend debe permitir el monitoreo del estado del sistema;
+	El backend debe permitir el análisis histórico de resultados;
+	El sistema debe permitir exportación de datos académicos;
+	El backend debe permitir la trazabilidad de acciones del usuario;
+	El backend debe soportar múltiples cursos simultáneamente;
+}
 \section{Requisitos no funcionales}
 
 Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
 
 \begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+	\caption{Tabla de requisitos no funcionales} \\
 	\hline
 	\textbf{ID} & \textbf{Descripción del Requisito No Funcional}                                                                           \\
 	\hline
@@ -614,32 +504,38 @@ Los requisitos no funcionales, a diferencia de los funcionales, definen las rest
 Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este proyecto, se identifican dos actores principales:
 
 \begin{itemize}
-	\item \textbf{Estudiante}: Es el usuario principal del módulo \textit{Hello World}. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
+	\item \textbf{Estudiante}: Es el usuario principal del videojuego. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
 
-	\item \textbf{Profesor}: Usuario principal del módulo \textit{Teacher Core}, encargado de supervisar el progreso de los estudiantes, asignar niveles personalizados y recibir notificaciones relevantes sobre el desempeño académico de sus alumnos.
+	\item \textbf{Profesor}: Usuario principal del tablero de analíticas, encargado de supervisar el progreso de los estudiantes, asignar niveles personalizados y recibir notificaciones relevantes sobre el desempeño académico de sus alumnos.
 \end{itemize}
 
-Ambos actores interactúan con el sistema de manera diferente, pero están interconectados mediante un backend compartido que permite la sincronización de datos y la comunicación bidireccional entre ellos.
+Ambos actores interactúan con el sistema de manera diferente, pero están interconectados mediante un back-end compartido que permite la sincronización de datos y la comunicación bidireccional entre ellos.
 
 
 \subsection{Diagrama de caso de uso del sistema}
 
 \textbf{Videojuego educativo}
 
-El módulo Hello World constituye el componente central del sistema educativo, diseñado para que los estudiantes exploren conceptos de programación mediante experiencias de juego interactivas. Este enfoque gamificado transforma conceptos abstractos en actividades prácticas y atractivas que facilitan el aprendizaje de manera natural.
+El módulo del videojuego constituye el componente central del sistema educativo, diseñado para que los estudiantes exploren conceptos de programación mediante experiencias de juego interactivas. Este enfoque gamificado transforma conceptos abstractos en actividades prácticas y atractivas que facilitan el aprendizaje de manera natural.
 
-Como se aprecia en el diagrama de caso de uso del módulo Hello World (ver Figura \ref{fig:use-case-videogame}), el estudiante interactúa con un sistema que evalúa su desempeño de forma continua, ajustando la dificultad de los desafíos según el rendimiento individual. Entre las funcionalidades principales se encuentra la construcción de soluciones a través de bloques de programación visual que representan estructuras lógicas esenciales como condiciones, ciclos y variables, permitiendo experimentar con la lógica computacional de forma intuitiva.
+Como se aprecia en el diagrama de caso de uso del módulo del videojuego (ver Figura \ref{fig:use-case-videogame}), el estudiante interactúa con un sistema que evalúa su desempeño de forma continua, ajustando la dificultad de los desafíos según el rendimiento individual. Entre las funcionalidades principales se encuentra la construcción de soluciones a través de bloques de programación visual que representan estructuras lógicas esenciales como condiciones, ciclos y variables, permitiendo experimentar con la lógica computacional de forma intuitiva.
 
 El sistema ofrece retroalimentación inmediata después de cada acción, registrando métricas detalladas tales como tiempo de resolución, frecuencia de errores y nivel de eficiencia. Esta evaluación automática no solo mide el aspecto técnico del aprendizaje, sino que alimenta el mecanismo de adaptación que modifica dinámicamente la complejidad de los niveles posteriores, garantizando que cada estudiante progrese según su propio ritmo de aprendizaje.
 
 Adicionalmente, el módulo incorpora un tutorial interactivo para usuarios noveles, opciones de configuración personalizables y un sistema de guardado automático del progreso. Los estudiantes pueden revisar resúmenes de su desempeño general y practicar niveles completados para consolidar sus conocimientos, promoviendo una cultura de mejora continua y exploración autónoma.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Hello_World Use Case}
-	\caption[Diagrama de Caso de Uso: Hello World]{Diagrama de Caso de Uso para el módulo correspondiente al estudiante}
-	\label{fig:use-case-videogame}
-\end{figure}
+\begin{landscape}
+	\thispagestyle{empty}
+	\begin{figure}[p]
+		\centering
+		\vspace*{\fill}
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Hello_World Use Case}
+		\caption[Diagrama de caso de uso: Hello World]{Diagrama de caso de uso para el módulo correspondiente al estudiante}
+		\label{fig:use-case-videogame}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
 
 \textbf{App web docente}
 
@@ -651,21 +547,25 @@ Los educadores pueden crear y administrar contenido educativo personalizado, asi
 
 La integración con plataformas estándar de gestión del aprendizaje (LMS) garantiza una sincronización fluida de datos académicos, y las capacidades de exportación en formatos universales como PDF y CSV facilitan la documentación y el intercambio de información institucional.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/use-case/Teacher Core Use Case}
-	\caption[Diagrama de Caso de Uso para el Módulo correspondiente al profesor]{Diagrama de Caso de Uso para el Módulo correspondiente al profesor}
-	\label{fig:use-case-teacher}
-\end{figure}
+
+\begin{landscape}
+	\thispagestyle{empty}
+	\begin{figure}[p]
+		\centering
+		\vspace*{\fill}
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Teacher Core Use Case}
+		\caption[Diagrama de Caso de uso para el módulo correspondiente al profesor]{Diagrama de Caso de Uso para el Módulo correspondiente al profesor}
+		\label{fig:use-case-teacher}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
 
 La innovación fundamental de esta arquitectura reside en la integración fluida entre el módulo Hello World y Teacher Core, conformando un ecosistema educativo cohesionado donde las acciones estudiantiles informan directamente las decisiones pedagógicas de los docentes. El backend compartido funciona como núcleo central, sincronizando datos en tiempo real y habilitando una comunicación bidireccional que transforma el aprendizaje en un proceso colaborativo y adaptativo.
 
 Esta interconexión permite al docente identificar patrones de comportamiento emergentes en el aula virtual, ajustando dinámicamente los niveles de dificultad o interviniendo con apoyo personalizado cuando detecta estudiantes que requieren atención adicional. Simultáneamente, los estudiantes reciben retroalimentación contextualizada que refleja tanto su rendimiento técnico como su posición relativa dentro del grupo, fomentando una competencia constructiva y motivación colectiva.
 
 El resultado es una plataforma educativa que supera el paradigma tradicional de enseñanza unidireccional, evolucionando hacia un modelo interactivo donde profesor y estudiante co-construyen el proceso de aprendizaje, sustentado por datos precisos y adaptabilidad tecnológica que atiende necesidades individuales sin comprometer los objetivos colectivos del aula.
-
-
-\subsection{Descripción de alto nivel de los casos de uso}
 
 \section{Modelo de datos}
 
@@ -684,27 +584,139 @@ Como se observa en el modelo de datos local del videojuego (ver Figura \ref{fig:
 
 Las relaciones entre entidades permiten rastrear el avance progresivo a través de los diferentes niveles educativos, almacenando datos temporales como tiempos de resolución, puntuaciones obtenidas y patrones de error. Esta arquitectura local facilita tanto la evaluación automática del rendimiento como la recuperación de sesiones interrumpidas, asegurando una experiencia de aprendizaje continua y adaptativa.
 
-% \subsubsection{Json de configuración}
+\subsubsection{Json de configuración de nivel}
 
-% \begin{figure}[H]
-% 	\centering
-% 	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/adaptative-json.png}
-% 	\caption[Modelo de datos para el videojuego educativo]{Modelo de datos para el videojuego educativo}
-% 	\label{fig:adaptative-json}
-% \end{figure}
+Como se puede ver en la Figura~\ref{fig:adaptative-json}, cada nivel del videojuego está definido por un archivo JSON de configuración. Este enfoque orientado a datos\footnote{El enfoque \textit{data-driven} consiste en separar la lógica del sistema de los datos que lo configuran, de modo que el comportamiento del sistema puede modificarse cambiando los datos sin alterar el código.} permite modificar el comportamiento de un nivel y persistir esos cambios sin intervenir en la lógica del juego.
 
-\subsection{Modelo global de datos para el sistema}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/bd_global_platform.png}
-	\caption[Modelo global de datos]{Modelo global de datos de la plataforma}
-	\label{fig:bd-global}
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/adaptative-json.png}
+	\caption[JSON orientado a datos para el videojuego]{JSON orientado a datos para el videojuego}
+	\label{fig:adaptative-json}
 \end{figure}
+
+
+Para ilustrar el uso de estos campos, se tomará como ejemplo el contexto de la biblioteca de la facultad, en el que el protagonista debe ayudar a un compañero a organizar una lista de libros siguiendo un criterio lógico establecido por el profesor. En este escenario, el campo \texttt{initial\_state} define el estado con el que arranca el nivel: por ejemplo, la cantidad de libros desordenados disponibles en el estante al inicio de la sesión. El campo \texttt{expected\_outputs} establece la salida esperada, es decir, la lista de libros correctamente ordenada que el jugador debe producir para completar el nivel. Por su parte, \texttt{available\_blocks} determina qué bloques de programación están habilitados en ese nivel en particular, como bloques de comparación o de ciclos necesarios para recorrer la lista. El campo \texttt{environment\_data} describe los elementos propios del entorno: la cantidad de estantes disponibles, los títulos presentes o el tipo de criterio de ordenamiento aplicable en esa escena. Finalmente, \texttt{defined\_actions} especifica las acciones concretas que pueden ejecutarse en el nivel; dado que otros niveles pueden reutilizar el contexto de la biblioteca, este campo permite restringir o ampliar el conjunto de acciones disponibles según las necesidades pedagógicas de cada uno.
+
+\subsection{Modelo global de datos para el sistema}
+
 
 El modelo global de datos (ver Figura \ref{fig:bd-global}) integra las perspectivas de los tres módulos principales del sistema (videojuego, aplicación docente y backend) creando una arquitectura unificada que permite la sincronización eficiente de información académica. Este esquema establece conexiones entre entidades compartidas que facilitan la comunicación bidireccional entre estudiantes y educadores.
 
 Las relaciones transversales permiten que los datos generados en el módulo de juego fluyan automáticamente hacia las interfaces de gestión docente, manteniendo la consistencia y habilitando funcionalidades como reportes comparativos y análisis de tendencias grupales. Esta integración global no solo simplifica la administración del sistema educativo, sino que también soporta la escalabilidad y la interoperabilidad con plataformas externas de gestión del aprendizaje.
+
+\begin{landscape}
+	\pagestyle{empty}
+	\begin{figure}[p]
+		\vspace*{\fill}
+		\centering
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/bd/bd_global_platform.png}
+		\caption[Modelo global de datos]{Modelo global de datos de la plataforma}
+		\label{fig:bd-global}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
+\section{Arquitectura del sistema}
+
+La sección de arquitectura del sistema presenta la estructura técnica fundamental de la plataforma educativa Hello World, detallando cómo se organizan e interconectan los diferentes componentes tecnológicos para lograr los objetivos pedagógicos propuestos.
+
+Para el desarrollo de esta arquitectura se tomó como base el modelo C4 de Simon Brown, un enfoque estructurado para la documentación de arquitecturas de software que proporciona cuatro niveles de abstracción: Contexto, Contenedor, Componente y Código. Este modelo permite comunicar la arquitectura de manera clara y consistente, facilitando la comprensión tanto para desarrolladores como para stakeholders no técnicos \cite{brown2018c4}.
+
+En el contexto de esta tesis, se adaptó el modelo C4 utilizando diagramas UML para representar visualmente las relaciones y dependencias entre los elementos del sistema. Sin embargo, considerando el alcance del proyecto y la profundidad requerida para una tesis académica, se implementaron únicamente los niveles de Contenedor y Componente:
+
+\begin{itemize}
+	\item \textbf{Nivel Contenedor}: Representa los principales procesos ejecutables y almacenes de datos que conforman la plataforma, mostrando cómo se despliega el sistema en la infraestructura tecnológica.
+	\item \textbf{Nivel Componente}: Detalla los componentes principales dentro de cada contenedor, ilustrando las responsabilidades específicas y las interacciones entre módulos.
+\end{itemize}
+
+Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos pedagógicos y técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
+
+\subsection{Arquitectura general}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-context.png}
+	
+	
+	\caption[Diagrama de arquitectura global]{Diagrama de arquitectura global}
+	\label{fig:architecture-container}
+\end{figure}
+
+La arquitectura general de la plataforma educativa Hello World se representa mediante un diagrama de paquetes UML que ilustra las interacciones externas del sistema y establece sus límites principales. Implementa un patrón cliente-servidor, siendo el back-end el servidor, y el videojuego y front-end del profesor los clientes que se comunican con el back-end.
+
+En el centro del diagrama se encuentra la \textbf{Plataforma Hello World}, que representa el sistema completo,  integrado por tres componentes principales: el módulo de videojuego educativo, la aplicación web para docentes y el backend central. Este sistema actúa como núcleo de la solución pedagógica adaptativa.
+
+Los actores principales identificados en el diagrama son únicamente dos:
+
+\begin{itemize}
+	\item \textbf{Estudiante}: Usuario principal que interactúa directamente con el módulo de videojuego, recibiendo contenido educativo personalizado y proporcionando datos de rendimiento para el sistema adaptativo.
+	\item \textbf{Profesor}: Educador que accede a la interfaz web de gestión docente para supervisar el progreso estudiantil, configurar niveles educativos y analizar métricas pedagógicas.
+\end{itemize}
+
+Además de los actores humanos, el diagrama muestra las conexiones con dos sistemas externos fundamentales:
+
+\begin{itemize}
+	\item \textbf{Servidor de Correo}: Sistema externo que maneja las comunicaciones por email, utilizado para notificaciones automáticas, envío de reportes y comunicación entre la plataforma y los usuarios.
+	\item \textbf{Sistema LMS}: Plataforma de gestión del aprendizaje externa que se integra con Hello World para autenticación centralizada de usuarios y sincronización de datos académicos entre sistemas.
+\end{itemize}
+
+Las relaciones principales ilustradas incluyen flujos de datos bidireccionales entre estudiantes y el módulo de videojuego, interacciones de gestión entre profesores y la interfaz web, conexiones de notificación con el servidor de correo para envío de alertas y reportes, y enlaces de integración con el sistema LMS para autenticación y sincronización académica. Esta vista contextual establece claramente el alcance del sistema, sus interfaces externas y su integración en el ecosistema educativo más amplio.
+
+\subsection{Arquitectura a detalle por módulo}
+
+
+\textbf{Videojuego educativo}
+
+El módulo de videojuego educativo implementa el patrón arquitectónico Modelo-Vista-Controlador (MVC), una decisión metodológica profundamente fundamentada en las características intrínsecas del motor Godot y su modelo de desarrollo de juegos, que establece una separación clara entre la lógica de presentación y la lógica de dominio en entornos interactivos.
+
+Como se observa en el diagrama MVC (ver Figura \ref{fig:architecture-mvc-game}), la arquitectura consolida todos los modelos del dominio en un único paquete cohesionado que encapsula las entidades principales del sistema educativo -usuarios, niveles, progresos y métricas de aprendizaje-. Esta centralización de modelos garantiza la integridad referencial y facilita la validación de invariantes del dominio. Los elementos de vista representados -DialogueScene para interacciones narrativas pedagógicas, MapScenes para navegación contextualizada, LevelsScene para presentación estructurada de desafíos, y otros componentes de interfaz gráfica- demuestran una clara separación entre la presentación visual y la lógica subyacente.
+
+Las clases controlador implementadas -GameController para el flujo general del juego y las transiciones entre estados, y LevelManager para la administración específica de niveles y su lógica de progreso- argumentan fuertemente a favor de MVC por su capacidad para centralizar la lógica de control y coordinar las interacciones entre modelo y vista. La decisión de utilizar MVC se fundamenta en el sistema de señales de Godot, que permite una comunicación eficiente entre controladores y vistas, y en la separación natural de escenas en elementos visuales (vistas) y lógica de comportamiento (controladores), facilitando el desarrollo y mantenimiento de juegos educativos adaptativos.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-mvc-game.png}
+	\caption[Diagrama de arquitectura para el módulo correspondiente al videojuego educativo]{Diagrama de arquitectura para el módulo correspondiente al videojuego educativo}
+	\label{fig:architecture-mvc-game}
+\end{figure}
+
+\textbf{Back-end central}
+
+El backend central adopta los principios de Clean Architecture formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-clean-architecture-backend.png}
+	\caption[Diagrama de \textit{clean architecture} para el backend]{Diagrama de \textit{clean architecture} para el backend}
+	\label{fig:architecture-clean-backend}
+\end{figure}
+
+Como se aprecia en el diagrama de Clean Architecture (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
+
+La arquitectura establece una regla de dependencia unidireccional que apunta hacia adentro, asegurando que los cambios en frameworks externos no propaguen efectos secundarios hacia la lógica de dominio. La aplicación del principio "Screaming Architecture"  hace que la arquitectura exprese claramente sus intenciones principales -una plataforma educativa adaptativa- a través de la organización clara de casos de uso y entidades del dominio.
+
+\textbf{Aplicación web de gestión docente}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-component-based-web.png}
+	\caption[Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente]{Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente}
+	\label{fig:architecture-components-nextjs}
+\end{figure}
+
+La aplicación web docente implementa una arquitectura basada en componentes mediante Next.js, diseñada específicamente para aislar la lógica de negocio de la presentación visual. Como se observa en el diagrama de arquitectura (ver Figura \ref{fig:architecture-components-nextjs}), el sistema se estructura en tres capas diferenciadas que garantizan la escalabilidad y el mantenimiento del tablero de analíticas de aprendizaje:
+
+\begin{enumerate}
+	\item \textbf{Capa de Módulos (Dominio):} Constituye el núcleo de la lógica de la aplicación, agrupando las funcionalidades por contextos de negocio. Se identifican módulos especializados como el \textit{Auth Module} para la gestión de autenticación, \textit{Student Module} para la administración de datos estudiantiles, \textit{Game Module} para la interacción con la información de los niveles del videojuego, y \textit{Statistic Module} encargado de procesar las métricas de aprendizaje. Esta organización modular responde directamente a las necesidades del docente para operar los distintos aspectos de la plataforma de forma aislada.
+	
+	\item \textbf{Capa de Interfaces de Servicios (Abstracción):} Actúa como un intermediario que desacopla los módulos de negocio de los componentes visuales. A través de contratos explícitos como \textit{IAuthService}, \textit{IStudentService}, \textit{IGameService} e \textit{IStadisticService}, se establece una regla de dependencia unidireccional. Esto permite que las vistas soliciten datos sin conocer las implementaciones técnicas subyacentes (tales como llamadas a la API REST del backend), facilitando las pruebas unitarias y permitiendo modificar la fuente de datos sin afectar la interfaz de usuario.
+	
+	\item \textbf{Capa de Componentes UI (Presentación):} Contiene los elementos visuales atómicos y moléculas que conforman las vistas finales del dashboard docente. En esta capa se agrupan los componentes enfocados en la explotación de las analíticas de aprendizaje, tales como \textit{DashboardStudentUI} para el seguimiento individual, \textit{DashboardOverviewUI} para la visión general del grupo, \textit{DashboardExamUI} para el análisis de evaluaciones, y \textit{DashboardSettingsUI} para la configuración del entorno.
+\end{enumerate}
+
+La justificación para adoptar esta estructura de componentes en el ecosistema de Next.js radica en la separación estricta de responsabilidades y el flujo de datos unidireccional que promueve. Al establecer este desacoplamiento, por ejemplo, el componente \textit{DashboardStudentUI} desconoce la lógica subyacente de obtención de datos y consume exclusivamente el contrato definido por \textit{IStudentService}, el cual orquesta la petición hacia \textit{Student Module}. Esta trazabilidad no solo facilita el mantenimiento evolutivo del sistema —al permitir modificar o extender módulos de negocio sin afectar la interfaz de usuario—, sino que resulta fundamental para los objetivos de esta investigación: asegura que las métricas procesadas en los tableros de analíticas provengan de una fuente de datos centralizada y validada, confiriendo la fiabilidad y consistencia necesarias para sustentar la toma de decisiones pedagógicas del docente.
 
 \section{Principios y patrones de diseño}
 \subsection{Principios SOLID}
@@ -754,7 +766,6 @@ Aplicación en el módulo Videojuego: Se utilizan interfaces de repositorio como
 Aplicación en el módulo Web: Los componentes React dependen de contratos abstractos definidos por props y contextos, permitiendo la composición flexible sin depender de implementaciones específicas de estado o datos.
 
 Aplicación en el módulo Back-end: La inyección de dependencias utiliza interfaces de repositorio y servicios, permitiendo cambiar implementaciones (como proveedores de base de datos) sin afectar la lógica de negocio, siguiendo los principios de inversión de dependencias.
-
 \subsection{Patrones de diseño}
 
 \subsubsection{Patrón singleton}
@@ -764,7 +775,7 @@ El patrón Singleton tiene como intención garantizar que una clase tenga única
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Singleton.png}
+	\includegraphics[width=0.65\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Singleton.png}
 	\caption[Diagrama del patrón Singleton]{Diagrama del patrón Singleton}
 	\label{fig:design-pattern-singleton}
 \end{figure}
@@ -810,107 +821,518 @@ Estrategias para el agente adaptativo inteligente: Implementa algoritmos interca
 
 Esta doble aplicación del patrón Strategy resuelve los desafíos de flexibilidad en dos aspectos críticos de la plataforma: la contextualización del contenido educativo y la personalización inteligente del aprendizaje, permitiendo cambios de comportamiento sin afectar la estabilidad del sistema central.
 
-\section{Arquitectura del sistema}
+\section{Selección de tecnologías}
 
-La sección de arquitectura del sistema presenta la estructura técnica fundamental de la plataforma educativa Hello World, detallando cómo se organizan e interconectan los diferentes componentes tecnológicos para lograr los objetivos pedagógicos propuestos.
+\subsection{Base de datos}
 
-Para el desarrollo de esta arquitectura se tomó como base el modelo C4 de Simon Brown, un enfoque estructurado para la documentación de arquitecturas de software que proporciona cuatro niveles de abstracción: Contexto, Contenedor, Componente y Código. Este modelo permite comunicar la arquitectura de manera clara y consistente, facilitando la comprensión tanto para desarrolladores como para stakeholders no técnicos \cite{brown2018c4}.
+En el desarrollo de sistemas educativos digitales, la selección del
+sistema de gestión de bases de datos (SGBD) constituye un componente
+crítico, ya que impacta directamente en la consistencia de la
+información, el rendimiento de las consultas y la escalabilidad del
+sistema. Para fundamentar la elección tecnológica, se comparan los
+principales SGBD considerando criterios directamente vinculados a los
+requisitos de la plataforma: la necesidad de un motor centralizado
+con integridad transaccional para el backend, y un motor embebido
+ligero para el videojuego educativo.
 
-En el contexto de esta tesis, se adaptó el modelo C4 utilizando diagramas UML para representar visualmente las relaciones y dependencias entre los elementos del sistema. Sin embargo, considerando el alcance del proyecto y la profundidad requerida para una tesis académica, se implementaron únicamente los niveles de Contenedor y Componente:
+\begin{center}
+	\setlength{\tabcolsep}{4pt}
+	\begin{longtable}{|p{2.3cm}|p{2cm}|p{1.3cm}|p{1.5cm}|p{2cm}|p{2.5cm}|p{2cm}|}
+		\caption{Comparativa de SGBD según criterios de selección.}
+		\label{tab:comparacion-bd} \\
+		
+		\hline
+		\small\textbf{SGBD} &
+		\small\textbf{Modelo} &
+		\small\textbf{Open Source} &
+		\small\textbf{ACID} &
+		\small\textbf{Despliegue} &
+		\small\textbf{Escalabilidad} &
+		\small\textbf{Integridad referencial} \\
+		\hline
+		\endfirsthead
+		
+		\hline
+		\small\textbf{SGBD} &
+		\small\textbf{Modelo} &
+		\small\textbf{Open Source} &
+		\small\textbf{ACID} &
+		\small\textbf{Despliegue} &
+		\small\textbf{Escalabilidad} &
+		\small\textbf{Integridad referencial} \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{7}{r}{\small Continúa en la siguiente página.} \\
+		\endfoot
+		
+		\hline
+		\endlastfoot
+		
+		\small\textbf{PostgreSQL}~\cite{postgresql}
+		& \small SQL relacional
+		& \small Sí
+		& \small Completo
+		& \small Servidor independiente
+		& \small Vertical y horizontal
+		& \small Sí (foráneas y constraints) \\
+		\hline
+		
+		\small\textbf{MySQL}~\cite{mysql}
+		& \small SQL relacional
+		& \small Parcial (dual)
+		& \small Parcial (InnoDB)
+		& \small Servidor independiente
+		& \small Principalmente vertical
+		& \small Sí (limitada) \\
+		\hline
+		
+		\small\textbf{SQLite}~\cite{sqlite}
+		& \small SQL embebida
+		& \small Sí (dom. público)
+		& \small Completo
+		& \small Embebido (sin servidor)
+		& \small No apta para alta concurrencia
+		& \small Sí (básica) \\
+		\hline
+		
+		\small\textbf{MongoDB}~\cite{mongodb}
+		& \small NoSQL documental
+		& \small Parcial (SSPL)
+		& \small Parcial (v4.0)
+		& \small Servidor independiente
+		& \small Horizontal (sharding)
+		& \small No \\
+		\hline
+		
+		\small\textbf{Redis}~\cite{redis}
+		& \small NoSQL clave-valor
+		& \small Parcial (dual)
+		& \small No
+		& \small Servidor independiente
+		& \small Horizontal
+		& \small No \\
+		\hline
+		
+	\end{longtable}
+\end{center}
 
-\begin{itemize}
-	\item \textbf{Nivel Contenedor}: Representa los principales procesos ejecutables y almacenes de datos que conforman la plataforma, mostrando cómo se despliega el sistema en la infraestructura tecnológica.
-	\item \textbf{Nivel Componente}: Detalla los componentes principales dentro de cada contenedor, ilustrando las responsabilidades específicas y las interacciones entre módulos.
-\end{itemize}
+Del análisis comparativo se infiere que \textbf{PostgreSQL} resulta
+la alternativa más adecuada para la gestión centralizada de la
+información en el backend de la plataforma. Su adherencia completa al
+modelo ACID (\textit{Atomicity, Consistency, Isolation, Durability})
+garantiza la integridad de las operaciones críticas del sistema, como
+el registro de progreso académico y la trazabilidad del desempeño
+estudiantil~\cite{postgresql}. A diferencia de MySQL, cuyo
+cumplimiento ACID depende del motor de almacenamiento configurado,
+PostgreSQL lo garantiza de forma nativa e incondicional. Asimismo, su
+soporte robusto de integridad referencial —mediante claves foráneas y
+restricciones complejas— resulta indispensable para mantener la
+consistencia entre las entidades del modelo de datos global: usuarios,
+cursos, niveles, métricas y registros históricos. Su naturaleza
+completamente open source elimina dependencias de licenciamiento,
+aspecto relevante en un contexto académico donde la sostenibilidad
+tecnológica a largo plazo es prioritaria.
 
-Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos pedagógicos y técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
+Por su parte, \textbf{SQLite} complementa esta arquitectura al
+operar como motor embebido dentro del videojuego educativo. Su
+principal ventaja en este contexto no es el rendimiento en
+concurrencia —para lo cual no está diseñada— sino su capacidad de
+funcionar sin servidor, sin configuración de red y sin dependencias
+externas, lo que la convierte en la opción natural para almacenar
+localmente el estado de la sesión del jugador: niveles completados,
+puntuaciones y configuraciones personalizadas~\cite{sqlite}. Al ser
+de dominio público, no introduce ninguna restricción de licenciamiento
+en el producto final. Estos datos son posteriormente sincronizados
+con PostgreSQL en el backend, garantizando la coherencia entre la
+experiencia local de juego y los registros académicos centralizados.
 
-\subsection{Arquitectura general}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-context.png}
-
-
-\caption[Diagrama de arquitectura global]{Diagrama de arquitectura global}
-\label{fig:architecture-container}
-\end{figure}
-
-La arquitectura general de la plataforma educativa Hello World se representa mediante un diagrama de paquetes UML que ilustra las interacciones externas del sistema y establece sus límites principales. Implementa un patrón cliente-servidor, siendo el back-end el servidor, y el videojuego y front-end del profesor los clientes que se comunican con el back-end.
-
-En el centro del diagrama se encuentra el \textbf{Sistema Hello World}, que representa la plataforma completa integrada por tres componentes principales: el módulo de videojuego educativo, la aplicación web para docentes y el backend central. Este sistema actúa como núcleo de la solución pedagógica adaptativa.
-
-Los actores principales identificados en el diagrama son únicamente dos:
-
-\begin{itemize}
-	\item \textbf{Estudiante}: Usuario principal que interactúa directamente con el módulo de videojuego, recibiendo contenido educativo personalizado y proporcionando datos de rendimiento para el sistema adaptativo.
-	\item \textbf{Profesor}: Educador que accede a la interfaz web de gestión docente para supervisar el progreso estudiantil, configurar niveles educativos y analizar métricas pedagógicas.
-\end{itemize}
-
-Además de los actores humanos, el diagrama muestra las conexiones con dos sistemas externos fundamentales:
-
-\begin{itemize}
-	\item \textbf{Servidor de Correo}: Sistema externo que maneja las comunicaciones por email, utilizado para notificaciones automáticas, envío de reportes y comunicación entre la plataforma y los usuarios.
-	\item \textbf{Sistema LMS}: Plataforma de gestión del aprendizaje externa que se integra con Hello World para autenticación centralizada de usuarios y sincronización de datos académicos entre sistemas.
-\end{itemize}
-
-Las relaciones principales ilustradas incluyen flujos de datos bidireccionales entre estudiantes y el módulo de videojuego, interacciones de gestión entre profesores y la interfaz web, conexiones de notificación con el servidor de correo para envío de alertas y reportes, y enlaces de integración con el sistema LMS para autenticación y sincronización académica. Esta vista contextual establece claramente el alcance del sistema, sus interfaces externas y su integración en el ecosistema educativo más amplio.
-
-\subsection{Arquitectura a detalle por módulo}
+Las alternativas NoSQL examinadas —MongoDB y Redis— no se adecúan a
+los requisitos fundamentales del sistema. La ausencia de integridad
+referencial nativa en ambas y sus modelos de consistencia eventual
+son incompatibles con la necesidad de trazabilidad académica precisa
+que exige la plataforma. Adicionalmente, sus licencias de código
+abierto parciales introducen restricciones que podrían condicionar
+el uso y distribución del sistema en entornos institucionales.
 
 
-\textbf{Videojuego educativo}
+\subsection{Módulo de estudiante}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-mvc-game.png}
-	\caption[Diagrama de arquitectura para el módulo correspondiente al videojuego educativo]{Diagrama de arquitectura para el módulo correspondiente al videojuego educativo}
-	\label{fig:architecture-mvc-game}
-\end{figure}
+El módulo del estudiante se desarrolla mediante un entorno interactivo
+soportado por un motor de videojuegos. La elección del motor constituye
+un aspecto clave, ya que determina las capacidades gráficas, el
+rendimiento, la facilidad de integración con otros componentes del
+sistema y la portabilidad del videojuego educativo. Para fundamentar
+la elección, se comparan los motores más relevantes considerando
+criterios directamente vinculados a los requisitos del proyecto: la
+necesidad de un motor open source, exportación multiplataforma,
+facilidad de integración con servicios externos y adecuación a un
+contexto académico.
 
-El módulo de videojuego educativo implementa el patrón arquitectónico Modelo-Vista-Controlador (MVC), una decisión metodológica profundamente fundamentada en las características intrínsecas del motor Godot y su modelo de desarrollo de juegos, que establece una separación clara entre la lógica de presentación y la lógica de dominio en entornos interactivos.
+\begin{center}
+	\setlength{\tabcolsep}{4pt}
+	\begin{longtable}{|p{2cm}|p{2cm}|p{1.3cm}|p{1.8cm}|p{2cm}|p{2cm}|p{2cm}|}
+		\caption{Comparativa de motores de videojuegos según criterios de selección.}
+		\label{tab:motores-videojuegos} \\
+		
+		\hline
+		\small\textbf{Motor} &
+		\small\textbf{Lenguajes} &
+		\small\textbf{Open Source} &
+		\small\textbf{Exportación multiplataforma} &
+		\small\textbf{Integración REST/ WebSocket} &
+		\small\textbf{Curva de aprendizaje} &
+		\small\textbf{Adecuación educativa} \\
+		\hline
+		\endfirsthead
+		
+		\hline
+		\small\textbf{Motor} &
+		\small\textbf{Lenguajes} &
+		\small\textbf{Open Source} &
+		\small\textbf{Exportación multiplataforma} &
+		\small\textbf{Integración REST/ WebSocket} &
+		\small\textbf{Curva de aprendizaje} &
+		\small\textbf{Adecuación educativa} \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{7}{r}{\small Continúa en la siguiente página.} \\
+		\endfoot
+		
+		\hline
+		\endlastfoot
+		
+		\small\textbf{Godot 4}~\cite{godot}
+		& \small GDScript, C\#, C++
+		& \small Sí (MIT)
+		& \small Win, Linux, Web, Android
+		& \small Sí (nativa)
+		& \small Baja
+		& \small Alta \\
+		\hline
+		
+		\small\textbf{Unity}~\cite{unity}
+		& \small C\#
+		& \small No
+		& \small Win, Linux, Web, Android, iOS, consolas
+		& \small Sí (via plugins)
+		& \small Media
+		& \small Media \\
+		\hline
+		
+		\small\textbf{Unreal Engine}~\cite{unreal}
+		& \small C++, Blueprints
+		& \small No 
+		& \small Win, Linux, Android, consolas
+		& \small Sí (via plugins)
+		& \small Alta
+		& \small Baja \\
+		\hline
+		
+		\small\textbf{Construct 3}~\cite{construct}
+		& \small JavaScript
+		& \small No
+		& \small Web, Win (limitado)
+		& \small Parcial
+		& \small Muy baja
+		& \small Media \\
+		\hline
+		
+	\end{longtable}
+\end{center}
 
-Como se observa en el diagrama MVC (ver Figura \ref{fig:architecture-mvc-game}), la arquitectura consolida todos los modelos del dominio en un único paquete cohesionado que encapsula las entidades principales del sistema educativo -usuarios, niveles, progresos y métricas de aprendizaje-. Esta centralización de modelos garantiza la integridad referencial y facilita la validación de invariantes del dominio. Los elementos de vista representados -DialogueScene para interacciones narrativas pedagógicas, MapScenes para navegación contextualizada, LevelsScene para presentación estructurada de desafíos, y otros componentes de interfaz gráfica- demuestran una clara separación entre la presentación visual y la lógica subyacente.
+Tras el análisis comparativo, se seleccionó \textbf{Godot 4} como motor principal para el desarrollo del módulo del estudiante. Es el
+único motor del conjunto evaluado que combina licencia completamente
+open source (MIT), exportación nativa a las plataformas objetivo del
+proyecto —Windows, Android y Web— e integración nativa con servicios
+externos mediante REST y WebSocket, sin depender de plugins de
+terceros~\cite{godot}. Unity, aunque más maduro en términos de
+ecosistema, introduce una dependencia de licenciamiento propietario
+que condiciona su uso en contextos académicos y restringe la
+auditoría del entorno de desarrollo. Unreal Engine, por su parte,
+queda descartado por su elevada curva de aprendizaje y sus requisitos
+de hardware, incompatibles con la diversidad de dispositivos presente
+en entornos educativos. Construct 3, si bien ofrece la curva de
+aprendizaje más baja, presenta una exportación multiplataforma
+limitada y una escalabilidad insuficiente para los requisitos de
+integración y adaptación dinámica de la plataforma.
 
-Las clases controlador implementadas -GameController para el flujo general del juego y las transiciones entre estados, y LevelManager para la administración específica de niveles y su lógica de progreso- argumentan fuertemente a favor de MVC por su capacidad para centralizar la lógica de control y coordinar las interacciones entre modelo y vista. La decisión de utilizar MVC se fundamenta en el sistema de señales de Godot, que permite una comunicación eficiente entre controladores y vistas, y en la separación natural de escenas en elementos visuales (vistas) y lógica de comportamiento (controladores), facilitando el desarrollo y mantenimiento de juegos educativos adaptativos.
+Desde el punto de vista de ingeniería, Godot ofrece una arquitectura
+basada en \textbf{escenas y nodos} que favorece el diseño modular:
+los niveles, personajes y mecánicas pueden implementarse como
+componentes reutilizables, facilitando el mantenimiento, las pruebas
+y la evolución incremental del videojuego. Su sistema de señales y
+las herramientas de edición en tiempo real priorizan la iteración
+rápida, lo cual resulta especialmente valioso para ajustar la
+dificultad, la retroalimentación y el ritmo de progresión del
+aprendizaje sin interrumpir el ciclo de desarrollo.
 
-\textbf{Back-end central}
+En conjunto, Godot 4 ofrece el equilibrio más adecuado entre
+\textbf{accesibilidad, portabilidad e integración} para un módulo
+del estudiante centrado en experiencias interactivas y en el
+seguimiento sistemático del aprendizaje.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-clean-architecture-backend.png}
-	\caption[Diagrama de \textit{clean architecture} para el backend]{Diagrama de \textit{clean architecture} para el backend}
-	\label{fig:architecture-clean-backend}
-\end{figure}
+\subsection{Módulo de profesor}
 
-El backend central adopta los principios de Clean Architecture formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
+El módulo del profesor está concebido como una interfaz web que permite
+visualizar, gestionar y analizar el progreso de los estudiantes dentro
+de la plataforma educativa. Para su desarrollo, se requiere un
+\textit{framework} frontend que ofrezca un equilibrio entre rendimiento,
+escalabilidad y facilidad de integración con el back-end. Para
+fundamentar la elección, se comparan los principales \textit{frameworks}
+considerando criterios directamente vinculados a los requisitos del
+módulo: soporte de renderizado en servidor, compatibilidad con
+TypeScript, integración con APIs REST y madurez del ecosistema para
+el desarrollo de dashboards analíticos.
 
-Como se aprecia en el diagrama de Clean Architecture (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
+\begin{center}
+	\setlength{\tabcolsep}{4pt}
+	\begin{longtable}{|p{2cm}|p{1.8cm}|p{1.3cm}|p{1.5cm}|p{1.8cm}|p{2cm}|p{2.2cm}|}
+		\caption{Comparativa de \textit{frameworks} frontend según criterios de selección.}
+		\label{tab:frameworks-frontend} \\
+		
+		\hline
+		\small\textbf{Framework} &
+		\small\textbf{Lenguaje} &
+		\small\textbf{Open Source} &
+		\small\textbf{SSR nativo} &
+		\small\textbf{TypeScript} &
+		\small\textbf{Integración REST} &
+		\small\textbf{Madurez del ecosistema} \\
+		\hline
+		\endfirsthead
+		
+		\hline
+		\small\textbf{Framework} &
+		\small\textbf{Lenguaje} &
+		\small\textbf{Open Source} &
+		\small\textbf{SSR nativo} &
+		\small\textbf{TypeScript} &
+		\small\textbf{Integración REST} &
+		\small\textbf{Madurez del ecosistema} \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{7}{r}{\small Continúa en la siguiente página.} \\
+		\endfoot
+		
+		\hline
+		\endlastfoot
+		
+		\small\textbf{Next.js}~\cite{nextjs}
+		& \small JS / TS (React)
+		& \small Sí (MIT)
+		& \small Sí (SSR y SSG)
+		& \small Nativo
+		& \small Nativa
+		& \small Alta \\
+		\hline
+		
+		\small\textbf{React}~\cite{react}
+		& \small JS / TS
+		& \small Sí (MIT)
+		& \small No (requiere config.)
+		& \small Nativo
+		& \small Via librerías
+		& \small Muy alta \\
+		\hline
+		
+		\small\textbf{Angular}~\cite{angular}
+		& \small TypeScript
+		& \small Sí (MIT)
+		& \small Parcial (Angular Universal)
+		& \small Nativo
+		& \small Nativa (HttpClient)
+		& \small Alta \\
+		\hline
+		
+		\small\textbf{Vue.js}~\cite{vuejs}
+		& \small JS / TS
+		& \small Sí (MIT)
+		& \small Limitado (Nuxt.js)
+		& \small Parcial
+		& \small Via librerías
+		& \small Media \\
+		\hline
+		
+		\small\textbf{SvelteKit}~\cite{sveltekit}
+		& \small JS / TS
+		& \small Sí (MIT)
+		& \small Sí
+		& \small Parcial
+		& \small Via librerías
+		& \small Baja \\
+		\hline
+		
+	\end{longtable}
+\end{center}
 
-La arquitectura establece una regla de dependencia unidireccional que apunta hacia adentro, asegurando que los cambios en frameworks externos no propaguen efectos secundarios hacia la lógica de dominio. La aplicación del principio "Screaming Architecture"  hace que la arquitectura exprese claramente sus intenciones principales -una plataforma educativa adaptativa- a través de la organización clara de casos de uso y entidades del dominio.
+Tras el análisis comparativo, se seleccionó \textbf{Next.js} como
+\textit{framework} principal para el desarrollo del módulo del profesor.
+Es la opción que mejor satisface de forma simultánea los criterios
+determinantes para este módulo: SSR nativo sin configuración adicional,
+soporte completo de TypeScript, integración directa con APIs REST y un
+ecosistema maduro con librerías especializadas en visualización de datos
+como \textit{Recharts} o \textit{Chart.js}, indispensables para los
+dashboards analíticos del docente~\cite{nextjs}. React, aunque comparte
+la misma base tecnológica, no incluye SSR por defecto y requiere
+configuración adicional para alcanzar las capacidades que Next.js
+ofrece de forma nativa, lo que lo convierte en una capa inferior sobre
+la que Next.js precisamente se construye. Angular, si bien presenta
+integración REST nativa y soporte sólido de TypeScript, introduce una
+curva de aprendizaje pronunciada y una complejidad estructural que
+excede los requisitos de un módulo de tamaño medio como el presente.
+Vue.js y SvelteKit quedan descartados por su soporte limitado de SSR
+nativo y la menor madurez de sus ecosistemas, lo que representa un
+riesgo para la mantenibilidad a largo plazo del sistema.
 
-%La selección de Clean Architecture se justifica metodológicamente por su capacidad para soportar la evolución investigativa del proyecto: permite experimentar con diferentes estrategias de adaptación de dificultad sin modificar la lógica de dominio, facilita la implementación de algoritmos de machine learning para personalización, y establece barreras claras entre investigación pedagógica y detalles de implementación técnica. Esta arquitectura no solo facilita la escalabilidad horizontal del sistema para atender un mayor número de usuarios concurrentes, sino que también permite la evolución vertical mediante la incorporación de nuevas funcionalidades pedagógicas sin comprometer la estabilidad del núcleo del sistema.
+Su soporte nativo para rutas dinámicas y \textit{fetching} de datos
+asíncronos permite la visualización eficiente de información académica
+en tiempo real —progreso del estudiante, estadísticas de rendimiento
+y resultados de evaluaciones— sin comprometer la experiencia de usuario.
+El tipado estático que provee TypeScript refuerza adicionalmente la
+mantenibilidad del código y facilita la detección temprana de errores
+durante el desarrollo.
 
-\textbf{Aplicación web de gestión docente}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-component-based-web.png}
-	\caption[Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente]{Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente}
-	\label{fig:architecture-components-nextjs}
-\end{figure}
 
-La aplicación web docente implementa una arquitectura basada en componentes mediante Next.js, diseñada específicamente para aislar la lógica de negocio de la presentación visual. Como se observa en el diagrama de arquitectura (ver Figura \ref{fig:architecture-components-nextjs}), el sistema se estructura en tres capas diferenciadas que garantizan la escalabilidad y el mantenimiento del tablero de analíticas de aprendizaje:
 
-\begin{enumerate}
-	\item \textbf{Capa de Módulos (Dominio):} Constituye el núcleo de la lógica de la aplicación, agrupando las funcionalidades por contextos de negocio. Se identifican módulos especializados como el \textit{Auth Module} para la gestión de autenticación, \textit{Student Module} para la administración de datos estudiantiles, \textit{Game Module} para la interacción con la información de los niveles del videojuego, y \textit{Statistic Module} encargado de procesar las métricas de aprendizaje. Esta organización modular responde directamente a las necesidades del docente para operar los distintos aspectos de la plataforma de forma aislada.
-	
-	\item \textbf{Capa de Interfaces de Servicios (Abstracción):} Actúa como un intermediario que desacopla los módulos de negocio de los componentes visuales. A través de contratos explícitos como \textit{IAuthService}, \textit{IStudentService}, \textit{IGameService} e \textit{IStadisticService}, se establece una regla de dependencia unidireccional. Esto permite que las vistas soliciten datos sin conocer las implementaciones técnicas subyacentes (tales como llamadas a la API REST del backend), facilitando las pruebas unitarias y permitiendo modificar la fuente de datos sin afectar la interfaz de usuario.
-	
-	\item \textbf{Capa de Componentes UI (Presentación):} Contiene los elementos visuales atómicos y moléculas que conforman las vistas finales del dashboard docente. En esta capa se agrupan los componentes enfocados en la explotación de las analíticas de aprendizaje, tales como \textit{DashboardStudentUI} para el seguimiento individual, \textit{DashboardOverviewUI} para la visión general del grupo, \textit{DashboardExamUI} para el análisis de evaluaciones, y \textit{DashboardSettingsUI} para la configuración del entorno.
-\end{enumerate}
+\subsection{Back-end}
 
-La justificación para adoptar esta estructura de componentes en el ecosistema de Next.js radica en la separación estricta de responsabilidades y el flujo de datos unidireccional que promueve. Al establecer este desacoplamiento, por ejemplo, el componente \textit{DashboardStudentUI} desconoce la lógica subyacente de obtención de datos y consume exclusivamente el contrato definido por \textit{IStudentService}, el cual orquesta la petición hacia \textit{Student Module}. Esta trazabilidad no solo facilita el mantenimiento evolutivo del sistema —al permitir modificar o extender módulos de negocio sin afectar la interfaz de usuario—, sino que resulta fundamental para los objetivos de esta investigación: asegura que las métricas procesadas en los tableros de analíticas provengan de una fuente de datos centralizada y validada, confiriendo la fiabilidad y consistencia necesarias para sustentar la toma de decisiones pedagógicas del docente.
+El \textit{back-end} constituye el núcleo lógico de la plataforma:
+gestiona la comunicación entre los componentes del sistema, procesa
+la información proveniente del videojuego y del módulo del profesor,
+y garantiza la integridad de los datos almacenados. Para fundamentar
+la elección, se comparan los principales \textit{frameworks} de
+desarrollo backend considerando criterios directamente vinculados a
+los requisitos del sistema: soporte asíncrono nativo, validación
+automática de datos, generación de documentación, compatibilidad con
+Python —lenguaje del ecosistema tecnológico seleccionado— y madurez
+de la comunidad.
+
+\begin{center}
+	\setlength{\tabcolsep}{4pt}
+	\begin{longtable}{|p{2cm}|p{1.5cm}|p{1.3cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{2cm}|}
+		\caption{Comparativa de \textit{frameworks} backend según criterios de selección.}
+		\label{tab:frameworks-backend} \\
+		
+		\hline
+		\small\textbf{Framework} &
+		\small\textbf{Lenguaje} &
+		\small\textbf{Open Source} &
+		\small\textbf{Soporte asíncrono} &
+		\small\textbf{Validación de datos} &
+		\small\textbf{Documentación automática} &
+		\small\textbf{Madurez de la comunidad} \\
+		\hline
+		\endfirsthead
+		
+		\hline
+		\small\textbf{Framework} &
+		\small\textbf{Lenguaje} &
+		\small\textbf{Open Source} &
+		\small\textbf{Soporte asíncrono} &
+		\small\textbf{Validación de datos} &
+		\small\textbf{Documentación automática} &
+		\small\textbf{Madurez de la comunidad} \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{7}{r}{\small Continúa en la siguiente página.} \\
+		\endfoot
+		
+		\hline
+		\endlastfoot
+		
+		\small\textbf{FastAPI}~\cite{fastapi}
+		& \small Python
+		& \small Sí (MIT)
+		& \small Nativo (ASGI)
+		& \small Nativa (Pydantic)
+		& \small Nativa (OpenAPI)
+		& \small Media (en crecimiento) \\
+		\hline
+		
+		\small\textbf{Django}~\cite{django}
+		& \small Python
+		& \small Sí (BSD)
+		& \small Limitado (WSGI)
+		& \small Via formularios
+		& \small No
+		& \small Muy alta \\
+		\hline
+		
+		\small\textbf{Flask}~\cite{flask}
+		& \small Python
+		& \small Sí (BSD)
+		& \small Parcial (extensiones)
+		& \small Manual
+		& \small No
+		& \small Alta \\
+		\hline
+		
+		\small\textbf{Express.js}~\cite{express}
+		& \small JavaScript
+		& \small Sí (MIT)
+		& \small Nativo (Node.js)
+		& \small Manual
+		& \small No
+		& \small Muy alta \\
+		\hline
+		
+		\small\textbf{Laravel}~\cite{laravel}
+		& \small PHP
+		& \small Sí (MIT)
+		& \small Limitado
+		& \small Via validadores
+		& \small No
+		& \small Alta \\
+		\hline
+		
+		\small\textbf{Spring Boot}~\cite{springboot}
+		& \small Java
+		& \small Sí (Apache)
+		& \small Sí (WebFlux)
+		& \small Via anotaciones
+		& \small Parcial (Swagger)
+		& \small Muy alta \\
+		\hline
+		
+	\end{longtable}
+\end{center}
+
+Tras el análisis comparativo, se seleccionó \textbf{FastAPI} como
+\textit{framework} back-end para el desarrollo del sistema. Es la
+única opción del conjunto evaluado que combina de forma nativa los
+tres criterios más determinantes para la plataforma: soporte
+asíncrono completo mediante ASGI, validación automática de datos
+con Pydantic y generación de documentación interactiva mediante
+OpenAPI~\cite{fastapi}. Django y Flask, aunque comparten el
+ecosistema Python, presentan limitaciones estructurales relevantes:
+Django fue diseñado sobre el estándar WSGI, lo que restringe su
+capacidad para manejar concurrencia real, y Flask delega la
+validación de datos a configuraciones manuales, incrementando la
+superficie de error en un sistema que intercambia métricas académicas
+entre múltiples clientes. Express.js, si bien ofrece soporte
+asíncrono nativo, rompe la homogeneidad del ecosistema Python del
+proyecto e introduce una gestión manual de tipos y validaciones
+incompatible con los requisitos de consistencia de datos del sistema.
+Laravel y Spring Boot quedan descartados por introducir lenguajes
+ajenos al ecosistema tecnológico seleccionado y por una complejidad
+de configuración desproporcionada respecto al alcance del proyecto.
+
+Su integración nativa con PostgreSQL y su compatibilidad directa con
+el videojuego en Godot 4 —mediante peticiones REST— y con el módulo
+del profesor en Next.js garantizan una comunicación rápida, segura y
+eficiente entre los tres componentes de la plataforma. El soporte
+para programación asíncrona permite además manejar eventos en tiempo
+real, como el registro de resultados y la adaptación dinámica de la
+dificultad, sin comprometer la estabilidad del sistema.
 
 \section{Modelo de despliegue}
 

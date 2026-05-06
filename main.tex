@@ -2,6 +2,7 @@
 
 \input{./package.tex}
 \input{./variables.tex}
+\input{./functions.tex}
 
 \begin{document}
 	
@@ -10,6 +11,7 @@
 	\thispagestyle{empty}
 	
 	\input{./chapters/phrase.tex}
+	\newpage
 	\input{./extra/dedicatory.tex}
 	\input{./extra/agreements.tex}
 	\input{./chapters/abstract.tex}
@@ -19,19 +21,17 @@
 	
 	\tableofcontents
 	\listoffigures
+	
 	\listoftables
 	\thispagestyle{empty}
-	
 	\newpage
 	\pagenumbering{arabic}
 	\setcounter{page}{1}
-	\pagestyle{fancy}
+	\pagestyle{empty}
 	\input{./chapters/introduction.tex}
 	
-	
 	\newpage
-	% Usamos \input en lugar de \include para evitar la creación de archivos .aux por capítulo
-	% (en algunos entornos no se permite escribir en ./chapters/*.aux).
+	\pagestyle{fancy}
 	\input{./chapters/first_chapter.tex}
 	\input{./chapters/second_chapter.tex}
 	\input{./chapters/third_chapter.tex}
@@ -39,8 +39,9 @@
 	\input{./chapters/conclusion.tex}
 	\input{./chapters/recomendation.tex}
 	
+	\pagestyle{empty}
 	\addcontentsline{toc}{chapter}{Referencias}
-
+	
 	\printbibliography[title={Referencias}]
 	
 	\input{./chapters/anexos.tex}

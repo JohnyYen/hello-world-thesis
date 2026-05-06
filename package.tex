@@ -23,8 +23,12 @@
 \usepackage{pgffor}
 \usepackage{multirow}
 \usepackage{tabularray}
-
-
+\usepackage{xparse}
+\usepackage{expl3}
+\usepackage{makecell}
+\usepackage{pdflscape}
+\usepackage{varioref}
+%\usepackage{h}
 
 % -----------------------------------
 % BIBLIOGRAFÍA
@@ -66,9 +70,9 @@
 % ENCABEZADOS
 % -----------------------------------
 \pagestyle{fancy}
-\setlength{\headheight}{16pt}
+\setlength{\headheight}{25pt}
 \fancyhf{}
-\fancyhead[L]{\leftmark}
+\fancyhead[L]{\includegraphics[height=45pt]{./src/logoCujae.pdf}}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -87,3 +91,9 @@
 
 % Helps TeX resolve tight lines without forcing globally loose spacing.
 \setlength{\emergencystretch}{3em}
+
+
+\addto\captionsspanish{%
+	\renewcommand{\tablename}{Tabla}%
+	\renewcommand{\listtablename}{Índice de tablas}%
+}

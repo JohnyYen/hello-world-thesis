@@ -7,7 +7,7 @@
 \newcommand{\grade}{...}
 \newcommand{\authorEmail}{jpedraza@ceis.cujae.edu.cu} 
 \newcommand{\supervisorName}{DrC. Raisa Socorro Llanes}
-\newcommand{\supervisorEmail}{rsocorro@ceis.cujae.edu.cu} 
+\newcommand{\supervisorEmail}{raisa@ceis.cujae.edu.cu} 
 
 % Datos de la Universidad
 \newcommand{\university}{Universidad Tecnológica de La Habana "José Antonio Echeverría" CUJAE}
@@ -15,87 +15,8 @@
 \newcommand{\carrer}{Ingeniería Informática}
 
 % Datos del documento
-\newcommand{\chapterOne}{Marco teorico y estado del arte}
-\newcommand{\chapterSecond}{Diseño de la solución}
-\newcommand{\chapterThree}{Validación de la solución}
+\newcommand{\chapterOne}{Marco teorico y estado del arte de las tecnologías educativas}
+\newcommand{\chapterSecond}{Diseño de la arquitectura de una plataforma educativa}
+\newcommand{\chapterThree}{Validación de la arquitectura de una plataforma educativa}
 
 \renewcommand{\appendixname}{Anexo}
-
-% Funciones propias
-\newcommand{\testcase}[3]{
-	\begingroup
-	\begin{table}[H]
-		\centering
-		\caption{#1} % Parámetro 1: El título de la tabla
-		\label{#2}   % Parámetro 2: El identificador para referenciar (\ref{})
-		\renewcommand{\arraystretch}{1.4} 
-		
-		\begin{tabularx}{\textwidth}{ | >{\bfseries}p{4.5cm} | X | }
-			\hline
-			#3 % Parámetro 3: Todo el contenido interno de la tabla
-			\hline
-		\end{tabularx}
-	\end{table}
-	\endgroup
-}
-
-
-% Función para generar tablas de Descripción de Casos de Uso
-% Parámetro 1: Nombre del Caso de Uso (para el título)
-% Parámetro 2: Label para referenciar (\ref{})
-% Parámetro 3: Contenido de la tabla
-\newcommand{\usecase}[3]{
-	\begingroup
-	\begin{table}[H]
-		\centering
-		\caption{#1} 
-		\label{#2}   
-		\renewcommand{\arraystretch}{1.3} 
-		
-		% m{3.5cm} -> Ancho fijo para los nombres de los campos
-		% X -> El resto del ancho de la página para la descripción
-		% >{\bfseries} -> Pone en negrita automático la primera columna
-		\begin{tabularx}{\textwidth}{ | >{\bfseries}m{3.5cm} | X | }
-			\hline
-			#3 
-			\hline
-		\end{tabularx}
-	\end{table}
-	\endgroup
-}
-
-\NewDocumentCommand{\tablaCasoPrueba}{m m m m +m}{%
-	% ---- Bloque de encabezado ----
-	\noindent
-	\begin{tblr}{
-			width   = \linewidth,
-			colspec = {Q[l,font=\bfseries,wd=3.8cm] X[l]},
-			hlines, vlines,
-			rowsep  = 3pt,
-		}
-		\SetCell[c=2]{l} \textbf{Caso de Prueba} & \\
-		Nombre                  & #1 \\
-		Objetivo de la Prueba   & #2 \\
-		Descripción de la prueba & #3 \\
-		Condiciones de entrada  & #4 \\
-		\SetCell[c=2]{l} \textbf{Combinaciones de valores} & \\
-	\end{tblr}
-	
-	% ---- Bloque de combinaciones ----
-	\noindent
-	\begin{tblr}{
-			width   = \linewidth,
-			colspec = {Q[c,wd=0.6cm] X[2,l] X[1,l] X[3,l] X[2,l] X[2,l]},
-			hlines, vlines,
-			rowsep  = 3pt,
-		}
-		\textbf{CP} &
-		\textbf{Escenarios} &
-		\textbf{Variables} &
-		\textbf{Valores de entrada} &
-		\textbf{Resultado esperado} &
-		\textbf{Resultado real} \\
-		#5
-	\end{tblr}
-}
-	
