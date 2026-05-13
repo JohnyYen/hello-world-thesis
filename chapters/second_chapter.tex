@@ -1,5 +1,9 @@
 \chapter{\chapterSecond}
 
+El presente capítulo presenta las decisiones de diseño y arquitectura que materializan los fundamentos pedagógicos descritos anteriormente en una plataforma educativa concreta. A partir de los principios del constructivismo, el aprendizaje basado en problemas y la teoría del flujo, se definen las mecánicas centrales del videojuego, el género narrativo adoptado y la historia que contextualiza los ejercicios de programación dentro de un entorno universitario reconocible para el estudiante.
+Junto al módulo de juego, se detalla el diseño del tablero de analíticas del aprendizaje, componente que transforma las trazas generadas durante la experiencia de juego en información pedagógica accionable para el docente. La articulación entre ambos módulos —videojuego y tablero— define la propuesta central de la plataforma: cerrar el ciclo entre la experiencia del estudiante y la toma de decisiones del profesor a partir de datos estructurados y visualizaciones significativas.
+Finalmente, el capítulo aborda los requisitos funcionales y no funcionales del sistema, los casos de uso identificados para cada actor, el modelo de datos, la arquitectura técnica de cada módulo y las tecnologías seleccionadas para su implementación. Cada elección tecnológica y arquitectónica se fundamenta en criterios directamente vinculados a los objetivos del proyecto, priorizando la coherencia entre las decisiones de diseño pedagógico y las decisiones de diseño de software.
+
 \section{Diseño del videojuego}
 
 \subsection{Selección de mecánicas}
@@ -174,6 +178,7 @@ solución y cada resultado de nivel queda registrado como una declaración estru
 que el backend central procesa y agrega para alimentar las visualizaciones del tablero.
 
 \subsection{Componentes visuales y estructura de vistas}
+\label{architectue:lad-view}
 
 El tablero de analíticas se organiza en tres vistas diferenciadas, cada una 
 diseñada para responder a una necesidad pedagógica específica del docente. 
@@ -547,6 +552,11 @@ Los educadores pueden crear y administrar contenido educativo personalizado, asi
 
 La integración con plataformas estándar de gestión del aprendizaje (LMS) garantiza una sincronización fluida de datos académicos, y las capacidades de exportación en formatos universales como PDF y CSV facilitan la documentación y el intercambio de información institucional.
 
+La innovación fundamental de esta arquitectura reside en la integración fluida entre el módulo Hello World y Teacher Core, conformando un ecosistema educativo cohesionado donde las acciones estudiantiles informan directamente las decisiones pedagógicas de los docentes. El backend compartido funciona como núcleo central, sincronizando datos en tiempo real y habilitando una comunicación bidireccional que transforma el aprendizaje en un proceso colaborativo y adaptativo.
+
+Esta interconexión permite al docente identificar patrones de comportamiento emergentes en el aula virtual, ajustando dinámicamente los niveles de dificultad o interviniendo con apoyo personalizado cuando detecta estudiantes que requieren atención adicional. Simultáneamente, los estudiantes reciben retroalimentación contextualizada que refleja tanto su rendimiento técnico como su posición relativa dentro del grupo, fomentando una competencia constructiva y motivación colectiva.
+
+El resultado es una plataforma educativa que supera el paradigma tradicional de enseñanza unidireccional, evolucionando hacia un modelo interactivo donde profesor y estudiante co-construyen el proceso de aprendizaje, sustentado por datos precisos y adaptabilidad tecnológica que atiende necesidades individuales sin comprometer los objetivos colectivos del aula.
 
 \begin{landscape}
 	\thispagestyle{empty}
@@ -559,13 +569,6 @@ La integración con plataformas estándar de gestión del aprendizaje (LMS) gara
 		\vspace*{\fill}
 	\end{figure}
 \end{landscape}
-
-
-La innovación fundamental de esta arquitectura reside en la integración fluida entre el módulo Hello World y Teacher Core, conformando un ecosistema educativo cohesionado donde las acciones estudiantiles informan directamente las decisiones pedagógicas de los docentes. El backend compartido funciona como núcleo central, sincronizando datos en tiempo real y habilitando una comunicación bidireccional que transforma el aprendizaje en un proceso colaborativo y adaptativo.
-
-Esta interconexión permite al docente identificar patrones de comportamiento emergentes en el aula virtual, ajustando dinámicamente los niveles de dificultad o interviniendo con apoyo personalizado cuando detecta estudiantes que requieren atención adicional. Simultáneamente, los estudiantes reciben retroalimentación contextualizada que refleja tanto su rendimiento técnico como su posición relativa dentro del grupo, fomentando una competencia constructiva y motivación colectiva.
-
-El resultado es una plataforma educativa que supera el paradigma tradicional de enseñanza unidireccional, evolucionando hacia un modelo interactivo donde profesor y estudiante co-construyen el proceso de aprendizaje, sustentado por datos precisos y adaptabilidad tecnológica que atiende necesidades individuales sin comprometer los objetivos colectivos del aula.
 
 \section{Modelo de datos}
 
@@ -631,7 +634,7 @@ En el contexto de esta tesis, se adaptó el modelo C4 utilizando diagramas UML p
 	\item \textbf{Nivel Componente}: Detalla los componentes principales dentro de cada contenedor, ilustrando las responsabilidades específicas y las interacciones entre módulos.
 \end{itemize}
 
-Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos pedagógicos y técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
+Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
 
 \subsection{Arquitectura general}
 
@@ -683,8 +686,9 @@ Las clases controlador implementadas -GameController para el flujo general del j
 \end{figure}
 
 \textbf{Back-end central}
+\label{architecture:backend}
 
-El backend central adopta los principios de Clean Architecture formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
+El backend central adopta los principios de \textit{Clean Architecture} formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
 
 \begin{figure}[H]
 	\centering
@@ -693,11 +697,12 @@ El backend central adopta los principios de Clean Architecture formulados por Ro
 	\label{fig:architecture-clean-backend}
 \end{figure}
 
-Como se aprecia en el diagrama de Clean Architecture (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
+Como se aprecia en el diagrama (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
 
 La arquitectura establece una regla de dependencia unidireccional que apunta hacia adentro, asegurando que los cambios en frameworks externos no propaguen efectos secundarios hacia la lógica de dominio. La aplicación del principio "Screaming Architecture"  hace que la arquitectura exprese claramente sus intenciones principales -una plataforma educativa adaptativa- a través de la organización clara de casos de uso y entidades del dominio.
 
 \textbf{Aplicación web de gestión docente}
+\label{architectue:lad-nextjs}
 
 \begin{figure}[H]
 	\centering
@@ -1358,6 +1363,10 @@ El modelo de despliegue también contempla la interacción con servicios externo
 
 \section{Conclusiones parciales}
 
+El presente capítulo concluye el diseño de la plataforma educativa \textit{Hello World}, abarcando desde las decisiones pedagógicas que fundamentan el videojuego hasta la arquitectura técnica que lo integra con el tablero de analíticas docente. Los resultados obtenidos permiten establecer las siguientes conclusiones:
 
-
-
+\begin{itemize}
+	\item Se seleccionó el género de novela visual como base del videojuego, sustentado en su capacidad para incrementar la motivación intrínseca y favorecer la retención del conocimiento, definiendo cuatro mecánicas centrales alineadas con los principios constructivistas y la teoría del flujo.
+	
+	\item Se estructuran tres vistas en el tablero de analíticas (general, individual y comparativa) alimentadas por trazas xAPI, donde cada componente visual responde a la naturaleza de los datos y al tipo de decisión pedagógica que debe facilitar.
+\end{itemize}

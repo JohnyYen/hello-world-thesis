@@ -1,8 +1,8 @@
 \chapter{\chapterOne}
 
-En este capítulo se establecen las bases conceptuales y teóricas que sustentan la investigación. En primer lugar, se analizan los videojuegos como fenómeno cultural y tecnológico, definiendo sus características esenciales y presentando las principales taxonomías, con especial atención a los \textit{serious games} y a la novela visual como género de interés para el diseño de la solución propuesta. A continuación, se examina el potencial pedagógico de los videojuegos en general y su aplicación específica a la enseñanza de la programación, subrayando las ventajas que los convierten en herramientas idóneas para facilitar el aprendizaje de conceptos abstractos, reducir la carga emocional del error y favorecer el avance al ritmo del estudiante. Seguidamente, se abordan los fundamentos psicológicos y pedagógicos que respaldan su uso —el constructivismo, el aprendizaje basado en problemas y la teoría del flujo—, los cuales proporcionan los criterios de diseño que orientan la construcción de experiencias educativas basadas en juegos.
+El presente capítulo establece las bases conceptuales y teóricas que sustentan la investigación. Se analizan los videojuegos como fenómeno cultural y tecnológico, definiendo sus características esenciales y las principales taxonomías, con especial atención a los \textit{serious games} y a la novela visual como género base para el diseño de la solución propuesta. A continuación, se examina el potencial pedagógico de los videojuegos y su aplicación específica a la enseñanza de la programación, subrayando ventajas como la materialización de conceptos abstractos, la reducción de la carga emocional del error y la regulación del ritmo de aprendizaje. Estos fundamentos se complementan con el estudio de las teorías que respaldan su uso, las cuales proporcionan los criterios de diseño que orientan la construcción de experiencias educativas basadas en juegos.
 
-El capítulo continúa con el estudio de la gamificación, desglosando sus elementos y la dinámica de motivación que promueve en el aula. Se dedica una sección a los videojuegos educativos adaptativos, donde se presentan sus fundamentos, las dimensiones lúdica y pedagógica de la adaptación, el modelo del estudiante como núcleo del sistema y las principales estrategias para implementar la personalización del aprendizaje. Posteriormente, se realiza un análisis de videojuegos educativos representativos que han sido empleados para la enseñanza de la programación, identificando sus aportes y limitaciones. Por último, se revisan los tableros de analíticas de aprendizaje en entornos de videojuegos, sus principios de diseño y ejemplos concretos, cerrando con las conclusiones parciales que sintetizan el marco teórico y justifican el diseño de la plataforma propuesta en los capítulos siguientes.
+El capítulo continúa con el análisis de la gamificación, desglosando sus elementos y la dinámica de motivación que promueve en el aula. Se dedica una sección a los videojuegos educativos adaptativos, donde se presentan sus dimensiones lúdica y pedagógica, el modelo del estudiante como núcleo del sistema y las principales estrategias de personalización. Posteriormente, se realiza un análisis de videojuegos educativos representativos empleados para la enseñanza de la programación, identificando sus aportes y limitaciones. Por último, se revisan los tableros de analíticas de aprendizaje en entornos de videojuegos, sus principios de diseño y ejemplos concretos, cerrando con las conclusiones parciales que sintetizan el marco teórico y justifican el diseño de la plataforma propuesta en los capítulos siguientes.
 
 \section{Videojuegos}
 \subsection{Definición y características}
@@ -268,77 +268,83 @@ resultado final del estudiante, sino el proceso adaptativo que lo originó y
 actuar pedagógicamente sobre él \cite{rahimi2021learning, shum_personalised_2023}.
 
 \subsection{Estrategias de adaptación}
-%
-%El modelo de adaptación puede implementarse siguiendo distintos enfoques, cada uno
-%con sus propias ventajas y limitaciones. La elección de uno u otro depende del
-%contexto de uso, de la cantidad de datos disponibles y del grado de transparencia
-%que se requiera en las decisiones del sistema.
-%
-%El enfoque más simple es la \textbf{adaptación basada en reglas heurísticas}.
-%Consiste en definir un conjunto de condiciones explícitas que disparan acciones
-%de adaptación predeterminadas: si el estudiante falla tres veces consecutivas en
-%un mismo nivel, se le muestra una pista; si acierta en el primer intento y con
-%un tiempo inferior al promedio, la dificultad del siguiente nivel se incrementa.
-%La principal ventaja de este enfoque es su transparencia: tanto el desarrollador
-%como el docente pueden comprender exactamente por qué el sistema tomó una decisión.
-%Su limitación más evidente es la rigidez, ya que las reglas deben preverse de
-%antemano y no se ajustan por sí solas a patrones de comportamiento no anticipados
-%durante el diseño.
-%
-%Un segundo enfoque es la \textbf{adaptación basada en modelos probabilísticos},
-%que emplea técnicas como las redes bayesianas o la teoría de respuesta al ítem
-%para estimar, a partir de las interacciones del estudiante, la probabilidad de
-%que domine un concepto o de que complete correctamente un ejercicio aún no resuelto.
-%A diferencia de las reglas heurísticas, estos modelos manejan la incertidumbre
-%de forma natural y pueden actualizar sus estimaciones conforme llegan nuevos datos.
-%Sin embargo, requieren un volumen considerable de interacciones para calibrarse
-%adecuadamente y su implementación es más compleja.
-%
-%El tercer enfoque corresponde a la \textbf{adaptación basada en aprendizaje
-%	automático}, donde algoritmos como árboles de decisión, agrupamiento o sistemas
-%de recomendación descubren patrones en los datos sin que el diseñador tenga que
-%programar explícitamente las reglas de adaptación. Estos métodos pueden identificar
-%relaciones sutiles entre el comportamiento del estudiante y su progreso que pasarían
-%inadvertidas con otros enfoques. Su principal desventaja es la opacidad: las
-%decisiones del sistema resultan difíciles de explicar, lo cual supone un obstáculo
-%cuando se necesita que el docente confíe en las recomendaciones del agente y
-%pueda contrastarlas con su propio criterio pedagógico.
-%
-%En la práctica, muchos sistemas combinan elementos de estos tres enfoques. Una
-%arquitectura común consiste en emplear reglas heurísticas para las adaptaciones
-%inmediatas dentro de un mismo nivel —donde se necesita una respuesta rápida y
-%comprensible— y reservar los modelos estadísticos o de aprendizaje automático para
-%las adaptaciones entre niveles o entre sesiones, donde se dispone de más datos
-%acumulados y la decisión puede ser más pausada.
-%
+
+El modelo de adaptación puede implementarse siguiendo distintos enfoques, cada uno
+con sus propias ventajas y limitaciones. La elección de uno u otro depende del
+contexto de uso, de la cantidad de datos disponibles y del grado de transparencia
+que se requiera en las decisiones del sistema \cite{shum_personalised_2023}.
+
+El enfoque más simple es la \textbf{adaptación basada en reglas heurísticas}.
+Consiste en definir un conjunto de condiciones explícitas que disparan acciones
+de adaptación predeterminadas: si el estudiante falla tres veces consecutivas en
+un mismo nivel, se le muestra una pista; si acierta en el primer intento y con
+un tiempo inferior al promedio, la dificultad del siguiente nivel se incrementa.
+La principal ventaja de este enfoque es su transparencia: tanto el desarrollador
+como el docente pueden comprender exactamente por qué el sistema tomó una decisión.
+Su limitación más evidente es la rigidez, ya que las reglas deben preverse de
+antemano y no se ajustan por sí solas a patrones de comportamiento no anticipados
+durante el diseño \cite{shum_personalised_2023}.
+
+Un segundo enfoque es la \textbf{adaptación basada en modelos probabilísticos},
+que emplea técnicas como las redes bayesianas o la teoría de respuesta al ítem
+para estimar, a partir de las interacciones del estudiante, la probabilidad de
+que domine un concepto o de que complete correctamente un ejercicio aún no resuelto.
+A diferencia de las reglas heurísticas, estos modelos manejan la incertidumbre
+de forma natural y pueden actualizar sus estimaciones conforme llegan nuevos datos.
+Sin embargo, requieren un volumen considerable de interacciones para calibrarse
+adecuadamente y su implementación es más compleja.
+
+El tercer enfoque corresponde a la \textbf{adaptación basada en aprendizaje
+	automático}, donde algoritmos como árboles de decisión, agrupamiento o sistemas
+de recomendación descubren patrones en los datos sin que el diseñador tenga que
+programar explícitamente las reglas de adaptación. Estos métodos pueden identificar
+relaciones sutiles entre el comportamiento del estudiante y su progreso que pasarían
+inadvertidas con otros enfoques. Su principal desventaja es la opacidad: las
+decisiones del sistema resultan difíciles de explicar, lo cual supone un obstáculo
+cuando se necesita que el docente confíe en las recomendaciones del agente y
+pueda contrastarlas con su propio criterio pedagógico.
+
+En la práctica, muchos sistemas combinan elementos de estos tres enfoques. Una
+arquitectura común consiste en emplear reglas heurísticas para las adaptaciones
+inmediatas dentro de un mismo nivel —donde se necesita una respuesta rápida y
+comprensible— y reservar los modelos estadísticos o de aprendizaje automático para
+las adaptaciones entre niveles o entre sesiones, donde se dispone de más datos
+acumulados y la decisión puede ser más pausada.
+
 \subsection{El ciclo de adaptación}
-%
-%Más allá de la estrategia concreta que se utilice, todos los sistemas adaptativos
-%comparten un ciclo de funcionamiento que se repite de forma continua mientras el
-%estudiante interactúa con el videojuego. Comprender este ciclo es relevante porque
-%en él se basa la arquitectura de recolección y procesamiento de datos que se
-%desarrollará en el capítulo siguiente.
-%
-%El ciclo se compone de cuatro etapas. La primera es la \textbf{medición}: el
-%sistema captura cada interacción del estudiante con el entorno de juego —bloques
-%que arrastra, botones que pulsa, tiempos que emplea, errores que comete— y la
-%registra como un evento estructurado. La segunda etapa es la \textbf{actualización
-%	del modelo}: los nuevos eventos se incorporan al modelo del estudiante, modificando
-%las estimaciones sobre su nivel de dominio, su estilo de aprendizaje o su estado
-%motivacional. La tercera etapa es la \textbf{decisión}: el agente de adaptación
-%consulta el modelo actualizado y, aplicando la estrategia para la que fue diseñado,
-%determina si es necesario intervenir y en qué dirección. La cuarta y última etapa
-%es la \textbf{intervención}: la decisión se materializa en el videojuego —se
-%simplifica un objetivo, se introduce un nuevo concepto, se muestra una pista,
-%se incrementa la dificultad— y el ciclo vuelve a comenzar con la captura de la
-%reacción del estudiante ante ese cambio.
-%
-%Este ciclo opera de manera transparente para el jugador, que no percibe pausas
-%ni interrupciones entre una etapa y otra. Desde su perspectiva, el juego
-%simplemente responde a sus acciones de forma natural. Sin embargo, desde la
-%perspectiva del diseño del sistema, cada etapa representa una responsabilidad
-%distinta que debe ser asignada a un componente concreto de la arquitectura,
-%aspecto que se retomará al definir los módulos de la plataforma propuesta.
+
+Más allá de la estrategia concreta que se utilice, todos los sistemas adaptativos
+comparten un ciclo de funcionamiento que se repite de forma continua mientras el
+estudiante interactúa con el videojuego. Comprender este ciclo es relevante porque
+en él se basa la arquitectura de recolección y procesamiento de datos que se
+desarrollará en el capítulo siguiente.
+
+El ciclo se compone de cuatro etapas \cite{shum_personalised_2023}:
+
+\begin{enumerate}
+	\item Medición: el
+	sistema captura cada interacción del estudiante con el entorno de juego (bloques
+	que arrastra, botones que pulsa, tiempos que emplea, errores que comete) y la
+	registra como un evento estructurado.
+	
+	\item Actualización del modelo: los nuevos eventos se incorporan al modelo del estudiante, modificando las estimaciones sobre su nivel de dominio, su estilo de aprendizaje o su estado motivacional
+	
+	\item Decisión: el agente de adaptación
+	consulta el modelo actualizado y, aplicando la estrategia para la que fue diseñado,
+	determina si es necesario intervenir y en qué dirección
+	
+	\item Intervención: la decisión se materializa en el videojuego —se
+	simplifica un objetivo, se introduce un nuevo concepto, se muestra una pista,
+	se incrementa la dificultad— y el ciclo vuelve a comenzar con la captura de la
+	reacción del estudiante ante ese cambio.
+\end{enumerate}
+
+Este ciclo opera de manera transparente para el jugador, que no percibe pausas
+ni interrupciones entre una etapa y otra. Desde su perspectiva, el juego
+simplemente responde a sus acciones de forma natural. Sin embargo, desde la
+perspectiva del diseño del sistema, cada etapa representa una responsabilidad
+distinta que debe ser asignada a un componente concreto de la arquitectura,
+aspecto que se retomará al definir los módulos de la plataforma propuesta.
 
 \section{Análisis de videojuegos educativos}
 
@@ -437,3 +443,18 @@ Este videojuego emplea un sistema de evaluación sigilosa (\textit{Stealth Asses
 El juego incluye un tablero de analíticas denominado \textit{My Backpack}, diseñado bajo un enfoque de maestría intrapersonal. En lugar de fomentar la comparación con otros pares, este enfoque motiva al estudiante a compararse consigo mismo y con sus propias metas. Entre sus elementos se encuentran barras que muestran los niveles resueltos y las monedas recolectadas, así como gráficos que ilustran el nivel de maestría alcanzado en cada uno de los nueve conceptos fundamentales. Este caso representa una buena práctica en el diseño de LAD: utiliza modelos estadísticos robustos ocultos al usuario para traducirlos en una interfaz limpia que fomenta la reflexión y la autorregulación del aprendizaje.
 
 \section{Conclusiones parciales}
+
+El presente capítulo concluye la fundamentación teórica de la plataforma educativa \textit{Hello World}, estableciendo el marco conceptual que sustenta las decisiones de diseño descritas en los capítulos posteriores. Los resultados del análisis permiten establecer las siguientes conclusiones:
+
+\begin{itemize}
+	\item La capacidad de los videojuegos para construir conocimiento a través de la interactividad con los jugadores, los convierte en un formato idóneo para contextualizar contenidos de aprendizaje dentro de una historia significativa
+	
+	\item Los videojuegos logran materializar conceptos abstractos, transformando el error en una parte natural del aprendizaje, sin frustación, permitiendo que el estudiante avance a su propio ritmo
+	
+	\item El valor de la gamificación reside en su capacidad de lograr que el estudiante encuentre valor y disfrute en el propio proceso de aprendizaje
+	
+	\item Los videojuegos educativos adaptativos representan una evolución frente a los entornos estáticos. La integración de un modelo del estudiante y el ciclo continuo de adaptación permite calibrar el nivel de reto en tiempo real, evitando la frustación.
+	
+	\item Los tableros de analíticas de aprendizaje son el componente que cierra el ciclo de retroalimentación, sin embargo la mera visualización de datos o una alta complejidad algorítmica no garantizan una intervención pedagógica efectiva; es necesario que estos tableros sean accionables, proactivos y comprensibles con un solo vistazo del profesor.
+	
+\end{itemize}

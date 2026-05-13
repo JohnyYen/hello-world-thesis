@@ -1,14 +1,163 @@
 \chapter{\chapterThree}
 
+El presente capítulo expone la implementación del prototipo funcional de la plataforma educativa \textit{Hello World} y los resultados obtenidos tras someter dicha implementación a un proceso de validación. El prototipo materializa los tres módulos centrales del sistema y constituye la evidencia que permite contrastar las decisiones de diseño y arquitectura descritas en el capítulo anterior con su comportamiento real en un entorno de ejecución concreto.
+
+Con el propósito de garantizar la calidad y la fiabilidad del sistema, se diseñó una estrategia de pruebas estructurada en cuatro niveles complementarios: pruebas de caja negra, orientadas a validar el cumplimiento de los requisitos funcionales desde la perspectiva del usuario; pruebas unitarias, enfocadas en la lógica interna de los componentes críticos de forma aislada; pruebas de integración, destinadas a verificar la comunicación y el intercambio de datos entre los distintos módulos; y pruebas \textit{end-to-end}, que simulan flujos completos de usuario atravesando todas las capas de la arquitectura. Adicionalmente, se incorporaron pruebas de seguridad orientadas a identificar vulnerabilidades en la gestión de datos académicos y en la transmisión de trazas xAPI.
+
+\section{Prototipo desarrollado siguiendo la arquitectura}
+
+Con el propósito de demostrar la factibilidad de la arquitectura propuesta, se desarrolló
+un prototipo funcional de la plataforma educativa \textit{Hello World} que materializa los tres
+módulos centrales del sistema: el videojuego educativo, el back-end central y el tablero
+de analíticas de aprendizaje. Este prototipo no constituye un producto terminado, sino
+una implementación de ejemplo que permite verificar que los principios arquitectónicos,
+los patrones de diseño y las decisiones tecnológicas descritas en el capítulo anterior
+son realizables de forma coherente e integrada, y que la comunicación entre los
+módulos produce los resultados funcionales esperados. La implementación siguió fielmente las decisiones de diseño establecidas en el capítulo anterior. Esta correspondencia directa entre el diseño y la implementación permitió que el prototipo funcionara como un banco de pruebas real
+de la arquitectura, exponiendo tanto sus fortalezas como los aspectos que requieren
+refinamiento en iteraciones futuras.
+
+% ---------------------------------------------------------------
+\subsection*{Videojuego educativo}
+% ---------------------------------------------------------------
+
+El videojuego educativo constituye el punto de entrada del estudiante a la plataforma.
+Su implementación abarcó los componentes esenciales definidos en la
+arquitectura: el intérprete de soluciones, el motor de retroalimentación, el agente de
+adaptación de dificultad y el módulo de captura y sincronización de trazas xAPI. La
+interfaz de programación visual permite al estudiante construir soluciones mediante
+bloques que representan estructuras lógicas fundamentales, mientras que la narrativa
+en formato de novela visual contextualiza cada ejercicio dentro de una historia
+universitaria reconocible para el jugador.
+
+% [IMAGEN: Pantalla principal del videojuego mostrando la interfaz de programación
+%  por bloques dentro del entorno narrativo]
+
+
+A continuación se muestra la pantalla de juego durante la resolución de un nivel,
+donde puede apreciarse la integración entre el flujo narrativo de la novela visual y
+la interfaz de bloques de programación. Cuando el nivel lo requiere, la narrativa
+cede el paso a la interfaz de construcción de soluciones, y una vez resuelta
+correctamente, la historia retoma su curso desbloqueando nuevos diálogos y avanzando
+la trama.
+
+% [IMAGEN: Pantalla del agente de adaptación o de retroalimentación tras un intento
+%  del jugador, mostrando el mensaje pedagógico generado]
+
+El módulo de sincronización opera en segundo plano: acumula las interacciones del
+jugador como declaraciones xAPI en un almacén local gestionado por SQLite y, en
+cuanto detecta conectividad, transmite el lote de trazas al backend central mediante
+una petición HTTP sobre HTTPS. Este mecanismo garantiza la continuidad del registro
+académico incluso en condiciones de conectividad intermitente, tal como lo establece
+el requisito no funcional RNF15.
+
+% [IMAGEN: Log o vista del sistema de sincronización mostrando el envío del batch
+%  de trazas xAPI al servidor]
+
+% ---------------------------------------------------------------
+\subsection*{Back-end central}
+% ---------------------------------------------------------------
+El backend desarrollado en FastAPI implementa la arquitectura descrita en la
+sección \ref{architecture:backend}. De la totalidad de endpoints implementados,
+del prototipo se destacan tres bloques funcionales como los más representativos del
+flujo de datos.
+
+El módulo de sincronización recibe, valida y persiste las declaraciones xAPI
+enviadas por el videojuego (ver Figura \ref{fig:sync-endpoints}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/sync_endpoints.png}
+	\caption{Endpoints de sincronización}
+	\label{fig:sync-endpoints}
+\end{figure}
+
+Los endpoints de estadísticas procesan las trazas almacenadas y calculan los
+indicadores académicos que alimentan el tablero docente (ver Figura \ref{fig:statistic-endpoints}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/statistic_endpoints.png}
+	\caption{Endpoints de las estadísticas}
+	\label{fig:statistic-endpoints}
+\end{figure}
+
+Los endpoints de gestión soportan la administración de usuarios, cursos y niveles (ver Figura \ref{fig:game-endpoints}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/game_endpoints.png}
+	\caption{Endpoints del videojuego}
+	\label{fig:game-endpoints}
+\end{figure}
+
+% ---------------------------------------------------------------
+\subsection*{Tablero de analíticas de aprendizaje}
+% ---------------------------------------------------------------
+
+El tablero de analíticas de aprendizaje, desarrollado con Next.js, representa la
+interfaz a través de la cual el docente accede a la información académica generada
+por las sesiones de juego de sus estudiantes. La implementación del prototipo cubrió
+las tres vistas definidas en el diseño: la vista general de la plataforma, la vista de seguimiento
+individual por estudiante y la vista comparativa entre cursos escolares (ver secciones \ref{architectue:lad-view} y \ref{architectue:lad-nextjs}).
+
+% [IMAGEN: Vista general del tablero mostrando los gráficos de barras agrupadas
+%  por concepto y la distribución del grupo por estado de desempeño (dona/pastel)]
+
+La vista general expone al docente una panorámica inmediata del estado del curso
+mediante gráficos de barras agrupadas por concepto de programación, un gráfico
+de dona con la distribución de estudiantes según su estado de desempeño ---Óptimo,
+Necesita refuerzo o En riesgo--- y tarjetas de indicadores clave que concentran
+la información más urgente sin requerir interpretación adicional (ver Figura \ref{fig:lad-overview}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/lad_overview.png}
+	\caption{Vista general del tablero de analíticas}
+	\label{fig:lad-overview}
+\end{figure}
+
+% [IMAGEN: Vista individual de un estudiante con el mapa de calor de errores
+%  y el gráfico de líneas temporales de su evolución]
+
+La vista de seguimiento individual adopta el marco de progreso intrapersonal descrito
+en la sección~2.2.2, presentando la evolución temporal del desempeño del estudiante
+mediante un gráfico de líneas, un mapa de calor con la distribución de errores por
+tipo de bloque lógico y nivel, y un histograma de intentos que permite identificar
+los niveles que generaron bloqueos prolongados. Esta combinación de visualizaciones
+dota al docente de la información necesaria para comprender no solo el resultado
+final del estudiante, sino el proceso cognitivo que lo originó (ver Figura \ref{fig:lad-student}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/lad_student.png}
+	\caption{Vista general del tablero de analíticas}
+	\label{fig:lad-student}
+\end{figure}
+% [IMAGEN: Vista comparativa entre cursos escolares con barras apiladas
+%  o mapa de calor comparativo]
+
+Finalmente, la vista comparativa agrega los datos de múltiples grupos para
+que el docente pueda evaluar si la plataforma y la secuencia de contenidos
+funcionan de forma consistente a lo largo del tiempo y entre distintas cohortes,
+identificando niveles con dificultad estructural que trasciende a un grupo particular (ver Figura \ref{fig:lad-report}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth, keepaspectratio]{./src/doc/lad_reports.png}
+	\caption{Vista general del tablero de analíticas}
+	\label{fig:lad-report}
+\end{figure}
+
 \section{Herramientas para la implementación de las pruebas}
 
 Para la implementación de las distintas categorías de pruebas diseñadas en este capítulo, se seleccionaron herramientas especializadas en correspondencia con cada módulo del sistema y el tipo de validación requerida.
 
-En el módulo del videojuego educativo, desarrollado sobre Godot 4, se emplea \textbf{GUT} (\textit{Godot Unit Test}), un framework de pruebas unitarias e integración diseñado nativamente para este motor. Su integración directa con el entorno de Godot permite instanciar nodos, inyectar dependencias y ejecutar los casos de prueba sin necesidad de iniciar el motor gráfico completo, lo que resulta especialmente conveniente para validar componentes como el intérprete de soluciones de forma aislada y determinista.
+En el módulo del videojuego educativo, desarrollado sobre Godot 4, se emplea \textbf{GUT} (\textit{Godot Unit Test}), un \textit{framework} de pruebas unitarias e integración diseñado nativamente para este motor. Su integración directa con el entorno de Godot permite instanciar nodos, inyectar dependencias y ejecutar los casos de prueba sin necesidad de iniciar el motor gráfico completo, lo que resulta especialmente conveniente para validar componentes como el intérprete de soluciones de forma aislada y determinista.
 
-Para la validación del \textit{back-end} desarrollado en FastAPI, se utiliza \textbf{pytest}, el framework de pruebas estándar del ecosistema Python. Su compatibilidad nativa con las herramientas asíncronas de FastAPI, junto con el cliente de pruebas integrado de la propia librería, permite simular peticiones HTTP, validar respuestas y verificar la lógica de los casos de uso sin levantar un servidor real. Su sistema de fixtures facilita además la preparación y limpieza del estado entre pruebas, garantizando el aislamiento de cada escenario.
+Para la validación del \textit{back-end} desarrollado en FastAPI, se utiliza \textbf{pytest}, el \textit{framework} de pruebas estándar del ecosistema Python. Su compatibilidad nativa con las herramientas asíncronas de FastAPI, junto con el cliente de pruebas integrado de la propia librería, permite simular peticiones HTTP, validar respuestas y verificar la lógica de los casos de uso sin levantar un servidor real. Su sistema de fixtures facilita además la preparación y limpieza del estado entre pruebas, garantizando el aislamiento de cada escenario.
 
-En el módulo de la aplicación web docente, construida con Next.js, se emplea \textbf{Jest} como framework principal de pruebas unitarias sobre los componentes React. Jest permite renderizar componentes de forma aislada, verificar su comportamiento ante distintas props y validar la lógica de los servicios de la capa de abstracción sin depender de llamadas reales a la API, apoyándose en el sistema de mocks que el propio framework provee.
+En el módulo de la aplicación web docente, construida con Next.js, se emplea \textbf{jest} como \textit{framework} principal de pruebas unitarias sobre los componentes React. Jest permite renderizar componentes de forma aislada, verificar su comportamiento ante distintas props y validar la lógica de los servicios de la capa de abstracción sin depender de llamadas reales a la API, apoyándose en el sistema de mocks que el propio \textit{framework} provee.
 
 Para las pruebas \textit{end-to-end}, se utiliza \textbf{Playwright}, una herramienta de automatización de navegadores que permite simular flujos completos de usuario sobre la interfaz web docente. Playwright ejecuta los escenarios definidos contra un entorno de producción simulado, verificando que las interacciones entre el videojuego, el \textit{back-end} y la interfaz web producen los resultados esperados de forma integrada y consistente.
 

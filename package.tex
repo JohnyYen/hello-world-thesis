@@ -28,7 +28,26 @@
 \usepackage{makecell}
 \usepackage{pdflscape}
 \usepackage{varioref}
-%\usepackage{h}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+
+\titleformat{\chapter}[block]
+{\normalfont\huge\bfseries}{\thechapter.}{1em}{}
+
+% Espaciado 
+% Capítulo
+\titlespacing*{\chapter}{0pt}{-20pt}{10pt}
+
+% Sección
+\titlespacing*{\section}{0pt}{12pt}{4pt}
+
+% Subsección (por si acaso)
+\titlespacing*{\subsection}{0pt}{10pt}{3pt}
+
+
+\setlist[enumerate]{itemsep=2pt, parsep=0pt, topsep=4pt}
 
 % -----------------------------------
 % BIBLIOGRAFÍA
@@ -70,9 +89,9 @@
 % ENCABEZADOS
 % -----------------------------------
 \pagestyle{fancy}
-\setlength{\headheight}{25pt}
+\setlength{\headheight}{20pt}
 \fancyhf{}
-\fancyhead[L]{\includegraphics[height=45pt]{./src/logoCujae.pdf}}
+\fancyhead[L]{\includegraphics[height=40pt]{./src/logoCujae.pdf}}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
