@@ -10,32 +10,246 @@
 \label{anexo:description-usecase}
 
 
-\requisitos{Requisitos funcionales del videojuego}{
-	El sistema debe evaluar el desempeño del jugador...;
-	El sistema debe registrar automáticamente...;
-	El sistema debe adaptar automáticamente...;
-	El videojuego debe capturar automáticamente las interacciones...
-}
+%\requisitos{Requisitos funcionales del videojuego}{
+%	El sistema debe evaluar el desempeño del jugador...;
+%	El sistema debe registrar automáticamente...;
+%	El sistema debe adaptar automáticamente...;
+%	El videojuego debe capturar automáticamente las interacciones...
+%}
+%
+%\requisitos{Requisitos funcionales del videojuego}{
+%	El sistema debe evaluar el desempeño del jugador...;
+%	El sistema debe registrar automáticamente...;
+%	El sistema debe adaptar automáticamente...;
+%	El videojuego debe capturar automáticamente las interacciones...
+%}
 
-\requisitos{Requisitos funcionales del videojuego}{
-	El sistema debe evaluar el desempeño del jugador...;
-	El sistema debe registrar automáticamente...;
-	El sistema debe adaptar automáticamente...;
-	El videojuego debe capturar automáticamente las interacciones...
+\textbf{Casos de uso del videojuego}
+
+\usecase
+{Descripción de alto nivel: Jugar nivel del videojuego}
+{anexo:cu-jugar-nivel}
+{
+	Caso de uso & Jugar nivel del videojuego \\ \hline
+	Actores & Estudiante \\ \hline
+	Descripción & El estudiante selecciona un nivel desbloqueado e interactúa con la interfaz de programación por bloques para resolver el problema planteado por la narrativa del juego. El sistema evalúa su desempeño e incluye la evaluación del jugador en el nivel y la posibilidad de completarlo. \\ \hline
+	Requisitos funcionales & RF-1, RF-2, RF-5, RF-6, RF-11, RF-12, RF-13, RF-15, RF-16 \\ \hline
+	Casos de uso relacionados & Evaluar desempeño del jugador en el nivel, Completar nivel, Recibir retroalimentación del videojuego, Visualizar clase introductoria, Repetir nivel del videojuego \\ \hline
+	Precondiciones & El estudiante debe haber iniciado sesión y el nivel debe estar desbloqueado \\ \hline
+	Postcondiciones & El sistema registra el resultado del intento y actualiza el modelo del estudiante con las métricas obtenidas \\
 }
 
 \usecase
-{Descripción de alto nivel: Definir contexto}
-{anexo:cu-definir-contexto}
+{Descripción de alto nivel: Completar nivel}
+{anexo:cu-completar-nivel}
 {
-	Caso de uso & Definir contexto \\ \hline
-	Actores & Analista \\ \hline
-	Descripción & El analista introduce el directorio de los archivos de configuración y el conjunto de datos a utilizar por el algoritmo \\ \hline
-	Requisitos funcionales & RF1, RF2 \\ \hline
-	Casos de uso relacionados & Cargar conjunto de datos, Cargar parámetros de configuración \\ \hline
-	Precondiciones & - \\ \hline
-	Postcondiciones & El componente se encuentra en estado de preparación para la ejecución \\
+	Caso de uso & Completar nivel \\ \hline
+	Actores & Estudiante \\ \hline
+	Descripción & Tras resolver correctamente el problema de programación del nivel, el sistema valida la solución, desbloquea el avance narrativo de la novela visual y activa la pantalla de victoria con la puntuación obtenida. Incluye el guardado del progreso del estudiante. \\ \hline
+	Requisitos funcionales & RF-1, RF-9, RF-13, RF-19, RF-23 \\ \hline
+	Casos de uso relacionados & Jugar nivel del videojuego, Guardar progreso, Evaluar desempeño del jugador en el nivel \\ \hline
+	Precondiciones & El estudiante debe haber enviado una solución correcta al problema del nivel activo \\ \hline
+	Postcondiciones & El nivel queda marcado como completado, se desbloquea el siguiente nivel, se avanza la narrativa y se almacena la traza xAPI correspondiente \\
 }
+
+\usecase
+{Descripción de alto nivel: Guardar progreso}
+{anexo:cu-guardar-progreso}
+{
+	Caso de uso & Guardar progreso \\ \hline
+	Actores & Estudiante \\ \hline
+	Descripción & El sistema almacena automáticamente el estado de avance del estudiante al finalizar o abandonar un nivel, incluyendo métricas de desempeño, niveles completados y configuraciones activas, garantizando la continuidad de la sesión ante cierres inesperados. \\ \hline
+	Requisitos funcionales & RF-9, RF-14, RF-19, RF-24 \\ \hline
+	Casos de uso relacionados & Completar nivel, Sincronizar datos con el backend \\ \hline
+	Precondiciones & El estudiante debe haber iniciado sesión y haber interactuado con al menos un nivel \\ \hline
+	Postcondiciones & El progreso queda persistido localmente y disponible para su posterior sincronización con el servidor central \\
+}
+
+\usecase
+{Descripción de alto nivel: Evaluar desempeño del jugador en el nivel}
+{anexo:cu-evaluar-desempeno}
+{
+	Caso de uso & Evaluar desempeño del jugador en el nivel \\ \hline
+	Actores & Sistema \\ \hline
+	Descripción & El sistema analiza la solución construida por el estudiante mediante el intérprete de bloques, calcula las métricas de desempeño (tiempo de resolución, número de intentos, eficiencia de la solución) y determina si el resultado alcanza el estado esperado definido en la configuración del nivel. \\ \hline
+	Requisitos funcionales & RF-1, RF-2, RF-6, RF-13, RF-20 \\ \hline
+	Casos de uso relacionados & Jugar nivel del videojuego, Completar nivel, Recibir retroalimentación del videojuego, Adaptar dificultad del nivel automáticamente \\ \hline
+	Precondiciones & El estudiante debe haber enviado una disposición de bloques para su evaluación \\ \hline
+	Postcondiciones & El sistema genera un objeto de retroalimentación con el resultado de la evaluación y actualiza el modelo interno del estudiante con las métricas registradas \\
+}
+
+\usecase
+{Descripción de alto nivel: Recibir retroalimentación del videojuego}
+{anexo:cu-retroalimentacion-juego}
+{
+	Caso de uso & Recibir retroalimentación del videojuego \\ \hline
+	Actores & Estudiante \\ \hline
+	Descripción & Tras cada intento de solución, el sistema presenta al estudiante retroalimentación visual y textual inmediata que indica si la solución fue correcta o describe el tipo de error lógico cometido, orientando pedagógicamente el fallo sin penalización y habilitando el reintento. \\ \hline
+	Requisitos funcionales & RF-4, RF-6, RF-10 \\ \hline
+	Casos de uso relacionados & Jugar nivel del videojuego, Evaluar desempeño del jugador en el nivel, Repetir nivel del videojuego \\ \hline
+	Precondiciones & El intérprete de soluciones debe haber procesado el intento del estudiante \\ \hline
+	Postcondiciones & El estudiante recibe información sobre el resultado de su intento y puede continuar o reintentar la resolución del nivel \\
+}
+
+\usecase
+{Descripción de alto nivel: Adaptar dificultad del nivel automáticamente}
+{anexo:cu-adaptar-dificultad}
+{
+	Caso de uso & Adaptar dificultad del nivel automáticamente \\ \hline
+	Actores & Sistema \\ \hline
+	Descripción & El agente de adaptación analiza el historial de desempeño del estudiante (errores, intentos, tiempos y uso de ayudas) y ajusta automáticamente los parámetros de dificultad de los niveles futuros, pudiendo simplificar objetivos, reducir complejidad o proveer pistas adicionales para mantener al estudiante en la zona de flujo óptimo. \\ \hline
+	Requisitos funcionales & RF-3, RF-4, RF-7, RF-20 \\ \hline
+	Casos de uso relacionados & Evaluar desempeño del jugador en el nivel, Jugar nivel del videojuego, Sincronizar datos con el backend \\ \hline
+	Precondiciones & El sistema debe disponer de un historial mínimo de interacciones registradas en el modelo del estudiante \\ \hline
+	Postcondiciones & Los parámetros de configuración del siguiente nivel quedan ajustados según la estrategia de adaptación seleccionada (simplificación, complejización o estado neutro) y la traza xAPI correspondiente es generada \\
+}
+
+\usecase
+{Descripción de alto nivel: Sincronizar datos con el backend}
+{anexo:cu-sincronizar-datos}
+{
+	Caso de uso & Sincronizar datos con el backend \\ \hline
+	Actores & Sistema (worker automático) \\ \hline
+	Descripción & Cuando el sistema detecta conectividad a internet, el worker ejecuta en segundo plano la sincronización de las trazas xAPI acumuladas localmente en SQLite con el servidor central, enviando el lote de declaraciones Actor-Verbo-Objeto mediante una petición HTTPS y marcando las trazas como sincronizadas al recibir confirmación. \\ \hline
+	Requisitos funcionales & RF-19, RF-24, RF-41, RF-53, RF-54 \\ \hline
+	Casos de uso relacionados & Guardar progreso, Completar nivel \\ \hline
+	Precondiciones & Deben existir trazas xAPI pendientes de sincronización almacenadas localmente y el dispositivo debe tener conexión a internet activa \\ \hline
+	Postcondiciones & Las trazas quedan persistidas en la base de datos central PostgreSQL y disponibles para su procesamiento por el tablero de analíticas del docente \\
+}
+
+\usecase
+{Descripción de alto nivel: Repetir nivel del videojuego}
+{anexo:cu-repetir-nivel}
+{
+	Caso de uso & Repetir nivel del videojuego \\ \hline
+	Actores & Estudiante \\ \hline
+	Descripción & El estudiante puede seleccionar y volver a jugar un nivel previamente completado con el objetivo de mejorar su puntuación o consolidar el concepto de programación asociado. El sistema registra el nuevo intento como una traza independiente y actualiza las métricas si el nuevo desempeño supera al anterior. \\ \hline
+	Requisitos funcionales & RF-18, RF-1, RF-2, RF-13 \\ \hline
+	Casos de uso relacionados & Jugar nivel del videojuego, Recibir retroalimentación del videojuego \\ \hline
+	Precondiciones & El nivel debe haber sido completado previamente por el estudiante \\ \hline
+	Postcondiciones & El nuevo intento queda registrado y las métricas del estudiante se actualizan con los resultados obtenidos en la repetición \\
+}
+
+
+\textbf{Caso de uso del tablero de analíticas}
+
+\usecase
+{Descripción de alto nivel: Sincronizar datos del estudiante obtenidos del videojuego}
+{anexo:cu-sincronizar-datos-videojuego}
+{
+	Caso de uso & Sincronizar datos del estudiante obtenidos del videojuego \\ \hline
+	Actores & Sistema \\ \hline
+	Descripción & El sistema recibe el lote de trazas xAPI enviado por el videojuego, valida su formato y las procesa para almacenarlas en la base de datos central. En caso de detectar un payload malformado, el sistema lo rechaza y registra el error. Los datos crudos son almacenados en analíticas para su posterior procesamiento. \\ \hline
+	Requisitos funcionales & RF-41, RF-42, RF-53, RF-54 \\ \hline
+	Casos de uso relacionados & Almacenar sentencia xAPI, Rechazar payload malformado, Almacenar datos crudos en analíticas \\ \hline
+	Precondiciones & El videojuego debe haber enviado un lote de declaraciones xAPI mediante una petición HTTPS al backend \\ \hline
+	Postcondiciones & Las trazas válidas quedan almacenadas en la base de datos central y disponibles para su agregación en el tablero de analíticas del docente \\
+}
+
+\usecase
+{Descripción de alto nivel: Almacenar sentencia xAPI}
+{anexo:cu-almacenar-xapi}
+{
+	Caso de uso & Almacenar sentencia xAPI \\ \hline
+	Actores & Sistema \\ \hline
+	Descripción & El sistema recibe una declaración xAPI en formato Actor-Verbo-Objeto, la procesa extrayendo los datos crudos relevantes de la sentencia y la persiste en la base de datos central para su posterior agregación y análisis pedagógico. \\ \hline
+	Requisitos funcionales & RF-41, RF-45, RF-64 \\ \hline
+	Casos de uso relacionados & Sincronizar datos del estudiante obtenidos del videojuego, Procesar sentencia xAPI, Extraer datos crudos de la sentencia xAPI \\ \hline
+	Precondiciones & La sentencia xAPI debe haber superado la validación de formato del backend \\ \hline
+	Postcondiciones & La declaración xAPI queda persistida en la base de datos y los datos crudos extraídos quedan disponibles para alimentar los indicadores del tablero de analíticas \\
+}
+
+\usecase
+{Descripción de alto nivel: Consultar panel general de seguimiento}
+{anexo:cu-panel-general}
+{
+	Caso de uso & Consultar panel general de seguimiento \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El profesor accede a la vista general del tablero de analíticas donde visualiza una panorámica inmediata del estado del curso mediante gráficos de barras agrupadas por concepto, un gráfico de dona con la distribución del grupo por estado de desempeño (Óptimo, Necesita refuerzo, En riesgo) y tarjetas con los indicadores clave más urgentes. \\ \hline
+	Requisitos funcionales & RF-25, RF-29, RF-30, RF-47 \\ \hline
+	Casos de uso relacionados & Consultar información detallada de un estudiante, Recibir alertas de bajo rendimiento de estudiantes, Consultar métricas detalladas \\ \hline
+	Precondiciones & El profesor debe haber iniciado sesión y deben existir datos de al menos un estudiante activo en el curso \\ \hline
+	Postcondiciones & El profesor obtiene una visión accionable del estado general del curso que le permite identificar estudiantes en riesgo y priorizar intervenciones pedagógicas \\
+}
+
+\usecase
+{Descripción de alto nivel: Consultar información detallada de un estudiante}
+{anexo:cu-info-estudiante}
+{
+	Caso de uso & Consultar información detallada de un estudiante \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El profesor selecciona un estudiante específico y accede a su vista individual, donde puede examinar su evolución temporal de desempeño, el mapa de calor de errores por tipo de bloque lógico y nivel, el histograma de intentos por nivel y su progreso por concepto curricular. Desde esta vista puede además enviar comentarios personalizados al estudiante y acceder a sus gráficos específicos. \\ \hline
+	Requisitos funcionales & RF-25, RF-26, RF-27, RF-30, RF-32 \\ \hline
+	Casos de uso relacionados & Consultar panel general de seguimiento, Ver gráficos específicos del estudiante, Enviar comentarios a los estudiantes, Generar reportes de las estadísticas de los estudiantes \\ \hline
+	Precondiciones & El profesor debe haber iniciado sesión y el estudiante seleccionado debe tener datos registrados en el sistema \\ \hline
+	Postcondiciones & El profesor dispone de información detallada sobre el proceso cognitivo del estudiante, no solo su resultado final, pudiendo fundamentar decisiones de intervención pedagógica en evidencia \\
+}
+
+\usecase
+{Descripción de alto nivel: Generar reportes de las estadísticas de los estudiantes}
+{anexo:cu-generar-reportes}
+{
+	Caso de uso & Generar reportes de las estadísticas de los estudiantes \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El profesor solicita la generación de un reporte consolidado con las estadísticas académicas de sus estudiantes. El sistema permite exportar dicho reporte en formato PDF o CSV para su uso en documentación institucional o análisis externo. \\ \hline
+	Requisitos funcionales & RF-39, RF-50, RF-63 \\ \hline
+	Casos de uso relacionados & Consultar información detallada de un estudiante, Visualizar gráficos comparativos entre cursos académicos, Exportar reporte de estadísticas en formato PDF, Exportar reporte de estadísticas en formato CSV \\ \hline
+	Precondiciones & El profesor debe haber iniciado sesión y deben existir datos suficientes de los estudiantes del curso para generar el reporte \\ \hline
+	Postcondiciones & El reporte queda generado y disponible para su descarga en el formato seleccionado por el profesor \\
+}
+
+\usecase
+{Descripción de alto nivel: Visualizar gráficos comparativos entre cursos académicos}
+{anexo:cu-comparativa-cursos}
+{
+	Caso de uso & Visualizar gráficos comparativos entre cursos académicos \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El profesor accede a la vista comparativa del tablero, donde el sistema agrega los datos de múltiples cohortes y los presenta mediante barras apiladas por estado de desempeño, líneas múltiples de evolución temporal y un mapa de calor comparativo que identifica niveles con dificultad estructural consistente entre grupos, permitiendo distinguir problemas de diseño de contenido de problemas de rendimiento estudiantil. \\ \hline
+	Requisitos funcionales & RF-28, RF-31, RF-47, RF-62 \\ \hline
+	Casos de uso relacionados & Consultar panel general de seguimiento, Generar reportes de las estadísticas de los estudiantes \\ \hline
+	Precondiciones & El profesor debe haber iniciado sesión y deben existir datos de al menos dos cursos escolares distintos registrados en el sistema \\ \hline
+	Postcondiciones & El profesor obtiene una perspectiva longitudinal del desempeño que le permite evaluar la efectividad de la secuencia de contenidos y detectar niveles que requieren rediseño \\
+}
+
+\usecase
+{Descripción de alto nivel: Recibir alertas de bajo rendimiento de estudiantes}
+{anexo:cu-alertas-rendimiento}
+{
+	Caso de uso & Recibir alertas de bajo rendimiento de estudiantes \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El sistema monitorea de forma automática el desempeño de los estudiantes y notifica al profesor cuando alguno presenta bajo rendimiento reiterado, categorizándolo como En riesgo. La alerta incluye información contextual sobre los niveles y tipos de errores que originaron la clasificación para facilitar una intervención pedagógica inmediata y fundamentada. \\ \hline
+	Requisitos funcionales & RF-29, RF-33, RF-60 \\ \hline
+	Casos de uso relacionados & Consultar panel general de seguimiento, Consultar información detallada de un estudiante, Enviar comentarios a los estudiantes \\ \hline
+	Precondiciones & El sistema debe tener datos suficientes del estudiante para calcular su estado de desempeño y el umbral de bajo rendimiento debe estar configurado \\ \hline
+	Postcondiciones & El profesor recibe la notificación de alerta y puede acceder directamente al perfil del estudiante afectado para tomar las acciones pedagógicas pertinentes \\
+}
+
+\usecase
+{Descripción de alto nivel: Gestionar cursos y estudiantes}
+{anexo:cu-gestionar-cursos}
+{
+	Caso de uso & Gestionar cursos y estudiantes \\ \hline
+	Actores & Profesor \\ \hline
+	Descripción & El profesor administra la estructura académica de la plataforma, pudiendo crear, editar y eliminar cursos, gestionar la matrícula de estudiantes en grupos, asignar niveles educativos personalizados y definir objetivos diferenciados para estudiantes o grupos según su desempeño. \\ \hline
+	Requisitos funcionales & RF-35, RF-36, RF-37, RF-48, RF-49 \\ \hline
+	Casos de uso relacionados & Crear un examen especial para los estudiantes, Sincronizar datos del estudiante obtenidos del videojuego, Integrar con una plataforma LMS \\ \hline
+	Precondiciones & El profesor debe haber iniciado sesión con permisos de gestión sobre el curso correspondiente \\ \hline
+	Postcondiciones & Los cambios realizados en la estructura del curso quedan persistidos en el sistema y son visibles para los estudiantes afectados en su próxima sesión de juego \\
+}
+
+\usecase
+{Descripción de alto nivel: Integrar con una plataforma LMS}
+{anexo:cu-integrar-lms}
+{
+	Caso de uso & Integrar con una plataforma LMS \\ \hline
+	Actores & Sistema, Plataforma LMS externa \\ \hline
+	Descripción & El sistema se integra con una plataforma de gestión del aprendizaje externa mediante API REST, permitiendo la autenticación centralizada de usuarios y la sincronización bidireccional de datos académicos entre la plataforma Hello World y el LMS institucional. \\ \hline
+	Requisitos funcionales & RF-40, RF-46, RF-57 \\ \hline
+	Casos de uso relacionados & Iniciar sesión en el sistema, Gestionar cursos y estudiantes, Sincronizar datos del estudiante obtenidos del videojuego \\ \hline
+	Precondiciones & El sistema debe tener configuradas las credenciales de acceso al LMS externo y ambas plataformas deben estar operativas \\ \hline
+	Postcondiciones & Los datos académicos quedan sincronizados entre ambas plataformas y los usuarios pueden autenticarse de forma centralizada desde el LMS institucional \\
+}
+
 
 \chapter{Casos de prueba de caja negra}
 \label{anexo:cp-blackbox}

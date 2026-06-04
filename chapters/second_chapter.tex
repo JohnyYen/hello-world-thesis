@@ -1,844 +1,15 @@
 \chapter{\chapterSecond}
 
 El presente capítulo presenta las decisiones de diseño y arquitectura que materializan los fundamentos pedagógicos descritos anteriormente en una plataforma educativa concreta. A partir de los principios del constructivismo, el aprendizaje basado en problemas y la teoría del flujo, se definen las mecánicas centrales del videojuego, el género narrativo adoptado y la historia que contextualiza los ejercicios de programación dentro de un entorno universitario reconocible para el estudiante.
-Junto al módulo de juego, se detalla el diseño del tablero de analíticas del aprendizaje, componente que transforma las trazas generadas durante la experiencia de juego en información pedagógica accionable para el docente. La articulación entre ambos módulos —videojuego y tablero— define la propuesta central de la plataforma: cerrar el ciclo entre la experiencia del estudiante y la toma de decisiones del profesor a partir de datos estructurados y visualizaciones significativas.
+
+Junto al módulo de juego, se detalla el diseño del tablero de analíticas del aprendizaje, componente que transforma las trazas generadas durante la experiencia de juego en información pedagógica accionable para el docente. La articulación entre ambos módulos (videojuego y tablero) define la propuesta central de la plataforma: cerrar el ciclo entre la experiencia del estudiante y la toma de decisiones del profesor a partir de datos estructurados y visualizaciones significativas.
 Finalmente, el capítulo aborda los requisitos funcionales y no funcionales del sistema, los casos de uso identificados para cada actor, el modelo de datos, la arquitectura técnica de cada módulo y las tecnologías seleccionadas para su implementación. Cada elección tecnológica y arquitectónica se fundamenta en criterios directamente vinculados a los objetivos del proyecto, priorizando la coherencia entre las decisiones de diseño pedagógico y las decisiones de diseño de software.
-
-\section{Diseño del videojuego}
-
-\subsection{Selección de mecánicas}
-
-El diseño de las mecánicas del videojuego educativo responde a una doble lógica:
-por un lado, la coherencia con los fundamentos pedagógicos expuestos en el capítulo
-anterior —constructivismo, aprendizaje basado en problemas y teoría del flujo—; por
-otro, las necesidades concretas del sistema en términos de adaptabilidad, trazabilidad
-del progreso y control docente. A continuación se describen las cuatro mecánicas
-centrales seleccionadas y se argumenta su pertinencia en el contexto del proyecto.
-
-\subsubsection{Programación por bloques visuales}
-
-La mecánica principal del videojuego consiste en la construcción de soluciones
-mediante bloques de programación visual que representan estructuras lógicas
-fundamentales: condiciones, ciclos y variables. Esta decisión de diseño reduce la
-barrera sintáctica que habitualmente genera frustración en estudiantes principiantes,
-permitiendo que el foco cognitivo recaiga sobre el razonamiento lógico y no sobre
-la escritura de código. Estudios como los de \textcite{ibrahim_students_2010} y
-\textcite{mathew_teaching_2019} evidencian que los entornos de programación
-visual incrementan la motivación y el rendimiento académico en cursos introductorios
-al eliminar esta fricción inicial.
-
-Desde la perspectiva del constructivismo, el ensamblaje de bloques obliga al
-estudiante a externalizar su modelo mental del problema: cada bloque colocado
-representa una decisión lógica consciente, lo que convierte la interfaz en un
-espacio de construcción activa del conocimiento. Esta mecánica se articula
-directamente con la narrativa del juego, ya que cada solución construida resuelve
-un problema concreto dentro de la historia, dotando al ejercicio de un propósito
-contextualizado más allá del ejercicio académico abstracto.
-
-\subsubsection{Sistema de niveles progresivos}
-
-El juego organiza sus contenidos en una secuencia de niveles bloqueados, donde
-el acceso a cada etapa requiere la superación de la anterior. Esta progresión
-estructurada responde al principio de andamiaje cognitivo: los conceptos más
-simples —como el uso de variables— preceden y fundamentan los más complejos,
-como las estructuras de repetición anidadas. La literatura especializada señala
-que la organización secuencial del contenido es determinante para sostener la
-motivación intrínseca, al ofrecer al estudiante una percepción tangible de avance
-y dominio acumulado~\cite{kiili_design_2012,puritat_enhanced_2019}.
-
-Desde el punto de vista del diseño narrativo, cada nivel corresponde a una misión
-asignada por el profesor dentro de la historia, lo que integra la progresión
-mecánica con la progresión argumental. Esta doble dimensión del avance —técnica
-y narrativa— refuerza el compromiso emocional del jugador con el proceso de
-aprendizaje, haciendo que completar un nivel tenga un significado que trasciende
-la simple acumulación de puntos.
-
-\subsubsection{Retroalimentación inmediata}
-
-Tras cada intento de solución, el sistema genera retroalimentación visual y textual
-en tiempo real, indicando al estudiante si la lógica construida resuelve correctamente
-el problema planteado y, en caso contrario, identificando el tipo de error cometido.
-Esta mecánica constituye uno de los pilares de la teoría del flujo formulada por
-Csikszentmihalyi~\cite{Csikszentmihalyi_2008}: la retroalimentación inmediata permite
-al jugador ajustar su estrategia de forma continua, manteniendo el equilibrio entre
-desafío y habilidad que caracteriza el estado de inmersión óptima.
-
-A diferencia de los entornos de evaluación tradicionales, donde la corrección
-ocurre de forma diferida, el videojuego convierte el error en un evento formativo
-instantáneo. El mensaje de retroalimentación no penaliza, sino que orienta: describe
-el fallo en términos pedagógicos y habilita el reintento sin coste emocional elevado,
-fomentando así la autonomía en la resolución de problemas y la normalización del
-error como parte del aprendizaje.
-
-\subsubsection{Adaptación automática de dificultad}
-
-El sistema incorpora un agente de adaptación que ajusta la complejidad de los
-niveles futuros en función del historial de desempeño del estudiante. Si el jugador
-resuelve un nivel con alta eficiencia y pocos errores, los retos subsiguientes
-incorporan mayor complejidad lógica; si, por el contrario, el estudiante presenta
-dificultades reiteradas, el agente puede simplificar los objetivos del nivel, reducir
-la cantidad de bloques disponibles o proveer pistas adicionales. Este mecanismo
-responde directamente a los principios del aprendizaje adaptativo, que buscan
-personalizar la experiencia educativa en función de las necesidades individuales
-de cada estudiante~\cite{shum_personalised_2023}.
-
-La adaptación automática de dificultad es, además, el componente que cierra el
-ciclo entre el videojuego y el tablero de analíticas docente: los datos generados
-por el agente —decisiones tomadas, umbrales alcanzados, estrategias aplicadas—
-se registran como trazas xAPI\footnote{xAPI (Experience API) es un estándar de e-learning que registra experiencias de aprendizaje como declaraciones estructuradas del tipo \textit{Actor--Verbo--Objeto} (ej. ``el estudiante \textit{completó} el nivel 3''), permitiendo recopilar y analizar datos desde cualquier entorno digital.} y se sincronizan con el servidor central, donde el
-profesor puede interpretar no solo el resultado final del estudiante, sino el proceso
-adaptativo que lo produjo. De este modo, la mecánica no es únicamente una
-herramienta de personalización del aprendizaje, sino también una fuente de
-información pedagógica estructurada para la toma de decisiones docente.
-
-\subsection{Selección del género}
-
-La selección del género de novela visual como base para el desarrollo de videojuegos educativos responde a una serie de evidencias empíricas que destacan su potencial en el ámbito del aprendizaje, particularmente en términos de motivación, retención del conocimiento y comprensión de contenidos narrativos. Los estudios analizados coinciden en señalar que este tipo de videojuego, caracterizado por la integración de texto, elementos visuales y toma de decisiones, ofrece una experiencia educativa diferenciada respecto a otros géneros de videojuegos y métodos tradicionales de enseñanza.
-
-En primer lugar, desde la perspectiva de la motivación del estudiante, las novelas visuales presentan una ventaja significativa al transformar el proceso de aprendizaje en una experiencia interactiva y lúdica. Los resultados muestran que los estudiantes perciben este tipo de entorno como menos asociado al trabajo académico y más cercano al entretenimiento, lo cual incrementa su disposición a participar activamente en la actividad educativa. Esta transformación en la percepción del aprendizaje genera un aumento en la motivación intrínseca, evidenciado por altos niveles de interés, disfrute y persistencia durante la interacción con el contenido. Además, se ha observado que el uso de novelas visuales permite mitigar problemas de desmotivación presentes en métodos tradicionales, especialmente en estudiantes que muestran bajo compromiso con actividades convencionales basadas en texto plano \cite{vn1}.
-
-En relación con la retención del conocimiento, las novelas visuales destacan por su capacidad de integrar múltiples canales cognitivos, combinando texto, imagen y, en algunos casos, elementos interactivos que favorecen la construcción de representaciones mentales más sólidas. Los estudiantes reportan una mayor facilidad para visualizar escenarios, comprender eventos narrativos y recordar información relevante, lo cual sugiere una mejora en los procesos de codificación y recuperación de la información. En particular, un porcentaje significativo de estudiantes indicó que este formato les permitió entender mejor los contenidos literarios y retener con mayor claridad los elementos clave de la obra estudiada \cite{vn1}. Este fenómeno puede explicarse por el efecto de la multimodalidad, donde la combinación de estímulos visuales y textuales refuerza la memoria y facilita el aprendizaje significativo.
-
-Asimismo, en términos de comprensión y aprendizaje, las novelas visuales permiten una interacción más profunda con el contenido narrativo. A diferencia de otros géneros de videojuegos que priorizan la acción o la resolución de problemas mecánicos, las novelas visuales centran su diseño en la narrativa y la toma de decisiones, lo que favorece el desarrollo del pensamiento crítico y la interpretación textual. Los estudiantes no solo consumen información, sino que participan activamente en la construcción del significado, lo cual incrementa el nivel de implicación cognitiva. Este tipo de interacción ha demostrado ser particularmente útil en contextos educativos relacionados con la literatura, donde la comprensión de personajes, tramas y contextos es fundamental.
-
-En comparación con otros tipos de videojuegos educativos, las novelas visuales presentan ventajas específicas derivadas de su estructura narrativa. Mientras que algunos estudios sugieren que los videojuegos basados en mecánicas pueden no generar mejoras significativas en la comprensión del contenido, especialmente cuando la narrativa es secundaria, las novelas visuales invierten esta relación al colocar la historia como elemento central del aprendizaje \cite{vn2}. Esto permite una alineación más directa con objetivos pedagógicos relacionados con la lectura y la interpretación. Sin embargo, también se reconoce que no existe evidencia concluyente de que las novelas visuales sean superiores a otros métodos o géneros, ya que factores como la ausencia de grupos de control y limitaciones metodológicas impiden establecer comparaciones definitivas \cite{vn3}.
-
-No obstante, los resultados muestran una tendencia clara en la percepción de los estudiantes, quienes reportan experiencias más positivas, mayor inmersión y una preferencia significativa por el formato de novela visual frente a métodos tradicionales como la lectura convencional. Esta preferencia se traduce en un incremento en el compromiso emocional y cognitivo, elementos clave para un aprendizaje efectivo. Además, se evidencia que las novelas visuales pueden actuar como una herramienta complementaria capaz de enriquecer la experiencia educativa, sin necesariamente reemplazar por completo otros métodos de enseñanza.
-
-\subsection{Narrativa del juego}
-
-El diseño narrativo del videojuego educativo se concibió como un andamiaje fundamental para contextualizar los conceptos abstractos de la programación dentro de un entorno reconocible y significativo para el estudiante universitario. En lugar de presentar ejercicios desvinculados de la realidad, la trama sitúa al jugador en el primer año de la Facultad de Ingeniería Informática, un escenario que genera empatía inmediata al reflejar las situaciones, desafíos y dinámicas sociales propias de la vida académica real. Esta decisión de diseño se alinea directamente con los principios del Aprendizaje Basado en Problemas (ABP), donde el aprendizaje se activa a partir de situaciones auténticas y cercanas al contexto del estudiante.
-
-La historia sigue a un estudiante de primer año que ingresa a la universidad, acompañado de una mascota en forma de orca. Esta mascota no solo cumple una función estética o de compañía, sino que actúa como un elemento de soporte emocional y guía lúdica dentro de la novela visual, reforzando la persistencia del estudiante ante la frustración y contribuyendo a la fijación de la atención. A lo largo de la trama, el protagonista interactúa con diversos personajes: compañeros de su mismo aula que fomentan la normalización del error y el aprendizaje colaborativo, estudiantes de años superiores que representan un modelo a seguir, y el profesor, quien asume un rol central como facilitador del conocimiento.
-
-La integración entre la narrativa y la mecánica de juego se materializa a través de la estructura de los niveles. Cada concepto de programación (variables, condicionales, ciclos, entre otros) se presenta como una misión o tarea asignada por el profesor dentro de la historia. Por ejemplo, el docente puede solicitar al protagonista que resuelva un problema cotidiano de la facultad utilizando lógica computacional. Es en este punto donde el estudiante (jugador) debe intervenir activamente: la novela visual pausa su flujo narrativo para dar paso a la interfaz de programación visual, donde el estudiante debe construir la solución utilizando bloques que representan las estructuras lógicas correspondientes al concepto enseñado.
-
-Desde la perspectiva del constructivismo, esta mecánica obliga al estudiante a construir su propio conocimiento al ensamblar los bloques, ensayar, cometer errores y observar las consecuencias de forma inmediata dentro del entorno seguro del videojuego. Si la solución es correcta, la narrativa avanza: el problema del personaje se resuelve, se desbloquea un nuevo diálogo y la historia progresa. Si es incorrecta, el sistema brinda retroalimentación constructiva sin penalizaciones drásticas, permitiendo reintentar y fomentando la autonomía en la resolución de problemas.
-
-Finalmente, la progresión de la historia está diseñada para sostener la \textbf{teoría del flujo}. A medida que el estudiante avanza en su vida universitaria dentro del juego, las interacciones se vuelven más complejas y las tareas del profesor requieren la integración de conceptos previos con nuevos elementos. Este incremento escalonado en la dificultad narrativa y técnica garantiza que el desafío se mantenga equilibrado con las habilidades adquiridas por el jugador, evitando el aburrimiento en las etapas iniciales y la ansiedad en las más avanzadas, promoviendo así un estado de inmersión y motivación sostenida a lo largo de todo el curso.
-
-\section{Diseño del tablero de analíticas del aprendizaje}
-
-El diseño del tablero de analíticas del aprendizaje (LAD, por sus siglas en inglés) constituye uno de los componentes más relevantes de la plataforma propuesta, ya que representa el puente
-entre la experiencia de juego del estudiante y la capacidad de intervención pedagógica
-del docente. A diferencia de los entornos educativos convencionales, donde los datos
-de desempeño suelen ser escasos o generados de forma discontinua, los videojuegos
-generan trazas de alta granularidad que, correctamente procesadas y visualizadas,
-pueden transformar la práctica docente en una actividad informada y proactiva
-\cite{rahimi2021learning}.
-
-En este sentido, el objetivo central del tablero no es la mera visualización de
-métricas, sino la producción de información accionable: representaciones que permitan
-al docente comprender el proceso cognitivo de sus estudiantes, identificar patrones
-de dificultad recurrentes y tomar decisiones pedagógicas fundamentadas en evidencia.
-Tal como señalan Susnjak, Ramaswami y Mathrani \cite{susnjak_learning_2022}, un LAD es
-pedagógicamente útil en la medida en que va más allá del desempeño superficial y se
-centra en el aprendizaje real. Esta premisa guía todas las decisiones de diseño
-descritas en la presente sección.
-
-\subsection{Indicadores clave de rendimiento y aprendizaje}
-
-La selección de los indicadores a representar en el tablero responde a una doble
-lógica: por un lado, la disponibilidad de datos generados por las trazas xAPI del
-videojuego; por otro, su pertinencia pedagógica para el seguimiento del aprendizaje
-de la programación. A partir del análisis de la revisión de la literatura, se identifican tres categorías de indicadores.
-
-\textbf{Indicadores de progreso académico:}
-\begin{itemize}
-	\item Niveles completados vs. niveles disponibles por concepto de programación.
-	\item Porcentaje de superación por tema.
-	\item Evolución histórica del desempeño individual a lo largo del tiempo,
-	fomentando la autorregulación.
-\end{itemize}
-
-\textbf{Indicadores de desempeño en la resolución de problemas:}
-\begin{itemize}
-	\item Número de intentos por nivel y tasa de éxito en el primer intento.
-	\item Tiempo promedio de resolución por nivel y por concepto.
-	\item Tipos de errores más frecuentes, clasificados según el bloque lógico
-	involucrado.
-	\item Eficiencia de la solución: relación entre la cantidad de bloques utilizados
-	y la solución óptima.
-\end{itemize}
-
-\textbf{Indicadores de motivación y flujo:}
-\begin{itemize}
-	\item Tiempo de sesión activa y frecuencia de abandono por nivel.
-	\item Niveles repetidos voluntariamente, como indicador de motivación intrínseca.
-	\item Estado de adaptación del agente: estrategia activa para cada estudiante
-	(simplificación, complejización o neutro).
-\end{itemize}
-
-Todos estos indicadores se alimentan de las declaraciones xAPI generadas por el
-videojuego en el formato Actor-Verbo-Objeto. La especificación xAPI permite capturar
-eventos de aprendizaje tanto en línea como fuera de línea, asegurando la continuidad
-del registro aun en escenarios de conectividad intermitente \cite{serrano2017xapi}.
-Cada interacción del estudiante con los bloques de programación, cada intento de
-solución y cada resultado de nivel queda registrado como una declaración estructurada
-que el backend central procesa y agrega para alimentar las visualizaciones del tablero.
-
-\subsection{Componentes visuales y estructura de vistas}
-\label{architectue:lad-view}
-
-El tablero de analíticas se organiza en tres vistas diferenciadas, cada una 
-diseñada para responder a una necesidad pedagógica específica del docente. 
-La selección de los tipos de gráficos no responde únicamente a criterios 
-estéticos, sino a la naturaleza de los datos a representar y al tipo de 
-decisión que cada vista debe facilitar. Tal como establece 
-\textcite{tufte2001}, la excelencia en la visualización de datos consiste en 
-comunicar ideas complejas con claridad, precisión y eficiencia, principio 
-que guía la elección de cada componente visual descrito a continuación.
-
-\subsubsection{Vista general}
-
-La vista general proporciona al docente una panorámica del grupo completo,
-orientada a responder una pregunta central: \textit{¿cómo se encuentra el curso
-	en su conjunto?} Para ello se seleccionaron los siguientes tipos de gráficos.
-
-\textbf{Gráfico de barras agrupadas} para representar el porcentaje de
-estudiantes que han completado cada concepto de programación (variables,
-condicionales, ciclos, etc.). Las barras agrupadas permiten comparar de forma
-directa el avance relativo entre temas, facilitando la identificación inmediata
-de los conceptos con menor tasa de superación grupal. Este tipo de visualización
-es especialmente eficaz cuando se comparan categorías discretas y mutuamente
-excluyentes, como los temas del currículo \cite{few2009}.
-
-\textbf{Gráfico de pastel o dona} para mostrar la distribución del grupo según
-su estado de desempeño: \textit{Óptimo}, \textit{Necesita refuerzo} y
-\textit{En riesgo}. Aunque la literatura advierte sobre el uso indiscriminado
-del gráfico circular \cite{few2009}, su aplicación resulta adecuada en este
-contexto porque se representan tres categorías exhaustivas y mutuamente
-excluyentes cuya proporción relativa —y no su magnitud absoluta— es el dato
-pedagógicamente relevante para el docente. La variante de dona se prefiere
-por su menor densidad visual al incorporar el porcentaje total en el centro.
-
-\textbf{Tarjetas de indicador} para exponer de un solo
-vistazo los valores más críticos del grupo: promedio general de avance, nivel
-con mayor tasa de fracaso y número de estudiantes en riesgo. Este componente
-responde directamente al principio de legibilidad inmediata \cite{ilearn2023},
-ya que concentra la información accionable más urgente sin requerir
-interpretación gráfica adicional por parte del docente.
-
-\subsubsection{Vista de estudiante}
-
-La vista de estudiante está orientada al seguimiento individual y adopta el
-marco de progreso intrapersonal descrito por Susnjak et al. \textcite{susnjak_learning_2022},
-que centra el análisis en la evolución del propio estudiante para evitar el efecto
-negativo de la comparación social directa sobre la autoeficacia de los alumnos
-de bajo rendimiento \cite{rahimi2021learning}. La pregunta central que guía esta
-vista es: \textit{¿cómo ha evolucionado este estudiante y dónde necesita apoyo?}
-
-\textbf{Gráfico de líneas temporales} para representar la evolución del
-desempeño del estudiante a lo largo del tiempo: puntuación obtenida por nivel,
-número de intentos y tiempo de resolución en cada sesión. El gráfico de líneas
-es el tipo de visualización canónico para datos secuenciales y temporales, pues
-permite percibir tendencias, regresiones y puntos de inflexión de forma intuitiva
-\cite{few2009}. En este contexto, una pendiente descendente en la puntuación
-puede alertar al docente sobre un deterioro en el rendimiento antes de que se
-consolide como patrón.
-
-\textbf{Mapa de calor} para representar la frecuencia y distribución de errores
-del estudiante según el tipo de bloque lógico (condicional, ciclo, variable) y el
-nivel en que ocurrieron. El mapa de calor es especialmente adecuado para
-visualizar matrices de dos dimensiones donde la intensidad del color codifica
-una magnitud —en este caso, la frecuencia de error— permitiendo identificar de
-forma inmediata qué combinaciones de concepto y nivel generan mayor
-dificultad \cite{wilke2019}. Esta información es de alto valor pedagógico, pues
-orienta al docente hacia las zonas de dificultad cognitiva específica del
-estudiante, más allá de la simple calificación.
-
-\textbf{Barra de progreso por concepto} para mostrar el grado de dominio
-alcanzado en cada tema del currículo, expresado como porcentaje de niveles
-superados sobre el total disponible. Este componente visual simple pero
-efectivo permite al docente evaluar de un vistazo la cobertura curricular del
-estudiante e identificar vacíos de aprendizaje concretos.
-
-\textbf{Histograma de intentos por nivel} para visualizar la distribución de la
-cantidad de intentos que el estudiante necesitó para superar cada nivel. A
-diferencia del gráfico de barras, el histograma representa la distribución de
-frecuencias de una variable continua, en este caso el esfuerzo invertido por
-el estudiante, lo que permite identificar niveles que generaron bloqueos
-prolongados y distinguirlos de aquellos resueltos de forma fluida \cite{few2009}.
-
-\subsubsection{Vista comparativa entre cursos escolares}
-
-La vista comparativa agrega los datos de múltiples grupos o cursos escolares
-para responder la pregunta: \textit{¿cómo se compara el desempeño de este
-	curso frente a grupos anteriores o del mismo período} Su propósito
-	es ofrecer al docente una visión más amplia que va más allá del seguimiento
-	individual, permitiendo evaluar si la plataforma y la secuencia de contenidos
-	están funcionando de forma consistente a lo largo del tiempo y entre distintos
-	grupos de estudiantes.
-
-\textbf{Gráfico de barras apiladas} para comparar la distribución de estados
-de desempeño (Óptimo / Necesita refuerzo / En riesgo) entre distintos cursos
-escolares. Las barras apiladas permiten comparar tanto la composición interna
-de cada grupo como su tamaño total, facilitando la identificación de cursos
-con mayor proporción de estudiantes en riesgo de forma visualmente directa.
-
-\textbf{Gráfico de líneas múltiples} para representar la evolución temporal del
-promedio de desempeño de cada curso a lo largo de las semanas o unidades del
-semestre. La superposición de líneas por curso permite identificar patrones
-comunes —como caídas de rendimiento en el módulo de ciclos— y diferenciar
-cursos que mantienen una progresión estable de aquellos con alta variabilidad.
-
-\textbf{Mapa de calor comparativo} para visualizar la tasa de fracaso por nivel
-y por curso escolar en una matriz bidimensional. Este gráfico permite identificar
-qué niveles específicos generan dificultad de forma consistente a través de
-distintas cohortes, lo que puede señalar problemas en el diseño del nivel más
-que en el desempeño de un grupo particular.
-
-\subsubsection{Tabla resumen de componentes visuales}
-
-La siguiente tabla sintetiza la correspondencia entre cada vista del tablero,
-los tipos de gráficos seleccionados y el propósito pedagógico que justifica
-su elección.
-
-\begin{longtable}{|p{0.22\linewidth}|p{0.22\linewidth}|p{0.46\linewidth}|}
-	\caption{Tabla resumen de los gráficos utilizados por vista.}
-	\label{tab:charts} \\
-	
-	\hline
-	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
-	\hline
-	\endfirsthead
-	\multicolumn{3}{c}{\tablename\ \thetable\ -- continuación} \\
-	\hline
-	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
-	\hline
-	\endhead
-	\hline
-	\endfoot
-	\hline
-	\endlastfoot
-	
-	General & Barras agrupadas
-	& Comparar el avance por concepto de programación en el grupo. \\
-	\hline
-	General & Pastel / dona
-	& Mostrar la distribución del grupo por estado de desempeño. \\
-	\hline
-	General & KPI cards
-	& Exponer los indicadores críticos del curso de forma inmediata. \\
-	\hline
-	
-	Estudiante & Líneas temporales
-	& Visualizar la evolución del desempeño individual en el tiempo. \\
-	\hline
-	Estudiante & Mapa de calor
-	& Identificar la distribución de errores por concepto y nivel. \\
-	\hline
-	Estudiante & Barra de progreso
-	& Mostrar el dominio alcanzado por tema curricular. \\
-	\hline
-	Estudiante & Histograma de intentos
-	& Detectar niveles que generaron bloqueo prolongado. \\
-	\hline
-	
-	Comparativa & Barras apiladas
-	& Comparar la composición de desempeño entre cursos. \\
-	\hline
-	Comparativa & Líneas múltiples
-	& Comparar la evolución temporal del promedio entre cohortes. \\
-	\hline
-	Comparativa & Mapa de calor comparativo
-	& Identificar niveles con dificultad consistente entre cursos. \\
-	\hline
-	
-\end{longtable}
-
-\section{Requisitos funcionales}
-
-Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso se han dividido los requisitos funcionales según el módulo al que corresponde: \textit{videojuego}, \textit{aplicación web}, \textit{back-end}.
-
-\requisitos{Requisitos funcionales del videojuego}{
-	El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución;
-	El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior;
-	El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos;
-	La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales;
-	Cada nivel debe estar asociado a un tema específico de programación claramente identificable;
-	El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador;
-	El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador;
-	El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color;
-	El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel;
-	Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado;
-	El sistema debe permitir construir soluciones mediante bloques de programación visual;
-	Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables;
-	Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento;
-	El jugador debe poder consultar un resumen global de su progreso académico;
-	Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje;
-	El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores;
-	El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego;
-	El jugador debe poder repetir niveles ya completados para mejorar su desempeño;
-	El videojuego debe capturar automáticamente las interacciones del jugador (acciones sobre bloques, diálogos seleccionados, tiempos de respuesta) y transformarlas en declaraciones xAPI;
-	El videojuego debe actualizar un modelo del estudiante a partir de sus interacciones, registrando aciertos, errores, tiempos y uso de ayudas;
-	El videojuego debe presentar una narrativa interactiva en formato de novela visual que contextualice los ejercicios de programación dentro de una historia universitaria;
-	El videojuego debe pausar el flujo narrativo para presentar la interfaz de programación cuando el nivel lo requiera;
-	El videojuego debe desbloquear nuevos diálogos y avanzar la narrativa cuando el jugador resuelva correctamente el problema del nivel;
-	El videojuego debe almacenar localmente las trazas xAPI cuando no exista conectividad y sincronizarlas con el servidor cuando se restablezca la conexión
-}
-
-\requisitos{Requisitos funcionales de la aplicación web del profesor}{
-	El sistema debe mostrar al profesor un resumen del progreso individual y grupal de los estudiantes;
-	El sistema debe mostrar un mapa de calor con la distribución de errores del estudiante según tipo de bloque lógico y nivel;
-	El sistema debe mostrar un histograma de intentos por nivel para identificar niveles que generaron bloqueo prolongado;
-	El sistema debe mostrar una vista comparativa entre cursos escolares con gráficos de barras apiladas, líneas múltiples y mapa de calor comparativo;
-	El sistema debe categorizar automáticamente el estado de desempeño de cada estudiante como Óptimo, Necesita refuerzo o En riesgo;
-	El sistema debe presentar métricas detalladas como niveles completados, errores y tiempo promedio;
-	El sistema debe generar gráficos comparativos de rendimiento entre estudiantes;
-	El profesor debe poder visualizar el historial completo de desempeño de cada estudiante;
-	El sistema debe notificar al profesor cuando un estudiante presente bajo rendimiento reiterado;
-	El profesor debe poder enviar comentarios personalizados a estudiantes o grupos;
-	El sistema debe permitir definir objetivos personalizados para estudiantes o grupos;
-	El sistema debe permitir crear, editar y eliminar niveles educativos;
-	El profesor debe poder asignar niveles a estudiantes o grupos según su desempeño;
-	El sistema debe permitir crear evaluaciones basadas en niveles existentes;
-	El sistema debe permitir exportar reportes académicos en formatos estándar como PDF o CSV;
-	El sistema debe integrarse con plataformas LMS para autenticación y sincronización académica
-}
-
-\requisitos{Requisitos funcionales del back-end}{
-	El backend debe recibir, validar y almacenar las declaraciones xAPI enviadas por el videojuego en formato Actor-Verbo-Objeto;
-	El backend debe agregar las declaraciones xAPI para generar los indicadores del tablero de analíticas;
-	El backend debe exponer una API REST para la comunicación con los clientes;
-	El sistema debe gestionar la autenticación y autorización de usuarios;
-	El backend debe almacenar de forma persistente los datos académicos y de progreso;
-	El sistema debe sincronizar información con plataformas LMS externas;
-	El backend debe procesar métricas de desempeño para análisis pedagógico;
-	El sistema debe permitir la gestión de usuarios y roles;
-	El sistema debe gestionar cursos, grupos y matrículas;
-	El backend debe permitir la generación de reportes consolidados;
-	El sistema debe registrar eventos relevantes del sistema;
-	El backend debe permitir la recuperación de información histórica;
-	El sistema debe permitir la sincronización diferida cuando no exista conectividad;
-	El backend debe validar la consistencia de los datos recibidos;
-	El sistema debe permitir la escalabilidad del número de usuarios;
-	El backend debe permitir la configuración de parámetros del sistema;
-	El sistema debe permitir la integración con servicios externos adicionales;
-	El backend debe permitir auditoría de operaciones;
-	El sistema debe gestionar copias de seguridad;
-	El sistema debe gestionar notificaciones del sistema;
-	El backend debe permitir el monitoreo del estado del sistema;
-	El backend debe permitir el análisis histórico de resultados;
-	El sistema debe permitir exportación de datos académicos;
-	El backend debe permitir la trazabilidad de acciones del usuario;
-	El backend debe soportar múltiples cursos simultáneamente;
-}
-\section{Requisitos no funcionales}
-
-Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
-
-\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
-	\caption{Tabla de requisitos no funcionales} \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito No Funcional}                                                                           \\
-	\hline
-	\endfirsthead
-
-	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación}                                                                              \\
-	\hline
-	\textbf{ID} & \textbf{Descripción del Requisito No Funcional}                                                                           \\
-	\hline
-	\endhead
-
-	\hline
-	\endfoot
-
-	\hline
-	\endlastfoot
-
-	RNF1        & El sistema debe proporcionar una interfaz gráfica intuitiva que permita el uso tras un máximo de 3 horas de capacitación. \\
-	\hline
-	RNF2        & El sistema debe cumplir con principios de accesibilidad conforme a WCAG 2.1 nivel AA.                                     \\
-	\hline
-	RNF3        & El sistema debe mostrar mensajes claros y comprensibles ante acciones exitosas, errores o advertencias.                   \\
-	\hline
-	RNF4        & La aplicación web debe ser compatible con los navegadores Chrome, Firefox, Brave y Safari.                                \\
-	\hline
-	RNF5        & La interfaz debe adaptarse correctamente a diferentes resoluciones de pantalla.                                           \\
-	\hline
-	RNF6        & El módulo videojuego debe ejecutarse en plataformas Android y Windows.                                                    \\
-	\hline
-	RNF7        & El sistema debe permitir la internacionalización de la interfaz en español e inglés.                                      \\
-	\hline
-	RNF8        & El sistema debe responder a interacciones locales en un tiempo máximo de 300 ms.                                          \\
-	\hline
-	RNF9        & La aplicación web debe cargar las vistas principales en un tiempo máximo de 3 segundos.                                   \\
-	\hline
-	RNF10       & El videojuego debe ejecutarse con una tasa mínima de 30 FPS.                                                              \\
-	\hline
-	RNF11       & El sistema debe garantizar autenticación segura basada en tokens.                                                         \\
-	\hline
-	RNF12       & Los datos deben protegerse mediante cifrado en tránsito (HTTPS).                                                          \\
-	\hline
-	RNF13       & El acceso a funcionalidades debe restringirse según el rol del usuario.                                                   \\
-	\hline
-	RNF14       & El sistema debe evitar la pérdida de progreso ante cierres inesperados.                                                   \\
-	\hline
-	RNF15       & El sistema debe reintentar la sincronización ante fallos de red.                                                          \\
-	\hline
-	RNF16       & El sistema debe mantener la consistencia de los datos.                                                                    \\
-	\hline
-	RNF17       & El sistema debe interoperar con plataformas LMS estándar.                                                                 \\
-	\hline
-	RNF18       & El código fuente debe ser modular, organizado y documentado.                                                              \\
-	\hline
-	RNF19       & El sistema debe poder desplegarse mediante contenedores Docker.                                                           \\
-	\hline
-	RNF20       & El sistema debe registrar eventos relevantes de operación.                                                                \\
-	\hline
-	RNF21       & El backend debe soportar crecimiento progresivo de usuarios sin degradar rendimiento.                                     \\
-	\hline
-	RNF22       & El sistema debe alcanzar una disponibilidad mínima del 95\%.                                                              \\
-	\hline
-	RNF23       & El sistema debe permitir copias de seguridad periódicas.                                                                  \\
-	\hline
-	RNF24       & El sistema debe permitir rastrear la evolución del aprendizaje.                                                           \\
-	\hline
-	RNF25       & El sistema debe permitir incorporar nuevos niveles sin modificar la arquitectura.                                         \\
-	\hline
-	RNF26       & El sistema debe presentar los conceptos usando terminología acorde al nivel educativo.                                    \\
-	\hline
-\end{longtable}
-
-
-\section{Casos de uso de la plataforma}
-
-\subsection{Actores del sistema}
-
-Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este proyecto, se identifican dos actores principales:
-
-\begin{itemize}
-	\item \textbf{Estudiante}: Es el usuario principal del videojuego. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
-
-	\item \textbf{Profesor}: Usuario principal del tablero de analíticas, encargado de supervisar el progreso de los estudiantes, asignar niveles personalizados y recibir notificaciones relevantes sobre el desempeño académico de sus alumnos.
-\end{itemize}
-
-Ambos actores interactúan con el sistema de manera diferente, pero están interconectados mediante un back-end compartido que permite la sincronización de datos y la comunicación bidireccional entre ellos.
-
-
-\subsection{Diagrama de caso de uso del sistema}
-
-\textbf{Videojuego educativo}
-
-El módulo del videojuego constituye el componente central del sistema educativo, diseñado para que los estudiantes exploren conceptos de programación mediante experiencias de juego interactivas. Este enfoque gamificado transforma conceptos abstractos en actividades prácticas y atractivas que facilitan el aprendizaje de manera natural.
-
-Como se aprecia en el diagrama de caso de uso del módulo del videojuego (ver Figura \ref{fig:use-case-videogame}), el estudiante interactúa con un sistema que evalúa su desempeño de forma continua, ajustando la dificultad de los desafíos según el rendimiento individual. Entre las funcionalidades principales se encuentra la construcción de soluciones a través de bloques de programación visual que representan estructuras lógicas esenciales como condiciones, ciclos y variables, permitiendo experimentar con la lógica computacional de forma intuitiva.
-
-El sistema ofrece retroalimentación inmediata después de cada acción, registrando métricas detalladas tales como tiempo de resolución, frecuencia de errores y nivel de eficiencia. Esta evaluación automática no solo mide el aspecto técnico del aprendizaje, sino que alimenta el mecanismo de adaptación que modifica dinámicamente la complejidad de los niveles posteriores, garantizando que cada estudiante progrese según su propio ritmo de aprendizaje.
-
-Adicionalmente, el módulo incorpora un tutorial interactivo para usuarios noveles, opciones de configuración personalizables y un sistema de guardado automático del progreso. Los estudiantes pueden revisar resúmenes de su desempeño general y practicar niveles completados para consolidar sus conocimientos, promoviendo una cultura de mejora continua y exploración autónoma.
-
-\begin{landscape}
-	\thispagestyle{empty}
-	\begin{figure}[p]
-		\centering
-		\vspace*{\fill}
-		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Hello_World Use Case}
-		\caption[Diagrama de caso de uso: Hello World]{Diagrama de caso de uso para el módulo correspondiente al estudiante}
-		\label{fig:use-case-videogame}
-		\vspace*{\fill}
-	\end{figure}
-\end{landscape}
-
-
-\textbf{App web docente}
-
-Complementario al módulo de aprendizaje, el Teacher Core proporciona a los educadores una interfaz integral para supervisar y gestionar el proceso educativo. Esta plataforma web sirve como nexo entre la teoría pedagógica y la práctica docente, ofreciendo herramientas avanzadas para el seguimiento personalizado del progreso estudiantil.
-
-El diagrama de caso de uso del módulo Teacher Core (ver Figura \ref{fig:use-case-teacher}) ilustra las diversas interacciones que el docente mantiene con el sistema. Las funcionalidades centrales incluyen un panel analítico que presenta métricas detalladas del rendimiento estudiantil, desde niveles completados y tiempos promedio hasta patrones específicos de error, facilitando la identificación de fortalezas y áreas de mejora con mayor precisión.
-
-Los educadores pueden crear y administrar contenido educativo personalizado, asignando niveles específicos a estudiantes individuales o grupos conforme a su evaluación del progreso académico. El sistema genera reportes comparativos y representaciones gráficas que simplifican el análisis de tendencias grupales, mientras que las herramientas de comunicación permiten enviar comentarios personalizados y establecer objetivos adaptados a las necesidades particulares de cada estudiante.
-
-La integración con plataformas estándar de gestión del aprendizaje (LMS) garantiza una sincronización fluida de datos académicos, y las capacidades de exportación en formatos universales como PDF y CSV facilitan la documentación y el intercambio de información institucional.
-
-La innovación fundamental de esta arquitectura reside en la integración fluida entre el módulo Hello World y Teacher Core, conformando un ecosistema educativo cohesionado donde las acciones estudiantiles informan directamente las decisiones pedagógicas de los docentes. El backend compartido funciona como núcleo central, sincronizando datos en tiempo real y habilitando una comunicación bidireccional que transforma el aprendizaje en un proceso colaborativo y adaptativo.
-
-Esta interconexión permite al docente identificar patrones de comportamiento emergentes en el aula virtual, ajustando dinámicamente los niveles de dificultad o interviniendo con apoyo personalizado cuando detecta estudiantes que requieren atención adicional. Simultáneamente, los estudiantes reciben retroalimentación contextualizada que refleja tanto su rendimiento técnico como su posición relativa dentro del grupo, fomentando una competencia constructiva y motivación colectiva.
-
-El resultado es una plataforma educativa que supera el paradigma tradicional de enseñanza unidireccional, evolucionando hacia un modelo interactivo donde profesor y estudiante co-construyen el proceso de aprendizaje, sustentado por datos precisos y adaptabilidad tecnológica que atiende necesidades individuales sin comprometer los objetivos colectivos del aula.
-
-\begin{landscape}
-	\thispagestyle{empty}
-	\begin{figure}[p]
-		\centering
-		\vspace*{\fill}
-		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Teacher Core Use Case}
-		\caption[Diagrama de Caso de uso para el módulo correspondiente al profesor]{Diagrama de Caso de Uso para el Módulo correspondiente al profesor}
-		\label{fig:use-case-teacher}
-		\vspace*{\fill}
-	\end{figure}
-\end{landscape}
-
-\section{Modelo de datos}
-
-El modelo de datos constituye la estructura fundamental que sustenta toda la arquitectura del sistema educativo, definiendo cómo se organizan y relacionan los datos académicos generados por la plataforma. Esta sección presenta los dos modelos principales: el local, específico del módulo de videojuego, y el global, que integra la información de toda la plataforma. Estos modelos garantizan la consistencia y eficiencia en el almacenamiento de datos, permitiendo un seguimiento preciso del progreso estudiantil y una gestión efectiva por parte de los educadores.
-
-\subsection{Modelo local de datos para el videojuego}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/bd_local_game.png}
-	\caption[Modelo de datos para el videojuego educativo]{Modelo de datos para el videojuego educativo}
-	\label{fig:bd-local}
-\end{figure}
-
-Como se observa en el modelo de datos local del videojuego (ver Figura \ref{fig:bd-local}), este esquema se centra en la gestión específica de la información generada durante las sesiones de juego interactivo. La estructura principal se organiza alrededor de las entidades que registran el progreso individual de cada estudiante, incluyendo métricas de desempeño, niveles completados y configuraciones de juego.
-
-Las relaciones entre entidades permiten rastrear el avance progresivo a través de los diferentes niveles educativos, almacenando datos temporales como tiempos de resolución, puntuaciones obtenidas y patrones de error. Esta arquitectura local facilita tanto la evaluación automática del rendimiento como la recuperación de sesiones interrumpidas, asegurando una experiencia de aprendizaje continua y adaptativa.
-
-\subsubsection{Json de configuración de nivel}
-
-Como se puede ver en la Figura~\ref{fig:adaptative-json}, cada nivel del videojuego está definido por un archivo JSON de configuración. Este enfoque orientado a datos\footnote{El enfoque \textit{data-driven} consiste en separar la lógica del sistema de los datos que lo configuran, de modo que el comportamiento del sistema puede modificarse cambiando los datos sin alterar el código.} permite modificar el comportamiento de un nivel y persistir esos cambios sin intervenir en la lógica del juego.
-
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/adaptative-json.png}
-	\caption[JSON orientado a datos para el videojuego]{JSON orientado a datos para el videojuego}
-	\label{fig:adaptative-json}
-\end{figure}
-
-
-Para ilustrar el uso de estos campos, se tomará como ejemplo el contexto de la biblioteca de la facultad, en el que el protagonista debe ayudar a un compañero a organizar una lista de libros siguiendo un criterio lógico establecido por el profesor. En este escenario, el campo \texttt{initial\_state} define el estado con el que arranca el nivel: por ejemplo, la cantidad de libros desordenados disponibles en el estante al inicio de la sesión. El campo \texttt{expected\_outputs} establece la salida esperada, es decir, la lista de libros correctamente ordenada que el jugador debe producir para completar el nivel. Por su parte, \texttt{available\_blocks} determina qué bloques de programación están habilitados en ese nivel en particular, como bloques de comparación o de ciclos necesarios para recorrer la lista. El campo \texttt{environment\_data} describe los elementos propios del entorno: la cantidad de estantes disponibles, los títulos presentes o el tipo de criterio de ordenamiento aplicable en esa escena. Finalmente, \texttt{defined\_actions} especifica las acciones concretas que pueden ejecutarse en el nivel; dado que otros niveles pueden reutilizar el contexto de la biblioteca, este campo permite restringir o ampliar el conjunto de acciones disponibles según las necesidades pedagógicas de cada uno.
-
-\subsection{Modelo global de datos para el sistema}
-
-
-El modelo global de datos (ver Figura \ref{fig:bd-global}) integra las perspectivas de los tres módulos principales del sistema (videojuego, aplicación docente y backend) creando una arquitectura unificada que permite la sincronización eficiente de información académica. Este esquema establece conexiones entre entidades compartidas que facilitan la comunicación bidireccional entre estudiantes y educadores.
-
-Las relaciones transversales permiten que los datos generados en el módulo de juego fluyan automáticamente hacia las interfaces de gestión docente, manteniendo la consistencia y habilitando funcionalidades como reportes comparativos y análisis de tendencias grupales. Esta integración global no solo simplifica la administración del sistema educativo, sino que también soporta la escalabilidad y la interoperabilidad con plataformas externas de gestión del aprendizaje.
-
-\begin{landscape}
-	\pagestyle{empty}
-	\begin{figure}[p]
-		\vspace*{\fill}
-		\centering
-		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/bd/bd_global_platform.png}
-		\caption[Modelo global de datos]{Modelo global de datos de la plataforma}
-		\label{fig:bd-global}
-		\vspace*{\fill}
-	\end{figure}
-\end{landscape}
-
-\section{Arquitectura del sistema}
-
-La sección de arquitectura del sistema presenta la estructura técnica fundamental de la plataforma educativa Hello World, detallando cómo se organizan e interconectan los diferentes componentes tecnológicos para lograr los objetivos pedagógicos propuestos.
-
-Para el desarrollo de esta arquitectura se tomó como base el modelo C4 de Simon Brown, un enfoque estructurado para la documentación de arquitecturas de software que proporciona cuatro niveles de abstracción: Contexto, Contenedor, Componente y Código. Este modelo permite comunicar la arquitectura de manera clara y consistente, facilitando la comprensión tanto para desarrolladores como para stakeholders no técnicos \cite{brown2018c4}.
-
-En el contexto de esta tesis, se adaptó el modelo C4 utilizando diagramas UML para representar visualmente las relaciones y dependencias entre los elementos del sistema. Sin embargo, considerando el alcance del proyecto y la profundidad requerida para una tesis académica, se implementaron únicamente los niveles de Contenedor y Componente:
-
-\begin{itemize}
-	\item \textbf{Nivel Contenedor}: Representa los principales procesos ejecutables y almacenes de datos que conforman la plataforma, mostrando cómo se despliega el sistema en la infraestructura tecnológica.
-	\item \textbf{Nivel Componente}: Detalla los componentes principales dentro de cada contenedor, ilustrando las responsabilidades específicas y las interacciones entre módulos.
-\end{itemize}
-
-Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
-
-\subsection{Arquitectura general}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-context.png}
-	
-	
-	\caption[Diagrama de arquitectura global]{Diagrama de arquitectura global}
-	\label{fig:architecture-container}
-\end{figure}
-
-La arquitectura general de la plataforma educativa Hello World se representa mediante un diagrama de paquetes UML que ilustra las interacciones externas del sistema y establece sus límites principales. Implementa un patrón cliente-servidor, siendo el back-end el servidor, y el videojuego y front-end del profesor los clientes que se comunican con el back-end.
-
-En el centro del diagrama se encuentra la \textbf{Plataforma Hello World}, que representa el sistema completo,  integrado por tres componentes principales: el módulo de videojuego educativo, la aplicación web para docentes y el backend central. Este sistema actúa como núcleo de la solución pedagógica adaptativa.
-
-Los actores principales identificados en el diagrama son únicamente dos:
-
-\begin{itemize}
-	\item \textbf{Estudiante}: Usuario principal que interactúa directamente con el módulo de videojuego, recibiendo contenido educativo personalizado y proporcionando datos de rendimiento para el sistema adaptativo.
-	\item \textbf{Profesor}: Educador que accede a la interfaz web de gestión docente para supervisar el progreso estudiantil, configurar niveles educativos y analizar métricas pedagógicas.
-\end{itemize}
-
-Además de los actores humanos, el diagrama muestra las conexiones con dos sistemas externos fundamentales:
-
-\begin{itemize}
-	\item \textbf{Servidor de Correo}: Sistema externo que maneja las comunicaciones por email, utilizado para notificaciones automáticas, envío de reportes y comunicación entre la plataforma y los usuarios.
-	\item \textbf{Sistema LMS}: Plataforma de gestión del aprendizaje externa que se integra con Hello World para autenticación centralizada de usuarios y sincronización de datos académicos entre sistemas.
-\end{itemize}
-
-Las relaciones principales ilustradas incluyen flujos de datos bidireccionales entre estudiantes y el módulo de videojuego, interacciones de gestión entre profesores y la interfaz web, conexiones de notificación con el servidor de correo para envío de alertas y reportes, y enlaces de integración con el sistema LMS para autenticación y sincronización académica. Esta vista contextual establece claramente el alcance del sistema, sus interfaces externas y su integración en el ecosistema educativo más amplio.
-
-\subsection{Arquitectura a detalle por módulo}
-
-
-\textbf{Videojuego educativo}
-
-El módulo de videojuego educativo implementa el patrón arquitectónico Modelo-Vista-Controlador (MVC), una decisión metodológica profundamente fundamentada en las características intrínsecas del motor Godot y su modelo de desarrollo de juegos, que establece una separación clara entre la lógica de presentación y la lógica de dominio en entornos interactivos.
-
-Como se observa en el diagrama MVC (ver Figura \ref{fig:architecture-mvc-game}), la arquitectura consolida todos los modelos del dominio en un único paquete cohesionado que encapsula las entidades principales del sistema educativo -usuarios, niveles, progresos y métricas de aprendizaje-. Esta centralización de modelos garantiza la integridad referencial y facilita la validación de invariantes del dominio. Los elementos de vista representados -DialogueScene para interacciones narrativas pedagógicas, MapScenes para navegación contextualizada, LevelsScene para presentación estructurada de desafíos, y otros componentes de interfaz gráfica- demuestran una clara separación entre la presentación visual y la lógica subyacente.
-
-Las clases controlador implementadas -GameController para el flujo general del juego y las transiciones entre estados, y LevelManager para la administración específica de niveles y su lógica de progreso- argumentan fuertemente a favor de MVC por su capacidad para centralizar la lógica de control y coordinar las interacciones entre modelo y vista. La decisión de utilizar MVC se fundamenta en el sistema de señales de Godot, que permite una comunicación eficiente entre controladores y vistas, y en la separación natural de escenas en elementos visuales (vistas) y lógica de comportamiento (controladores), facilitando el desarrollo y mantenimiento de juegos educativos adaptativos.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-mvc-game.png}
-	\caption[Diagrama de arquitectura para el módulo correspondiente al videojuego educativo]{Diagrama de arquitectura para el módulo correspondiente al videojuego educativo}
-	\label{fig:architecture-mvc-game}
-\end{figure}
-
-\textbf{Back-end central}
-\label{architecture:backend}
-
-El backend central adopta los principios de \textit{Clean Architecture} formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-clean-architecture-backend.png}
-	\caption[Diagrama de \textit{clean architecture} para el backend]{Diagrama de \textit{clean architecture} para el backend}
-	\label{fig:architecture-clean-backend}
-\end{figure}
-
-Como se aprecia en el diagrama (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
-
-La arquitectura establece una regla de dependencia unidireccional que apunta hacia adentro, asegurando que los cambios en frameworks externos no propaguen efectos secundarios hacia la lógica de dominio. La aplicación del principio "Screaming Architecture"  hace que la arquitectura exprese claramente sus intenciones principales -una plataforma educativa adaptativa- a través de la organización clara de casos de uso y entidades del dominio.
-
-\textbf{Aplicación web de gestión docente}
-\label{architectue:lad-nextjs}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-component-based-web.png}
-	\caption[Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente]{Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente}
-	\label{fig:architecture-components-nextjs}
-\end{figure}
-
-La aplicación web docente implementa una arquitectura basada en componentes mediante Next.js, diseñada específicamente para aislar la lógica de negocio de la presentación visual. Como se observa en el diagrama de arquitectura (ver Figura \ref{fig:architecture-components-nextjs}), el sistema se estructura en tres capas diferenciadas que garantizan la escalabilidad y el mantenimiento del tablero de analíticas de aprendizaje:
-
-\begin{enumerate}
-	\item \textbf{Capa de Módulos (Dominio):} Constituye el núcleo de la lógica de la aplicación, agrupando las funcionalidades por contextos de negocio. Se identifican módulos especializados como el \textit{Auth Module} para la gestión de autenticación, \textit{Student Module} para la administración de datos estudiantiles, \textit{Game Module} para la interacción con la información de los niveles del videojuego, y \textit{Statistic Module} encargado de procesar las métricas de aprendizaje. Esta organización modular responde directamente a las necesidades del docente para operar los distintos aspectos de la plataforma de forma aislada.
-	
-	\item \textbf{Capa de Interfaces de Servicios (Abstracción):} Actúa como un intermediario que desacopla los módulos de negocio de los componentes visuales. A través de contratos explícitos como \textit{IAuthService}, \textit{IStudentService}, \textit{IGameService} e \textit{IStadisticService}, se establece una regla de dependencia unidireccional. Esto permite que las vistas soliciten datos sin conocer las implementaciones técnicas subyacentes (tales como llamadas a la API REST del backend), facilitando las pruebas unitarias y permitiendo modificar la fuente de datos sin afectar la interfaz de usuario.
-	
-	\item \textbf{Capa de Componentes UI (Presentación):} Contiene los elementos visuales atómicos y moléculas que conforman las vistas finales del dashboard docente. En esta capa se agrupan los componentes enfocados en la explotación de las analíticas de aprendizaje, tales como \textit{DashboardStudentUI} para el seguimiento individual, \textit{DashboardOverviewUI} para la visión general del grupo, \textit{DashboardExamUI} para el análisis de evaluaciones, y \textit{DashboardSettingsUI} para la configuración del entorno.
-\end{enumerate}
-
-La justificación para adoptar esta estructura de componentes en el ecosistema de Next.js radica en la separación estricta de responsabilidades y el flujo de datos unidireccional que promueve. Al establecer este desacoplamiento, por ejemplo, el componente \textit{DashboardStudentUI} desconoce la lógica subyacente de obtención de datos y consume exclusivamente el contrato definido por \textit{IStudentService}, el cual orquesta la petición hacia \textit{Student Module}. Esta trazabilidad no solo facilita el mantenimiento evolutivo del sistema —al permitir modificar o extender módulos de negocio sin afectar la interfaz de usuario—, sino que resulta fundamental para los objetivos de esta investigación: asegura que las métricas procesadas en los tableros de analíticas provengan de una fuente de datos centralizada y validada, confiriendo la fiabilidad y consistencia necesarias para sustentar la toma de decisiones pedagógicas del docente.
-
-\section{Principios y patrones de diseño}
-\subsection{Principios SOLID}
-
-\subsubsection{Principio de responsabilidad única}
-El Principio de Responsabilidad Única establece que cada clase, módulo o función debe tener una única responsabilidad o razón para cambiar. Esta separación de responsabilidades mejora la cohesión interna de los componentes, facilita las pruebas unitarias y reduce el impacto de modificaciones futuras en el sistema. Al asignar responsabilidades específicas, se evita la acumulación de lógica diversa en una sola entidad, lo que resulta en un código más mantenible y menos propenso a errores.
-
-\textbf{Aplicación en el módulo Videojuego:} En la implementación del juego educativo Hello World, este principio se aplica separando claramente las responsabilidades entre diferentes componentes. La clase GameManager se encarga únicamente de coordinar el flujo general del juego y las transiciones entre escenas, mientras que LevelManager administra exclusivamente la lógica de niveles y ExecutionEngine tiene la responsabilidad única de ejecutar secuencias de bloques de programación.
-
-\textbf{Aplicación en el módulo Web:} En la interfaz de gestión docente desarrollada con Next.js, cada componente React mantiene una responsabilidad específica, enfocándose únicamente en su propia renderización y manejo de estado local, sin asumir tareas de negocio o acceso a datos.
-
-\textbf{Aplicación en el módulo Back-end:} La arquitectura limpia del backend FastAPI implementa este principio mediante capas claramente diferenciadas: la capa de presentación maneja únicamente los endpoints HTTP, la capa de lógica de negocio implementa las reglas del dominio, y la capa de acceso a datos gestiona exclusivamente la persistencia.
-
-\subsubsection{Principio de substitución de Liskov}
-El Principio de Substitución de Liskov afirma que los objetos de una clase derivada deben poder reemplazar a los objetos de la clase base sin alterar el comportamiento esperado del programa. Este principio garantiza la compatibilidad polimórfica en jerarquías de herencia, evitando comportamientos inesperados y asegurando que las abstracciones funcionen correctamente en diferentes contextos de uso.
-
-\textbf{Aplicación en el módulo Videojuego:} En el proyecto Hello World, este principio se aplica en el intérprete de soluciones, donde diferentes contextos de ejecución pueden sustituirse entre sí sin afectar la funcionalidad general del sistema, permitiendo que escenarios como cafetería o biblioteca mantengan la compatibilidad con el motor de ejecución.
-
-\textbf{Aplicación en el módulo Back-end:} Los servicios del backend pueden intercambiar implementaciones de repositorio manteniendo la compatibilidad de interfaz, lo que permite cambiar proveedores de base de datos o estrategias de almacenamiento sin alterar la lógica de negocio.
-
-\subsubsection{Principio abierto/cerrado}
-El Principio Abierto/Cerrado establece que las entidades de software deben estar abiertas para extensión pero cerradas para modificación. Este enfoque permite agregar nuevas funcionalidades extendiendo el comportamiento existente sin alterar el código fuente original, favoreciendo el uso de interfaces, composición y polimorfismo sobre modificaciones directas.
-
-\textbf{Aplicación en el módulo Videojuego:} Las interfaces de repositorio permiten integrar nuevos tipos de almacenamiento sin modificar la lógica de negocio existente, y las clases base para niveles educativos facilitan la extensión mediante herencia sin alterar implementaciones previas.
-
-\textbf{Aplicación en el módulo Web:} Los componentes React se extienden mediante composición y props, permitiendo agregar nuevas funcionalidades sin modificar el código de componentes existentes, manteniendo la estabilidad de la interfaz.
-
-\textbf{Aplicación en el módulo Back-end:} La arquitectura limpia permite agregar nuevas funcionalidades en capas superiores sin modificar el núcleo del sistema, utilizando interfaces para extender capacidades como nuevos endpoints o estrategias de procesamiento.
-\subsection{Otros principios de diseño aplicados}
-
-\subsubsection{Principio DRY (Don't repeat yourself)}
-
-El Principio DRY promueve la eliminación de la duplicación de código, asegurando que cada conocimiento o funcionalidad tenga una única representación en el sistema. Esta práctica reduce inconsistencias, mejora la mantenibilidad del código y facilita las refactorizaciones al centralizar la lógica compartida en un solo lugar.
-
-Aplicación en el módulo Videojuego: Se implementan funciones reutilizables para operaciones comunes como el cálculo de puntuaciones y la validación de bloques de programación, utilizando configuraciones dinámicas y fábricas de niveles en lugar de duplicar código entre implementaciones similares.
-
-Aplicación en el módulo Web: Los componentes reutilizables para dashboards, reportes y elementos de interfaz evitan la duplicación de lógica de presentación, permitiendo compartir estructuras comunes entre diferentes vistas del sistema docente.
-
-Aplicación en el módulo Back-end: La capa de infraestructura implementa métodos genéricos para lógica de persistencia reutilizable, evitando la repetición de operaciones CRUD en diferentes servicios y repositorios.
-
-\subsubsection{Programar hacia interfaces, no hacia implementaciones}
-
-Este principio establece que las dependencias deben basarse en abstracciones (interfaces o contratos) en lugar de implementaciones concretas. Este enfoque mejora la flexibilidad del sistema, facilita las pruebas mediante mocks y stubs, y reduce el acoplamiento entre módulos al depender de contratos abstractos.
-
-Aplicación en el módulo Videojuego: Se utilizan interfaces de repositorio como IPlayerRepository e ILevelRepository, que son consumidas por la lógica de negocio independientemente de las implementaciones concretas de almacenamiento.
-
-Aplicación en el módulo Web: Los componentes React dependen de contratos abstractos definidos por props y contextos, permitiendo la composición flexible sin depender de implementaciones específicas de estado o datos.
-
-Aplicación en el módulo Back-end: La inyección de dependencias utiliza interfaces de repositorio y servicios, permitiendo cambiar implementaciones (como proveedores de base de datos) sin afectar la lógica de negocio, siguiendo los principios de inversión de dependencias.
-\subsection{Patrones de diseño}
-
-\subsubsection{Patrón singleton}
-
-
-El patrón Singleton tiene como intención garantizar que una clase tenga únicamente una instancia globalmente accesible, previniendo inconsistencias que podrían surgir de crear múltiples instancias de componentes críticos. Este patrón resuelve específicamente el problema de gestionar estado compartido de forma segura en aplicaciones interactivas, donde múltiples instancias podrían causar conflictos de estado y comportamientos impredecibles.Como se aprecia en el diagrama del patrón Singleton (ver Figura \ref{fig:design-pattern-singleton}), la implementación en el proyecto Hello World utiliza la clase GameController como instancia única que centraliza la gestión del flujo general del juego y el estado global. Este enfoque resuelve el desafío de mantener consistencia en escenarios interactivos como cafetería o biblioteca, donde múltiples contextos podrían generar conflictos de estado. La implementación mejora significativamente la fiabilidad del motor de juego al proporcionar un único punto de control para el estado global, facilitando la depuración y previniendo errores de concurrencia que podrían surgir de múltiples instancias.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.65\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Singleton.png}
-	\caption[Diagrama del patrón Singleton]{Diagrama del patrón Singleton}
-	\label{fig:design-pattern-singleton}
-\end{figure}
-
-\subsubsection{Patrón abstract factory}
-
-
-El patrón Abstract Factory tiene como intención crear familias de objetos relacionados sin especificar sus clases concretas, permitiendo la creación flexible de objetos que deben trabajar juntos. Este patrón aborda específicamente el problema de la dependencia de clases concretas, facilitando la extensión y mantenimiento de sistemas que requieren diferentes configuraciones de objetos relacionados sin modificar el código existente.
-
-Como se observa en el diagrama del patrón Abstract Factory (ver Figura \ref{fig:design-pattern-factory-method}), la aplicación en Hello World se centra en la creación dinámica de instancias de acciones dentro del bloque de ejecución. Este patrón resuelve el problema de generar acciones educativas de forma extensible, evitando la creación hardcoded de cada tipo de acción y permitiendo la adaptación del contenido educativo según las necesidades individuales de los estudiantes. La implementación facilita significativamente la personalización del aprendizaje al permitir agregar nuevos tipos de acciones sin alterar la lógica central del motor de ejecución.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/FactoryMethodActions.png}
-	\caption[Diagrama del patrón Factory Method]{Diagrama del patrón Factory Method}
-	\label{fig:design-pattern-factory-method}
-\end{figure}
-
-
-\subsubsection{Patrón strategy}
-
-El patrón Strategy tiene como intención encapsular algoritmos intercambiables y permitir su selección dinámica en tiempo de ejecución, facilitando la modificación de comportamientos sin alterar el código cliente. Este patrón resuelve específicamente el problema de la rigidez en la implementación de algoritmos, permitiendo adaptar el comportamiento del sistema a diferentes contextos sin modificar la lógica central.
-
-Como se muestra en los diagramas del patrón Strategy aplicados al motor de ejecución (ver Figura \ref{fig:design-pattern-strategy-execution-engine}) y al agente de adaptación (ver Figura \ref{fig:design-pattern-strategy-adaptation-agent}), la implementación en Hello World presenta dos aplicaciones principales:
-
-Estrategias para cambio de contextos de niveles: Permite cambiar dinámicamente entre diferentes contextos educativos (cafetería, biblioteca, etc.) sin modificar la lógica del motor de ejecución, facilitando la adaptación del contenido según el entorno de aprendizaje.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/ExecutionEngineStrategy.png}
-	\caption[Diagrama del patrón Strategy (motor de ejecución)]{Diagrama del patrón Strategy aplicado al motor de ejecución}
-	\label{fig:design-pattern-strategy-execution-engine}
-\end{figure}
-
-Estrategias para el agente adaptativo inteligente: Implementa algoritmos intercambiables para el sistema de adaptación automática de dificultad, permitiendo seleccionar diferentes estrategias de evaluación y ajuste del contenido educativo según el rendimiento estudiantil.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Strategy.png}
-	\caption[Diagrama del patrón Strategy (agente adaptativo)]{Diagrama del patrón Strategy aplicado al agente de adaptación}
-	\label{fig:design-pattern-strategy-adaptation-agent}
-\end{figure}
-
-Esta doble aplicación del patrón Strategy resuelve los desafíos de flexibilidad en dos aspectos críticos de la plataforma: la contextualización del contenido educativo y la personalización inteligente del aprendizaje, permitiendo cambios de comportamiento sin afectar la estabilidad del sistema central.
 
 \section{Selección de tecnologías}
 
 \subsection{Base de datos}
 
-En el desarrollo de sistemas educativos digitales, la selección del
-sistema de gestión de bases de datos (SGBD) constituye un componente
-crítico, ya que impacta directamente en la consistencia de la
-información, el rendimiento de las consultas y la escalabilidad del
-sistema. Para fundamentar la elección tecnológica, se comparan los
-principales SGBD considerando criterios directamente vinculados a los
-requisitos de la plataforma: la necesidad de un motor centralizado
-con integridad transaccional para el backend, y un motor embebido
-ligero para el videojuego educativo.
+La selección del SGBD impacta directamente en la consistencia, el rendimiento y la escalabilidad del sistema. Se comparan los principales motores según criterios vinculados a los requisitos de la plataforma: un motor centralizado con integridad transaccional para el backend, y uno embebido ligero para el videojuego educativo (ver Tabla~\ref{tab:comparacion-bd}).
 
 \begin{center}
 	\setlength{\tabcolsep}{4pt}
@@ -923,57 +94,13 @@ ligero para el videojuego educativo.
 	\end{longtable}
 \end{center}
 
-Del análisis comparativo se infiere que \textbf{PostgreSQL} resulta
-la alternativa más adecuada para la gestión centralizada de la
-información en el backend de la plataforma. Su adherencia completa al
-modelo ACID (\textit{Atomicity, Consistency, Isolation, Durability})
-garantiza la integridad de las operaciones críticas del sistema, como
-el registro de progreso académico y la trazabilidad del desempeño
-estudiantil~\cite{postgresql}. A diferencia de MySQL, cuyo
-cumplimiento ACID depende del motor de almacenamiento configurado,
-PostgreSQL lo garantiza de forma nativa e incondicional. Asimismo, su
-soporte robusto de integridad referencial —mediante claves foráneas y
-restricciones complejas— resulta indispensable para mantener la
-consistencia entre las entidades del modelo de datos global: usuarios,
-cursos, niveles, métricas y registros históricos. Su naturaleza
-completamente open source elimina dependencias de licenciamiento,
-aspecto relevante en un contexto académico donde la sostenibilidad
-tecnológica a largo plazo es prioritaria.
+\textbf{PostgreSQL} se selecciona para el backend por su cumplimiento nativo e incondicional del modelo ACID, indispensable para garantizar la integridad de operaciones críticas como el registro de progreso académico y la trazabilidad del desempeño~\cite{postgresql}. A diferencia de MySQL, cuyo soporte ACID depende del motor de almacenamiento, PostgreSQL ofrece integridad referencial robusta mediante claves foráneas y restricciones complejas, manteniendo la consistencia entre usuarios, cursos, niveles y métricas. Su licencia \textit{open source} elimina dependencias comerciales, priorizando la sostenibilidad tecnológica a largo plazo.
 
-Por su parte, \textbf{SQLite} complementa esta arquitectura al
-operar como motor embebido dentro del videojuego educativo. Su
-principal ventaja en este contexto no es el rendimiento en
-concurrencia —para lo cual no está diseñada— sino su capacidad de
-funcionar sin servidor, sin configuración de red y sin dependencias
-externas, lo que la convierte en la opción natural para almacenar
-localmente el estado de la sesión del jugador: niveles completados,
-puntuaciones y configuraciones personalizadas~\cite{sqlite}. Al ser
-de dominio público, no introduce ninguna restricción de licenciamiento
-en el producto final. Estos datos son posteriormente sincronizados
-con PostgreSQL en el backend, garantizando la coherencia entre la
-experiencia local de juego y los registros académicos centralizados.
-
-Las alternativas NoSQL examinadas —MongoDB y Redis— no se adecúan a
-los requisitos fundamentales del sistema. La ausencia de integridad
-referencial nativa en ambas y sus modelos de consistencia eventual
-son incompatibles con la necesidad de trazabilidad académica precisa
-que exige la plataforma. Adicionalmente, sus licencias de código
-abierto parciales introducen restricciones que podrían condicionar
-el uso y distribución del sistema en entornos institucionales.
-
+\textbf{SQLite} opera como motor embebido dentro del videojuego, almacenando localmente el estado de la sesión del jugador \cite{sqlite}. Su naturaleza de dominio público no introduce restricciones de licencia en el producto final, y los datos locales se sincronizan posteriormente con PostgreSQL para garantizar la coherencia entre la experiencia de juego y los registros académicos centralizados.
 
 \subsection{Módulo de estudiante}
 
-El módulo del estudiante se desarrolla mediante un entorno interactivo
-soportado por un motor de videojuegos. La elección del motor constituye
-un aspecto clave, ya que determina las capacidades gráficas, el
-rendimiento, la facilidad de integración con otros componentes del
-sistema y la portabilidad del videojuego educativo. Para fundamentar
-la elección, se comparan los motores más relevantes considerando
-criterios directamente vinculados a los requisitos del proyecto: la
-necesidad de un motor open source, exportación multiplataforma,
-facilidad de integración con servicios externos y adecuación a un
-contexto académico.
+El módulo del estudiante se desarrolla mediante un entorno interactivo soportado por un motor de videojuegos. La elección del motor determina las capacidades gráficas, el rendimiento, la integración con servicios externos y la portabilidad del videojuego educativo. La Tabla~\ref{tab:motores-videojuegos} compara los motores evaluados según criterios directamente vinculados a los requisitos del proyecto.
 
 \begin{center}
 	\setlength{\tabcolsep}{4pt}
@@ -1049,49 +176,11 @@ contexto académico.
 	\end{longtable}
 \end{center}
 
-Tras el análisis comparativo, se seleccionó \textbf{Godot 4} como motor principal para el desarrollo del módulo del estudiante. Es el
-único motor del conjunto evaluado que combina licencia completamente
-open source (MIT), exportación nativa a las plataformas objetivo del
-proyecto —Windows, Android y Web— e integración nativa con servicios
-externos mediante REST y WebSocket, sin depender de plugins de
-terceros~\cite{godot}. Unity, aunque más maduro en términos de
-ecosistema, introduce una dependencia de licenciamiento propietario
-que condiciona su uso en contextos académicos y restringe la
-auditoría del entorno de desarrollo. Unreal Engine, por su parte,
-queda descartado por su elevada curva de aprendizaje y sus requisitos
-de hardware, incompatibles con la diversidad de dispositivos presente
-en entornos educativos. Construct 3, si bien ofrece la curva de
-aprendizaje más baja, presenta una exportación multiplataforma
-limitada y una escalabilidad insuficiente para los requisitos de
-integración y adaptación dinámica de la plataforma.
-
-Desde el punto de vista de ingeniería, Godot ofrece una arquitectura
-basada en \textbf{escenas y nodos} que favorece el diseño modular:
-los niveles, personajes y mecánicas pueden implementarse como
-componentes reutilizables, facilitando el mantenimiento, las pruebas
-y la evolución incremental del videojuego. Su sistema de señales y
-las herramientas de edición en tiempo real priorizan la iteración
-rápida, lo cual resulta especialmente valioso para ajustar la
-dificultad, la retroalimentación y el ritmo de progresión del
-aprendizaje sin interrumpir el ciclo de desarrollo.
-
-En conjunto, Godot 4 ofrece el equilibrio más adecuado entre
-\textbf{accesibilidad, portabilidad e integración} para un módulo
-del estudiante centrado en experiencias interactivas y en el
-seguimiento sistemático del aprendizaje.
+\textbf{Godot 4} se selecciona por ser el único motor evaluado que combina licencia MIT completamente open source, exportación nativa a Windows, Android y Web, e integración nativa con servicios externos mediante REST sin dependencias de terceros~\cite{godot}. Unity se descarta por su licenciamiento propietario, que restringe el uso académico y la auditoría del entorno; Unreal Engine, por su excesiva curva de aprendizaje y requisitos de hardware incompatibles con la diversidad de dispositivos educativos; y Construct 3, por su exportación limitada y escalabilidad insuficiente para la adaptación dinámica del sistema. Desde el punto de vista de ingeniería, su arquitectura de escenas y nodos permite implementar niveles, personajes y mecánicas como componentes reutilizables, facilitando el mantenimiento y la iteración rápida de parámetros de dificultad y retroalimentación sin interrumpir el ciclo de desarrollo.
 
 \subsection{Módulo de profesor}
 
-El módulo del profesor está concebido como una interfaz web que permite
-visualizar, gestionar y analizar el progreso de los estudiantes dentro
-de la plataforma educativa. Para su desarrollo, se requiere un
-\textit{framework} frontend que ofrezca un equilibrio entre rendimiento,
-escalabilidad y facilidad de integración con el back-end. Para
-fundamentar la elección, se comparan los principales \textit{frameworks}
-considerando criterios directamente vinculados a los requisitos del
-módulo: soporte de renderizado en servidor, compatibilidad con
-TypeScript, integración con APIs REST y madurez del ecosistema para
-el desarrollo de dashboards analíticos.
+El módulo del profesor es una interfaz web para visualizar, gestionar y analizar el progreso de los estudiantes. Su desarrollo requiere un \textit{framework} frontend con equilibrio entre rendimiento, escalabilidad e integración con el back-end. La Tabla~\ref{tab:frameworks-frontend} compara las alternativas según criterios vinculados a los requisitos del módulo: soporte de renderizado en servidor, compatibilidad con TypeScript, integración con APIs REST y madurez del ecosistema para \textit{dashboards} analíticos.
 
 \begin{center}
 	\setlength{\tabcolsep}{4pt}
@@ -1176,48 +265,12 @@ el desarrollo de dashboards analíticos.
 	\end{longtable}
 \end{center}
 
-Tras el análisis comparativo, se seleccionó \textbf{Next.js} como
-\textit{framework} principal para el desarrollo del módulo del profesor.
-Es la opción que mejor satisface de forma simultánea los criterios
-determinantes para este módulo: SSR nativo sin configuración adicional,
-soporte completo de TypeScript, integración directa con APIs REST y un
-ecosistema maduro con librerías especializadas en visualización de datos
-como \textit{Recharts} o \textit{Chart.js}, indispensables para los
-dashboards analíticos del docente~\cite{nextjs}. React, aunque comparte
-la misma base tecnológica, no incluye SSR por defecto y requiere
-configuración adicional para alcanzar las capacidades que Next.js
-ofrece de forma nativa, lo que lo convierte en una capa inferior sobre
-la que Next.js precisamente se construye. Angular, si bien presenta
-integración REST nativa y soporte sólido de TypeScript, introduce una
-curva de aprendizaje pronunciada y una complejidad estructural que
-excede los requisitos de un módulo de tamaño medio como el presente.
-Vue.js y SvelteKit quedan descartados por su soporte limitado de SSR
-nativo y la menor madurez de sus ecosistemas, lo que representa un
-riesgo para la mantenibilidad a largo plazo del sistema.
-
-Su soporte nativo para rutas dinámicas y \textit{fetching} de datos
-asíncronos permite la visualización eficiente de información académica
-en tiempo real —progreso del estudiante, estadísticas de rendimiento
-y resultados de evaluaciones— sin comprometer la experiencia de usuario.
-El tipado estático que provee TypeScript refuerza adicionalmente la
-mantenibilidad del código y facilita la detección temprana de errores
-durante el desarrollo.
-
-
+\textbf{Next.js} se selecciona por satisfacer de forma simultánea los criterios determinantes del módulo: SSR nativo sin configuración adicional, soporte completo de TypeScript, integración directa con APIs REST y un ecosistema maduro con librerías de visualización como \textit{Recharts} o \textit{Chart.js}, indispensables para los \textit{dashboards} analíticos del docente~\cite{nextjs}. React se descarta por no incluir SSR por defecto; Angular, por su complejidad estructural que excede los requisitos del módulo; y Vue.js y SvelteKit, por su soporte limitado de SSR y menor madurez de ecosistema. El \textit{fetching} asíncrono nativo permite visualizar información académica en tiempo real, mientras que el tipado estático de TypeScript refuerza la mantenibilidad y la detección temprana de errores.
 
 
 \subsection{Back-end}
 
-El \textit{back-end} constituye el núcleo lógico de la plataforma:
-gestiona la comunicación entre los componentes del sistema, procesa
-la información proveniente del videojuego y del módulo del profesor,
-y garantiza la integridad de los datos almacenados. Para fundamentar
-la elección, se comparan los principales \textit{frameworks} de
-desarrollo backend considerando criterios directamente vinculados a
-los requisitos del sistema: soporte asíncrono nativo, validación
-automática de datos, generación de documentación, compatibilidad con
-Python —lenguaje del ecosistema tecnológico seleccionado— y madurez
-de la comunidad.
+El \textit{back-end} gestiona la comunicación entre componentes, procesa la información del videojuego y del módulo del profesor, y garantiza la integridad de los datos almacenados. La Tabla~\ref{tab:frameworks-backend} compara los \textit{frameworks} evaluados según criterios vinculados a los requisitos del sistema: soporte asíncrono nativo, validación automática de datos, generación de documentación, compatibilidad con Python y madurez de la comunidad.
 
 \begin{center}
 	\setlength{\tabcolsep}{4pt}
@@ -1311,33 +364,686 @@ de la comunidad.
 	\end{longtable}
 \end{center}
 
-Tras el análisis comparativo, se seleccionó \textbf{FastAPI} como
-\textit{framework} back-end para el desarrollo del sistema. Es la
-única opción del conjunto evaluado que combina de forma nativa los
-tres criterios más determinantes para la plataforma: soporte
-asíncrono completo mediante ASGI, validación automática de datos
-con Pydantic y generación de documentación interactiva mediante
-OpenAPI~\cite{fastapi}. Django y Flask, aunque comparten el
-ecosistema Python, presentan limitaciones estructurales relevantes:
-Django fue diseñado sobre el estándar WSGI, lo que restringe su
-capacidad para manejar concurrencia real, y Flask delega la
-validación de datos a configuraciones manuales, incrementando la
-superficie de error en un sistema que intercambia métricas académicas
-entre múltiples clientes. Express.js, si bien ofrece soporte
-asíncrono nativo, rompe la homogeneidad del ecosistema Python del
-proyecto e introduce una gestión manual de tipos y validaciones
-incompatible con los requisitos de consistencia de datos del sistema.
-Laravel y Spring Boot quedan descartados por introducir lenguajes
-ajenos al ecosistema tecnológico seleccionado y por una complejidad
-de configuración desproporcionada respecto al alcance del proyecto.
+\textbf{FastAPI} se selecciona por combinar nativamente los tres criterios determinantes: soporte asíncrono completo (ASGI), validación automática de datos (Pydantic) y documentación interactiva (OpenAPI), eliminando configuraciones manuales que incrementan la superficie de error en un sistema con múltiples clientes~\cite{fastapi}. Django y Flask se descartan por sus limitaciones en concurrencia real y validación manual; Express.js, Laravel y Spring Boot, por romper la homogeneidad del ecosistema Python o introducir complejidad desproporcionada. Su integración nativa con PostgreSQL y compatibilidad directa con Godot 4 y Next.js mediante REST garantizan comunicación eficiente entre los tres componentes, mientras que la programación asíncrona permite manejar eventos en tiempo real —registro de resultados y adaptación dinámica de dificultad— sin comprometer la estabilidad.
 
-Su integración nativa con PostgreSQL y su compatibilidad directa con
-el videojuego en Godot 4 —mediante peticiones REST— y con el módulo
-del profesor en Next.js garantizan una comunicación rápida, segura y
-eficiente entre los tres componentes de la plataforma. El soporte
-para programación asíncrona permite además manejar eventos en tiempo
-real, como el registro de resultados y la adaptación dinámica de la
-dificultad, sin comprometer la estabilidad del sistema.
+\section{Requisitos funcionales}
+
+Los requisitos funcionales definen qué debe hacer el sistema desde el punto de vista del usuario o de otro sistema externo \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este caso se han dividido los requisitos funcionales según el módulo al que corresponde: \textit{videojuego} (ver Tabla \ref{tab:req-videogames}), \textit{aplicación web} (ver Tabla \ref{}), \textit{back-end} (ver Tabla \ref{}).
+
+\requisitos{Requisitos funcionales del videojuego}{
+	El sistema debe evaluar el desempeño del jugador en cada nivel utilizando métricas como tiempo, errores y eficiencia de la solución;
+	El sistema debe registrar automáticamente los resultados obtenidos por el jugador para su análisis posterior;
+	El sistema debe adaptar automáticamente la dificultad del nivel cuando el jugador no alcance los objetivos establecidos;
+	La adaptación puede incluir la simplificación de objetivos, reducción de complejidad o provisión de pistas adicionales;
+	Cada nivel debe estar asociado a un tema específico de programación claramente identificable;
+	El sistema debe proporcionar retroalimentación visual o textual inmediata tras cada acción del jugador;
+	El sistema debe ajustar la dificultad de los niveles futuros en función del historial de desempeño del jugador;
+	El jugador debe poder configurar opciones del juego como sonido, resolución, idioma y modo de color;
+	El sistema debe guardar automáticamente el progreso del jugador al finalizar o abandonar un nivel;
+	Al inicio de cada nivel, el sistema debe mostrar una introducción teórica del concepto de programación asociado;
+	El sistema debe permitir construir soluciones mediante bloques de programación visual;
+	Los bloques de programación deben representar estructuras lógicas como condiciones, ciclos y variables;
+	Al completar un nivel, el sistema debe mostrar una puntuación basada en criterios de rendimiento;
+	El jugador debe poder consultar un resumen global de su progreso académico;
+	Los niveles deben presentarse siguiendo un orden progresivo acorde al aprendizaje;
+	El sistema debe restringir el acceso a niveles posteriores hasta completar los anteriores;
+	El sistema debe ofrecer un tutorial interactivo en el primer inicio del videojuego;
+	El jugador debe poder repetir niveles ya completados para mejorar su desempeño;
+	El videojuego debe capturar automáticamente las interacciones del jugador (acciones sobre bloques, diálogos seleccionados, tiempos de respuesta) y transformarlas en declaraciones xAPI;
+	El videojuego debe actualizar un modelo del estudiante a partir de sus interacciones, registrando aciertos, errores, tiempos y uso de ayudas;
+	El videojuego debe presentar una narrativa interactiva en formato de novela visual que contextualice los ejercicios de programación dentro de una historia universitaria;
+	El videojuego debe pausar el flujo narrativo para presentar la interfaz de programación cuando el nivel lo requiera;
+	El videojuego debe desbloquear nuevos diálogos y avanzar la narrativa cuando el jugador resuelva correctamente el problema del nivel;
+	El videojuego debe almacenar localmente las trazas xAPI cuando no exista conectividad y sincronizarlas con el servidor cuando se restablezca la conexión
+}
+%\label{tab:req-videogames}
+
+\requisitos{Requisitos funcionales de la aplicación web del profesor}{
+	El sistema debe mostrar al profesor un resumen del progreso individual y grupal de los estudiantes;
+	El sistema debe mostrar un mapa de calor con la distribución de errores del estudiante según tipo de bloque lógico y nivel;
+	El sistema debe mostrar un histograma de intentos por nivel para identificar niveles que generaron bloqueo prolongado;
+	El sistema debe mostrar una vista comparativa entre cursos escolares con gráficos de barras apiladas, líneas múltiples y mapa de calor comparativo;
+	El sistema debe categorizar automáticamente el estado de desempeño de cada estudiante como Óptimo, Necesita refuerzo o En riesgo;
+	El sistema debe presentar métricas detalladas como niveles completados, errores y tiempo promedio;
+	El sistema debe generar gráficos comparativos de rendimiento entre estudiantes;
+	El profesor debe poder visualizar el historial completo de desempeño de cada estudiante;
+	El sistema debe notificar al profesor cuando un estudiante presente bajo rendimiento reiterado;
+	El profesor debe poder enviar comentarios personalizados a estudiantes o grupos;
+	El sistema debe permitir definir objetivos personalizados para estudiantes o grupos;
+	El sistema debe permitir crear, editar y eliminar niveles educativos;
+	El profesor debe poder asignar niveles a estudiantes o grupos según su desempeño;
+	El sistema debe permitir crear evaluaciones basadas en niveles existentes;
+	El sistema debe permitir exportar reportes académicos en formatos estándar como PDF o CSV;
+	El sistema debe integrarse con plataformas LMS para autenticación y sincronización académica
+}
+%\label{tab:req-dashboard}
+
+\requisitos{Requisitos funcionales del back-end}{
+	El backend debe recibir, validar y almacenar las declaraciones xAPI enviadas por el videojuego en formato Actor-Verbo-Objeto;
+	El backend debe agregar las declaraciones xAPI para generar los indicadores del tablero de analíticas;
+	El backend debe exponer una API REST para la comunicación con los clientes;
+	El sistema debe gestionar la autenticación y autorización de usuarios;
+	El backend debe almacenar de forma persistente los datos académicos y de progreso;
+	El sistema debe sincronizar información con plataformas LMS externas;
+	El backend debe procesar métricas de desempeño para análisis pedagógico;
+	El sistema debe permitir la gestión de usuarios y roles;
+	El sistema debe gestionar cursos, grupos y matrículas;
+	El backend debe permitir la generación de reportes consolidados;
+	El sistema debe registrar eventos relevantes del sistema;
+	El backend debe permitir la recuperación de información histórica;
+	El sistema debe permitir la sincronización diferida cuando no exista conectividad;
+	El backend debe validar la consistencia de los datos recibidos;
+	El sistema debe permitir la escalabilidad del número de usuarios;
+	El backend debe permitir la configuración de parámetros del sistema;
+	El sistema debe permitir la integración con servicios externos adicionales;
+	El backend debe permitir auditoría de operaciones;
+	El sistema debe gestionar copias de seguridad;
+	El sistema debe gestionar notificaciones del sistema;
+	El backend debe permitir el monitoreo del estado del sistema;
+	El backend debe permitir el análisis histórico de resultados;
+	El sistema debe permitir exportación de datos académicos;
+	El backend debe permitir la trazabilidad de acciones del usuario;
+	El backend debe soportar múltiples cursos simultáneamente;
+}
+%\label{tab:req-backend}
+
+\section{Requisitos no funcionales}
+
+Los requisitos no funcionales, a diferencia de los funcionales, definen las restricciones de calidad, seguridad, usabilidad y desempeño del sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En la siguiente tabla se muestran los requisitos no funcionales identificados durante la etapa de análisis del proyecto.
+
+\begin{longtable}{|p{0.1\linewidth}|p{0.8\linewidth}|}
+	\caption{Tabla de requisitos no funcionales} \\
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito No Funcional}                                                                           \\
+	\hline
+	\endfirsthead
+
+	\multicolumn{2}{c}{\tablename\ \thetable\ -- continuación}                                                                              \\
+	\hline
+	\textbf{ID} & \textbf{Descripción del Requisito No Funcional}                                                                           \\
+	\hline
+	\endhead
+
+	\hline
+	\endfoot
+
+	\hline
+	\endlastfoot
+
+	RNF1        & El sistema debe proporcionar una interfaz gráfica intuitiva que permita el uso tras un máximo de 3 horas de capacitación. \\
+	\hline
+	RNF2        & El sistema debe cumplir con principios de accesibilidad conforme a WCAG 2.1 nivel AA.                                     \\
+	\hline
+	RNF3        & El sistema debe mostrar mensajes claros y comprensibles ante acciones exitosas, errores o advertencias.                   \\
+	\hline
+	RNF4        & La aplicación web debe ser compatible con los navegadores Chrome, Firefox, Brave y Safari.                                \\
+	\hline
+	RNF5        & La interfaz debe adaptarse correctamente a diferentes resoluciones de pantalla.                                           \\
+	\hline
+	RNF6        & El módulo videojuego debe ejecutarse en plataformas Android y Windows.                                                    \\
+	\hline
+	RNF7        & El sistema debe permitir la internacionalización de la interfaz en español e inglés.                                      \\
+	\hline
+	RNF8        & El sistema debe responder a interacciones locales en un tiempo máximo de 300 ms.                                          \\
+	\hline
+	RNF9        & La aplicación web debe cargar las vistas principales en un tiempo máximo de 3 segundos.                                   \\
+	\hline
+	RNF10       & El videojuego debe ejecutarse con una tasa mínima de 30 FPS.                                                              \\
+	\hline
+	RNF11       & El sistema debe garantizar autenticación segura basada en tokens.                                                         \\
+	\hline
+	RNF12       & Los datos deben protegerse mediante cifrado en tránsito (HTTPS).                                                          \\
+	\hline
+	RNF13       & El acceso a funcionalidades debe restringirse según el rol del usuario.                                                   \\
+	\hline
+	RNF14       & El sistema debe evitar la pérdida de progreso ante cierres inesperados.                                                   \\
+	\hline
+	RNF15       & El sistema debe reintentar la sincronización ante fallos de red.                                                          \\
+	\hline
+	RNF16       & El sistema debe mantener la consistencia de los datos.                                                                    \\
+	\hline
+	RNF17       & El sistema debe interoperar con plataformas LMS estándar.                                                                 \\
+	\hline
+	RNF18       & El código fuente debe ser modular, organizado y documentado.                                                              \\
+	\hline
+	RNF19       & El sistema debe poder desplegarse mediante contenedores Docker.                                                           \\
+	\hline
+	RNF20       & El sistema debe registrar eventos relevantes de operación.                                                                \\
+	\hline
+	RNF21       & El backend debe soportar crecimiento progresivo de usuarios sin degradar rendimiento.                                     \\
+	\hline
+	RNF22       & El sistema debe alcanzar una disponibilidad mínima del 95\%.                                                              \\
+	\hline
+	RNF23       & El sistema debe permitir copias de seguridad periódicas.                                                                  \\
+	\hline
+	RNF24       & El sistema debe permitir rastrear la evolución del aprendizaje.                                                           \\
+	\hline
+	RNF25       & El sistema debe permitir incorporar nuevos niveles sin modificar la arquitectura.                                         \\
+	\hline
+	RNF26       & El sistema debe presentar los conceptos usando terminología acorde al nivel educativo.                                    \\
+	\hline
+\end{longtable}
+
+
+\section{Casos de uso de la plataforma}
+
+%\subsection{Actores del sistema}
+%
+%Un actor representa cualquier persona u otra entidad externa que interactúa con el sistema  \cite{sommerville_software_2011,pressman_ingenierisoftware_2013}. En este proyecto, se identifican dos actores principales:
+%
+%\begin{itemize}
+%	\item \textbf{Estudiante}: Es el usuario principal del videojuego. Su rol es interactuar con los niveles del juego, recibir retroalimentación sobre su desempeño y avanzar a través de un sistema progresivo de aprendizaje.
+%
+%	\item \textbf{Profesor}: Usuario principal del tablero de analíticas, encargado de supervisar el progreso de los estudiantes, asignar niveles personalizados y recibir notificaciones relevantes sobre el desempeño académico de sus alumnos.
+%\end{itemize}
+%
+%Ambos actores interactúan con el sistema de manera diferente, pero están interconectados mediante un back-end compartido que permite la sincronización de datos y la comunicación bidireccional entre ellos.
+
+
+%\subsection{Diagrama de caso de uso del sistema}
+
+\textbf{Videojuego educativo}
+
+El módulo del videojuego constituye el componente central del sistema educativo, diseñado para que los estudiantes exploren conceptos de programación mediante experiencias de juego interactivas. Este enfoque gamificado transforma conceptos abstractos en actividades prácticas y atractivas que facilitan el aprendizaje de manera natural.
+
+Como se aprecia en el diagrama de caso de uso del módulo del videojuego (ver Figura \ref{fig:use-case-videogame}), el estudiante interactúa con un sistema que evalúa su desempeño de forma continua, ajustando la dificultad de los desafíos según el rendimiento individual. Entre las funcionalidades principales se encuentra la construcción de soluciones a través de bloques de programación visual que representan estructuras lógicas esenciales como condiciones, ciclos y variables, permitiendo experimentar con la lógica computacional de forma intuitiva.
+
+El sistema ofrece retroalimentación inmediata después de cada acción, registrando métricas detalladas tales como tiempo de resolución, frecuencia de errores y nivel de eficiencia. Esta evaluación automática no solo mide el aspecto técnico del aprendizaje, sino que alimenta el mecanismo de adaptación que modifica dinámicamente la complejidad de los niveles posteriores, garantizando que cada estudiante progrese según su propio ritmo de aprendizaje.
+
+Adicionalmente, el módulo incorpora un tutorial interactivo para usuarios noveles, opciones de configuración personalizables y un sistema de guardado automático del progreso. Los estudiantes pueden revisar resúmenes de su desempeño general y practicar niveles completados para consolidar sus conocimientos, promoviendo una cultura de mejora continua y exploración autónoma.
+
+\begin{landscape}
+	\thispagestyle{empty}
+	\begin{figure}[p]
+		\centering
+		\vspace*{\fill}
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Hello_World Use Case}
+		\caption[Diagrama de caso de uso: Hello World]{Diagrama de caso de uso para el módulo correspondiente al estudiante}
+		\label{fig:use-case-videogame}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
+
+\textbf{App web docente}
+
+Complementario al módulo de videojuego, el \textbf{módulo del tablero de analíticas} proporciona al docente una interfaz web para supervisar y gestionar el proceso educativo. El diagrama de caso de uso (Figura~\ref{fig:use-case-teacher}) ilustra las interacciones principales: un panel analítico con métricas de rendimiento —niveles completados, tiempos promedio y patrones de error— que facilita la identificación de fortalezas y áreas de mejora; herramientas para crear y asignar contenido educativo personalizado a estudiantes o grupos; reportes comparativos y gráficos de tendencias grupales; y comunicación mediante comentarios personalizados y objetivos adaptados. La integración con plataformas LMS estándar garantiza sincronización fluida de datos, mientras que la exportación en PDF y CSV facilita la documentación institucional.
+
+La innovación de la arquitectura reside en la integración fluida entre el módulo de videojuego y el tablero de analíticas, conformando un ecosistema cohesionado donde las acciones del estudiante informan directamente las decisiones pedagógicas. El \textit{back-end} compartido sincroniza datos en tiempo real, permitiendo al docente ajustar dinámicamente la dificultad o intervenir con apoyo personalizado al detectar estudiantes que requieren atención adicional. Simultáneamente, los estudiantes reciben retroalimentación contextualizada que refleja su rendimiento técnico y posición relativa en el grupo, fomentando una competencia constructiva. El resultado es una plataforma que evoluciona hacia un modelo interactivo donde profesor y estudiante co-construyen el aprendizaje, sustentado por datos precisos y adaptabilidad tecnológica.
+
+\begin{landscape}
+	\thispagestyle{empty}
+	\begin{figure}[p]
+		\centering
+		\vspace*{\fill}
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/use-case/Teacher Core Use Case}
+		\caption[Diagrama de Caso de uso para el módulo correspondiente al profesor]{Diagrama de Caso de Uso para el Módulo correspondiente al profesor}
+		\label{fig:use-case-teacher}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
+\section{Modelo de datos}
+
+El modelo de datos constituye la estructura fundamental que sustenta toda la arquitectura del sistema educativo, definiendo cómo se organizan y relacionan los datos académicos generados por la plataforma. Esta sección presenta los dos modelos principales: el local, específico del módulo de videojuego, y el global, que integra la información de toda la plataforma. Estos modelos garantizan la consistencia y eficiencia en el almacenamiento de datos, permitiendo un seguimiento preciso del progreso estudiantil y una gestión efectiva por parte de los educadores.
+
+\subsection{Modelo local de datos para el videojuego}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/bd_local_game.png}
+	\caption[Modelo de datos para el videojuego educativo]{Modelo de datos para el videojuego educativo}
+	\label{fig:bd-local}
+\end{figure}
+
+Como se observa en el modelo de datos local del videojuego (ver Figura \ref{fig:bd-local}), este esquema se centra en la gestión específica de la información generada durante las sesiones de juego interactivo. La estructura principal se organiza alrededor de las entidades que registran el progreso individual de cada estudiante, incluyendo métricas de desempeño, niveles completados y configuraciones de juego.
+
+Las relaciones entre entidades permiten rastrear el avance progresivo a través de los diferentes niveles educativos, almacenando datos temporales como tiempos de resolución, puntuaciones obtenidas y patrones de error. Esta arquitectura local facilita tanto la evaluación automática del rendimiento como la recuperación de sesiones interrumpidas, asegurando una experiencia de aprendizaje continua y adaptativa.
+
+\subsubsection{Json de configuración de nivel}
+
+Como se puede ver en la Figura~\ref{fig:adaptative-json}, cada nivel del videojuego está definido por un archivo JSON de configuración. Este enfoque orientado a datos\footnote{El enfoque \textit{data-driven} consiste en separar la lógica del sistema de los datos que lo configuran, de modo que el comportamiento del sistema puede modificarse cambiando los datos sin alterar el código.} permite modificar el comportamiento de un nivel y persistir esos cambios sin intervenir en la lógica del juego.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/bd/adaptative-json.png}
+	\caption[JSON orientado a datos para el videojuego]{JSON orientado a datos para el videojuego}
+	\label{fig:adaptative-json}
+\end{figure}
+
+
+Para ilustrar el uso de estos campos, se tomará como ejemplo el contexto de la biblioteca de la facultad, en el que el protagonista debe ayudar a un compañero a organizar una lista de libros siguiendo un criterio lógico establecido por el profesor. En este escenario, el campo \texttt{initial\_state} define el estado con el que arranca el nivel: por ejemplo, la cantidad de libros desordenados disponibles en el estante al inicio de la sesión. El campo \texttt{expected\_outputs} establece la salida esperada, es decir, la lista de libros correctamente ordenada que el jugador debe producir para completar el nivel. Por su parte, \texttt{available\_blocks} determina qué bloques de programación están habilitados en ese nivel en particular, como bloques de comparación o de ciclos necesarios para recorrer la lista. El campo \texttt{environment\_data} describe los elementos propios del entorno: la cantidad de estantes disponibles, los títulos presentes o el tipo de criterio de ordenamiento aplicable en esa escena. Finalmente, \texttt{defined\_actions} especifica las acciones concretas que pueden ejecutarse en el nivel; dado que otros niveles pueden reutilizar el contexto de la biblioteca, este campo permite restringir o ampliar el conjunto de acciones disponibles según las necesidades pedagógicas de cada uno.
+
+\subsection{Modelo global de datos para el sistema}
+
+
+El modelo global de datos (ver Figura \ref{fig:bd-global}) integra las perspectivas de los tres módulos principales del sistema (videojuego, aplicación docente y backend) creando una arquitectura unificada que permite la sincronización eficiente de información académica. Este esquema establece conexiones entre entidades compartidas que facilitan la comunicación bidireccional entre estudiantes y educadores.
+
+Las relaciones transversales permiten que los datos generados en el módulo de juego fluyan automáticamente hacia las interfaces de gestión docente, manteniendo la consistencia y habilitando funcionalidades como reportes comparativos y análisis de tendencias grupales. Esta integración global no solo simplifica la administración del sistema educativo, sino que también soporta la escalabilidad y la interoperabilidad con plataformas externas de gestión del aprendizaje.
+
+\begin{landscape}
+	\pagestyle{empty}
+	\begin{figure}[p]
+		\vspace*{\fill}
+		\centering
+		\includegraphics[width=1\linewidth, height=1\textheight, keepaspectratio]{src/bd/bd_global_platform.png}
+		\caption[Modelo global de datos]{Modelo global de datos de la plataforma}
+		\label{fig:bd-global}
+		\vspace*{\fill}
+	\end{figure}
+\end{landscape}
+
+\section{Arquitectura del sistema}
+
+%La sección de arquitectura del sistema presenta la estructura técnica fundamental de la plataforma educativa Hello World, detallando cómo se organizan e interconectan los diferentes componentes tecnológicos para lograr los objetivos pedagógicos propuestos.
+%
+%Para el desarrollo de esta arquitectura se tomó como base el modelo C4 de Simon Brown, un enfoque estructurado para la documentación de arquitecturas de software que proporciona cuatro niveles de abstracción: Contexto, Contenedor, Componente y Código. Este modelo permite comunicar la arquitectura de manera clara y consistente, facilitando la comprensión tanto para desarrolladores como para stakeholders no técnicos \cite{brown2018c4}.
+%
+%En el contexto de esta tesis, se adaptó el modelo C4 utilizando diagramas UML para representar visualmente las relaciones y dependencias entre los elementos del sistema. Sin embargo, considerando el alcance del proyecto y la profundidad requerida para una tesis académica, se implementaron únicamente los niveles de Contenedor y Componente:
+
+Esta sección presenta la arquitectura técnica de la plataforma Hello World, describiendo cómo se organizan e interconectan sus módulos (videojuego educativo, aplicación web docente y \textit{backend}) para materializar los objetivos pedagógicos propuestos.
+
+Para documentar la arquitectura se utilizó el modelo C4 de Simon Brown \cite{brown2018c4}, un marco estructurado que facilita la comunicación del diseño a distintos niveles de abstracción. Considerando el alcance y la profundidad requerida para este trabajo, se implementaron únicamente los niveles de Contenedor y Componente mediante diagramas UML, dejando fuera los niveles de Contexto y Código.
+
+\begin{itemize}
+	\item \textbf{Nivel Contenedor}: Representa los principales procesos ejecutables y almacenes de datos que conforman la plataforma, mostrando cómo se despliega el sistema en la infraestructura tecnológica.
+	\item \textbf{Nivel Componente}: Detalla los componentes principales dentro de cada contenedor, ilustrando las responsabilidades específicas y las interacciones entre módulos.
+\end{itemize}
+
+Esta aproximación permite una documentación exhaustiva de la arquitectura sin extenderse innecesariamente en detalles de implementación de bajo nivel, manteniendo el foco en los aspectos técnicos relevantes para la personalización del aprendizaje mediante videojuegos educativos.
+
+\subsection{Arquitectura general}
+
+La arquitectura general de la plataforma educativa Hello World se representa mediante un diagrama de paquetes UML que ilustra las interacciones externas del sistema y establece sus límites principales. Implementa un patrón cliente-servidor, siendo el back-end el servidor, y el videojuego y front-end del profesor los clientes que se comunican con el back-end (ver Figura \ref{fig:architecture-container}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture_general_structure.jpeg}
+	
+	
+	\caption[Diagrama de arquitectura global]{Diagrama de arquitectura global}
+	\label{fig:architecture-container}
+\end{figure}
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-context.png}
+%	
+%	
+%	\caption[Diagrama de arquitectura global]{Diagrama de arquitectura global}
+%	\label{fig:architecture-container}
+%\end{figure}
+
+En el centro del diagrama se encuentra la \textbf{Plataforma Hello World}, que representa el sistema completo,  integrado por tres componentes principales: el módulo de videojuego educativo, la aplicación web para docentes y el backend central. Este sistema actúa como núcleo de la solución pedagógica adaptativa.
+
+Los actores principales identificados en el diagrama son únicamente dos:
+
+\begin{itemize}
+	\item \textbf{Estudiante}: Usuario principal que interactúa directamente con el módulo de videojuego, recibiendo contenido educativo personalizado y proporcionando datos de rendimiento para el sistema adaptativo.
+	\item \textbf{Profesor}: Educador que accede a la interfaz web de gestión docente para supervisar el progreso estudiantil, configurar niveles educativos y analizar métricas pedagógicas.
+\end{itemize}
+
+Además de los actores humanos, el diagrama muestra las conexiones con dos sistemas externos fundamentales:
+
+\begin{itemize}
+	\item \textbf{Servidor de Correo}: Sistema externo que maneja las comunicaciones por email, utilizado para notificaciones automáticas, envío de reportes y comunicación entre la plataforma y los usuarios.
+	\item \textbf{Sistema LMS}: Plataforma de gestión del aprendizaje externa que se integra con Hello World para autenticación centralizada de usuarios y sincronización de datos académicos entre sistemas.
+\end{itemize}
+
+Las relaciones principales ilustradas incluyen flujos de datos bidireccionales entre estudiantes y el módulo de videojuego, interacciones de gestión entre profesores y la interfaz web, conexiones de notificación con el servidor de correo para envío de alertas y reportes, y enlaces de integración con el sistema LMS para autenticación y sincronización académica.
+
+\subsection{Arquitectura a detalle por módulo}
+
+
+\textbf{Videojuego educativo}
+
+%El módulo de videojuego educativo implementa el patrón arquitectónico Modelo-Vista-Controlador (MVC), una decisión metodológica profundamente fundamentada en las características intrínsecas del motor Godot y su modelo de desarrollo de juegos, que establece una separación clara entre la lógica de presentación y la lógica de dominio en entornos interactivos.
+%
+%Como se observa en el diagrama MVC (ver Figura \ref{fig:architecture-mvc-game}), la arquitectura consolida todos los modelos del dominio en un único paquete cohesionado que encapsula las entidades principales del sistema educativo -usuarios, niveles, progresos y métricas de aprendizaje-. Esta centralización de modelos garantiza la integridad referencial y facilita la validación de invariantes del dominio. Los elementos de vista representados -DialogueScene para interacciones narrativas pedagógicas, MapScenes para navegación contextualizada, LevelsScene para presentación estructurada de desafíos, y otros componentes de interfaz gráfica- demuestran una clara separación entre la presentación visual y la lógica subyacente.
+%
+%Las clases controlador implementadas -GameController para el flujo general del juego y las transiciones entre estados, y LevelManager para la administración específica de niveles y su lógica de progreso- argumentan fuertemente a favor de MVC por su capacidad para centralizar la lógica de control y coordinar las interacciones entre modelo y vista. La decisión de utilizar MVC se fundamenta en el sistema de señales de Godot, que permite una comunicación eficiente entre controladores y vistas, y en la separación natural de escenas en elementos visuales (vistas) y lógica de comportamiento (controladores), facilitando el desarrollo y mantenimiento de juegos educativos adaptativos.
+
+El módulo de videojuego implementa MVC aprovechando las señales de Godot y la separación natural de escenas entre presentación y lógica. Los **modelos** consolidan usuarios, niveles, progresos y métricas en un único paquete de dominio; las **vistas** corresponden a escenas especializadas (DialogueScene, MapScenes, LevelsScene); y los **controladores** (GameController y LevelManager) centralizan el flujo del juego y la lógica de progreso. Esta separación facilita el mantenimiento y la adaptación dinámica del contenido educativo.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-mvc-game.png}
+	\caption[Diagrama de arquitectura para el módulo correspondiente al videojuego educativo]{Diagrama de arquitectura para el módulo correspondiente al videojuego educativo}
+	\label{fig:architecture-mvc-game}
+\end{figure}
+
+\textbf{Back-end central}
+\label{architecture:backend}
+
+%El backend central adopta los principios de \textit{Clean Architecture} formulados por Robert C. Martin, constituyendo una decisión arquitectónica estratégica que trasciende las consideraciones técnicas inmediatas para establecer fundamentos metodológicos sólidos para una plataforma educativa escalable y mantenible a largo plazo.
+
+El backend sigue la \textit{Clean Architecture} de Robert C. Martin, organizando el código en capas concentricas para que el núcleo del negocio no dependa de frameworks externos. Como muestra la Figura~\ref{fig:architecture-clean-backend}, en el centro quedan las entidades del dominio (usuarios, niveles, progreso) y los casos de uso; hacia afuera se ubican los adaptadores que conectan con la base de datos y los controladores que exponen la API REST. Esta estructura hace que los cambios en librerías o tecnologías externas no afecten la lógica principal del sistema, facilitando mantener y escalar la plataforma a futuro.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-clean-architecture-backend.png}
+	\caption[Diagrama de \textit{clean architecture} para el backend]{Diagrama de \textit{clean architecture} para el backend}
+	\label{fig:architecture-clean-backend}
+\end{figure}
+
+%Como se aprecia en el diagrama (ver Figura \ref{fig:architecture-clean-backend}), la arquitectura se organiza en capas que materializan el principio de inversión de dependencias: las entidades del dominio ocupan el centro como elementos más abstractos e independientes, rodeadas por casos de uso que implementan las reglas de negocio puras. Estas capas centrales se independizan de detalles técnicos mediante adaptadores de interfaz que manejan la comunicación con frameworks externos y controladores que exponen APIs REST.
+%
+%La arquitectura establece una regla de dependencia unidireccional que apunta hacia adentro, asegurando que los cambios en frameworks externos no propaguen efectos secundarios hacia la lógica de dominio. La aplicación del principio "Screaming Architecture"  hace que la arquitectura exprese claramente sus intenciones principales -una plataforma educativa adaptativa- a través de la organización clara de casos de uso y entidades del dominio.
+
+\textbf{Aplicación web de gestión docente}
+\label{architectue:lad-nextjs}
+
+La aplicación web docente implementa una arquitectura basada en componentes
+mediante Next.js, estructurada en tres capas que garantizan la separación entre
+lógica de negocio y presentación visual (ver Figura~\ref{fig:architecture-components-nextjs}):
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/architecture/architecture-component-based-web.png}
+	\caption[Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente]{Diagrama de arquitectura basada en componentes para la aplicación web de gestión docente}
+	\label{fig:architecture-components-nextjs}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Capa de Módulos (Dominio):} Agrupa las funcionalidades por
+	contexto de negocio en cuatro módulos especializados: \textit{Auth Module},
+	\textit{Student Module}, \textit{Game Module} y \textit{Statistic Module},
+	permitiendo al docente operar cada aspecto de la plataforma de forma aislada.
+	
+	\item \textbf{Capa de Interfaces de Servicios (Abstracción):} Desacopla los
+	módulos de negocio de los componentes visuales mediante contratos explícitos,
+	estableciendo una dependencia unidireccional que facilita las pruebas unitarias
+	y permite cambiar la fuente de datos sin afectar la interfaz.
+	
+	\item \textbf{Capa de Componentes UI (Presentación):} Agrupa bajo un componente
+	raíz \textit{DashboardUI} las cuatro vistas del tablero docente:
+	\textit{DashboardStudentUI}, \textit{DashboardOverviewUI},
+	\textit{DashboardExamUI} y \textit{DashboardSettingsUI}, además de la
+	\textit{LandingPageUI} como punto de entrada a la plataforma.
+\end{enumerate}
+
+Este desacoplamiento asegura que las métricas visualizadas en el tablero provengan
+siempre de una fuente de datos centralizada y validada, condición necesaria para
+sustentar decisiones pedagógicas fundamentadas en evidencia.
+
+\section{Principios y patrones de diseño}
+
+\subsection{Principios de diseño}
+
+Los principios orientados a objetos (SOLID, DRY e inversión de dependencias) guían la arquitectura del sistema para maximizar la cohesión, minimizar el acoplamiento y facilitar la extensibilidad. Su aplicación transversal a los tres módulos garantiza componentes mantenibles, testeables y abiertos a cambios sin alterar el núcleo estable. La Tabla~\ref{tab:principios} resume su materialización concreta.
+
+\begin{table}[H]
+	\centering
+	\scriptsize
+	\setlength{\tabcolsep}{3pt}
+	\renewcommand{\arraystretch}{1.05}
+	\caption{Aplicación de los principios de diseño por módulo del sistema.}
+	\label{tab:principios}
+	\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{3.7cm}>{\raggedright\arraybackslash}p{3.7cm}>{\raggedright\arraybackslash}p{3.7cm}@{}}
+		\toprule
+		\textbf{Principio} & \textbf{Módulo Videojuego} & \textbf{Módulo Web} & \textbf{Módulo Back-end} \\
+		\midrule
+		Responsabilidad única & 
+		\texttt{GameManager} coordina flujo y transiciones; \texttt{LevelManager} gestiona niveles; \texttt{ExecutionEngine} ejecuta bloques. & 
+		Cada componente React maneja únicamente su renderización y estado local. & 
+		Capas diferenciadas: presentación (endpoints HTTP), lógica de negocio y acceso a datos (persistencia). \\
+		\midrule
+		Substitución de Liskov & 
+		El intérprete permite sustituir contextos de ejecución (cafetería, biblioteca) sin afectar el motor. & 
+		--- & 
+		Los servicios intercambian implementaciones de repositorio manteniendo compatibilidad de interfaz. \\
+		\midrule
+		Abierto/cerrado & 
+		Interfaces de repositorio permiten nuevos almacenamientos; clases base de niveles se extienden por herencia. & 
+		Los componentes se extienden mediante composición y \textit{props} sin modificar código existente. & 
+		La arquitectura limpia añade funcionalidades en capas superiores mediante interfaces sin tocar el núcleo. \\
+		\midrule
+		No te repitas & 
+		Funciones reutilizables para puntuaciones y validación; fábricas de niveles evitan duplicar código. & 
+		Componentes compartidos para \textit{dashboards} y reportes reutilizan estructuras entre vistas. & 
+		Métodos genéricos de infraestructura centralizan operaciones CRUD comunes. \\
+		\midrule
+		Programar hacia interfaces & 
+		\texttt{IPlayerRepository} e \texttt{ILevelRepository} son consumidas por la lógica de negocio. & 
+		Dependencia de \textit{props} y contextos abstractos para composición flexible. & 
+		Inyección de dependencias con interfaces de repositorio y servicios; cambio de proveedores sin afectar la lógica. \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\subsection{Patrones de diseño}
+
+\textbf{Patrón singleton}
+
+
+El patrón Singleton tiene como intención garantizar que una clase tenga únicamente una instancia globalmente accesible, previniendo inconsistencias que podrían surgir de crear múltiples instancias de componentes críticos. Este patrón resuelve específicamente el problema de gestionar estado compartido de forma segura en aplicaciones interactivas, donde múltiples instancias podrían causar conflictos de estado y comportamientos impredecibles.Como se aprecia en el diagrama del patrón Singleton (ver Figura \ref{fig:design-pattern-singleton}), la implementación en el proyecto Hello World utiliza la clase GameController como instancia única que centraliza la gestión del flujo general del juego y el estado global. Este enfoque resuelve el desafío de mantener consistencia en escenarios interactivos como cafetería o biblioteca, donde múltiples contextos podrían generar conflictos de estado. La implementación mejora significativamente la fiabilidad del motor de juego al proporcionar un único punto de control para el estado global, facilitando la depuración y previniendo errores de concurrencia que podrían surgir de múltiples instancias.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.65\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Singleton.png}
+	\caption[Diagrama del patrón Singleton]{Diagrama del patrón Singleton}
+	\label{fig:design-pattern-singleton}
+\end{figure}
+
+\textbf{Patrón abstract factory}
+
+
+El patrón Abstract Factory tiene como intención crear familias de objetos relacionados sin especificar sus clases concretas, permitiendo la creación flexible de objetos que deben trabajar juntos. Este patrón aborda específicamente el problema de la dependencia de clases concretas, facilitando la extensión y mantenimiento de sistemas que requieren diferentes configuraciones de objetos relacionados sin modificar el código existente.
+
+Como se observa en el diagrama del patrón Abstract Factory (ver Figura \ref{fig:design-pattern-factory-method}), la aplicación en Hello World se centra en la creación dinámica de instancias de acciones dentro del bloque de ejecución. Este patrón resuelve el problema de generar acciones educativas de forma extensible, evitando la creación hardcoded de cada tipo de acción y permitiendo la adaptación del contenido educativo según las necesidades individuales de los estudiantes. La implementación facilita significativamente la personalización del aprendizaje al permitir agregar nuevos tipos de acciones sin alterar la lógica central del motor de ejecución.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/FactoryMethodActions.png}
+	\caption[Diagrama del patrón Factory Method]{Diagrama del patrón Factory Method}
+	\label{fig:design-pattern-factory-method}
+\end{figure}
+
+
+\textbf{Patrón strategy}
+
+El patrón Strategy tiene como intención encapsular algoritmos intercambiables y permitir su selección dinámica en tiempo de ejecución, facilitando la modificación de comportamientos sin alterar el código cliente. Este patrón resuelve específicamente el problema de la rigidez en la implementación de algoritmos, permitiendo adaptar el comportamiento del sistema a diferentes contextos sin modificar la lógica central.
+
+Como se muestra en los diagramas del patrón Strategy aplicados al motor de ejecución (ver Figura \ref{fig:design-pattern-strategy-execution-engine}) y al agente de adaptación (ver Figura \ref{fig:design-pattern-strategy-adaptation-agent}), la implementación en Hello World presenta dos aplicaciones principales:
+
+Estrategias para cambio de contextos de niveles: Permite cambiar dinámicamente entre diferentes contextos educativos (cafetería, biblioteca, etc.) sin modificar la lógica del motor de ejecución, facilitando la adaptación del contenido según el entorno de aprendizaje.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/ExecutionEngineStrategy.png}
+	\caption[Diagrama del patrón Strategy (motor de ejecución)]{Diagrama del patrón Strategy aplicado al motor de ejecución}
+	\label{fig:design-pattern-strategy-execution-engine}
+\end{figure}
+
+Estrategias para el agente adaptativo inteligente: Implementa algoritmos intercambiables para el sistema de adaptación automática de dificultad, permitiendo seleccionar diferentes estrategias de evaluación y ajuste del contenido educativo según el rendimiento estudiantil.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.85\linewidth, height=0.65\textheight, keepaspectratio]{src/design-pattern/Strategy.png}
+	\caption[Diagrama del patrón Strategy (agente adaptativo)]{Diagrama del patrón Strategy aplicado al agente de adaptación}
+	\label{fig:design-pattern-strategy-adaptation-agent}
+\end{figure}
+
+Esta doble aplicación del patrón Strategy resuelve los desafíos de flexibilidad en dos aspectos críticos de la plataforma: la contextualización del contenido educativo y la personalización inteligente del aprendizaje, permitiendo cambios de comportamiento sin afectar la estabilidad del sistema central.
+
+\section{Diseño del videojuego}
+
+\subsection{Selección de mecánicas}
+
+El diseño de las mecánicas responde a una doble lógica: coherencia con los fundamentos pedagógicos expuestos en el capítulo anterior (constructivismo, aprendizaje basado en problemas y teoría del flujo) y las necesidades concretas del sistema en términos de adaptabilidad, trazabilidad del progreso y control docente. Las cuatro mecánicas centrales se seleccionaron por su capacidad conjunta de externalizar el razonamiento del estudiante, sostener su motivación intrínseca y generar datos pedagógicos estructurados; se resumen en la Tabla~\ref{tab:mecanicas}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{3pt}
+	\renewcommand{\arraystretch}{0.92}
+	\caption{Resumen de las mecánicas centrales del videojuego educativo.}
+	\label{tab:mecanicas}
+	\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+		\toprule
+		\textbf{Mecánica} & \textbf{Descripción} & \textbf{Fundamentación pedagógica} & \textbf{Valor sistémico} \\
+		\midrule
+		Programación por bloques visuales & 
+		Bloques de estructuras lógicas (condiciones, ciclos, variables). Elimina la barrera sintáctica para focalizar el razonamiento lógico~\cite{ibrahim_students_2010,mathew_teaching_2019}. & 
+		Constructivismo: cada bloque externaliza una decisión lógica, convirtiendo la interfaz en espacio de construcción activa del conocimiento. & 
+		Resuelve problemas concretos de la narrativa, dotando al ejercicio de propósito contextualizado. \\
+		\midrule
+		Sistema de niveles progresivos & 
+		Secuencia bloqueada donde cada etapa requiere la superación de la anterior. & 
+		Andamiaje cognitivo: los conceptos simples fundamentan los complejos. Sostiene la motivación intrínseca al ofrecer percepción tangible de avance~\cite{kiili_design_2012,puritat_enhanced_2019}. & 
+		Integra progresión técnica con argumental (misiones del profesor), reforzando el compromiso emocional. \\
+		\midrule
+		Retroalimentación inmediata & 
+		Feedback visual y textual en tiempo real tras cada intento, indicando éxito o tipo de error. & 
+		Teoría del flujo~\cite{Csikszentmihalyi_2008}: permite ajustar la estrategia continuamente, manteniendo el equilibrio desafío-habilidad característico de la inmersión óptima. & 
+		Convierte el error en evento formativo instantáneo sin penalización; orienta el fallo pedagógicamente y habilita el reintento, fomentando autonomía. \\
+		\midrule
+		Adaptación de dificultad & 
+		Agente que ajusta la complejidad de niveles futuros según el historial de desempeño (eficiencia y errores). & 
+		Aprendizaje adaptativo: personaliza la experiencia según las necesidades individuales del estudiante~\cite{shum_personalised_2023}. & 
+		Genera trazas xAPI\footnote{xAPI (Experience API) es un estándar de e-learning que registra experiencias de aprendizaje como declaraciones estructuradas del tipo \textit{Actor--Verbo--Objeto} (ej. ``el estudiante \textit{completó} el nivel 3''), permitiendo recopilar y analizar datos desde cualquier entorno digital.} sincronizadas con el servidor docente, donde el profesor interpreta no solo el resultado final, sino el proceso adaptativo que lo produjo. \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Selección del género}
+
+La elección del género de novela visual responde a evidencias empíricas que destacan su potencial diferenciado en motivación, retención del conocimiento y comprensión narrativa. A diferencia de géneros que priorizan la acción mecánica, la novela visual centra la experiencia en la historia y la toma de decisiones, lo que permite una alineación directa con objetivos pedagógicos de lectura e interpretación \cite{vn2}.
+
+Desde la perspectiva motivacional, este género transforma el aprendizaje en una experiencia lúdica e interactiva que los estudiantes perciben más cercana al entretenimiento que al trabajo académico, incrementando su disposición activa, el interés y la persistencia \cite{vn1}. Esta mayor implicación emocional se traduce en una preferencia significativa por el formato frente a métodos tradicionales basados en texto plano, lo cual mitiga problemas de desmotivación en estudiantes con bajo compromiso inicial \cite{vn1}.
+
+En términos cognitivos, la integración multimodal de texto, imagen e interactividad refuerza la codificación y recuperación de la información, facilitando la visualización de escenarios y la retención de elementos clave \cite{vn1}. Asimismo, al exigir que el estudiante participe activamente en la construcción del significado mediante decisiones narrativas, favorece el pensamiento crítico y una comprensión profunda de personajes, tramas y contextos. No obstante, aunque los resultados muestran una tendencia clara en la percepción positiva de los estudiantes, la ausencia de grupos de control y limitaciones metodológicas impiden afirmar que las novelas visuales sean superiores de manera concluyente a otros géneros o métodos \cite{vn3}; por tanto, se conciben como una herramienta complementaria que enriquece la experiencia educativa sin reemplazar necesariamente otras estrategias de enseñanza.
+
+\subsection{Narrativa del juego}
+
+El diseño narrativo contextualiza los conceptos abstractos de programación dentro de la vida académica real: el jugador, un estudiante de primer año de la Facultad de Ingeniería Informática, recibe misiones del profesor que exigen resolver problemas cotidianos de la facultad mediante lógica computacional. Esta ambientación genera empatía inmediata y activa el aprendizaje desde situaciones auténticas, alineándose con los principios del ABP. A lo largo de la trama, el protagonista cuenta con una mascota en forma de orca que actúa como guía durante la historia, mientras interactúa con compañeros y estudiantes avanzados.
+
+La integración entre historia y mecánica se materializa en la estructura de niveles: cuando el profesor asigna una tarea, la novela visual pausa para dar paso a la interfaz de programación por bloques, donde el estudiante debe ensamblar la solución correspondiente al concepto enseñado. Si la respuesta es correcta, la narrativa avanza desbloqueando diálogos y progreso argumental; si es incorrecta, el sistema ofrece retroalimentación constructiva sin penalización, permitiendo reintentar y fomentando la autonomía. Desde el constructivismo, este ciclo obliga al estudiante a externalizar su modelo mental, ensayar y observar consecuencias inmediatas en un entorno seguro. Paralelamente, la progresión escalonada de la dificultad narrativa y técnica sostiene la teoría del flujo, manteniendo el desafío equilibrado con las habilidades adquiridas para evitar el aburrimiento inicial y la ansiedad en etapas avanzadas.
+
+\section{Diseño del tablero de analíticas del aprendizaje}
+
+%El diseño del tablero de analíticas del aprendizaje (LAD, por sus siglas en inglés) constituye uno de los componentes más relevantes de la plataforma propuesta, ya que representa el puente
+%entre la experiencia de juego del estudiante y la capacidad de intervención pedagógica
+%del docente. A diferencia de los entornos educativos convencionales, donde los datos
+%de desempeño suelen ser escasos o generados de forma discontinua, los videojuegos
+%generan trazas de alta granularidad que, correctamente procesadas y visualizadas,
+%pueden transformar la práctica docente en una actividad informada y proactiva
+%\cite{rahimi2021learning}.
+%
+%En este sentido, el objetivo central del tablero no es la mera visualización de
+%métricas, sino la producción de información accionable: representaciones que permitan
+%al docente comprender el proceso cognitivo de sus estudiantes, identificar patrones
+%de dificultad recurrentes y tomar decisiones pedagógicas fundamentadas en evidencia.
+%Tal como señalan Susnjak, Ramaswami y Mathrani \cite{susnjak_learning_2022}, un LAD es
+%pedagógicamente útil en la medida en que va más allá del desempeño superficial y se
+%centra en el aprendizaje real. Esta premisa guía todas las decisiones de diseño
+
+El tablero de analíticas del aprendizaje constituye el puente entre la
+experiencia de juego del estudiante y la intervención pedagógica del docente.
+A diferencia de los entornos educativos convencionales, los videojuegos generan
+trazas de alta granularidad que, correctamente visualizadas, pueden transformar
+la práctica docente en una actividad informada y proactiva~\cite{rahimi2021learning}.
+Su objetivo central no es la mera presentación de métricas, sino la producción
+de información accionable que permita identificar patrones de dificultad y
+fundamentar decisiones pedagógicas en evidencia~\cite{susnjak_learning_2022}.
+descritas en la presente sección.
+
+\subsection{Indicadores clave de rendimiento y aprendizaje}
+
+Los indicadores se seleccionan según la disponibilidad de datos en las trazas
+xAPI del videojuego y su pertinencia pedagógica para el seguimiento del
+aprendizaje de la programación \cite{serrano2017xapi}, organizándose en tres
+categorías:
+
+\textbf{Indicadores de progreso académico:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Niveles completados vs. niveles disponibles por concepto de programación.
+	\item Porcentaje de superación por tema.
+	\item Evolución histórica del desempeño individual a lo largo del tiempo,
+	fomentando la autorregulación.
+\end{itemize}
+
+\textbf{Indicadores de desempeño en la resolución de problemas:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Número de intentos por nivel y tasa de éxito en el primer intento.
+	\item Tiempo promedio de resolución por nivel y por concepto.
+	\item Tipos de errores más frecuentes, clasificados según el bloque lógico
+	involucrado.
+	\item Eficiencia de la solución: relación entre la cantidad de bloques utilizados
+	y la solución óptima.
+\end{itemize}
+
+\textbf{Indicadores de motivación y flujo:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Tiempo de sesión activa y frecuencia de abandono por nivel.
+	\item Niveles repetidos voluntariamente, como indicador de motivación intrínseca.
+	\item Estado de adaptación del agente: estrategia activa para cada estudiante
+	(simplificación, complejización o neutro).
+\end{itemize}
+
+Cada interacción con los bloques, intento de solución y resultado de nivel
+queda registrado como una declaración Actor-Verbo-Objeto que el backend
+procesa y agrega para alimentar las visualizaciones del tablero, con soporte
+para escenarios de conectividad intermitente.
+
+\subsection{Componentes visuales y estructura de vistas}
+\label{architectue:lad-view}
+
+El tablero se organiza en tres vistas, cada una orientada a una pregunta
+pedagógica concreta. Siguiendo el principio de Tufte~\cite{tufte2001} de
+comunicar ideas complejas con claridad y eficiencia, la elección de cada
+gráfico responde a la naturaleza de los datos y al tipo de decisión que debe
+facilitar, no a criterios estéticos. La Tabla~\ref{tab:charts} sintetiza
+la correspondencia entre vista, gráfico y propósito pedagógico.
+
+La \textbf{vista general} responde a \textit{¿cómo se encuentra el curso en
+	su conjunto?} mediante barras agrupadas para comparar el avance por concepto,
+un gráfico de dona para mostrar la distribución del grupo por estado de
+desempeño (Óptimo / Necesita refuerzo / En riesgo) y tarjetas KPI con los
+indicadores críticos de legibilidad inmediata~\cite{ilearn2023,few2009}.
+
+La \textbf{vista de estudiante} adopta el marco de progreso intrapersonal
+—centrado en la evolución propia del alumno para evitar efectos negativos
+de la comparación social~\cite{rahimi2021learning,susnjak_learning_2022}— y
+responde a \textit{¿cómo ha evolucionado este estudiante y dónde necesita
+	apoyo?} mediante líneas temporales de desempeño, un mapa de calor de errores
+por bloque lógico y nivel~\cite{wilke2019}, barras de progreso por concepto
+e histogramas de intentos por nivel~\cite{few2009}.
+
+La \textbf{vista comparativa} responde a \textit{¿cómo se compara este curso
+	frente a cursos anteriores?} con barras apiladas por estado de desempeño,
+líneas múltiples de evolución temporal y un mapa de calor comparativo que
+identifica niveles con dificultad consistente entre grupos, señalando posibles
+problemas de diseño más que de rendimiento estudiantil.
+
+\begin{longtable}{|p{0.22\linewidth}|p{0.22\linewidth}|p{0.46\linewidth}|}
+	\caption{Componentes visuales del tablero por vista y propósito pedagógico.}
+	\label{tab:charts} \\
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{\tablename\ \thetable\ -- continuación} \\
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	General & Barras agrupadas & Comparar el avance por concepto en el grupo. \\ \hline
+	General & Pastel / dona & Distribuir el grupo por estado de desempeño. \\ \hline
+	General & KPI cards & Exponer indicadores críticos del curso de forma inmediata. \\ \hline
+	Estudiante & Líneas temporales & Visualizar la evolución del desempeño individual. \\ \hline
+	Estudiante & Mapa de calor & Identificar errores por concepto y nivel. \\ \hline
+	Estudiante & Barra de progreso & Mostrar el dominio alcanzado por tema curricular. \\ \hline
+	Estudiante & Histograma de intentos & Detectar niveles que generaron bloqueo prolongado. \\ \hline
+	Comparativa & Barras apiladas & Comparar la composición de desempeño entre cursos. \\ \hline
+	Comparativa & Líneas múltiples & Comparar la evolución temporal del promedio entre cohortes. \\ \hline
+	Comparativa & Mapa de calor comparativo & Identificar niveles con dificultad consistente entre cursos. \\ \hline
+\end{longtable}
 
 \section{Modelo de despliegue}
 
@@ -1358,7 +1064,7 @@ Ambos clientes consumen servicios expuestos por el back-end central mediante una
 
 El back-end se despliega como un servicio independiente en un servidor de aplicaciones (o contenedor mediante docker), donde residen las capas de casos de uso y adaptadores de interfaz. Esta ubicación concentra la lógica de negocio del sistema, permitiendo que las reglas del dominio se ejecuten de forma consistente para todos los clientes. Adicionalmente, el back-end integra mecanismos de persistencia, de modo que las operaciones de lectura y escritura se realizan contra una base de datos central, la cual almacena usuarios, cursos, niveles, progreso, métricas y registros históricos necesarios para el análisis pedagógico.
 
-El modelo de despliegue también contempla la interacción con servicios externos. En particular, se considera un servidor de correo como dependencia para el envío de notificaciones y reportes, y una plataforma LMS como sistema de terceros para autenticación centralizada y/o sincronización académica. Estas integraciones se gestionan desde el back-end, evitando que los clientes dependan directamente de servicios externos y reduciendo el acoplamiento, lo cual facilita cambios futuros en proveedores o protocolos.
+%El modelo de despliegue también contempla la interacción con servicios externos. En particular, se considera un servidor de correo como dependencia para el envío de notificaciones y reportes, y una plataforma LMS como sistema de terceros para autenticación centralizada y/o sincronización académica. Estas integraciones se gestionan desde el back-end, evitando que los clientes dependan directamente de servicios externos y reduciendo el acoplamiento, lo cual facilita cambios futuros en proveedores o protocolos.
 
 
 \section{Conclusiones parciales}
