@@ -9,23 +9,8 @@
 \chapter{Descripción detallada de los caso de uso del sistema}
 \label{anexo:description-usecase}
 
-
-%\requisitos{Requisitos funcionales del videojuego}{
-%	El sistema debe evaluar el desempeño del jugador...;
-%	El sistema debe registrar automáticamente...;
-%	El sistema debe adaptar automáticamente...;
-%	El videojuego debe capturar automáticamente las interacciones...
-%}
-%
-%\requisitos{Requisitos funcionales del videojuego}{
-%	El sistema debe evaluar el desempeño del jugador...;
-%	El sistema debe registrar automáticamente...;
-%	El sistema debe adaptar automáticamente...;
-%	El videojuego debe capturar automáticamente las interacciones...
-%}
-
 \textbf{Casos de uso del videojuego}
-
+\label{anexo:usecase-videogame}
 \usecase
 {Descripción de alto nivel: Jugar nivel del videojuego}
 {anexo:cu-jugar-nivel}
@@ -132,6 +117,8 @@
 
 
 \textbf{Caso de uso del tablero de analíticas}
+\label{anexo:usecase-dashboard}
+
 
 \usecase
 {Descripción de alto nivel: Sincronizar datos del estudiante obtenidos del videojuego}
@@ -255,30 +242,16 @@
 \label{anexo:cp-blackbox}
 
 
-\tablaCasoPrueba
+\testCaseTable
 {Actualizar población externa}
-{Comprobar que se agregan y descartan correctamente los individuos a la población externa}
-{Prueba de caja negra para verificar que no se mantienen individuos de peor calidad (dominados) ni redundantes}
-{El generador de soluciones alcanzó una población de estado estable, se probó que la dominancia y redundancia se obtienen correctamente}
-{%
-	% ---- CP 1 ----
-	\SetCell[r=2]{c} 1 &
-	\SetCell[r=2]{l} Candidato no dominado, no redundante y no dominante &
-	candits &
-	(cand1: ratio de solapamiento con todos los subgrupos menor que los umbrales) &
-	\SetCell[r=2]{l} cand1 agregado, sin eliminaciones &
-	\SetCell[r=2]{l} cand1 agregado, sin eliminaciones \\
-	& & pobl\_ext &
-	(2 subgrupos, composición no relevante) & & \\
-	% ---- CP 2 ----
-	\SetCell[r=2]{c} 2 &
-	\SetCell[r=2]{l} Candidato no dominado, dominante y no redundante &
-	candits &
-	(cand1: dominante a sub2) &
-	\SetCell[r=2]{l} cand1 agregado, sub2 eliminado &
-	\SetCell[r=2]{l} cand1 agregado, sub2 eliminado \\
-	& & pobl\_ext &
-	(sub1: sin solapamiento, no relevante. sub2: solapamiento de 100\%, dominado por cand1) & & \\
+{Comprobar que se agregan y descartan correctamente los individuos}
+{Prueba de caja negra para verificar que no se mantienen individuos de peor calidad ni redundantes}
+{El generador de soluciones alcanzó una población de estado estable}
+{
+	\SetCell[r=2]{c} 1 & \SetCell[r=2]{l} Candidato no dominado... & candits & (cand1: ratio...) & \SetCell[r=2]{l} cand1 agregado... & \SetCell[r=2]{l} cand1 agregado... \\
+	&                                             & pobl\_ex & (2 subgrupos...)  &                  &                  \\
+	\SetCell[r=2]{c} 2 & \SetCell[r=2]{l} Candidato no dominado... & candits & (cand1: dominante...) & \SetCell[r=2]{l} cand1 agregado... & \SetCell[r=2]{l} cand1 agregado... \\
+	&                                             & pobl\_ex & (sub1: sin solapamiento...) &             &                  \\
 }
 
 
@@ -290,3 +263,6 @@
 
 \chapter{Pruebas end-to-end}
 \label{anexo:cp-endtoend}
+
+\chapter{Pruebas de seguridad}
+\label{anexo:cp-security}

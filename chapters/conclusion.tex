@@ -2,21 +2,17 @@
 \addcontentsline{toc}{chapter}{Conclusiones}
 
 En el presente trabajo se expuso el estado del arte referente a los videojuegos 
-educativos adaptativos y las plataformas de aprendizaje de programación, sus 
-fundamentos pedagógicos, sus enfoques de gamificación y adaptación, y los tableros 
-de analíticas de aprendizaje como herramienta de apoyo docente. Además, fue 
+educativos adaptativos y los tableros de aprendizaje de programación, sus 
+fundamentos pedagógicos, sus enfoques de gamificación y adaptación. Además, fue 
 realizada una crítica acerca de las limitaciones que presentan las soluciones 
 existentes, en particular la ausencia de mecanismos efectivos de monitoreo y control 
-docente. Esta constituyó el punto de partida para el diseño de la plataforma Hello 
-World, en la que se identificaron los principios y patrones de diseño adecuados para 
+docente. Esta constituyó el punto de partida para el diseño de la plataforma, en la que se identificaron patrones arquitectónico adecuados para 
 articular un videojuego educativo adaptativo con un tablero de analíticas accionable.
 
 Luego se presentó la arquitectura propuesta, orientada a integrar la experiencia del 
 estudiante con la gestión pedagógica del docente. Esta fue influida por los elementos 
-más relevantes del marco teórico y los principios del constructivismo, el aprendizaje 
-basado en problemas y la teoría del flujo. La solución fue documentada mediante 
-artefactos UML y validada a través de un prototipo funcional sometido a pruebas de 
-caja negra, unitarias, de integración, \textit{end-to-end} y de seguridad.
+más relevantes del marco teórico y los principios pedagógicos. La solución fue documentada mediante 
+artefactos UML y validada a través de un prototipo funcional sometido a distintos tipos de pruebas-
 
 Del proceso puede arribarse a las siguientes conclusiones:
 
@@ -27,8 +23,7 @@ Del proceso puede arribarse a las siguientes conclusiones:
 	grado de desconexión con el docente al carecer de mecanismos efectivos de
 	monitoreo y análisis del proceso de aprendizaje.
 	
-	\item La combinación de patrones arquitectónicos y de diseño aplicados —MVC,
-	Clean Architecture, Singleton, Abstract Factory y Strategy— permitió construir
+	\item La combinación de patrones arquitectónicos permitió construir
 	módulos independientes entre sí, extensibles y con responsabilidades bien
 	definidas, sin acoplar la lógica educativa a tecnologías específicas.
 	
@@ -38,7 +33,5 @@ Del proceso puede arribarse a las siguientes conclusiones:
 	de los datos académicos ni la lógica educativa del videojuego.
 	
 	\item El videojuego propuesto permite la reutilización de su código fuente, para la implementación de otros videojuegos educativos adaptativos de cualquier temática o contexto.
-	
-	\item La arquitectura propuesta permite sincronizarse con cualquier videojuego que implemente el formato de la request del back-end, permitiendo así reutilizar el tablero con distintos tipos de videojuegos
 	
 \end{itemize}

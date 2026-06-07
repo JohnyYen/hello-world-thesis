@@ -4,6 +4,185 @@ El presente capítulo expone la implementación del prototipo funcional de la pl
 
 Con el propósito de garantizar la calidad y la fiabilidad del sistema, se diseñó una estrategia de pruebas estructurada en cuatro niveles complementarios: pruebas de caja negra, orientadas a validar el cumplimiento de los requisitos funcionales desde la perspectiva del usuario; pruebas unitarias, enfocadas en la lógica interna de los componentes críticos de forma aislada; pruebas de integración, destinadas a verificar la comunicación y el intercambio de datos entre los distintos módulos; y pruebas \textit{end-to-end}, que simulan flujos completos de usuario atravesando todas las capas de la arquitectura. Adicionalmente, se incorporaron pruebas de seguridad orientadas a identificar vulnerabilidades en la gestión de datos académicos y en la transmisión de trazas xAPI.
 
+\section{Diseño del videojuego}
+
+\subsection{Selección de mecánicas}
+
+El diseño de las mecánicas responde a una doble lógica: coherencia con los fundamentos pedagógicos expuestos en el capítulo anterior (constructivismo, aprendizaje basado en problemas y teoría del flujo) y las necesidades concretas del sistema en términos de adaptabilidad, trazabilidad del progreso y control docente. Las cuatro mecánicas centrales se seleccionaron por su capacidad conjunta de externalizar el razonamiento del estudiante, sostener su motivación intrínseca y generar datos pedagógicos estructurados; se resumen en la Tabla~\ref{tab:mecanicas}.
+
+\begin{table}[H]
+	\centering
+	\footnotesize
+	\setlength{\tabcolsep}{3pt}
+	\renewcommand{\arraystretch}{0.92}
+	\caption{Resumen de las mecánicas centrales del videojuego educativo.}
+	\label{tab:mecanicas}
+	\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{4.2cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+		\toprule
+		\textbf{Mecánica} & \textbf{Descripción} & \textbf{Fundamentación pedagógica} & \textbf{Valor sistémico} \\
+		\midrule
+		Programación por bloques visuales & 
+		Bloques de estructuras lógicas (condiciones, ciclos, variables). Elimina la barrera sintáctica para focalizar el razonamiento lógico~\cite{ibrahim_students_2010,mathew_teaching_2019}. & 
+		Constructivismo: cada bloque externaliza una decisión lógica, convirtiendo la interfaz en espacio de construcción activa del conocimiento. & 
+		Resuelve problemas concretos de la narrativa, dotando al ejercicio de propósito contextualizado. \\
+		\midrule
+		Sistema de niveles progresivos & 
+		Secuencia bloqueada donde cada etapa requiere la superación de la anterior. & 
+		Andamiaje cognitivo: los conceptos simples fundamentan los complejos. Sostiene la motivación intrínseca al ofrecer percepción tangible de avance~\cite{kiili_design_2012,puritat_enhanced_2019}. & 
+		Integra progresión técnica con argumental (misiones del profesor), reforzando el compromiso emocional. \\
+		\midrule
+		Retroalimentación inmediata & 
+		Feedback visual y textual en tiempo real tras cada intento, indicando éxito o tipo de error. & 
+		Teoría del flujo~\cite{Csikszentmihalyi_2008}: permite ajustar la estrategia continuamente, manteniendo el equilibrio desafío-habilidad característico de la inmersión óptima. & 
+		Convierte el error en evento formativo instantáneo sin penalización; orienta el fallo pedagógicamente y habilita el reintento, fomentando autonomía. \\
+		\midrule
+		Adaptación de dificultad & 
+		Agente que ajusta la complejidad de niveles futuros según el historial de desempeño (eficiencia y errores). & 
+		Aprendizaje adaptativo: personaliza la experiencia según las necesidades individuales del estudiante~\cite{shum_personalised_2023}. & 
+		Genera trazas xAPI\footnote{xAPI (Experience API) es un estándar de e-learning que registra experiencias de aprendizaje como declaraciones estructuradas del tipo \textit{Actor--Verbo--Objeto} (ej. ``el estudiante \textit{completó} el nivel 3''), permitiendo recopilar y analizar datos desde cualquier entorno digital.} sincronizadas con el servidor docente, donde el profesor interpreta no solo el resultado final, sino el proceso adaptativo que lo produjo. \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Selección del género}
+
+La elección del género de novela visual responde a evidencias empíricas que destacan su potencial diferenciado en motivación, retención del conocimiento y comprensión narrativa. A diferencia de géneros que priorizan la acción mecánica, la novela visual centra la experiencia en la historia y la toma de decisiones, lo que permite una alineación directa con objetivos pedagógicos de lectura e interpretación \cite{vn2}.
+
+Desde la perspectiva motivacional, este género transforma el aprendizaje en una experiencia lúdica e interactiva que los estudiantes perciben más cercana al entretenimiento que al trabajo académico, incrementando su disposición activa, el interés y la persistencia \cite{vn1}. Esta mayor implicación emocional se traduce en una preferencia significativa por el formato frente a métodos tradicionales basados en texto plano, lo cual mitiga problemas de desmotivación en estudiantes con bajo compromiso inicial \cite{vn1}.
+
+En términos cognitivos, la integración multimodal de texto, imagen e interactividad refuerza la codificación y recuperación de la información, facilitando la visualización de escenarios y la retención de elementos clave \cite{vn1}. Asimismo, al exigir que el estudiante participe activamente en la construcción del significado mediante decisiones narrativas, favorece el pensamiento crítico y una comprensión profunda de personajes, tramas y contextos. No obstante, aunque los resultados muestran una tendencia clara en la percepción positiva de los estudiantes, la ausencia de grupos de control y limitaciones metodológicas impiden afirmar que las novelas visuales sean superiores de manera concluyente a otros géneros o métodos \cite{vn3}; por tanto, se conciben como una herramienta complementaria que enriquece la experiencia educativa sin reemplazar necesariamente otras estrategias de enseñanza.
+
+\subsection{Narrativa del juego}
+
+El diseño narrativo contextualiza los conceptos abstractos de programación dentro de la vida académica real: el jugador, un estudiante de primer año de la Facultad de Ingeniería Informática, recibe misiones del profesor que exigen resolver problemas cotidianos de la facultad mediante lógica computacional. Esta ambientación genera empatía inmediata y activa el aprendizaje desde situaciones auténticas, alineándose con los principios del ABP. A lo largo de la trama, el protagonista cuenta con una mascota en forma de orca que actúa como guía durante la historia, mientras interactúa con compañeros y estudiantes avanzados.
+
+La integración entre historia y mecánica se materializa en la estructura de niveles: cuando el profesor asigna una tarea, la novela visual pausa para dar paso a la interfaz de programación por bloques, donde el estudiante debe ensamblar la solución correspondiente al concepto enseñado. Si la respuesta es correcta, la narrativa avanza desbloqueando diálogos y progreso argumental; si es incorrecta, el sistema ofrece retroalimentación constructiva sin penalización, permitiendo reintentar y fomentando la autonomía. Desde el constructivismo, este ciclo obliga al estudiante a externalizar su modelo mental, ensayar y observar consecuencias inmediatas en un entorno seguro. Paralelamente, la progresión escalonada de la dificultad narrativa y técnica sostiene la teoría del flujo, manteniendo el desafío equilibrado con las habilidades adquiridas para evitar el aburrimiento inicial y la ansiedad en etapas avanzadas.
+
+\section{Diseño del tablero de analíticas del aprendizaje}
+
+%El diseño del tablero de analíticas del aprendizaje (LAD, por sus siglas en inglés) constituye uno de los componentes más relevantes de la plataforma propuesta, ya que representa el puente
+%entre la experiencia de juego del estudiante y la capacidad de intervención pedagógica
+%del docente. A diferencia de los entornos educativos convencionales, donde los datos
+%de desempeño suelen ser escasos o generados de forma discontinua, los videojuegos
+%generan trazas de alta granularidad que, correctamente procesadas y visualizadas,
+%pueden transformar la práctica docente en una actividad informada y proactiva
+%\cite{rahimi2021learning}.
+%
+%En este sentido, el objetivo central del tablero no es la mera visualización de
+%métricas, sino la producción de información accionable: representaciones que permitan
+%al docente comprender el proceso cognitivo de sus estudiantes, identificar patrones
+%de dificultad recurrentes y tomar decisiones pedagógicas fundamentadas en evidencia.
+%Tal como señalan Susnjak, Ramaswami y Mathrani \cite{susnjak_learning_2022}, un LAD es
+%pedagógicamente útil en la medida en que va más allá del desempeño superficial y se
+%centra en el aprendizaje real. Esta premisa guía todas las decisiones de diseño
+
+El tablero de analíticas del aprendizaje constituye el puente entre la
+experiencia de juego del estudiante y la intervención pedagógica del docente.
+A diferencia de los entornos educativos convencionales, los videojuegos generan
+trazas de alta granularidad que, correctamente visualizadas, pueden transformar
+la práctica docente en una actividad informada y proactiva~\cite{rahimi2021learning}.
+Su objetivo central no es la mera presentación de métricas, sino la producción
+de información accionable que permita identificar patrones de dificultad y
+fundamentar decisiones pedagógicas en evidencia~\cite{susnjak_learning_2022}.
+descritas en la presente sección.
+
+\subsection{Indicadores clave de rendimiento y aprendizaje}
+
+Los indicadores se seleccionan según la disponibilidad de datos en las trazas
+xAPI del videojuego y su pertinencia pedagógica para el seguimiento del
+aprendizaje de la programación \cite{serrano2017xapi}, organizándose en tres
+categorías:
+
+\textbf{Indicadores de progreso académico:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Niveles completados vs. niveles disponibles por concepto de programación.
+	\item Porcentaje de superación por tema.
+	\item Evolución histórica del desempeño individual a lo largo del tiempo,
+	fomentando la autorregulación.
+\end{itemize}
+
+\textbf{Indicadores de desempeño en la resolución de problemas:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Número de intentos por nivel y tasa de éxito en el primer intento.
+	\item Tiempo promedio de resolución por nivel y por concepto.
+	\item Tipos de errores más frecuentes, clasificados según el bloque lógico
+	involucrado.
+	\item Eficiencia de la solución: relación entre la cantidad de bloques utilizados
+	y la solución óptima.
+\end{itemize}
+
+\textbf{Indicadores de motivación y flujo:}
+\begin{itemize}[itemsep=2pt, parsep=0pt]
+	\item Tiempo de sesión activa y frecuencia de abandono por nivel.
+	\item Niveles repetidos voluntariamente, como indicador de motivación intrínseca.
+	\item Estado de adaptación del agente: estrategia activa para cada estudiante
+	(simplificación, complejización o neutro).
+\end{itemize}
+
+Cada interacción con los bloques, intento de solución y resultado de nivel
+queda registrado como una declaración Actor-Verbo-Objeto que el backend
+procesa y agrega para alimentar las visualizaciones del tablero, con soporte
+para escenarios de conectividad intermitente.
+
+\subsection{Componentes visuales y estructura de vistas}
+\label{architectue:lad-view}
+
+El tablero se organiza en tres vistas, cada una orientada a una pregunta
+pedagógica concreta. Siguiendo el principio de Tufte~\cite{tufte2001} de
+comunicar ideas complejas con claridad y eficiencia, la elección de cada
+gráfico responde a la naturaleza de los datos y al tipo de decisión que debe
+facilitar, no a criterios estéticos. La Tabla~\ref{tab:charts} sintetiza
+la correspondencia entre vista, gráfico y propósito pedagógico.
+
+La \textbf{vista general} responde a \textit{¿cómo se encuentra el curso en
+	su conjunto?} mediante barras agrupadas para comparar el avance por concepto,
+un gráfico de dona para mostrar la distribución del grupo por estado de
+desempeño (Óptimo / Necesita refuerzo / En riesgo) y tarjetas KPI con los
+indicadores críticos de legibilidad inmediata~\cite{ilearn2023,few2009}.
+
+La \textbf{vista de estudiante} adopta el marco de progreso intrapersonal
+—centrado en la evolución propia del alumno para evitar efectos negativos
+de la comparación social~\cite{rahimi2021learning,susnjak_learning_2022}— y
+responde a \textit{¿cómo ha evolucionado este estudiante y dónde necesita
+	apoyo?} mediante líneas temporales de desempeño, un mapa de calor de errores
+por bloque lógico y nivel~\cite{wilke2019}, barras de progreso por concepto
+e histogramas de intentos por nivel~\cite{few2009}.
+
+La \textbf{vista comparativa} responde a \textit{¿cómo se compara este curso
+	frente a cursos anteriores?} con barras apiladas por estado de desempeño,
+líneas múltiples de evolución temporal y un mapa de calor comparativo que
+identifica niveles con dificultad consistente entre grupos, señalando posibles
+problemas de diseño más que de rendimiento estudiantil.
+
+\begin{longtable}{|p{0.22\linewidth}|p{0.22\linewidth}|p{0.46\linewidth}|}
+	\caption{Componentes visuales del tablero por vista y propósito pedagógico.}
+	\label{tab:charts} \\
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endfirsthead
+	\multicolumn{3}{c}{\tablename\ \thetable\ -- continuación} \\
+	\hline
+	\textbf{Vista} & \textbf{Tipo de gráfico} & \textbf{Propósito pedagógico} \\
+	\hline
+	\endhead
+	\hline
+	\endfoot
+	\hline
+	\endlastfoot
+	General & Barras agrupadas & Comparar el avance por concepto en el grupo. \\ \hline
+	General & Pastel / dona & Distribuir el grupo por estado de desempeño. \\ \hline
+	General & KPI cards & Exponer indicadores críticos del curso de forma inmediata. \\ \hline
+	Estudiante & Líneas temporales & Visualizar la evolución del desempeño individual. \\ \hline
+	Estudiante & Mapa de calor & Identificar errores por concepto y nivel. \\ \hline
+	Estudiante & Barra de progreso & Mostrar el dominio alcanzado por tema curricular. \\ \hline
+	Estudiante & Histograma de intentos & Detectar niveles que generaron bloqueo prolongado. \\ \hline
+	Comparativa & Barras apiladas & Comparar la composición de desempeño entre cursos. \\ \hline
+	Comparativa & Líneas múltiples & Comparar la evolución temporal del promedio entre cohortes. \\ \hline
+	Comparativa & Mapa de calor comparativo & Identificar niveles con dificultad consistente entre cursos. \\ \hline
+\end{longtable}
+
+
 \section{Prototipo desarrollado siguiendo la arquitectura}
 
 Con el propósito de demostrar la factibilidad de la arquitectura propuesta, se desarrolló
@@ -167,7 +346,7 @@ Finalmente, para las pruebas de seguridad se toman como referencia las guías y 
 
 El enfoque de pruebas de caja negra es empleado para validar el cumplimiento de los requisitos funcionales del sistema desde la perspectiva del usuario final, sin considerar la estructura interna del código fuente. Para la ejecución de esta etapa, se diseñaron casos de prueba enfocados en las dos vertientes principales de la solución: la experiencia de interacción directa dentro del videojuego y el flujo de procesamiento y visualización de datos en la plataforma web educativa.
 
-En primer lugar, se evaluó el núcleo de la experiencia lúdica mediante los casos de prueba detallados en la Tabla~\ref{tab:cp-playgame} y la Tabla~\ref{tab:cp-setconfig}. Estos escenarios permiten verificar que la carga de los niveles a partir de los archivos de configuración se realiza de forma íntegra y que el jugador tiene el control total sobre las variables de personalización del entorno. Validar este aspecto resulta crítico para asegurar que las mecánicas de juego no se vean interrumpidas por fallos en la inicialización o en la aplicación de la configuración global.
+En primer lugar, se evaluó el núcleo de la experiencia lúdica mediante los casos de prueba detallados en la Tabla~\ref{tab:cp-playgame} y la Tabla~\ref{tab:cp-setconfig}. Estos escenarios permiten verificar que la carga de los niveles a partir de los archivos de configuración se realiza de forma íntegra y que el jugador tiene el control total sobre las variables de personalización del entorno. Validar este aspecto resulta crítico para asegurar que las mecánicas de juego no se vean interrumpidas por fallos en la inicialización o en la aplicación de la configuración global. La información completa de los casos de prueba se encuentra en el Anexo~\ref{anexo:cp-blackbox}
 
 \testcase
 {Encabezado del caso de prueba Jugar nivel}
@@ -230,7 +409,7 @@ Una vez que los datos son almacenados en el servidor, la plataforma web debe ser
 
 \section{Pruebas unitarias}
 
-Las pruebas unitarias se enfocaron en la validación de la lógica interna y aislada de los componentes críticos del sistema, siguiendo un enfoque de caja blanca. El objetivo principal fue asegurar que cada módulo por separado produjera los resultados esperados frente a diferentes entradas, sin depender de sus componentes vecinos. Dentro de esta etapa, se prestó especial atención al intérprete de soluciones; se verificó que el módulo encargado de analizar las acciones y disposiciones de bloques realizadas por el estudiante fuera capaz de evaluar de forma exacta y determinista si la solución planteada resuelve el problema del nivel, garantizando la precisión en la retroalimentación inmediata del juego.
+Las pruebas unitarias se enfocaron en la validación de la lógica interna y aislada de los componentes críticos del sistema, siguiendo un enfoque de caja blanca. El objetivo principal fue asegurar que cada módulo por separado produjera los resultados esperados frente a diferentes entradas, sin depender de sus componentes vecinos. Dentro de esta etapa, se prestó especial atención al intérprete de soluciones; se verificó que el módulo encargado de analizar las acciones y disposiciones de bloques realizadas por el estudiante fuera capaz de evaluar de forma exacta y determinista si la solución planteada resuelve el problema del nivel, garantizando la precisión en la retroalimentación inmediata del juego. La descripción detallada de cada uno de los caso de prueba mostrados se encuentra en el Anexo~\ref{anexo:cp-unittest}
 
 \testcase
 {Caso de prueba unitaria: Evaluación de solución correcta por el intérprete}
@@ -317,7 +496,7 @@ Las pruebas unitarias se enfocaron en la validación de la lógica interna y ais
 
 \section{Pruebas de integración}
 
-Una vez validados los componentes de forma aislada, se procede a diseñar las pruebas de integración. El propósito de esta etapa es determinar que la comunicación y el intercambio de datos entre los distintos módulos se realizan de forma correcta y sin pérdida de información. Para ello, se evaluan tres flujos fundamentales del sistema: en primer lugar, la adaptación de niveles, verificando que el agente de adaptación pudiera leer e interpretar correctamente los archivos de configuración para construir el entorno de forma íntegra; en segundo lugar, el flujo de conversión de datos a estadísticas, asegurando que las interacciones brutas del jugador fueran transformadas adecuadamente en métricas comprensibles; y finalmente, la sincronización, validando que la comunicación entre el videojuego y el servidor central fluyen sin errores de formato, asegurando que los \textit{batch} de datos lleguen intactos para su posterior almacenamiento.
+Una vez validados los componentes de forma aislada, se procede a diseñar las pruebas de integración. El propósito de esta etapa es determinar que la comunicación y el intercambio de datos entre los distintos módulos se realizan de forma correcta y sin pérdida de información. Para ello, se evaluan tres flujos fundamentales del sistema: en primer lugar, la adaptación de niveles, verificando que el agente de adaptación pudiera leer e interpretar correctamente los archivos de configuración para construir el entorno de forma íntegra; en segundo lugar, el flujo de conversión de datos a estadísticas, asegurando que las interacciones brutas del jugador fueran transformadas adecuadamente en métricas comprensibles; y finalmente, la sincronización, validando que la comunicación entre el videojuego y el servidor central fluyen sin errores de formato, asegurando que los \textit{batch} de datos lleguen intactos para su posterior almacenamiento. Los caso de pruebas detallados se encuentra en el Anexo~\ref{anexo:cp-integrationtest}
 
 \testcase
 {Caso de prueba integración: Adaptación íntegra del entorno desde archivo JSON}
@@ -370,7 +549,7 @@ Una vez validados los componentes de forma aislada, se procede a diseñar las pr
 
 \section{Pruebas end to end (e2e)}
 
-Con el propósito de validar el sistema en su conjunto, se diseñaron pruebas de tipo End-to-End (E2E) bajo un enfoque de caja negra puro. A diferencia de las pruebas de integración, que evaluaban la comunicación entre módulos específicos, las pruebas E2E simulan el comportamiento real del usuario final atravesando todas las capas de la arquitectura. En esta sección se ejecutaron escenarios completos que abarcaban desde que un estudiante inicia sesión, modifica sus configuraciones, juega y finaliza un nivel, hasta que el sistema cierra la sesión y el docente verifica la actualización de dichos resultados en la interfaz web. Esto permitió certificar que la orquestación general del software cumpliera con los requisitos funcionales establecidos en un entorno de producción simulado.
+Con el propósito de validar el sistema en su conjunto, se diseñaron pruebas de tipo End-to-End (E2E) bajo un enfoque de caja negra puro. A diferencia de las pruebas de integración, que evaluaban la comunicación entre módulos específicos, las pruebas E2E simulan el comportamiento real del usuario final atravesando todas las capas de la arquitectura. En esta sección se ejecutaron escenarios completos que abarcaban desde que un estudiante inicia sesión, modifica sus configuraciones, juega y finaliza un nivel, hasta que el sistema cierra la sesión y el docente verifica la actualización de dichos resultados en la interfaz web. Esto permitió certificar que la orquestación general del software cumpliera con los requisitos funcionales establecidos en un entorno de producción simulado. La información completa de los caso de prueba se encuentra en el Anexo~\ref{anexo:cp-endtoend}
 
 \testcase
 {Caso de prueba E2E: Flujo completo de éxito desde el juego hasta la web docente}
@@ -414,7 +593,7 @@ Con el propósito de validar el sistema en su conjunto, se diseñaron pruebas de
 
 \section{Pruebas de seguridad}
 
-Dado que la aplicación gestiona datos académicos y telemetría de estudiantes (a través de declaraciones xAPI), la integridad y privacidad de la información son aspectos críticos. Por ello, se diseña un conjunto de pruebas de seguridad no funcionales. Estas evaluaciones se centraron en identificar vulnerabilidades comunes, tales como intentos de inyección de código o modificaciones maliciosas en los archivos de configuración locales (JSON) antes de ser procesados por el motor. Adicionalmente, se evaluó la robustez del protocolo de sincronización para garantizar que la transmisión de datos hacia el servidor no fuera susceptible de interceptaciones (Man-in-the-Middle) ni de manipulación de payloads, asegurando que solo las trazas legítimas generadas por el flujo authéntico del juego sean registradas en la base de datos.
+Dado que la aplicación gestiona datos académicos y telemetría de estudiantes (a través de declaraciones xAPI), la integridad y privacidad de la información son aspectos críticos. Por ello, se diseña un conjunto de pruebas de seguridad no funcionales. Estas evaluaciones se centraron en identificar vulnerabilidades comunes, tales como intentos de inyección de código o modificaciones maliciosas en los archivos de configuración locales (JSON) antes de ser procesados por el motor. Adicionalmente, se evaluó la robustez del protocolo de sincronización para garantizar que la transmisión de datos hacia el servidor no fuera susceptible de interceptaciones (Man-in-the-Middle) ni de manipulación de payloads, asegurando que solo las trazas legítimas generadas por el flujo authéntico del juego sean registradas en la base de datos. La descripción detallada de caso de prueba se puede encontrar en el Anexo~\ref{anexo:cp-security}
 
 \testcase
 {Caso de prueba seguridad: Inyección de código en campos de entrada}

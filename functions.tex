@@ -43,39 +43,28 @@
 	\endgroup
 }
 
-\NewDocumentCommand{\tablaCasoPrueba}{m m m m +m}{%
-	% ---- Bloque de encabezado ----
+\NewDocumentCommand{\testCaseTable}{m m m m +m}{%
 	\noindent
-	\begin{tblr}{
-			width   = \linewidth,
-			colspec = {Q[l,font=\bfseries,wd=3.8cm] X[l]},
-			hlines, vlines,
-			rowsep  = 3pt,
-		}
-		\SetCell[c=2]{l} \textbf{Caso de Prueba} & \\
-		Nombre                  & #1 \\
-		Objetivo de la Prueba   & #2 \\
-		Descripción de la prueba & #3 \\
-		Condiciones de entrada  & #4 \\
-		\SetCell[c=2]{l} \textbf{Combinaciones de valores} & \\
-	\end{tblr}
-	
-	% ---- Bloque de combinaciones ----
-	\noindent
-	\begin{tblr}{
-			width   = \linewidth,
-			colspec = {Q[c,wd=0.6cm] X[2,l] X[1,l] X[3,l] X[2,l] X[2,l]},
-			hlines, vlines,
-			rowsep  = 3pt,
-		}
-		\textbf{CP} &
-		\textbf{Escenarios} &
-		\textbf{Variables} &
-		\textbf{Valores de entrada} &
-		\textbf{Resultado esperado} &
-		\textbf{Resultado real} \\
-		#5
-	\end{tblr}
+	\adjustbox{max width=\textwidth}{%
+		\begin{tblr}{
+				width   = \textwidth,
+				colspec = {Q[c,wd=0.6cm,m] Q[l,wd=2.8cm,m] X[l,m] X[l,m] X[l,m] X[l,m]},
+				hlines, vlines,
+				rowsep  = 4pt,
+				leftsep = 3pt,
+				rightsep= 3pt,
+				cells   = {valign=m, font=\small},
+			}
+			\SetCell[c=6]{l} \textbf{Caso de Prueba} \\
+			\SetCell[c=2]{l} \textbf{Nombre} & & \SetCell[c=4]{l} #1 & & & \\
+			\SetCell[c=2]{l} \textbf{Objetivo de la Prueba} & & \SetCell[c=4]{l} #2 & & & \\
+			\SetCell[c=2]{l} \textbf{Descripción de la prueba} & & \SetCell[c=4]{l} #3 & & & \\
+			\SetCell[c=2]{l} \textbf{Condiciones de entrada} & & \SetCell[c=4]{l} #4 & & & \\
+			\SetCell[c=6]{l} \textbf{Combinaciones de valores} \\
+			\textbf{CP} & \textbf{Escenarios} & \textbf{Variables} & \textbf{Valores de entrada} & \textbf{Resultado esperado} & \textbf{Resultado real} \\
+			#5
+		\end{tblr}
+	}%
 }
 
 \ExplSyntaxOn
@@ -83,29 +72,30 @@
 \newcounter{reqcounter}
 \setcounter{reqcounter}{0}
 \renewcommand{\thereqcounter}{RF-\arabic{reqcounter}}
-\renewcommand\theadfont{\bfseries} % para que \thead use negrita
+\renewcommand\theadfont{\bfseries}
 
 \tl_new:N \g_req_rows_tl
 
-\NewDocumentCommand{\requisitos}{ m m }
+% #1 = título (también usado en caption)
+% #2 = label opcional para la tabla (tab:...)
+% #3 = lista de requisitos separados por ;
+\NewDocumentCommand{\requisitos}{ m o m }
 {
 	\subsubsection*{#1}
 	
-	% 1. Limpiar acumulador
+	% Limpiar acumulador
 	\tl_gclear:N \g_req_rows_tl
 	
-	% 2. Partir la lista y acumular filas
-	\seq_set_split:Nnn \l_tmpa_seq { ; } { #2 }
+	% Partir la lista y acumular filas
+	\seq_set_split:Nnn \l_tmpa_seq { ; } { #3 }
 	\seq_map_inline:Nn \l_tmpa_seq
 	{
 		\tl_set:Nx \l_tmpb_tl { \tl_trim_spaces:n { ##1 } }
 		\tl_if_empty:NF \l_tmpb_tl
 		{
-			% Guardamos el texto del requisito expandido (esto SÍ se expande aquí)
 			\tl_gput_right:Nx \g_req_rows_tl
 			{
 				\exp_not:n { \hline \refstepcounter{reqcounter} }
-				% \thereqcounter y \label se expanden en tiempo de volcado (dentro de la tabla)
 				\exp_not:n { \thereqcounter }
 				\exp_not:n { \label{rf:\arabic{reqcounter}} }
 				\exp_not:n { & }
@@ -115,10 +105,11 @@
 		}
 	}
 	
-	% 3. Volcar dentro de la tabla
+	% Volcar dentro de la tabla
 	\begin{longtable}{|p{0.12\linewidth}|p{0.82\linewidth}|}
-		\caption{ #1 }
-%		\label{tab:frameworks-backend} \\
+		\caption{#1}
+		\IfValueT{#2}{ \label{#2} }  % ← Aplicamos el label AQUÍ, dentro del longtable
+		\\
 		
 		\hline
 		\textbf{ID} & \thead[l]{Descripción} \\
